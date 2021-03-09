@@ -266,7 +266,9 @@ function UnitInSafeZone(unit , unitPosition)
 end
 
 function GetHeroKD(unit)
-	return (unit:GetKills() + (unit:GetAssists() * TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI) - unit:GetDeaths())
+	if unit and unit:IsRealHero() then
+		return (unit:GetKills() + (unit:GetAssists() * TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI) - unit:GetDeaths())
+	end
 end
 
 function ItWorstKD(unit) -- use minimun TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN
@@ -546,7 +548,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		spawnedUnit.reduceCooldownAfterRespawn = false
 	end
 	-- Assignment of tokens during quick death, maximum 3
-	if spawnedUnit and (_G.lastDeathTimes[spawnedUnit] ~= nil) and (spawnedUnit:GetDeaths() > 1) and ((GameRules:GetGameTime() - _G.lastDeathTimes[spawnedUnit]) < TROLL_FEED_TOKEN_TIME_DIES_WITHIN) and not spawnedUnit:HasModifier("modifier_troll_debuff_stop_feed") and (_G.lastHeroKillers[spawnedUnit]~=spawnedUnit) and (not (UnitInSafeZone(spawnedUnit, _G.lastHerosPlaceLastDeath[spawnedUnit]))) and (_G.lastHeroKillers[spawnedUnit]:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
+	if spawnedUnit and (_G.lastDeathTimes[spawnedUnit] ~= nil) and (spawnedUnit:GetDeaths() > 1) and ((GameRules:GetGameTime() - _G.lastDeathTimes[spawnedUnit]) < TROLL_FEED_TOKEN_TIME_DIES_WITHIN) and not spawnedUnit:HasModifier("modifier_troll_debuff_stop_feed") and (_G.lastHeroKillers[spawnedUnit]~=spawnedUnit) and (not (UnitInSafeZone(spawnedUnit, _G.lastHerosPlaceLastDeath[spawnedUnit]))) and (_G.lastHeroKillers[spawnedUnit] and _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
 		local maxToken = TROLL_FEED_NEED_TOKEN_TO_BUFF
 		local currentStackTokenCouter = spawnedUnit:GetModifierStackCount(tokenTrollCouter, spawnedUnit)
 		local needToken = currentStackTokenCouter + 1
@@ -1241,7 +1243,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if  orderType == DOTA_UNIT_ORDER_SELL_ITEM  then
-		if ability:GetAbilityName() == "item_relic" then
+		if ability and ability:GetAbilityName() == "item_relic" then
 			Timers:RemoveTimer("seacrh_rapier_on_player"..filterTable.entindex_ability)
 		end
 	end
@@ -3040,14 +3042,16 @@ end
 RegisterCustomEventListener("SelectVO", SelectVO)
 
 RegisterCustomEventListener("set_mute_player", function(data)
-	local fromId = data.PlayerID
-	local toId = data.toPlayerId
-	local disable = data.disable
-	_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
-	if disable == 0 then
-		_G.tPlayersMuted[fromId][toId] = false
-	else
-		_G.tPlayersMuted[fromId][toId] = true
+	if data and data.PlayerID and data.toPlayerId then
+		local fromId = data.PlayerID
+		local toId = data.toPlayerId
+		local disable = data.disable
+		_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
+		if disable == 0 then
+			_G.tPlayersMuted[fromId][toId] = false
+		else
+			_G.tPlayersMuted[fromId][toId] = true
+		end
 	end
 end)
 
@@ -3062,7 +3066,9 @@ function GetTopPlayersList(fromTopCount, team, sortFunction)
 	local playersSortInfo = {}
 
 	for _, focusHero in pairs(focusTableHeroes) do
-		playersSortInfo[focusHero:GetPlayerOwnerID()] = sortFunction(focusHero)
+		if focusHero then
+			playersSortInfo[focusHero:GetPlayerOwnerID()] = sortFunction(focusHero)
+		end
 	end
 
 	local topPlayers = {}

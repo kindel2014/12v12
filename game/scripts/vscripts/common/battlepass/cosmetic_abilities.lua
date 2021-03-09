@@ -48,7 +48,7 @@ function Cosmetics:InitCosmeticForUnit(unit)
 	end
 end
 function Cosmetics:UpdateDummyPosition(unit)
-	if unit:IsAlive() then
+	if unit and unit:IsAlive() then
 		local dummy = unit.dummyCaster
 		if not dummy then return end
 		dummy:SetAbsOrigin(unit:GetAbsOrigin())

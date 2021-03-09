@@ -30,15 +30,14 @@
 
 		function ChangeLeaveStatus(msg)
 		{
-			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
-			if (playerId == msg["playerId"]){
-				if (msg["leave"]){
-					$("#PlayerName").style.color = "#d60f0f";
-					$("#PlayerName").style.paddingLeft = "38px";
+			const playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
+			var playerName = $("#PlayerName");
+			if (playerId == msg.playerId){
+				if (msg.leave != undefined && msg.leave) {
+					playerName.SetHasClass("PlayerLeft", true);
 					$("#IsLeave").style.visibility = "visible";
 				}else{
-					$("#PlayerName").style.color = "white";
-					$("#PlayerName").style.paddingLeft = "0px";
+					playerName.SetHasClass("PlayerLeft", false);
 					$("#IsLeave").style.visibility = "collapse";
 				}
 			}

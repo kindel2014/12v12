@@ -17,7 +17,7 @@ local steamIDsToDebugg = {
 }
 
 RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
-	if not _G.votingForKick then
+	if not _G.votingForKick and IsServer() then
 		_G.votingForKick = {}
 		local playerInit = PlayerResource:GetPlayer(data.PlayerID)
 		local heroInit = PlayerResource:GetSelectedHeroEntity(data.PlayerID)
