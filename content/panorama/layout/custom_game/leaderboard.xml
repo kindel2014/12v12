@@ -40,7 +40,6 @@
                             <Label text="#leaderboard_player" id="Player" />
                             <Panel id="Rating">
                                 <Label text="#leaderboard_rating" />
-                                <Panel class="rating-info" onmouseover="DOTAShowTextTooltip(#leaderboard_info)" onmouseout="DOTAHideTextTooltip()" />
                             </Panel>
                         </Panel>
                     </Panel>

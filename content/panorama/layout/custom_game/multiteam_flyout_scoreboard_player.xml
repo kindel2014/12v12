@@ -88,8 +88,6 @@
 		GameEvents.Subscribe("set_disable_help_refresh", RefreshMuteAndDisableHelpList);
 		GameEvents.Subscribe("set_mute_refresh", ToggleMuteItem);
 		GameEvents.Subscribe("show_player_perk", ShowPlayerPerk);
-
-		GameEvents.SendCustomGameEventToServer("check_perks_for_players", {} );
 	</script>
 	<Panel class="PlayerRow">
 		<Panel id="PlayerRowContainer">

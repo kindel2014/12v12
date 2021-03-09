@@ -477,6 +477,8 @@ function _ScoreboardUpdater_UpdateAllTeamsAndPlayers( scoreboardConfig, teamsCon
 		teamsList.push( Game.GetTeamDetails( teamId ) );
 	}
 
+	GameEvents.SendCustomGameEventToServer("check_perks_for_players", {} );
+
 	// update/create team panels
 	var teamsInfo = { max_team_players: 0 };
 	var panelsByTeam = [];
