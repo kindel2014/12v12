@@ -36,13 +36,13 @@ _G.isChangeTeamAvailable = false
 --Max neutral items for each player (hero/stash/courier)
 _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER = 3
 
+local vo_tables = require("vo_tables")
 require("common/init")
 require("util")
 require("neutral_items_drop_choice")
 require("gpm_lib")
 require("game_options/game_options")
 require("shuffle_team")
-require("vo_tables")
 require("map_loader")
 Precache = require( "precache" )
 

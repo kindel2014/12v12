@@ -1557,3 +1557,5 @@ vo_tables.heroesvo = {
 		"zuus_zuus_rival_13",
 	}
 }
+
+return vo_tables
