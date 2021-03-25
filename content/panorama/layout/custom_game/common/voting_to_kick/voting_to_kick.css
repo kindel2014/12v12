@@ -8,7 +8,7 @@
 	flow-children: down;
 	horizontal-align: right;
 	vertical-align: center;
-	background-image: url("s2r://panorama/images/hud/reborn/item_purchase_bg_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dotaitem_purchase_bg_psd.png");
 	background-size: cover;
 	transform: translatex(1000px);
 	transition-property: transform;
@@ -49,7 +49,7 @@
 	height: 18px;
 	background-size: 100%;
 	margin: 2px;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 }
 .VotingToKickReasonClose:hover {
 	wash-color: red;
@@ -88,7 +88,7 @@
 	width: 100%;
 	text-align: center;
 	color: white;
-	background-image: url("s2r://panorama/images/hud/reborn/shop_launcher_button_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/shop_launcher_button_psd.png");
 	background-size: 100%;
 	text-shadow: 1px -1px 2px 2 #000000ff;
 	padding-top: 2px;
@@ -106,7 +106,7 @@
 	horizontal-align: right;
 	vertical-align: center;
 	margin-bottom: 200px;
-	background-image: url("s2r://panorama/images/hud/reborn/item_purchase_bg_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/item_purchase_bg_psd.png");
 	background-size: cover;
 	transform: translatex(1000px);
 	transition: opacity 0.2s ease-in-out 0s, transform 0.3s ease-in-out 0s;
@@ -146,7 +146,7 @@
 	width: 80px;
 	text-align: center;
 	color: white;
-	background-image: url("s2r://panorama/images/hud/reborn/shop_launcher_button_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/shop_launcher_button_psd.png");
 	background-size: 100%;
 	text-shadow: 1px -1px 2px 2 #000000ff;
 	padding-top: 2px;
@@ -232,7 +232,7 @@
 #HideVoting {
 	width: 25px;
 	height: 25px;
-	background-image: url("s2r://panorama/images/control_icons/arrow_solid_right_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/arrow_solid_right_png.png");
 	background-size: 100%;
 	wash-color: #e3e3e3;
 	transition: brightness 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s;
