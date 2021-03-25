@@ -631,7 +631,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
 			CreateDummyInventoryForPlayer(playerId, spawnedUnit)
 		end
-		
+
 		if not spawnedUnit.dummyCaster then
 			Cosmetics:InitCosmeticForUnit(spawnedUnit)
 		end
@@ -651,11 +651,11 @@ function CMegaDotaGameMode:ModifierGainedFilter(filterTable)
 		filterTable.duration = 15
 		parent:AddNewModifier(parent, nil, "modifier_shadow_amulet_thinker", {})
 	end
-	
+
 	if parent.isDummy then
 		return false
 	end
-	
+
 	return true
 end
 
@@ -882,6 +882,9 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			endTime = 2.1,
 			callback = function()
 				Convars:SetFloat("host_timescale", 1)
+				if not IsInToolsMode() then
+					SendToConsole("disconnect")
+				end
 				return nil
 			end
 		})
@@ -1355,7 +1358,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 end
 
 local blockedChatPhraseCode = {
-	[796] = true,
+	[804] = true,
 }
 
 function CMegaDotaGameMode:OnPlayerChat(keys)
@@ -3098,11 +3101,11 @@ function CheckTeamBalance()
 		CustomGameEventManager:Send_ServerToAllClients("HideTeamChangePanel", {} )
 		return
 	end
-	
+
 	if GameOptions:OptionsIsActive("no_switch_team") then
 		return
 	end
-	
+
 	if GetMapName() == "dota_tourtament" then
 		return
 	end
