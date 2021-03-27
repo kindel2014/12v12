@@ -50,6 +50,10 @@ function StartTimerHoldingCheckerForPlayer(playerID)
 		useGameTime = false,
 		endTime = BASE_TIME,
 		callback = function()
+			if not player or player:IsNull() then
+				_G.playerHasTimerWards[playerID] = false
+				return
+			end
 			_G.playerIsBlockForWards[playerID] = true
 			_G.playerHasTimerWards[playerID] = false
 			Timers:CreateTimer("base_block_to_holding_items" .. tostring(playerEntIndex), {

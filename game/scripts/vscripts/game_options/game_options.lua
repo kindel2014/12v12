@@ -48,8 +48,11 @@ end
 function GameOptions:PlayerVoteForGameOption(data)
 	if not gameOptions[data.id] then return end
 
-	if gameOptions[data.id].players[data.PlayerID] == nil then
-		gameOptions[data.id].players[data.PlayerID] = true
+	local player_id = data.PlayerID
+	if not player_id then return end
+
+	if gameOptions[data.id].players[player_id] == nil then
+		gameOptions[data.id].players[player_id] = true
 		local newValue = gameOptions[data.id].votes + 1
 		gameOptions[data.id].votes = newValue
 		if newValue <= votesForInitOption then
@@ -57,9 +60,9 @@ function GameOptions:PlayerVoteForGameOption(data)
 			self:UpdatePause()
 		end
 	else
-		gameOptions[data.id].players[data.PlayerID] = not gameOptions[data.id].players[data.PlayerID]
+		gameOptions[data.id].players[player_id] = not gameOptions[data.id].players[player_id]
 		local newValue = -1
-		if gameOptions[data.id].players[data.PlayerID] then
+		if gameOptions[data.id].players[player_id] then
 			newValue = 1
 		end
 		gameOptions[data.id].votes = gameOptions[data.id].votes + newValue

@@ -26,6 +26,8 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 		if not heroTarget then return end
 		if not reasonCheck[data.reason] then return end
 		local playerTarget = heroTarget:GetPlayerOwner()
+		-- target player is not present - which means he abandoned the game
+		if not playerTarget or playerTarget:IsNull() then return end
 
 		_G.votingForKick.playersVoted = {}
 		_G.votingForKick.reason = data.reason
@@ -72,10 +74,12 @@ function SendDegugResult(data, text)
 end
 
 function UpdateVotingForKick()
+	if not _G.votingForKick then return end
 	local totalPlayersInVotingTeam = 0
 	for playerId = 0, 24 do
 		local connectionState = PlayerResource:GetConnectionState(playerId)
-		if PlayerResource:GetTeam(_G.votingForKick.target) == PlayerResource:GetTeam(playerId) and (connectionState == DOTA_CONNECTION_STATE_CONNECTED or connectionState == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) then
+		if PlayerResource:GetTeam(_G.votingForKick.target) == PlayerResource:GetTeam(playerId)
+		and (connectionState == DOTA_CONNECTION_STATE_CONNECTED or connectionState == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) then
 			totalPlayersInVotingTeam = totalPlayersInVotingTeam + 1
 		end
 	end
