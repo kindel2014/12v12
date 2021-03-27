@@ -891,6 +891,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 				if not IsInToolsMode() then
 					SendToConsole("disconnect")
 				end
+				PauseGame(true)
 				return nil
 			end
 		})
