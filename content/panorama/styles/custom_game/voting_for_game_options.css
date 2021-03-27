@@ -90,3 +90,29 @@
 	font-weight: lighter;
 	color: gainsboro;
 }
+
+#NoticeContainer {
+	width: 800px;
+	height: 100px;
+	flow-children: down;
+	border-style: solid;
+	border-width: 3px;
+	border-color: #222529;
+	background-image: url("file://{resources}/images/custom_game/import_dota/ability_bg_psd.png");
+	background-color: #263238;
+	background-size: 100%;
+	align: center top;
+	border-radius: 6px;
+	margin-top: 50px;
+	margin-left: -500px;
+}
+
+#NoticeLabel {
+	align: center top;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: 12px;
+	margin-right: 12px;
+	color: #ff0000;
+	font-size: 28px;
+}
