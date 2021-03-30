@@ -892,10 +892,10 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			endTime = 2.1,
 			callback = function()
 				Convars:SetFloat("host_timescale", 1)
-				if not IsInToolsMode() then
-					SendToConsole("disconnect")
+				SendToServerConsole("dota_pause")
+				for _,user_id in pairs(_G.tUserIds) do
+					SendToServerConsole('kickid '.. user_id);
 				end
-				PauseGame(true)
 				return nil
 			end
 		})
@@ -3067,7 +3067,7 @@ RegisterCustomEventListener("set_mute_player", function(data)
 		local fromId = data.PlayerID
 		local toId = data.toPlayerId
 		local disable = data.disable
-		
+
 		_G.tPlayersMuted[fromId][toId] = disable == 1
 	end
 end)
