@@ -273,6 +273,7 @@ function GetHeroKD(unit)
 	if unit and unit:IsRealHero() then
 		return (unit:GetKills() + (unit:GetAssists() * TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI) - unit:GetDeaths())
 	end
+	return 0
 end
 
 function ItWorstKD(unit) -- use minimun TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN
@@ -525,7 +526,8 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		end
 	end)
 
-	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn and _G.lastHeroKillers[spawnedUnit] then
+	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn
+	and _G.lastHeroKillers[spawnedUnit] and not _G.lastHeroKillers[spawnedUnit]:IsNull() then
 		local killersTeam = _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()
 		if killersTeam ~=spawnedUnit:GetTeamNumber() and killersTeam~= DOTA_TEAM_NEUTRALS then
 			for i = 0, 20 do
@@ -552,7 +554,11 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		spawnedUnit.reduceCooldownAfterRespawn = false
 	end
 	-- Assignment of tokens during quick death, maximum 3
-	if spawnedUnit and (_G.lastDeathTimes[spawnedUnit] ~= nil) and (spawnedUnit:GetDeaths() > 1) and ((GameRules:GetGameTime() - _G.lastDeathTimes[spawnedUnit]) < TROLL_FEED_TOKEN_TIME_DIES_WITHIN) and not spawnedUnit:HasModifier("modifier_troll_debuff_stop_feed") and (_G.lastHeroKillers[spawnedUnit]~=spawnedUnit) and (not (UnitInSafeZone(spawnedUnit, _G.lastHerosPlaceLastDeath[spawnedUnit]))) and (_G.lastHeroKillers[spawnedUnit] and _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
+	if spawnedUnit and (_G.lastDeathTimes[spawnedUnit] ~= nil) and (spawnedUnit:GetDeaths() > 1)
+	and ((GameRules:GetGameTime() - _G.lastDeathTimes[spawnedUnit]) < TROLL_FEED_TOKEN_TIME_DIES_WITHIN)
+	and not spawnedUnit:HasModifier("modifier_troll_debuff_stop_feed") and (_G.lastHeroKillers[spawnedUnit]~=spawnedUnit)
+	and (not (UnitInSafeZone(spawnedUnit, _G.lastHerosPlaceLastDeath[spawnedUnit]))) and (_G.lastHeroKillers[spawnedUnit]
+	and not _G.lastHeroKillers[spawnedUnit]:IsNull() and _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
 		local maxToken = TROLL_FEED_NEED_TOKEN_TO_BUFF
 		local currentStackTokenCouter = spawnedUnit:GetModifierStackCount(tokenTrollCouter, spawnedUnit)
 		local needToken = currentStackTokenCouter + 1
@@ -889,6 +895,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 				if not IsInToolsMode() then
 					SendToConsole("disconnect")
 				end
+				PauseGame(true)
 				return nil
 			end
 		})

@@ -91,7 +91,7 @@ modifier_high_five_custom_search = class({
 		end
 	end,
 
-	GetRgbColor = function(self,target)
+	GetRgbColor = function(self, target)
 		if not GameMode.vTeamColors or not GameMode.vTeamColors[target:GetTeam()] or not IsServer() then
 			return 'rgb(255,255,255)'
 		end

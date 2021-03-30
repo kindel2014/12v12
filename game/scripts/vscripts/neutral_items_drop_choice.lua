@@ -25,24 +25,27 @@ function DropItem(data)
 			CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( i ), "neutral_item_dropped", { item = data.item } )
 		end
 	end
-	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Shelude
+	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Schedule
+		if not item or item:IsNull() then return end
+		if not player or player:IsNull() then return end
+
 		local container = item:GetContainer()
-		if container then
-			local hero =  player:GetAssignedHero()
-			local shop = SearchCorrectNeutralShopByTeam(hero:GetTeamNumber())
-			if shop then
-				local dummyInventory = player.dummyInventory
-				if not dummyInventory then return end
-				UTIL_Remove(container)
-				dummyInventory:AddItem(item)
-				ExecuteOrderFromTable({
-					UnitIndex = dummyInventory:entindex(),
-					OrderType = 37,
-					AbilityIndex = item:entindex(),
-				})
-			end
-		end
-		return nil
+		if not container or container:IsNull() then return end
+
+		local hero =  player:GetAssignedHero()
+		local shop = SearchCorrectNeutralShopByTeam(hero:GetTeamNumber())
+		if not shop then return end
+
+		local dummyInventory = player.dummyInventory
+		if not dummyInventory then return end
+
+		UTIL_Remove(container)
+		dummyInventory:AddItem(item)
+		ExecuteOrderFromTable({
+			UnitIndex = dummyInventory:entindex(),
+			OrderType = 37,
+			AbilityIndex = item:entindex(),
+		})
 	end)
 end
 function CheckNeutralItemForUnit(unit)
