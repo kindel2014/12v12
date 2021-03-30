@@ -93,26 +93,22 @@
 
 #NoticeContainer {
 	width: 800px;
-	height: 100px;
-	flow-children: down;
-	border-style: solid;
-	border-width: 3px;
-	border-color: #222529;
+	height: 110px;
+	border: 3px solid #222529;
+	border-radius: 4px;
 	background-image: url("file://{resources}/images/custom_game/import_dota/ability_bg_psd.png");
 	background-color: #263238;
 	background-size: 100%;
-	align: center top;
-	border-radius: 6px;
 	margin-top: 50px;
-	margin-left: -500px;
+	margin-left: 50px;
+	padding: 0px 3px 2px 3px;
 }
 
 #NoticeLabel {
-	align: center top;
+	align: center center;
 	text-align: center;
-	margin-top: 10px;
-	margin-left: 12px;
-	margin-right: 12px;
 	color: #ff0000;
 	font-size: 28px;
+	text-overflow: shrink;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.89);
 }
