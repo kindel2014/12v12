@@ -70,6 +70,9 @@ _G.tableDireHeroes = {}
 _G.newRespawnTimes = {}
 
 _G.tPlayersMuted = {}
+for player_id = 0, 24 do
+	_G.tPlayersMuted[player_id] = {}
+end
 
 if CMegaDotaGameMode == nil then
 	_G.CMegaDotaGameMode = class({}) -- put CMegaDotaGameMode in the global scope
@@ -215,6 +218,7 @@ function CMegaDotaGameMode:InitGameMode()
 	UniquePortraits:Init()
 	Battlepass:Init()
 	CustomChat:Init()
+	GamePerks:Init()
 end
 
 function IsInBugZone(pos)
@@ -511,8 +515,8 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	Timers:CreateTimer(0.1, function()
 		if spawnedUnit and not spawnedUnit:IsNull() and ((spawnedUnit.IsTempestDouble and spawnedUnit:IsTempestDouble()) or (spawnedUnit.IsClone and spawnedUnit:IsClone())) then
 			local playerId = spawnedUnit:GetPlayerOwnerID()
-			if _G.PlayersPatreonsPerk[playerId] then
-				local perkName = _G.PlayersPatreonsPerk[playerId]
+			if GamePerks.choosed_perks[playerId] then
+				local perkName = GamePerks.choosed_perks[playerId]
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, perkName, {duration = -1})
 				local mainHero = PlayerResource:GetSelectedHeroEntity(playerId)
 				local perkStacks = mainHero:GetModifierStackCount(perkName, mainHero)
@@ -939,7 +943,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 --				end
 --			end
 --		end)
-		StartTrackPerks()
+		GamePerks:StartTrackPerks()
 	end
 
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -3012,8 +3016,13 @@ SelectVO = function(keys)
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 			else
-				local remaining_cd = " ("..string.format("%.1f", 5 + vousedcol[keys.PlayerID] - (GameRules:GetGameTime() - votimer[keys.PlayerID])).."s)"
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown"..remaining_cd })
+				local remaining_cd = string.format("%.1f", 5 + vousedcol[keys.PlayerID] - (GameRules:GetGameTime() - votimer[keys.PlayerID]))
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error_with_value", {
+					message = "#wheel_cooldown",
+					values = {
+						["sec"] = remaining_cd,
+					},
+				})
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
@@ -3026,17 +3035,19 @@ SelectVO = function(keys)
 	end
 end
 
-function ChatSound(phrase, playerId)
+function ChatSound(phrase, source_player_id)
 	local all_heroes = HeroList:GetAllHeroes()
 	for _, hero in pairs(all_heroes) do
-		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and hero:GetPlayerID() and ((not _G.tPlayersMuted[hero:GetPlayerID()]) or (not _G.tPlayersMuted[hero:GetPlayerID()][playerId])) then
-			EmitAnnouncerSoundForPlayer(phrase, hero:GetPlayerID())
-			if phrase == "soundboard.ceb.start" then
-				Timers:CreateTimer(2, function()
-					StopGlobalSound("soundboard.ceb.start")
-					EmitAnnouncerSoundForPlayer("soundboard.ceb.stop", hero:GetPlayerID())
+		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
+			local player_id = hero:GetPlayerOwnerID()
+			if player_id and not _G.tPlayersMuted[player_id][source_player_id] then
+				EmitAnnouncerSoundForPlayer(phrase, player_id)
+				if phrase == "soundboard.ceb.start" then
+					Timers:CreateTimer(2, function()
+						StopGlobalSound("soundboard.ceb.start")
+						EmitAnnouncerSoundForPlayer("soundboard.ceb.stop", player_id)
+					end)
 				end
-				)
 			end
 		end
 	end
@@ -3049,12 +3060,8 @@ RegisterCustomEventListener("set_mute_player", function(data)
 		local fromId = data.PlayerID
 		local toId = data.toPlayerId
 		local disable = data.disable
-		_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
-		if disable == 0 then
-			_G.tPlayersMuted[fromId][toId] = false
-		else
-			_G.tPlayersMuted[fromId][toId] = true
-		end
+		
+		_G.tPlayersMuted[fromId][toId] = disable == 1
 	end
 end)
 
@@ -3212,8 +3219,8 @@ function ChangeTeamForPlayer(playerID, newTeam)
 
 	local hero = PlayerResource:GetSelectedHeroEntity(playerID)
 	if IsValidEntity(hero) then
-		if _G.PlayersPatreonsPerk[playerID] then
-			local perkName = _G.PlayersPatreonsPerk[playerID]
+		if GamePerks.choosed_perks[playerID] then
+			local perkName = GamePerks.choosed_perks[playerID]
 			local perkStacks = hero:GetModifierStackCount(perkName, hero)
 			hero:RemoveModifierByName(perkName)
 			Timers:CreateTimer(4, function()

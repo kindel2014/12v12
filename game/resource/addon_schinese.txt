@@ -145,7 +145,7 @@
 		"DOTA_Tooltip_ability_item_patreon_courier_Description"	"<h1>启用个人信使</h1>启用一个可以运载物品往返于基地的信使。只有你个人可以使用信使。只有高等级支持者（$25）可以购买该物品。"
 
 		//Chat Wheel
-		"wheel_cooldown"	"冷却"
+		"wheel_cooldown"	"冷却(##sec##秒)"
 		"announcers"		"播音员"
 		"englishannouncer"	"英文 播音员"
 		"englishannouncer2"	"英文 播音员 2"
