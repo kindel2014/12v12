@@ -893,8 +893,10 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			callback = function()
 				Convars:SetFloat("host_timescale", 1)
 				SendToServerConsole("dota_pause")
-				for _,user_id in pairs(_G.tUserIds) do
-					SendToServerConsole('kickid '.. user_id);
+				if not IsInToolsMode() then
+					for _,user_id in pairs(_G.tUserIds) do
+						SendToServerConsole('kickid '.. user_id);
+					end
 				end
 				return nil
 			end
