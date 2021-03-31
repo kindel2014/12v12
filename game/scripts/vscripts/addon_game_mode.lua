@@ -349,6 +349,11 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 	if hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
 		table.insert(_G.tableDireHeroes, hero)
 	end
+	
+	local player_id = hero:GetPlayerOwnerID()
+	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] then
+		SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
+	end
 end
 ---------------------------------------------------------------------------
 -- Filter: DamageFilter
@@ -750,11 +755,15 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	if newState ==  DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
 		AutoTeam:Init()
+		GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
 	end
 
 	if newState ==  DOTA_GAMERULES_STATE_HERO_SELECTION then
 		ShuffleTeam:SortInMMR()
 		AutoTeam:EnableFreePatreonForBalance()
+		Timers:CreateTimer(1, function()
+			GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
+		end)
 	end
 	if newState == DOTA_GAMERULES_STATE_POST_GAME then
 		local couriers = FindUnitsInRadius( 2, Vector( 0, 0, 0 ), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_COURIER, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )
@@ -893,11 +902,6 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			callback = function()
 				Convars:SetFloat("host_timescale", 1)
 				SendToServerConsole("dota_pause")
-				if not IsInToolsMode() then
-					for _,user_id in pairs(_G.tUserIds) do
-						SendToServerConsole('kickid '.. user_id);
-					end
-				end
 				return nil
 			end
 		})

@@ -1479,6 +1479,7 @@
 		"fix_game_dismiss"			"关闭"
 
 		"workaround_description" "请注意，游戏将迫使您断开连接，以避免阀门的处罚错误。请重新连接以继续播放。"
+		"workaround_chat_message"	"<font color='#ff0000'>请注意，游戏将迫使您断开连接，以避免阀门的处罚错误。请重新连接以继续播放。</font>"
 	}
 }
 
