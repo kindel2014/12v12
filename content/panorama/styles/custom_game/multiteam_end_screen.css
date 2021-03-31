@@ -254,7 +254,7 @@
 }
 
 .local_player_team #PlayersContainer {
-	box-shadow: fill #ffffff40 -3px -3px 3px 6px;
+	box-shadow: fill #ffffff40 0px 0px 6px 3px;
 }
 
 .TeamId {

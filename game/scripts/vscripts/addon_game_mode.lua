@@ -1801,7 +1801,7 @@ SelectVO = function(keys)
 				"soundboard.next_level",
 				"soundboard.oy_oy_oy",
 				"soundboard.ta_daaaa",
-				"soundboard.ceb.start",--need fix
+				"soundboard.ceb.start",
 				"soundboard.goodness_gracious",
 				--epic2
 				"soundboard.nakupuuu",
@@ -3060,11 +3060,16 @@ function ChatSound(phrase, source_player_id)
 		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
 			local player_id = hero:GetPlayerOwnerID()
 			if player_id and not _G.tPlayersMuted[player_id][source_player_id] then
-				EmitAnnouncerSoundForPlayer(phrase, player_id)
+				local player = PlayerResource:GetPlayer(player_id)
+				CustomGameEventManager:Send_ServerToPlayer(player, "chat_wheel:emit_sound", {
+					sound = phrase
+				})
 				if phrase == "soundboard.ceb.start" then
 					Timers:CreateTimer(2, function()
 						StopGlobalSound("soundboard.ceb.start")
-						EmitAnnouncerSoundForPlayer("soundboard.ceb.stop", player_id)
+						CustomGameEventManager:Send_ServerToPlayer(player, "chat_wheel:emit_sound", {
+							sound = "soundboard.ceb.stop"
+						})
 					end)
 				end
 			end

@@ -2104,4 +2104,5 @@
 	"dota_chatwheel_label_hoodwink_4"							"Time to die!"
 	"dota_chatwheel_message_hoodwink_5"							"Sleep tight, little guy."
 	"dota_chatwheel_label_hoodwink_5"							"Sleep tight, little guy."
+	"dota_chatwheel_message_ceeb"								"Ceeeeeeeeeeeeb!"
 }
