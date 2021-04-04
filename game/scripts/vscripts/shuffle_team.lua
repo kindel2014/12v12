@@ -21,44 +21,48 @@ function ShuffleTeam:SortInMMR()
 	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 24)
 	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 24)
 
-	local phantomPartyID = 456332
 	for playerId = 0, 23 do
-		if not playersStats[tostring(playerId)] then
-			playersStats[tostring(playerId)] = {
+		local player_id_str = tostring(playerId)
+		if not playersStats[player_id_str] then
+			playersStats[player_id_str] = {
 				rating = DEFAULT_MMR
 			}
 		end
-		local playerRating = playersStats[tostring(playerId)].rating and playersStats[tostring(playerId)].rating or 0
-		local partyID =  tonumber(tostring(PlayerResource:GetPartyID(playerId)))
-		if PlayerResource:GetConnectionState(playerId) == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED or partyID <= 0 then
-			phantomPartyID = phantomPartyID + 1
-			partyID = phantomPartyID
-		end
+		local playerRating = playersStats[player_id_str].rating and playersStats[player_id_str].rating or 0
+		local partyID = tostring(PlayerResource:GetPartyID(playerId))
 		players[playerId] = {
-			partyID = partyID,
 			mmr = playerRating
 		}
+		if PlayerResource:GetConnectionState(playerId) == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED or partyID ~= "0" then
+			players[playerId].partyID = partyID
+		end
 	end
-
+	
 	local teams = { [2] = { players = {}, mmr = 0}, [3] = { players = {}, mmr = 0}}
-	local partiesMMR = {}
+	local parties = {}
+	local players_for_sorting = {}
 
 	for playerId, data in pairs(players) do
-		local partyID = data.partyID + 1
-		partiesMMR[partyID] = partiesMMR[partyID] or {}
-		partiesMMR[partyID].players = partiesMMR[partyID].players or {}
-		partiesMMR[partyID].mmr = (partiesMMR[partyID].mmr or 0) + data.mmr
-		table.insert(partiesMMR[partyID].players, playerId)
+		local partyID = data.partyID
+		if partyID then
+			parties[partyID] = parties[partyID] or {}
+			parties[partyID].players = parties[partyID].players or {}
+			parties[partyID].mmr = (parties[partyID].mmr or 0) + data.mmr
+			table.insert(parties[partyID].players, playerId)
+		else
+			table.insert(players_for_sorting, { players = { playerId }, mmr = data.mmr})
+		end
 	end
-
-	local sortedParties = {}
-	for _, v in pairs(partiesMMR) do table.insert(sortedParties, v) end
-	table.sort(sortedParties, function(a,b)
+	for _, data in pairs(parties) do
+		table.insert(players_for_sorting, data)
+	end
+	
+	table.sort(players_for_sorting, function(a,b)
 		return a.mmr > b.mmr
 	end)
 
 	local SortTeam = function(MinDiffPlayersCount)
-		for _, partyData in pairs(sortedParties) do
+		for _, partyData in pairs(players_for_sorting) do
 			if #partyData.players >= MinDiffPlayersCount and not partyData.sorted then
 				partyData.sorted = true
 				local teamId = 2
@@ -79,7 +83,7 @@ function ShuffleTeam:SortInMMR()
 					local player = PlayerResource:GetPlayer(playerId)
 					if player then
 						player:SetTeam(teamId)
-						PlayerResource:SetCustomTeamAssignment(playerId,teamId)
+						PlayerResource:SetCustomTeamAssignment(playerId, teamId)
 					end
 				end
 			end
@@ -90,19 +94,20 @@ function ShuffleTeam:SortInMMR()
 	self.weakTeam = teams[2].mmr < teams[3].mmr and 2 or 3
 	self.mmrDiff = math.abs(math.floor(teams[2].mmr/MAX_PLAYERS_IN_TEAM) - math.floor(teams[3].mmr/MAX_PLAYERS_IN_TEAM))
 
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 12)
+	
 	--DEBUG PRINT PART
 	for teamId,teamData in pairs(teams) do
 		AutoTeam:Debug("")
 		AutoTeam:Debug("Team: ["..teamId.."]")
 		for id, playerId in pairs(teamData.players) do
-			AutoTeam:Debug(id .. " pid: "..playerId .. "	> "..playerId.." MMR: "..players[playerId].mmr .. " TEAM: "..players[playerId].partyID)
+			AutoTeam:Debug(id .. " pid: "..playerId .. "	> "..playerId.." MMR: "..players[playerId].mmr .. " TEAM: ".. (players[playerId].partyID or "0"))
 		end
 	end
 	AutoTeam:Debug("")
 	AutoTeam:Debug("Team 2 averages MMR: " .. math.floor(teams[2].mmr/MAX_PLAYERS_IN_TEAM))
 	AutoTeam:Debug("Team 3 averages MMR: " .. math.floor(teams[3].mmr/MAX_PLAYERS_IN_TEAM))
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 12)
 end
 
 function ShuffleTeam:SendNotificationForWeakTeam()
