@@ -23,6 +23,8 @@
 		"MovementSpeed"				"420"
 		"MovementTurnRate"			"0.6"
 		"StatusHealth"				"1"
+		"VisionDaytimeRange"		"0"
+		"VisionNighttimeRange"		"0"
 	}
 
 	"npc_dota_courier"
