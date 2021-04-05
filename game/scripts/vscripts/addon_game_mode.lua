@@ -220,6 +220,7 @@ function CMegaDotaGameMode:InitGameMode()
 	Battlepass:Init()
 	CustomChat:Init()
 	GamePerks:Init()
+	GiftCodes:Init()
 end
 
 function IsInBugZone(pos)
