@@ -28,7 +28,7 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 		if response.StatusCode >= 200 and response.StatusCode < 300 then
 			local data = json.decode(response.Body)
 			if isTesting then
-				print("Response from " .. path .. ":")
+				print("Response from  " .. path .. ":")
 				DeepPrintTable(data)
 			end
 			if onSuccess then
