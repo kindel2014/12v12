@@ -14,7 +14,7 @@ local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/lua/" .. path)
 	if isTesting then
-		print("Request to " .. path)
+		print("Request to  " .. path)
 		DeepPrintTable(data)
 	end
 
