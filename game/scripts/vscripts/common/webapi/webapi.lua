@@ -8,8 +8,8 @@ end
 WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 FREE_SUPPORTER_COUNT = 6
 
-local serverHost = IsInToolsMode() and "http://127.0.0.1:5000" or "https://api.12v12.dota2unofficial.com"
-local dedicatedServerKey = GetDedicatedServerKeyV2("1")
+local serverHost = "https://api.12v12.dota2unofficial.com"
+local dedicatedServerKey = "Dev_Sheodar_5eusUDB6xlOi6Q"
 
 function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/lua/" .. path)

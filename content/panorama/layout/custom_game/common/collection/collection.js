@@ -354,14 +354,17 @@ function ShowBoostInfo(boostName) {
 	$("#" + boostName).SetHasClass("Active", true);
 }
 
+const GIFT_CODE_CHECKER = $("#GiftCodePaymentFlag");
 function _CreatePurchaseAccess(name, imagePath, headerKey, descKey, price) {
 	$("#PatreonPaymentButton").visible = name == "base_booster" || name == "golden_booster";
 	$("#PurchasingHeader").text = $.Localize("#" + headerKey);
 	$("#PurchasingDescription").text = $.Localize("#" + descKey);
+	GIFT_CODE_CHECKER.visible = true;
 	let priceValue = 0;
 	let newPayment = name;
 	if (PAYMENT_VALUES[name]) {
 		if (PAYMENT_VALUES[name].price) priceValue = PAYMENT_VALUES[name].price;
+		if (PAYMENT_VALUES[name].no_gifteable) GIFT_CODE_CHECKER.visible = false;
 	} else if ($("#Item_" + name) != undefined) {
 		newPayment = "purchase_" + name;
 		priceValue = Math.round($("#Item_" + name).sourceValue * 100) / 100;
@@ -371,6 +374,7 @@ function _CreatePurchaseAccess(name, imagePath, headerKey, descKey, price) {
 	$("#Price").SetDialogVariable("price", GetLocalPrice(priceValue));
 	$("#Price").SetDialogVariable("paySymbol", $.Localize("#paySymbol"));
 	$("#PurchasingIcon").SetImage(imagePath);
+
 	SetPaymentVisible(true);
 }
 

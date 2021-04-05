@@ -81,3 +81,14 @@ GameEvents.Subscribe("payments:update", (response) => {
 		setPaymentWindowStatus("closed");
 	}
 });
+
+(function () {
+	GameEvents.Subscribe("reset_mmr:show", () => {
+		_CreatePurchaseAccess(
+			"reset_mmr",
+			"file://{resources}/images/custom_game/payment/reset_mmr.png",
+			"reset_mmr_purchase_header",
+			"reset_mmr_purchase_description",
+		);
+	});
+})();

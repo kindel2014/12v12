@@ -105,7 +105,20 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 			BP_PlayerProgress:SetFortune(playerId, response.fortune)
 			BP_Masteries:UpdateFortune(playerId)
 		end
+		
+		if response[GetMapName()] then
+			local playersStats = CustomNetTables:GetTableValue("game_state", "player_stats");
+			if not playersStats then return end
 
+			local player_id_string = tostring(playerId)
+			if not playersStats[player_id_string] then return end
+			if not playersStats[player_id_string].rating then return end
+
+			playersStats[player_id_string].rating = response[GetMapName()]
+
+			CustomNetTables:SetTableValue("game_state", "player_stats", playersStats)
+		end
+		
 		BP_PlayerProgress:UpdatePlayerInfo(playerId)
 	end
 end

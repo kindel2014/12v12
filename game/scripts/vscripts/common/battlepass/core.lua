@@ -1,3 +1,4 @@
+require("common/battlepass/inventory/collection_enum")
 require("common/battlepass/player_progress")
 require("common/battlepass/quests")
 require("common/battlepass/chests")

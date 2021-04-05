@@ -96,7 +96,7 @@ function GiftCodes:RedeemGiftClode(player_id, code, is_reclaim, is_gift)
 	
 	WebApi:Send(
 		"match/redeem_gift_code",
-		{ steamId = steam_id, code = code },
+		{ steamId = steam_id, code = code, customGame = WebApi.customGame, mapName = GetMapName() },
 		function(response)
 			if response.supporterState then
 				Supporters:SetPlayerState(player_id, response.supporterState)

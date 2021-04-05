@@ -804,12 +804,13 @@
 }
 #PaymentPanel {
 	width: 520px;
-	height: 620px;
+	/*height: 620px;*/
 	align: center center;
 	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
 	background-size: 100%;
 	flow-children: down;
 	box-shadow: black 0px 0px 10px 0px;
+	padding-bottom: 15px;
 }
 .HeaderWithCloseButton {
 	width: 100%;
@@ -849,7 +850,7 @@
 }
 #PurchasingInfoWrap {
 	width: 430px;
-	height: 168px;
+	/*min-height: 168px;*/
 	horizontal-align: center;
 	margin-top: 25px;
 	flow-children: right;
@@ -879,7 +880,7 @@
 	color: #d4d4d4;
 }
 #PurchasingDescription {
-	max-height: 60px;
+	/*max-height: 60px;*/
 	font-size: 15px;
 	text-align: left;
 	color: #898b97;

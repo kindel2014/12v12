@@ -374,7 +374,7 @@
 					<Image id="PurchasingIcon" src="file://{resources}/images/custom_game/payment/payment_boost.png"/>
 					<Panel id="PurchasingInfo">
 						<Label id="PurchasingHeader"/>
-						<Label id="PurchasingDescription"/>
+						<Label id="PurchasingDescription" html="true"/>
 						<Panel id="PurchasingPriceWrap">
 							<Label id="TotalPrice" text="#total_price"/>
 							<Label id="Price" text="{s:paySymbol}{s:price}"/>
