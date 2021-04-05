@@ -4,10 +4,18 @@ RegisterCustomEventListener("payments:create", function(event)
 	local payerId = event.PlayerID
 	local steamId = tostring(PlayerResource:GetSteamID(payerId))
 	local matchId = tonumber(tostring(GameRules:Script_GetMatchID()))
-
+	local is_gift_code = event.isGiftCode or false
+	
 	WebApi:Send(
 		"payment/create",
-		{ steamId = steamId, matchId = matchId, method = event.method, paymentKind = event.paymentKind },
+		{ 
+			steamId = steamId, 
+			matchId = matchId, 
+			method = event.method, 
+			paymentKind = event.paymentKind,
+			isGiftCode = is_gift_code, 
+			mapName = GetMapName() 
+		},
 		function(response)
 			local player = PlayerResource:GetPlayer(payerId)
 			if not player then return end
@@ -78,6 +86,15 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 
 		if response.purchasedItem then
 			BP_Inventory:AddItemLocal(response.purchasedItem.itemName, response.purchasedItem.steamId, response.purchasedItem.count)
+		end
+
+		if response.purchasedCodeDetails then
+			GiftCodes:AddCodeForPlayer(playerId, {
+				code = response.purchasedCodeDetails.Code,
+				paymentKind = response.purchasedCodeDetails.PaymentKind,
+				redeemerSteamId = "None",
+			})
+			GiftCodes:UpdateCodeDataClient(playerId)
 		end
 
 		if response.glory then

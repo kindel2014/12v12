@@ -1416,14 +1416,17 @@
 	horizontal-align: center;
 	opacity: 0.8;
 }
+#ItemsPreviewListRoot {
+	width: 100%;
+	height: 100%;
+	margin: 180px 10px 65px 10px;
+}
 #ItemsPreviewList {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.6);
-	margin: 180px 10px 65px 10px;
-	box-shadow: inset rgba(0, 0, 0, 0.5) -15px 6px 10px -50px;
 	flow-children: right-wrap;
-	padding: 20px 49px 0px 51px;
+	padding: 20px 51px 0px 51px;
 	overflow: clip scroll;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
@@ -1681,4 +1684,44 @@
 }
 #TreasureShowInfo:active {
 	brightness: 0.8;
+}
+
+#OpenGiftCodes {
+	background-color: rgba(0, 0, 0, 0.7);
+	horizontal-align: right;
+	margin-top: 50px;
+	font-weight: lighter;
+	width: 100px;
+	height: 52px;
+	margin-right: 16px;
+	border-radius: 8px;
+	padding: 2px;
+	transition: background-color 0.15s ease-in-out 0s, brightness 0.1s ease-in-out 0s;
+}
+#OpenGiftCodes:hover {
+	background-color: rgba(0, 0, 0, 0.85);
+}
+#OpenGiftCodes:active {
+	brightness: 1.5;
+	sound: "General.ButtonClick";
+}
+#OpenGiftCodes Label {
+	text-align: center;
+	align: center center;
+	text-overflow: shrink;
+	text-transform: uppercase;
+	color: #8babd8;
+}
+#GiftCodePaymentFlag {
+	horizontal-align: center;
+	margin-top: 10px;
+}
+#GiftCodePaymentFlag Label {
+	color: #898b97;
+}
+#GiftCodePaymentFlag:hover Label {
+	color: #8195bf;
+}
+#GiftCodePaymentFlag:selected Label {
+	color: #a4beef;
 }

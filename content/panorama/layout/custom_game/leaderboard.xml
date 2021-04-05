@@ -2,6 +2,7 @@
     <styles>
         <include src="s2r://panorama/styles/dotastyles.vcss_c"/>
         <include src="file://{resources}/styles/custom_game/leaderboard.css" />
+		<include src="file://{resources}/layout/custom_game/common/styles/dotau_styles.css" />
     </styles>
 
     <scripts>
@@ -37,12 +38,12 @@
 						<Label id="LocalPlayerRating" text="9999"/>
 					</Panel>
 				</Panel>
-				<Panel id="OverlayTop" class="FullSize" hittest="false"/>
+				<Panel id="OverlayShadow_Top" hittest="false"/>
 			</Panel>
 			<Panel id="LeaderboardDataRoot" class="FullSize">
 				<Panel id="LeaderboardData" class="FullSize"/>
-				<Panel id="OverlayTop" class="FullSize" hittest="false"/>
-				<Panel id="OverlayBottom" class="FullSize" hittest="false"/>
+				<Panel id="OverlayShadow_Top" hittest="false"/>
+				<Panel id="OverlayShadow_Bottom" hittest="false"/>
 				<Panel id="TableHeader" class="FullSize">
 					<Label class="HeaderText" id="h1" text="Rank"/>
 					<Label class="HeaderText" id="h2" text="Player"/>

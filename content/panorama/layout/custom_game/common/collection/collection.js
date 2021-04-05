@@ -11,12 +11,14 @@ let stopWheelSchelude;
 let spinSound;
 let spinEndSound;
 let treasureGlowSchelude;
+let isGiftCode = false;
 
 let currentSorting = "default";
 let lastPreviewPanel = "";
 
 const treasuresPreviewRoot = $("#TreasuresPreviewRoot");
 const COLLECTION_DOTAU = $("#CollectionDotaU");
+const giftCodeChecker = $("#GiftCodePaymentFlag");
 
 function OpenTreasurePreview(treasureName) {
 	Game.EmitSound("ui.treasure_unlock.wav");
@@ -97,6 +99,8 @@ const ITEM_BUTTON_FUNCTIONS = {
 
 function SetPaymentVisible(state) {
 	$("#CollectionPayment").SetHasClass("show", state);
+	giftCodeChecker.SetSelected(false);
+	isGiftCode = false;
 }
 
 function ParseBigNumber(x) {
@@ -992,6 +996,10 @@ function OpenSpecificCollection(data) {
 function SelectSprays() {
 	COLLECTION_DOTAU.SetHasClass("show", true);
 	SelectItemType("Sprays");
+}
+
+function OpenGiftCodes() {
+	FindDotaHudElement("GiftCodes_PanelWrap").SetHasClass("Show", true);
 }
 
 (function () {
