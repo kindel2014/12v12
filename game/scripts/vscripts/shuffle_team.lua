@@ -99,15 +99,15 @@ function ShuffleTeam:SortInMMR()
 	
 	--DEBUG PRINT PART
 	for teamId,teamData in pairs(teams) do
-		AutoTeam:Debug("")
-		AutoTeam:Debug("Team: ["..teamId.."]")
+		AutoTeam:Debug("", true)
+		AutoTeam:Debug("Team: ["..teamId.."]", true)
 		for id, playerId in pairs(teamData.players) do
-			AutoTeam:Debug(id .. " pid: "..playerId .. "	> "..playerId.." MMR: "..players[playerId].mmr .. " TEAM: ".. (players[playerId].partyID or "0"))
+			AutoTeam:Debug(id .. " pid: "..playerId .. "	> "..playerId.." MMR: "..players[playerId].mmr .. " TEAM: ".. (players[playerId].partyID or "0"), true)
 		end
 	end
-	AutoTeam:Debug("")
-	AutoTeam:Debug("Team 2 averages MMR: " .. math.floor(teams[2].mmr/MAX_PLAYERS_IN_TEAM))
-	AutoTeam:Debug("Team 3 averages MMR: " .. math.floor(teams[3].mmr/MAX_PLAYERS_IN_TEAM))
+	AutoTeam:Debug("", true)
+	AutoTeam:Debug("Team 2 averages MMR: " .. math.floor(teams[2].mmr/MAX_PLAYERS_IN_TEAM), true)
+	AutoTeam:Debug("Team 3 averages MMR: " .. math.floor(teams[3].mmr/MAX_PLAYERS_IN_TEAM), true)
 end
 
 function ShuffleTeam:SendNotificationForWeakTeam()
