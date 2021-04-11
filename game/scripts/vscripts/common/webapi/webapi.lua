@@ -28,7 +28,7 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 		if response.StatusCode >= 200 and response.StatusCode < 300 then
 			local data = json.decode(response.Body)
 			if isTesting then
-				print("Response from " .. path .. ":")
+				print("Response from  " .. path .. ":")
 				DeepPrintTable(data)
 			end
 			if onSuccess then
@@ -98,6 +98,11 @@ function WebApi:BeforeMatch()
 			if player.masteries then
 				BP_Masteries:SetMasteriesForPlayer(playerId, player.masteries)
 			end
+			
+			if player.gift_codes then
+				GiftCodes:SetCodesForPlayer(playerId, player.gift_codes)
+			end
+			
 			if player.settings then
 				WebApi.playerSettings[playerId] = player.settings
 				CustomNetTables:SetTableValue("player_settings", tostring(playerId), player.settings)
@@ -105,6 +110,7 @@ function WebApi:BeforeMatch()
 			if player.stats then
 				WebApi.playerMatchesCount[playerId] = (player.stats.wins or 0) + (player.stats.loses or 0)
 			end
+			
 			publicStats[playerId] = {
 				streak = player.streak.current or 0,
 				bestStreak = player.streak.best or 0,

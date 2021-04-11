@@ -25,6 +25,10 @@ let paymentWindowUpdateListener;
 /** @type {ScheduleID} */
 let paymentWindowPostUpdateTimer;
 
+function UpdateGiftCodeState() {
+	isGiftCode = giftCodeChecker.IsSelected();
+}
+
 /** @type {"wechat" | "alipay" | "checkout"} */
 function updatePaymentWindow(method) {
 	/** @type {"Purchase1" | "Purchase2"} */
@@ -43,7 +47,7 @@ function updatePaymentWindow(method) {
 
 	setPaymentWindowStatus("loading");
 
-	paymentWindowUpdateListener = createPaymentRequest({ method, paymentKind }, (response) => {
+	paymentWindowUpdateListener = createPaymentRequest({ method, paymentKind, isGiftCode }, (response) => {
 		if (response.url == null) {
 			setPaymentWindowStatus({ error: response.error || "Unknown error" });
 			return;
@@ -77,3 +81,14 @@ GameEvents.Subscribe("payments:update", (response) => {
 		setPaymentWindowStatus("closed");
 	}
 });
+
+(function () {
+	GameEvents.Subscribe("reset_mmr:show", () => {
+		_CreatePurchaseAccess(
+			"reset_mmr",
+			"file://{resources}/images/custom_game/payment/reset_mmr.png",
+			"reset_mmr_purchase_header",
+			"reset_mmr_purchase_description",
+		);
+	});
+})();

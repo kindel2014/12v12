@@ -11,12 +11,14 @@ let stopWheelSchelude;
 let spinSound;
 let spinEndSound;
 let treasureGlowSchelude;
+let isGiftCode = false;
 
 let currentSorting = "default";
 let lastPreviewPanel = "";
 
 const treasuresPreviewRoot = $("#TreasuresPreviewRoot");
 const COLLECTION_DOTAU = $("#CollectionDotaU");
+const giftCodeChecker = $("#GiftCodePaymentFlag");
 
 function OpenTreasurePreview(treasureName) {
 	Game.EmitSound("ui.treasure_unlock.wav");
@@ -97,6 +99,8 @@ const ITEM_BUTTON_FUNCTIONS = {
 
 function SetPaymentVisible(state) {
 	$("#CollectionPayment").SetHasClass("show", state);
+	giftCodeChecker.SetSelected(false);
+	isGiftCode = false;
 }
 
 function ParseBigNumber(x) {
@@ -350,14 +354,17 @@ function ShowBoostInfo(boostName) {
 	$("#" + boostName).SetHasClass("Active", true);
 }
 
+const GIFT_CODE_CHECKER = $("#GiftCodePaymentFlag");
 function _CreatePurchaseAccess(name, imagePath, headerKey, descKey, price) {
 	$("#PatreonPaymentButton").visible = name == "base_booster" || name == "golden_booster";
 	$("#PurchasingHeader").text = $.Localize("#" + headerKey);
 	$("#PurchasingDescription").text = $.Localize("#" + descKey);
+	GIFT_CODE_CHECKER.visible = true;
 	let priceValue = 0;
 	let newPayment = name;
 	if (PAYMENT_VALUES[name]) {
 		if (PAYMENT_VALUES[name].price) priceValue = PAYMENT_VALUES[name].price;
+		if (PAYMENT_VALUES[name].no_gifteable) GIFT_CODE_CHECKER.visible = false;
 	} else if ($("#Item_" + name) != undefined) {
 		newPayment = "purchase_" + name;
 		priceValue = Math.round($("#Item_" + name).sourceValue * 100) / 100;
@@ -367,6 +374,7 @@ function _CreatePurchaseAccess(name, imagePath, headerKey, descKey, price) {
 	$("#Price").SetDialogVariable("price", GetLocalPrice(priceValue));
 	$("#Price").SetDialogVariable("paySymbol", $.Localize("#paySymbol"));
 	$("#PurchasingIcon").SetImage(imagePath);
+
 	SetPaymentVisible(true);
 }
 
@@ -992,6 +1000,10 @@ function OpenSpecificCollection(data) {
 function SelectSprays() {
 	COLLECTION_DOTAU.SetHasClass("show", true);
 	SelectItemType("Sprays");
+}
+
+function OpenGiftCodes() {
+	FindDotaHudElement("GiftCodes_PanelWrap").SetHasClass("Show", true);
 }
 
 (function () {
