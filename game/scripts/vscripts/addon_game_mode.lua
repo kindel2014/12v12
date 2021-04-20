@@ -1032,7 +1032,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 		local pitems = {
 			"item_patreonbundle_1",
 			"item_patreonbundle_2",
-			"item_reset_mmr"
 		}
 		if hInventoryParent:IsRealHero() then
 			local plyID = hInventoryParent:GetPlayerID()
