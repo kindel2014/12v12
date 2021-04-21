@@ -86,9 +86,19 @@ function UpdateVotingForKick()
 	votesToKick = math.floor(totalPlayersInVotingTeam/2+1)
 end
 
+function GetVoteWeight(player_id)
+	if not _G.votingForKick then return end
+	for _player_id, _ in pairs(_G.votingForKick.playersVoted) do
+		if PlayerResource:GetPartyID(player_id) == PlayerResource:GetPartyID(_player_id) then
+			return 0.5
+		end
+	end
+	return 1
+end
+
 RegisterCustomEventListener("voting_to_kick_vote_yes", function(data)
 	if _G.votingForKick then
-		_G.votingForKick.votes = _G.votingForKick.votes + 1
+		_G.votingForKick.votes = _G.votingForKick.votes + GetVoteWeight(data.PlayerID)
 		_G.votingForKick.playersVoted[data.PlayerID] = true
 		SendDegugResult(data, "YES TOTAL VOICES: ".._G.votingForKick.votes)
 		if _G.votingForKick.votes >= votesToKick then
