@@ -18,8 +18,8 @@ function ShuffleTeam:SortInMMR()
 	local players = {}
 	local playersStats = CustomNetTables:GetTableValue("game_state", "player_stats");
 	if not playersStats then return end
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 24)
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 24)
+	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 24)
+	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 24)
 
 	for playerId = 0, 23 do
 		local player_id_str = tostring(playerId)
@@ -80,22 +80,33 @@ function ShuffleTeam:SortInMMR()
 					end
 					table.insert(teams[teamId].players, playerId)
 					teams[teamId].mmr = (teams[teamId].mmr or 0) + players[playerId].mmr
-					local player = PlayerResource:GetPlayer(playerId)
-					if player then
-						player:SetTeam(teamId)
-						PlayerResource:SetCustomTeamAssignment(playerId, teamId)
-					end
 				end
 			end
 		end
 	end
 	SortTeam(2)
 	SortTeam(1)
+	local set_team = function(player_id, team_id)
+		local player = PlayerResource:GetPlayer(player_id)
+		if player then
+			player:SetTeam(team_id)
+			PlayerResource:SetCustomTeamAssignment(player_id, team_id)
+		end
+	end
+	for player_id = 0, 23 do
+		set_team(player_id, DOTA_TEAM_NOTEAM)
+	end
+	for team_id,team_data in pairs(teams) do
+		for _, player_id in pairs(team_data.players) do
+			set_team(player_id, team_id)		
+		end
+	end
+	
 	self.weakTeam = teams[2].mmr < teams[3].mmr and 2 or 3
 	self.mmrDiff = math.abs(math.floor(teams[2].mmr/MAX_PLAYERS_IN_TEAM) - math.floor(teams[3].mmr/MAX_PLAYERS_IN_TEAM))
 
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)
-	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 12)
+	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)
+	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 12)
 	
 	--DEBUG PRINT PART
 	for teamId,teamData in pairs(teams) do
