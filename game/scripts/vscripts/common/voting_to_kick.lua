@@ -75,15 +75,22 @@ end
 
 function UpdateVotingForKick()
 	if not _G.votingForKick then return end
-	local totalPlayersInVotingTeam = 0
+	local maxVoicesInTeam = 0
+	local votedParties = {}
 	for playerId = 0, 24 do
 		local connectionState = PlayerResource:GetConnectionState(playerId)
 		if PlayerResource:GetTeam(_G.votingForKick.target) == PlayerResource:GetTeam(playerId)
 		and (connectionState == DOTA_CONNECTION_STATE_CONNECTED or connectionState == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) then
-			totalPlayersInVotingTeam = totalPlayersInVotingTeam + 1
+			local party = tostring(PlayerResource:GetPartyID(playerId));
+			if votedParties[party] then
+				maxVoicesInTeam = maxVoicesInTeam + 0.5
+			else
+				maxVoicesInTeam = maxVoicesInTeam + 1
+				votedParties[party] = true
+			end
 		end
 	end
-	votesToKick = math.floor(totalPlayersInVotingTeam/2+1)
+	votesToKick = math.floor(maxVoicesInTeam/2)
 end
 
 function GetVoteWeight(player_id)
