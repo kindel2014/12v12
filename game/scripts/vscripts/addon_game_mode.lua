@@ -1228,19 +1228,25 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	if filterTable.units and filterTable.units["0"] then
 		unit = EntIndexToHScript(filterTable.units["0"])
 	end
+	
 	if not IsInToolsMode() and unit and unit.GetTeam and PlayerResource:GetPlayer(playerId) then
 		if unit:GetTeam() ~= PlayerResource:GetPlayer(playerId):GetTeam() then
 			return false
 		end
-		
-		local unit_owner_id = unit:GetPlayerOwnerID()
-		
-		if
-			unit_owner_id and 
-			unit_owner_id ~= playerId and 
-			PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and
-			GameRules:GetDOTATime(false,false) < 900 
-		then
+		local is_not_owned_unit = false
+		for _, _unit_ent in pairs (filterTable.units) do
+			local _unit = EntIndexToHScript(_unit_ent)
+			local unit_owner_id = _unit:GetPlayerOwnerID()
+			if
+				unit_owner_id and
+				unit_owner_id ~= playerId and
+				PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and
+				GameRules:GetDOTATime(false,false) < 900
+			then
+				is_not_owned_unit = true
+			end
+		end
+		if is_not_owned_unit then
 			return false
 		end
 	end
