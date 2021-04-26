@@ -14,7 +14,7 @@ local TROLL_FEED_DISTANCE_FROM_FOUNTAIN_TRIGGER = 6000 -- Distance from allince 
 local TROLL_FEED_BUFF_BASIC_TIME = (60 * 10)   -- 10 minutes
 local TROLL_FEED_TOTAL_RESPAWN_TIME_MULTIPLE = 2.5 -- x2.5 respawn time. If you respawn 100sec, after debuff you respawn 250sec
 local TROLL_FEED_INCREASE_BUFF_AFTER_DEATH = 60 -- 1 minute
-local TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN = 0.2 -- (Kill/Death)
+local TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN = -5 -- (Kill-Death)
 local TROLL_FEED_NEED_TOKEN_TO_BUFF = 3
 local TROLL_FEED_TOKEN_TIME_DIES_WITHIN = (60 * 1.5) -- 1.5 minutes
 local TROLL_FEED_TOKEN_DURATION = (60 * 5) -- 5 minutes
@@ -273,21 +273,30 @@ end
 
 function GetHeroKD(unit)
 	if unit and unit:IsRealHero() then
-		local deaths = unit:GetDeaths() > 0 and unit:GetDeaths() or 1 -- Stop divide by 0
-		local kills = unit:GetKills()
-		local assists = unit:GetAssists() * TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI
-		return (kills + assists) / deaths
+		return (unit:GetKills() + (unit:GetAssists() * TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI) - unit:GetDeaths())
 	end
 	return 0
 end
 
 function ItWorstKD(unit) -- use minimun TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN
-	local unitKD = GetHeroKD(unit)
-	if unitKD > TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN or unit:GetDeaths() <= 5 then
-		return false
-	else
-		return true
+	local unitTeam = unit:GetTeamNumber()
+	local focusTableHeroes
+
+	if unitTeam == DOTA_TEAM_GOODGUYS then
+		focusTableHeroes = _G.tableRadiantHeroes
+	elseif unitTeam == DOTA_TEAM_BADGUYS then
+		focusTableHeroes = _G.tableDireHeroes
 	end
+
+	for i, focusHero in pairs(focusTableHeroes) do
+		local unitKD = GetHeroKD(unit)
+		if unitKD > TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN then
+			return false
+		elseif GetHeroKD(focusHero) <= unitKD and unit ~= focusHero then
+			return false
+		end
+	end
+	return true
 end
 function CMegaDotaGameMode:SetTeamColors()
 	local ggp = 0
