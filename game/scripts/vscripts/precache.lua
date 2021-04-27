@@ -1,7 +1,8 @@
 local particles = {
 	"particles/alert_ban_hammer.vpcf",
 	"particles/econ/items/faceless_void/faceless_void_weapon_bfury/faceless_void_weapon_bfury_cleave_c.vpcf",
-	"particles/custom_cleave.vpcf"
+	"particles/custom_cleave.vpcf",
+	"particles/items5_fx/repair_kit.vpcf"
 }
 local sounds = {
 	"soundevents/custom_soundboard_soundevents.vsndevts",
