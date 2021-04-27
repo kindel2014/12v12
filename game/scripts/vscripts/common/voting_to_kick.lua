@@ -25,14 +25,12 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 
 		if not heroTarget then return end
 		if not reasonCheck[data.reason] then return end
-		local playerTarget = heroTarget:GetPlayerOwner()
-		-- target player is not present - which means he abandoned the game
-		if not playerTarget or playerTarget:IsNull() then return end
+		local playerTargetID = heroTarget:GetPlayerOwnerID()
 
 		_G.votingForKick.playersVoted = {}
 		_G.votingForKick.reason = data.reason
 		_G.votingForKick.init = data.PlayerID
-		_G.votingForKick.target = playerTarget:GetPlayerID()
+		_G.votingForKick.target = playerTargetID
 		_G.votingForKick.votes = 1
 		_G.votingForKick.playersVoted[data.PlayerID] = true
 		UpdateVotingForKick()
@@ -43,7 +41,7 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 			end
 		end
 
-		CustomGameEventManager:Send_ServerToTeam(playerInit:GetTeam(), "voting_to_kick_show_voting", { playerId = playerTarget:GetPlayerID(), reason = data.reason, playerIdInit = data.PlayerID})
+		CustomGameEventManager:Send_ServerToTeam(playerInit:GetTeam(), "voting_to_kick_show_voting", { playerId = playerTargetID, reason = data.reason, playerIdInit = data.PlayerID})
 		CustomGameEventManager:Send_ServerToPlayer(playerInit, "voting_to_kick_hide_reason", {})
 
 		Timers:CreateTimer("start_voting_to_kick", {

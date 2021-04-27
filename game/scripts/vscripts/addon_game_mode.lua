@@ -59,6 +59,8 @@ LinkLuaModifier("modifier_troll_debuff_stop_feed", 'anti_feed_system/modifier_tr
 LinkLuaModifier("modifier_super_tower","game_options/modifiers_lib/modifier_super_tower", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_mega_creep","game_options/modifiers_lib/modifier_mega_creep", LUA_MODIFIER_MOTION_NONE)
 
+LinkLuaModifier("modifier_delayed_damage","common/game_perks/modifier_lib/delayed_damage", LUA_MODIFIER_MOTION_NONE)
+
 _G.newStats = newStats or {}
 _G.personalCouriers = {}
 _G.mainTeamCouriers = {}
@@ -363,25 +365,41 @@ end
 function CMegaDotaGameMode:DamageFilter(event)
 	local entindex_victim_const = event.entindex_victim_const
 	local entindex_attacker_const = event.entindex_attacker_const
-	local death_unit
-	local killer
+	local entindex_inflictor_const = event.entindex_inflictor_const
+	local target
+	local attacker
+	local ability
 
-	if (entindex_victim_const) then death_unit = EntIndexToHScript(entindex_victim_const) end
-	if (entindex_attacker_const) then killer = EntIndexToHScript(entindex_attacker_const) end
+	if (entindex_victim_const) then target = EntIndexToHScript(entindex_victim_const) end
+	if (entindex_attacker_const) then attacker = EntIndexToHScript(entindex_attacker_const) end
+	if (entindex_inflictor_const) then ability = EntIndexToHScript(entindex_inflictor_const) end
 
-	if death_unit and death_unit:HasModifier("modifier_troll_debuff_stop_feed") and (death_unit:GetHealth() <= event.damage) and (killer ~= death_unit) and (killer:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
-		if ItWorstKD(death_unit) and (not (UnitInSafeZone(death_unit, _G.lastHerosPlaceLastDeath[death_unit]))) then
-			local newTime = death_unit:FindModifierByName("modifier_troll_debuff_stop_feed"):GetRemainingTime() + TROLL_FEED_INCREASE_BUFF_AFTER_DEATH
-			--death_unit:RemoveModifierByName("modifier_troll_debuff_stop_feed")
-			local normalRespawnTime =  death_unit:GetRespawnTime()
+	if target and target:HasModifier("modifier_troll_debuff_stop_feed") and (target:GetHealth() <= event.damage) and (attacker ~= target) and (attacker:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
+		if ItWorstKD(target) and (not (UnitInSafeZone(target, _G.lastHerosPlaceLastDeath[target]))) then
+			local newTime = target:FindModifierByName("modifier_troll_debuff_stop_feed"):GetRemainingTime() + TROLL_FEED_INCREASE_BUFF_AFTER_DEATH
+			--target:RemoveModifierByName("modifier_troll_debuff_stop_feed")
+			local normalRespawnTime =  target:GetRespawnTime()
 			local addRespawnTime = normalRespawnTime * (TROLL_FEED_TOTAL_RESPAWN_TIME_MULTIPLE - 1)
 
 			if addRespawnTime + normalRespawnTime < TROLL_FEED_MIN_RESPAWN_TIME then
 				addRespawnTime = TROLL_FEED_MIN_RESPAWN_TIME - normalRespawnTime
 			end
-			death_unit:AddNewModifier(death_unit, nil, "modifier_troll_debuff_stop_feed", { duration = newTime, addRespawnTime = addRespawnTime })
+			target:AddNewModifier(target, nil, "modifier_troll_debuff_stop_feed", { duration = newTime, addRespawnTime = addRespawnTime })
 		end
-		death_unit:Kill(nil, death_unit)
+		target:Kill(nil, target)
+	end
+	
+	if target and target.delay_damage_by_perk and event.damage > 10 then
+		local delayed_damage = event.damage * (target.delay_damage_by_perk / 100)
+		if not ability or ability:GetName() ~= "delayed_damage_perk" then
+			event.damage = event.damage - delayed_damage
+			target:AddNewModifier(target, nil, "modifier_delayed_damage", {
+				duration = 5,
+				attacker_ent = entindex_attacker_const,
+				damage_type = event.damagetype_const,
+				damage = delayed_damage
+			})
+		end
 	end
 
 	return true
