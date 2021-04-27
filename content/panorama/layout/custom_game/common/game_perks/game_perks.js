@@ -43,11 +43,11 @@ function SetGamePerkButtonAction(panel, perk_name) {
 		SETTINGS_BUTTON.SetPanelEvent("onmouseover", function () {
 			$.DispatchEvent("DOTAShowTextTooltip", SETTINGS_BUTTON, $.Localize(`${perk_name}_tooltip`));
 		});
-		// SETTINGS_BUTTON.ClearPanelEvent(`onactivate`);
+		SETTINGS_BUTTON.ClearPanelEvent(`onactivate`);
 
 		HideGamePerks();
-		// PERK_MENU.DeleteAsync(0);
-		// CLOSE_PERK_MENU.DeleteAsync(0);
+		PERK_MENU.DeleteAsync(0);
+		CLOSE_PERK_MENU.DeleteAsync(0);
 	});
 
 	panel.SetPanelEvent("onmouseover", function () {
@@ -110,10 +110,10 @@ function CreateGamePerks() {
 				SETTINGS_BUTTON.SetPanelEvent("onmouseover", function () {
 					$.DispatchEvent("DOTAShowTextTooltip", SETTINGS_BUTTON, $.Localize(`${current_perk}_tooltip`));
 				});
-				// SETTINGS_BUTTON.ClearPanelEvent("onactivate");
+				SETTINGS_BUTTON.ClearPanelEvent("onactivate");
 				HideGamePerks();
-				// PERK_MENU.DeleteAsync(0);
-				// CLOSE_PERK_MENU.DeleteAsync(0);
+				PERK_MENU.DeleteAsync(0);
+				CLOSE_PERK_MENU.DeleteAsync(0);
 			}
 		});
 	}

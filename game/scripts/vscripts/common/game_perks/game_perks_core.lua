@@ -81,7 +81,7 @@ function GamePerks:SetGamePerk(event)
 	local player_id = event.PlayerID
 	if not player_id then return end
 	
-	--if self.choosed_perks[player_id] then return end
+	if self.choosed_perks[player_id] then return end
 	local player = PlayerResource:GetPlayer(player_id)
 	if not player then GamePerks:SetGamePerkSchedule(event) return end
 	
@@ -93,8 +93,6 @@ function GamePerks:SetGamePerk(event)
 	local is_tier_correct = perk_tier and perk_tier > -1 and perk_tier < 4
 	local is_correct_perk = self.game_perks[perk_name:gsub("_t%d*$", "")] and is_tier_correct and perk_tier <= supporter_level
 	
-	DeepPrintTable(event)
-	print(perk_name:gsub("_t%d*$", ""))
 	if not is_correct_perk then
 		CustomGameEventManager:Send_ServerToPlayer(player, "game_perks:reload_button", {})
 		return
