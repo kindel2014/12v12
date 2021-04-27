@@ -30,7 +30,7 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 		_G.votingForKick.playersVoted = {}
 		_G.votingForKick.reason = data.reason
 		_G.votingForKick.init = data.PlayerID
-		_G.votingForKick.target =playerTargetID
+		_G.votingForKick.target = playerTargetID
 		_G.votingForKick.votes = 1
 		_G.votingForKick.playersVoted[data.PlayerID] = true
 		UpdateVotingForKick()

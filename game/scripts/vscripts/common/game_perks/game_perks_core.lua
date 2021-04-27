@@ -99,12 +99,6 @@ function GamePerks:SetGamePerk(event)
 	end
 	
 	local hero = player:GetAssignedHero()
-
-	for _perk_name in pairs(self.game_perks) do
-		for _tier = 0, 2 do
-			hero:RemoveModifierByName(_perk_name .. "_t" .. _tier)
-		end
-	end
 	
 	if hero and not hero:IsNull() and hero:IsAlive() then
 		self.choosed_perks[player_id] = perk_name
