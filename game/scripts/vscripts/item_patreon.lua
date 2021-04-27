@@ -41,7 +41,7 @@ function OnSpellStartBanHammer(event)
     local ability = event.ability
 	
 	local playerId = target:GetPlayerOwnerID()
-	if playerId and WebApi.playerMatchesCount and WebApi.playerMatchesCount[playerId] < 5 then
+	if playerId and ((WebApi.playerMatchesCount and WebApi.playerMatchesCount[playerId] < 5) or PlayerResource:GetConnectionState(playerId) == DOTA_CONNECTION_STATE_ABANDONED)  then
 		ability:EndCooldown()
 		CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
 		return
