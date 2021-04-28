@@ -86,6 +86,6 @@ magician_t0 = class(magician)
 magician_t1 = class(magician)
 magician_t2 = class(magician)
 
-function magician_t0:OnCreated() self.v = 500 end
-function magician_t1:OnCreated() self.v = 10 end
-function magician_t2:OnCreated() self.v = 20 end
+function magician_t0:OnCreated() self.v = 1.05 end
+function magician_t1:OnCreated() self.v = 1.1 end
+function magician_t2:OnCreated() self.v = 1.2 end
