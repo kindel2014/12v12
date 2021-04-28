@@ -47,6 +47,6 @@ tinkerer_t0 = class(tinkerer)
 tinkerer_t1 = class(tinkerer)
 tinkerer_t2 = class(tinkerer)
 
-function tinkerer_t0:OnCreated() self.v = 15 end
-function tinkerer_t1:OnCreated() self.v = 30 end
-function tinkerer_t2:OnCreated() self.v = 60 end
+function tinkerer_t0:OnCreated() self.v = 1.15 end
+function tinkerer_t1:OnCreated() self.v = 1.30 end
+function tinkerer_t2:OnCreated() self.v = 1.60 end
