@@ -1,3 +1,5 @@
+require("common/game_perks/buff_amplified_list")
+
 GamePerks = GamePerks or {}
 
 function GamePerks:Init()
@@ -32,7 +34,7 @@ function GamePerks:Init()
 		["manaburn"] = true;
 		["magician"] = true;
 		["tinkerer"] = true;
-		["hunter"] = true;
+		["buff_amplify"] = true;
 		["builder"] = true;
 		["traveler"] = true;
 		["delayed_damage"] = true;

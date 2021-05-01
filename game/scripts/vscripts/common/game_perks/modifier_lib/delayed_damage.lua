@@ -15,7 +15,7 @@ function delayed_damage:OnIntervalThink()
 			attacker = mod.attacker,
 			damage = mod.damage_per_tick,
 			damage_type = mod.damage_type,
-			damage_flags = DOTA_DAMAGE_FLAG_BYPASSES_BLOCK + DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS,
+			damage_flags = DOTA_DAMAGE_FLAG_BYPASSES_BLOCK + DOTA_DAMAGE_FLAG_HPLOSS + DOTA_DAMAGE_FLAG_NO_DAMAGE_MULTIPLIERS + DOTA_DAMAGE_FLAG_NON_LETHAL,
 			ability = parent.delay_ability,
 		})
 	end
@@ -23,18 +23,19 @@ end
 delayed_damage.OnCreated = function(self)
 	if not IsServer() then return end
 	local parent = self:GetParent()
-	parent.delay_damage_by_perk = self.v
+	parent.delay_damage_by_perk = self.v[1]
+	parent.delay_damage_by_perk_duration = self.v[2]
 	parent.delay_ability = parent:AddAbility("delayed_damage_perk")
 	parent.delay_ability:SetLevel(1)
 	self:StartIntervalThink(TICK_RATE)
 end
 
 delayed_damage_t0 = class(delayed_damage) 
-delayed_damage_t0.v = 8
+delayed_damage_t0.v = {8, 5}
 delayed_damage_t1 = class(delayed_damage) 
-delayed_damage_t1.v = 15
+delayed_damage_t1.v = {16, 8}
 delayed_damage_t2 = class(delayed_damage) 
-delayed_damage_t2.v = 30
+delayed_damage_t2.v = {32, 10}
 
 modifier_delayed_damage = class(base_game_perk)
 function modifier_delayed_damage:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end

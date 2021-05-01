@@ -546,6 +546,16 @@
 		"traveler_t2_tooltip"						"Уменьшает время восстановления Свитка Телепортации на 50%"
 		"DOTA_Tooltip_traveler_t2"					"Талант: Путешественник"
 		
+		"buff_amplify_t0"					"Базовое Усиление Благословений"
+		"buff_amplify_t0_tooltip"			"+8% к длительности положительных эффектов"
+		"DOTA_Tooltip_buff_amplify_t0"		"Талант: Усиление Благословений"
+		"buff_amplify_t1"					"Усиление Благословений"
+		"buff_amplify_t1_tooltip"			"+16% к длительности положительных эффектов"
+		"DOTA_Tooltip_buff_amplify_t1"		"Талант: Усиление Благословений"
+		"buff_amplify_t2"					"Продвинутое Усиление Благословений"
+		"buff_amplify_t2_tooltip"			"+32% к длительности положительных эффектов"
+		"DOTA_Tooltip_buff_amplify_t2"		"Талант: Усиление Благословений"
+		
 		"HighSupportersOnly"					"Для высокоуровневых поддержавших"
 		"SupportersOnly"						"Для поддержавших"
 
