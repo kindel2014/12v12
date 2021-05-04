@@ -495,15 +495,15 @@
 		"magician_t2_tooltip"						"+20% к радиусу умений и их площади действия"
 		"DOTA_Tooltip_magician_t2"					"Талант: Чародей"
 
-		"tinkerer_t0"								"Малый Коллекционер"
-		"tinkerer_t0_tooltip"						"Экипированный нейтральный предмет имеет на 15% усиленные характеристики"
-		"DOTA_Tooltip_tinkerer_t0"					"Талант: Коллекционер"
-		"tinkerer_t1"								"Коллекционер"
-		"tinkerer_t1_tooltip"						"Экипированный нейтральный предмет имеет на 30% усиленные характеристики"
-		"DOTA_Tooltip_tinkerer_t1"					"Талант: Коллекционер"
-		"tinkerer_t2"								"Знатный Коллекционер"
-		"tinkerer_t2_tooltip"						"Экипированный нейтральный предмет имеет на 60% усиленные характеристики"
-		"DOTA_Tooltip_tinkerer_t2"					"Талант: Коллекционер"
+		"linken_t0"								"Обычный Кулон Отражения"
+		"linken_t0_tooltip"						"Добавляет предмент который блокирует большинство направленных способностей каждые <b>60</b> сек. Может использоваться на союзников для передачи эффекта на <b>3</b> сек."
+		"DOTA_Tooltip_linken_t0"				"Талант: Кулон Отражения"
+		"linken_t1"								"Кулон Отражения"
+		"linken_t1_tooltip"						"Добавляет предмент который блокирует большинство направленных способностей каждые <b>45</b> сек. Может использоваться на союзников для передачи эффекта на <b>4</b> сек."
+		"DOTA_Tooltip_linken_t1"				"Талант: Linkens Pendant"
+		"linken_t2"								"Древний Кулон Отражения"
+		"linken_t2_tooltip"						"Добавляет предмент который блокирует большинство направленных способностей каждые <b>30</b> сек. Может использоваться на союзников для передачи эффекта на <b>5</b> сек."
+		"DOTA_Tooltip_linken_t2"				"Талант: Кулон Отражения"
 
 		"hunter_t0"								"Молодой Охотник"
 		"hunter_t0_tooltip"						"Урон по крипам увеличен на 10%"
@@ -537,13 +537,13 @@
 		"DOTA_Tooltip_delayed_damage_t2"				"Талант: Задержка Урона"
 
 		"traveler_t0"								"Маленький Путешественник"
-		"traveler_t0_tooltip"						"Уменьшает время восстановления Свитка Телепортации на 15%"
+		"traveler_t0_tooltip"						"Добавляет предмент для телепортации в любую точку карты. Перезарядка: <b>90</b> сек."
 		"DOTA_Tooltip_traveler_t0"					"Талант: Путешественник"
 		"traveler_t1"								"Путешественник"
-		"traveler_t1_tooltip"						"Уменьшает время восстановления Свитка Телепортации на 30%"
+		"traveler_t1_tooltip"						"Добавляет предмент для телепортации в любую точку карты. Перезарядка: <b>60</b> сек."
 		"DOTA_Tooltip_traveler_t1"					"Талант: Путешественник"
 		"traveler_t2"								"Великий Путешественник"
-		"traveler_t2_tooltip"						"Уменьшает время восстановления Свитка Телепортации на 50%"
+		"traveler_t2_tooltip"						"Добавляет предмент для телепортации в любую точку карты. Перезарядка: <b>30</b> сек."
 		"DOTA_Tooltip_traveler_t2"					"Талант: Путешественник"
 		
 		"buff_amplify_t0"					"Базовое Усиление Благословений"
@@ -1072,5 +1072,21 @@
 		"DOTA_Tooltip_ability_item_reset_mmr"				"Сброс Рейтинга"
 		"DOTA_Tooltip_ability_item_reset_mmr_Description"	"<h1>Использование: Сброс Рейтинга</h1>Этот предмет сбросит ваш рейтинг в <b>12на12.</b><br><br>Ручной сброс рейтинга не дарует Вам никаких наград за сезон.<br><br>При ручном сбросе рейтинга Ваш старый рейтинг никак не будет учитываться в конце сезона. Ваш старый рейтинг будет утерян навсегда."
 		"DOTA_Tooltip_ability_item_reset_mmr_Lore"			"Никогда не поздно начать все с нуля!"
+		
+		
+		"DOTA_Tooltip_ability_item_teleport_perk_0"					"Perk Teleporter"
+		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя в выбранную точку."
+		"DOTA_Tooltip_ability_item_teleport_perk_1"					"Perk Teleporter"
+		"DOTA_Tooltip_ability_item_teleport_perk_1_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя в выбранную точку."
+		"DOTA_Tooltip_ability_item_teleport_perk_2"					"Perk Teleporter"
+		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя в выбранную точку."
+		
+		"DOTA_Tooltip_ability_item_linken_perk_0"					"Linken's Pendant"
+		"DOTA_Tooltip_ability_item_linken_perk_0_Description"		"<h1>Пассивное: Spellblock</h1>Блокирует одну направленную способность каждые %block_cooldown% сек.\n<h1>Активное: Transfer Spellblock</h1>Временно отключает пассивную способность предмета, передавая её выбранному союзнику на %buff_duration% сек.<br><br>Дальность применения: %abilitycastrange%"
+		"DOTA_Tooltip_ability_item_linken_perk_1"					"Linken's Pendant"
+		"DOTA_Tooltip_ability_item_linken_perk_1_Description"		"<h1>Пассивное: Spellblock</h1>Блокирует одну направленную способность каждые %block_cooldown% сек.\n<h1>Активное: Transfer Spellblock</h1>Временно отключает пассивную способность предмета, передавая её выбранному союзнику на %buff_duration% сек.<br><br>Дальность применения: %abilitycastrange%"
+		"DOTA_Tooltip_ability_item_linken_perk_2"					"Linken's Pendant"
+		"DOTA_Tooltip_ability_item_linken_perk_2_Description"		"<h1>Пассивное: Spellblock</h1>Блокирует одну направленную способность каждые %block_cooldown% сек.\n<h1>Активное: Transfer Spellblock</h1>Временно отключает пассивную способность предмета, передавая её выбранному союзнику на %buff_duration% сек.<br><br>Дальность применения: %abilitycastrange%"
+
 	}
 }

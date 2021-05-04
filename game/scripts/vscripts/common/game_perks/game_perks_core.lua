@@ -33,7 +33,7 @@ function GamePerks:Init()
 		["cd_after_death"] = true;
 		["manaburn"] = true;
 		["magician"] = true;
-		["tinkerer"] = true;
+		["linken"] = true;
 		["buff_amplify"] = true;
 		["builder"] = true;
 		["traveler"] = true;
