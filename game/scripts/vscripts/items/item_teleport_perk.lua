@@ -14,6 +14,14 @@ function item_teleport_perk:OnSpellStart()
 	self:SetChanneling(false)
 	caster:AddNewModifier(caster, nil, "modifier_teleport_from_perk", {})
 	caster:EmitSound("Portal.Loop_Appear")
+
+	self.tp_end = ParticleManager:CreateParticle("particles/items2_fx/teleport_end.vpcf", PATTACH_CUSTOMORIGIN, nil)
+	ParticleManager:SetParticleControl( self.tp_end, 0, self.pos_for_tp)
+	ParticleManager:SetParticleControl( self.tp_end, 1, self.pos_for_tp)
+	ParticleManager:SetParticleControl( self.tp_end, 2, Vector(200, 100, 20))
+	ParticleManager:SetParticleControlEnt( self.tp_end, 3, caster, PATTACH_ABSORIGIN, "attach_origin", Vector(0,0,0), false)
+	ParticleManager:SetParticleControl( self.tp_end, 4, Vector(1.0, 0, 0) )
+	ParticleManager:SetParticleControl( self.tp_end, 5, self.pos_for_tp + Vector(0,0,150) )
 end
 
 function item_teleport_perk:OnChannelFinish(b_interrupted)
@@ -24,6 +32,9 @@ function item_teleport_perk:OnChannelFinish(b_interrupted)
 	end
 	caster:StopSound("Portal.Loop_Appear")
 	caster:RemoveModifierByName("modifier_teleport_from_perk")
+
+	ParticleManager:DestroyParticle(self.tp_end, b_interrupted)
+	ParticleManager:ReleaseParticleIndex(self.tp_end)
 end
 
 modifier_teleport_from_perk = modifier_teleport_from_perk or class({})
