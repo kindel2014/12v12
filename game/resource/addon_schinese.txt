@@ -612,15 +612,15 @@
 		"magician_t2_tooltip"						"+20%法术半径和效果范围"
 		"DOTA_Tooltip_magician_t2"					"个人 Perk：魔法师"
 
-		"tinkerer_t0"								"基础修补匠"
-		"tinkerer_t0_tooltip"						"你所装备的中立物品获得+15%数据提升"
-		"DOTA_Tooltip_tinkerer_t0"					"个人 Perk：修补匠"
-		"tinkerer_t1"								"修补匠"
-		"tinkerer_t1_tooltip"						"你所装备的中立物品获得+30%数据提升"
-		"DOTA_Tooltip_tinkerer_t1"					"个人 Perk：修补匠"
-		"tinkerer_t2"								"进阶修补匠"
-		"tinkerer_t2_tooltip"						"你所装备的中立物品获得+60%数据提升"
-		"DOTA_Tooltip_tinkerer_t2"					"个人 Perk：修补匠"
+		"linken_t0"								"普通林肯吊坠"
+		"linken_t0_tooltip"						"授予一个可以在盟友英雄身上使用的物品，以阻挡针对他们的单一能力。<br>冷却时间：<b>90</b>秒。<br>缓冲时间。<b>3</b秒。"
+		"DOTA_Tooltip_linken_t0"				"个人 Perk：林肯的吊坠"
+		"linken_t1"								"林肯的吊坠"
+		"linken_t1_tooltip"						"授予一个可以在盟友英雄身上使用的物品，以阻挡针对他们的单一能力。<br>冷却时间：<b>60</b>秒。<br>缓冲时间。<b>4</b秒。"
+		"DOTA_Tooltip_linken_t1"				"个人 Perk：林肯的吊坠"
+		"linken_t2"								"古代林肯的吊坠"
+		"linken_t2_tooltip"						"授予一个可以在盟友英雄身上使用的物品，以阻挡针对他们的单一能力。<br>冷却时间：<b>30</b>秒。<br>缓冲时间。<b>5</b秒。"
+		"DOTA_Tooltip_linken_t2"				"个人 Perk：林肯的吊坠"
 
 		"hunter_t0"								"小猎人"
 		"hunter_t0_tooltip"						"对中立生物造成10%额外伤害"
@@ -654,16 +654,25 @@
 		"DOTA_Tooltip_delayed_damage_t2"				"个人 Perk：延迟伤害"
 
 		"traveler_t0"								"小旅行家"
-		"traveler_t0_tooltip"						"传送卷轴冷却时间缩短15%"
+		"traveler_t0_tooltip"						"授予一件物品，使用后可将你传送到地图上的任何位置。有<b>90</b>秒的冷却时间。"
 		"DOTA_Tooltip_traveler_t0"					"个人 Perk：旅行家"
 		"traveler_t1"								"旅行家"
-		"traveler_t1_tooltip"						"传送卷轴冷却时间缩短30%"
+		"traveler_t1_tooltip"						"授予一件物品，使用后可将你传送到地图上的任何位置。有<b>60</b>秒的冷却时间。"
 		"DOTA_Tooltip_traveler_t1"					"个人 Perk：旅行家"
 		"traveler_t2"								"职业旅行家"
-		"traveler_t2_tooltip"						"传送卷轴冷却时间缩短50%"
+		"traveler_t2_tooltip"						"授予一件物品，使用后可将你传送到地图上的任何位置。有<b>30</b>秒的冷却时间。"
 		"DOTA_Tooltip_traveler_t2"					"个人 Perk：旅行家"
 
-
+		"buff_amplify_t0"					"基本祝福的放大"
+		"buff_amplify_t0_tooltip"			"+10%增加所有发出的祝福持续时间"
+		"DOTA_Tooltip_buff_amplify_t0"		"个人 Perk：祝福放大"
+		"buff_amplify_t1"					"祝福放大"
+		"buff_amplify_t1_tooltip"			"+20%增加所有发出的祝福持续时间"
+		"DOTA_Tooltip_buff_amplify_t1"		"个人 Perk：祝福放大"
+		"buff_amplify_t2"					"高级祝福的放大"
+		"buff_amplify_t2_tooltip"			"+40%增加所有发出的祝福持续时间"
+		"DOTA_Tooltip_buff_amplify_t2"		"个人 Perk：祝福放大"
+		
 		"HighSupportersOnly"	"仅限于高级支持者"
 		"SupportersOnly"	"仅限于支持者"
 
@@ -1569,6 +1578,21 @@
 		"gift_code_self_from"			"来自："
 		"gift_code_open_collection"		"打开收藏"
 		"gift_code_was_sent_to"		" 已发送礼物至 "
+		
+		"DOTA_Tooltip_ability_item_teleport_perk_0"					"特效传送器"
+		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>使用: 传送</h1>输送%tooltip_channel_time%秒后，将你传送到地图上的选定点。"
+		"DOTA_Tooltip_ability_item_teleport_perk_1"					"特效传送器"
+		"DOTA_Tooltip_ability_item_teleport_perk_1_Description"		"<h1>使用: 传送</h1>输送%tooltip_channel_time%秒后，将你传送到地图上的选定点。"
+		"DOTA_Tooltip_ability_item_teleport_perk_2"					"特效传送器"
+		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>使用: 传送</h1>输送%tooltip_channel_time%秒后，将你传送到地图上的选定点。"
+		
+		"DOTA_Tooltip_ability_item_linken_perk_0"					"林肯的吊坠"
+		"DOTA_Tooltip_ability_item_linken_perk_0_Description"		"<h1>活跃: 口袋法术块</h1> 给予盟友英雄保护，使其不受针对他们的单一有害能力的影响。持续时间为%buff_duration%秒。<br><br>铸造范围: %abilitycastrange%"
+		"DOTA_Tooltip_ability_item_linken_perk_1"					"林肯的吊坠"
+		"DOTA_Tooltip_ability_item_linken_perk_1_Description"		"<h1>活跃: 口袋法术块</h1> 给予盟友英雄保护，使其不受针对他们的单一有害能力的影响。持续时间为%buff_duration%秒。<br><br>铸造范围: %abilitycastrange%"
+		"DOTA_Tooltip_ability_item_linken_perk_2"					"林肯的吊坠"
+		"DOTA_Tooltip_ability_item_linken_perk_2_Description"		"<h1>活跃: 口袋法术块</h1> 给予盟友英雄保护，使其不受针对他们的单一有害能力的影响。持续时间为%buff_duration%秒。<br><br>铸造范围: %abilitycastrange%"
+		"DOTA_Tooltip_modifier_linken_perk"							"林肯的吊坠法术块"
 	}
 }
 
