@@ -62,8 +62,6 @@ LinkLuaModifier("modifier_mega_creep","game_options/modifiers_lib/modifier_mega_
 LinkLuaModifier("modifier_delayed_damage","common/game_perks/modifier_lib/delayed_damage", LUA_MODIFIER_MOTION_NONE)
 
 _G.newStats = newStats or {}
-_G.personalCouriers = {}
-_G.mainTeamCouriers = {}
 
 _G.lastDeathTimes = {}
 _G.lastHeroKillers = {}
@@ -95,7 +93,7 @@ function CMegaDotaGameMode:InitGameMode()
 	local neutral_items = LoadKeyValues("scripts/npc/neutral_items.txt")
 
 	_G.neutralItems = {}
-
+	self.spawned_couriers = {}
 	for _, data in pairs( neutral_items ) do
 		for item, turn in pairs( data.items ) do
 			if turn == 1 then
@@ -133,7 +131,7 @@ function CMegaDotaGameMode:InitGameMode()
 	end
 
 	GameRules:GetGameModeEntity():SetKillableTombstones( true )
-	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
+	--GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 	Convars:SetInt("dota_max_physical_items_purchase_limit", 100)
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
@@ -149,7 +147,6 @@ function CMegaDotaGameMode:InitGameMode()
 
 	self.m_CurrentGoldScaleFactor = GOLD_SCALE_FACTOR_INITIAL
 	self.m_CurrentXpScaleFactor = XP_SCALE_FACTOR_INITIAL
-	self.couriers = {}
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 5 )
 
 	ListenToGameEvent("dota_player_used_ability", function(event)
@@ -647,19 +644,10 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			end
 			UniquePortraits:UpdatePortraitsDataFromPlayer(playerId)
 		end)
-
-		if self.couriers[spawnedUnit:GetTeamNumber()] then
-			self.couriers[spawnedUnit:GetTeamNumber()]:SetControllableByPlayer(spawnedUnit:GetPlayerID(), true)
-		end
-
+		
 		if not spawnedUnit.firstTimeSpawned then
 			spawnedUnit.firstTimeSpawned = true
 			spawnedUnit:SetContextThink("HeroFirstSpawn", function()
-				--[[
-				if spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
-					Patreons:GiveOnSpawnBonus(playerId)
-				end
-				]]
 			end, 2/30)
 		end
 
@@ -670,6 +658,30 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		if not spawnedUnit.dummyCaster then
 			Cosmetics:InitCosmeticForUnit(spawnedUnit)
 		end
+
+		if not self.spawned_couriers[playerId] then
+			Timers:CreateTimer(0.5, function()
+				self:CreateCourierForPlayer(spawnedUnit:GetAbsOrigin(), playerId)
+			end)
+		end
+	end
+end
+
+function CMegaDotaGameMode:CreateCourierForPlayer(pos, player_id)
+	local player = PlayerResource:GetPlayer(player_id)
+	if player then
+		local c_state = PlayerResource:GetConnectionState(player_id)
+		if c_state == DOTA_CONNECTION_STATE_CONNECTED or c_state == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED then
+			self.spawned_couriers[player_id] = player:SpawnCourierAtPosition(pos + RandomVector(RandomFloat(10,25)))
+		elseif not c_state == DOTA_CONNECTION_STATE_ABANDONED then
+			Timers:CreateTimer(0.1, function()
+				CMegaDotaGameMode:CreateCourierForPlayer(pos, player_id)
+			end)
+		end
+	else
+		Timers:CreateTimer(0.1, function()
+			CMegaDotaGameMode:CreateCourierForPlayer(pos, player_id)
+		end)
 	end
 end
 
@@ -989,39 +1001,6 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
             end
 
 		end
-		if game_start then
-			local courier_spawn = {}
-			courier_spawn[2] = Entities:FindByClassname(nil, "info_courier_spawn_radiant")
-			courier_spawn[3] = Entities:FindByClassname(nil, "info_courier_spawn_dire")
-
-			--for team = 2, 3 do
-			--	self.couriers[team] = CreateUnitByName("npc_dota_courier", courier_spawn[team]:GetAbsOrigin(), true, nil, nil, team)
-			--	if _G.mainTeamCouriers[team] == nil then
-			--		_G.mainTeamCouriers[team] = self.couriers[team]
-			--	end
-			--	self.couriers[team]:AddNewModifier(self.couriers[team], nil, "modifier_core_courier", {})
-			--end
-		end
---		Timers:CreateTimer(30, function()
---			for i=0,PlayerResource:GetPlayerCount() do
---				local hero = PlayerResource:GetSelectedHeroEntity(i)
---				if hero ~= nil then
---					if hero:GetTeam() == DOTA_TEAM_GOODGUYS then
---						hero:AddItemByName("item_courier")
---						break
---					end
---				end
---			end
---			for i=0,PlayerResource:GetPlayerCount() do
---				local hero = PlayerResource:GetSelectedHeroEntity(i)
---				if hero ~= nil then
---					if hero:GetTeam() == DOTA_TEAM_BADGUYS then
---						hero:AddItemByName("item_courier")
---						break
---					end
---				end
---			end
---		end)
 		GamePerks:StartTrackPerks()
 	end
 
@@ -1098,11 +1077,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			local plyID = hInventoryParent:GetPlayerID()
 			if not plyID then return true end
 
-			if itemName == "item_patreon_courier" then
-				BlockToBuyCourier(plyID, hItem)
-				return false
-			end
-
 			local pitem = false
 			for i=1,#pitems do
 				if itemName == pitems[i] then
@@ -1133,11 +1107,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 					if prsh ~= nil then
 						if prsh:IsRealHero() then
 							local prshID = prsh:GetPlayerID()
-
-							if itemName == "item_patreon_courier" then
-								BlockToBuyCourier(prshID, hItem)
-								return false
-							end
 
 							if not prshID then
 								UTIL_Remove(hItem)
@@ -1183,7 +1152,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 				endTime = 0.4,
 				callback = function()
 					SearchAndCheckRapiers(buyer, buyer, plyID, 20, timerKey)
-					--SearchAndCheckRapiers(buyer, SearchCorrectCourier(plyID, buyer:GetTeamNumber()), plyID, 10,timerKey)
 					return 0.45
 				end
 			})
@@ -1412,10 +1380,6 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	if disableHelpResult == false then
 		return false
 	end
-
-	--if filterTable then
-	--	filterTable = EditFilterToCourier(filterTable)
-	--end
 
 	if orderType == DOTA_UNIT_ORDER_CAST_POSITION then
 		if abilityName == "item_ward_dispenser" or abilityName == "item_ward_sentry" or abilityName == "item_ward_observer" then
