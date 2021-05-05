@@ -18,9 +18,7 @@ function ShuffleTeam:SortInMMR()
 	local players = {}
 	local playersStats = CustomNetTables:GetTableValue("game_state", "player_stats");
 	if not playersStats then return end
-	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 24)
-	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 24)
-
+	
 	for playerId = 0, 23 do
 		local player_id_str = tostring(playerId)
 		if not playersStats[player_id_str] then
@@ -86,6 +84,8 @@ function ShuffleTeam:SortInMMR()
 	end
 	SortTeam(2)
 	SortTeam(1)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 13)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 13)
 	local set_team = function(player_id, team_id)
 		local player = PlayerResource:GetPlayer(player_id)
 		if player then
@@ -101,12 +101,10 @@ function ShuffleTeam:SortInMMR()
 			set_team(player_id, team_id)		
 		end
 	end
-	
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 12)
 	self.weakTeam = teams[2].mmr < teams[3].mmr and 2 or 3
 	self.mmrDiff = math.abs(math.floor(teams[2].mmr/MAX_PLAYERS_IN_TEAM) - math.floor(teams[3].mmr/MAX_PLAYERS_IN_TEAM))
-
-	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)
-	--GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 12)
 	
 	--DEBUG PRINT PART
 	for teamId,teamData in pairs(teams) do
