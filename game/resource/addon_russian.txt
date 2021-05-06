@@ -537,13 +537,13 @@
 		"DOTA_Tooltip_delayed_damage_t2"				"Талант: Задержка Урона"
 
 		"traveler_t0"								"Маленький Путешественник"
-		"traveler_t0_tooltip"						"Добавляет предмент для телепортации в любую точку карты. Перезарядка: <b>90</b> сек."
+		"traveler_t0_tooltip"						"Добавляет предмент для телепортации к любому союзному юниту или зданию. Перезарядка: <b>90</b> сек."
 		"DOTA_Tooltip_traveler_t0"					"Талант: Путешественник"
 		"traveler_t1"								"Путешественник"
-		"traveler_t1_tooltip"						"Добавляет предмент для телепортации в любую точку карты. Перезарядка: <b>60</b> сек."
+		"traveler_t1_tooltip"						"Добавляет предмент для телепортации к любому союзному юниту или зданию. Перезарядка: <b>60</b> сек."
 		"DOTA_Tooltip_traveler_t1"					"Талант: Путешественник"
 		"traveler_t2"								"Великий Путешественник"
-		"traveler_t2_tooltip"						"Добавляет предмент для телепортации в любую точку карты. Перезарядка: <b>30</b> сек."
+		"traveler_t2_tooltip"						"Добавляет предмент для телепортации к любому союзному юниту или зданию. Перезарядка: <b>30</b> сек."
 		"DOTA_Tooltip_traveler_t2"					"Талант: Путешественник"
 		
 		"buff_amplify_t0"					"Базовое Усиление Благословений"
@@ -1075,11 +1075,11 @@
 		
 		
 		"DOTA_Tooltip_ability_item_teleport_perk_0"					"Perk Teleporter"
-		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя в выбранную точку."
+		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя к любому союзному юниту или зданию."
 		"DOTA_Tooltip_ability_item_teleport_perk_1"					"Perk Teleporter"
-		"DOTA_Tooltip_ability_item_teleport_perk_1_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя в выбранную точку."
+		"DOTA_Tooltip_ability_item_teleport_perk_1_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя к любому союзному юниту или зданию."
 		"DOTA_Tooltip_ability_item_teleport_perk_2"					"Perk Teleporter"
-		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя в выбранную точку."
+		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя к любому союзному юниту или зданию."
 		
 		"DOTA_Tooltip_ability_item_linken_perk_0"					"Linken's Pendant"
 		"DOTA_Tooltip_ability_item_linken_perk_0_Description"		"<h1>Активное: Transfer Spellblock</h1>Дарует цели эффект, который блокирует одну направленную способность, на %buff_duration% сек.<br><br>Дальность применения: %abilitycastrange%"

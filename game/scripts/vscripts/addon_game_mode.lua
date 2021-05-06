@@ -1412,21 +1412,27 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 			end
 		end
 	end
-
-	if unit then
-		if unit:IsCourier() then
-			if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
-				local purchaser = ability:GetPurchaser()
-				if purchaser and purchaser:GetPlayerID() ~= playerId then
-					if purchaser:GetTeam() == PlayerResource:GetPlayer(playerId):GetTeam() then
-						--CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#hud_error_courier_cant_order_item" })
-						return false
-					end
+	
+	
+	if unit and unit:IsCourier() then
+		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
+			local purchaser = ability:GetPurchaser()
+			if purchaser and purchaser:GetPlayerID() ~= playerId then
+				if purchaser:GetTeam() == PlayerResource:GetPlayer(playerId):GetTeam() then
+					return false
 				end
 			end
 		end
 	end
-
+	
+	for _, _unit_ent in pairs (filterTable.units) do
+		local _unit = EntIndexToHScript(_unit_ent)
+		local unit_owner_id = _unit:GetOwner():GetPlayerID()
+		if _unit:IsCourier() and unit_owner_id and unit_owner_id ~= playerId then
+			return false
+		end
+	end
+	
 	return true
 end
 
