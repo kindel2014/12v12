@@ -52,3 +52,4 @@ function modifier_delayed_damage:OnCreated(params)
 
 	self:SetStackCount(damage)
 end
+delayed_damage_perk = delayed_damage_perk or class({})

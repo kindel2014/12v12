@@ -650,18 +650,24 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			end, 2/30)
 		end
-
+		
 		if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
 			CreateDummyInventoryForPlayer(playerId, spawnedUnit)
 		end
 
 		if not spawnedUnit.dummyCaster then
-			Cosmetics:InitCosmeticForUnit(spawnedUnit)
+			Timers:CreateTimer(0.5, function()
+				if spawnedUnit:IsControllableByAnyPlayer() then
+					Cosmetics:InitCosmeticForUnit(spawnedUnit)
+				end
+			end)
 		end
 
 		if not self.spawned_couriers[playerId] then
 			Timers:CreateTimer(0.5, function()
-				self:CreateCourierForPlayer(spawnedUnit:GetAbsOrigin(), playerId)
+				if spawnedUnit:IsControllableByAnyPlayer() then
+					self:CreateCourierForPlayer(spawnedUnit:GetAbsOrigin(), playerId)
+				end
 			end)
 		end
 	end
@@ -672,7 +678,12 @@ function CMegaDotaGameMode:CreateCourierForPlayer(pos, player_id)
 	if player then
 		local c_state = PlayerResource:GetConnectionState(player_id)
 		if c_state == DOTA_CONNECTION_STATE_CONNECTED or c_state == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED then
-			self.spawned_couriers[player_id] = player:SpawnCourierAtPosition(pos + RandomVector(RandomFloat(10,25)))
+			local courier = player:SpawnCourierAtPosition(pos + RandomVector(RandomFloat(10,25)))
+			self.spawned_couriers[player_id] = courier
+			for i = 0, 23 do
+				courier:SetControllableByPlayer(i, false)
+			end
+			courier:SetControllableByPlayer(player_id, true)
 		elseif not c_state == DOTA_CONNECTION_STATE_ABANDONED then
 			Timers:CreateTimer(0.1, function()
 				CMegaDotaGameMode:CreateCourierForPlayer(pos, player_id)
