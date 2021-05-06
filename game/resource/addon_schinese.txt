@@ -654,13 +654,13 @@
 		"DOTA_Tooltip_delayed_damage_t2"				"个人 Perk：延迟伤害"
 
 		"traveler_t0"                              "小旅行家"
-        "traveler_t0_tooltip"                       "提供可在使用时将你传送至地图上任意位置的物品。冷却时间为<b>90</b>秒。"
+        "traveler_t0_tooltip"                       "赠送一件物品，可将你传送到任何盟友单位附近的任何地点。冷却时间为<b>90</b>秒。"
         "DOTA_Tooltip_traveler_t0"                  "个人提升：旅行家"
         "traveler_t1"                               "旅行家"
-        "traveler_t1_tooltip"                       "提供可在使用时将你传送至地图上任意位置的物品。冷却时间为<b>60</b>秒。"
+        "traveler_t1_tooltip"                       "赠送一件物品，可将你传送到任何盟友单位附近的任何地点。冷却时间为<b>60</b>秒。"
         "DOTA_Tooltip_traveler_t1"                  "个人提升：旅行家"
         "traveler_t2"                               "职业旅行家"
-        "traveler_t2_tooltip"                       "提供可在使用时将你传送至地图上任意位置的物品。冷却时间为<b>30</b>秒。"
+        "traveler_t2_tooltip"                       "赠送一件物品，可将你传送到任何盟友单位附近的任何地点。冷却时间为<b>30</b>秒。"
         "DOTA_Tooltip_traveler_t2"                  "个人提升：旅行家"
 
         "buff_amplify_t0"                    "基础福佑加强"
@@ -1580,11 +1580,11 @@
 		"gift_code_was_sent_to"		" 已发送礼物至 "
 		
         "DOTA_Tooltip_ability_item_teleport_perk_0"                    "传送者提升"
-        "DOTA_Tooltip_ability_item_teleport_perk_0_Description"        "<h1>使用：传送</h1>持续施法%tooltip_channel_time%秒后将你传送至地图上的选定点。"
+        "DOTA_Tooltip_ability_item_teleport_perk_0_Description"        "<h1>使用：传送</h1>输送%tooltip_channel_time%秒后，将你传送到任何盟军单位。"
         "DOTA_Tooltip_ability_item_teleport_perk_1"                    "传送者提升"
-        "DOTA_Tooltip_ability_item_teleport_perk_1_Description"        "<h1>使用：传送</h1>持续施法%tooltip_channel_time%秒后将你传送至地图上的选定点。"
+        "DOTA_Tooltip_ability_item_teleport_perk_1_Description"        "<h1>使用：传送</h1>输送%tooltip_channel_time%秒后，将你传送到任何盟军单位。"
         "DOTA_Tooltip_ability_item_teleport_perk_2"                    "传送者提升"
-        "DOTA_Tooltip_ability_item_teleport_perk_2_Description"        "<h1>使用：传送</h1>持续施法%tooltip_channel_time%秒后将你传送至地图上的选定点。"
+        "DOTA_Tooltip_ability_item_teleport_perk_2_Description"        "<h1>使用：传送</h1>输送%tooltip_channel_time%秒后，将你传送到任何盟军单位。"
 		
         "DOTA_Tooltip_ability_item_linken_perk_0"                    "林肯坠饰"
         "DOTA_Tooltip_ability_item_linken_perk_0_Description"        "<h1>主动技能：口袋法术抵抗</h1>保护友方英雄免受针对其施放的有害技能的伤害。持续%buff_duration%秒。<br><br>施放范围：%abilitycastrange%"
