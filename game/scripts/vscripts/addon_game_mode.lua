@@ -131,7 +131,7 @@ function CMegaDotaGameMode:InitGameMode()
 	end
 
 	GameRules:GetGameModeEntity():SetKillableTombstones( true )
-	--GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
+	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 	Convars:SetInt("dota_max_physical_items_purchase_limit", 100)
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
@@ -663,13 +663,13 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			end)
 		end
 
-		if not self.spawned_couriers[playerId] then
-			Timers:CreateTimer(0.5, function()
-				if spawnedUnit:IsControllableByAnyPlayer() then
-					self:CreateCourierForPlayer(spawnedUnit:GetAbsOrigin(), playerId)
-				end
-			end)
-		end
+		--if not self.spawned_couriers[playerId] then
+		--	Timers:CreateTimer(0.5, function()
+		--		if spawnedUnit:IsControllableByAnyPlayer() then
+		--			self:CreateCourierForPlayer(spawnedUnit:GetAbsOrigin(), playerId)
+		--		end
+		--	end)
+		--end
 	end
 end
 
@@ -1425,13 +1425,13 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		end
 	end
 	
-	for _, _unit_ent in pairs (filterTable.units) do
-		local _unit = EntIndexToHScript(_unit_ent)
-		local unit_owner_id = _unit:GetOwner():GetPlayerID()
-		if _unit:IsCourier() and unit_owner_id and unit_owner_id ~= playerId then
-			return false
-		end
-	end
+	--for _, _unit_ent in pairs (filterTable.units) do
+	--	local _unit = EntIndexToHScript(_unit_ent)
+	--	local unit_owner_id = _unit:GetOwner():GetPlayerID()
+	--	if _unit:IsCourier() and unit_owner_id and unit_owner_id ~= playerId then
+	--		return false
+	--	end
+	--end
 	
 	return true
 end
