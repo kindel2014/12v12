@@ -388,7 +388,11 @@ function CMegaDotaGameMode:DamageFilter(event)
 	
 	if target and target.delay_damage_by_perk and target.delay_damage_by_perk_duration and event.damage > 10 then
 		local delayed_damage = event.damage * (target.delay_damage_by_perk / 100)
-		if not ability or ability:GetName() ~= "delayed_damage_perk" then
+		local black_list_for_delay = {
+			["delayed_damage_perk"] = true,
+			["skeleton_king_reincarnation"] = true,
+		}
+		if not ability or not black_list_for_delay[ability:GetName()] then
 			event.damage = event.damage - delayed_damage
 			target:AddNewModifier(target, nil, "modifier_delayed_damage", {
 				duration = target.delay_damage_by_perk_duration,
