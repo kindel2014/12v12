@@ -589,7 +589,7 @@
 		"cd_after_death_t1_tooltip"	"当敌方英雄将你击杀, 在你复活后, 物品与技能冷却减少 50%"
 		"DOTA_Tooltip_cd_after_death_t1"	"个人 Perk: 战斗准备"
 		"cd_after_death_t2"	"高阶战斗准备"
-		"cd_after_death_t2_tooltip"	"当敌方英雄将你击杀, 在你复活后, 物品与技能冷却减少 100%"
+		"cd_after_death_t2_tooltip"	"当敌方英雄将你击杀, 在你复活后, 物品与技能冷却减少 75%"
 		"DOTA_Tooltip_cd_after_death_t2"	"个人 Perk: 战斗准备"
 
 		"manaburn_t0"	"基础法力燃烧"
