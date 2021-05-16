@@ -522,7 +522,7 @@
 		"bonus_gold_t2"	"大量金币"
 		"bonus_gold_t2_tooltip"	"+800 金币"
 		"DOTA_Tooltip_bonus_gold_t2"	"个人 Perk：额外金币"
-
+		
 		"gpm_t0"	"基础工资"
 		"gpm_t0_tooltip"	"+50 额外每分钟金币"
 		"DOTA_Tooltip_gpm_t0"	"个人 Perk: 工资"
@@ -613,13 +613,13 @@
 		"DOTA_Tooltip_magician_t2"					"个人 Perk：魔法师"
 
         "linken_t0"                             "普通林肯坠饰"
-        "linken_t0_tooltip"                     "提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>90</b>秒<br>增益持续时间：<b>3</b>秒"
+        "linken_t0_tooltip"                     "提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>60</b>秒<br>增益持续时间：<b>3</b>秒"
         "DOTA_Tooltip_linken_t0"                "个人提升：林肯坠饰"
         "linken_t1"                             "林肯坠饰"
-        "linken_t1_tooltip"                     "提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>60</b>秒<br>增益持续时间：<b>4</b>秒"
+        "linken_t1_tooltip"                     "提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>45</b>秒<br>增益持续时间：<b>4</b>秒"
         "DOTA_Tooltip_linken_t1"                "个人提升：林肯坠饰"
         "linken_t2"                             "远古林肯坠饰"
-        "linken_t2_tooltip"                     "提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>45</b>秒<br>增益持续时间：<b>5</b>秒"
+        "linken_t2_tooltip"                     "提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>30</b>秒<br>增益持续时间：<b>5</b>秒"
         "DOTA_Tooltip_linken_t2"                "个人提升：林肯坠饰"
 
 		"hunter_t0"								"小猎人"
@@ -633,13 +633,13 @@
 		"DOTA_Tooltip_hunter_t2"				"个人 Perk：猎人"
 		
 		"builder_t0"								"基础建造者"
-		"builder_t0_tooltip"						"每30秒为生命值最低的塔回复10点生命值"
+		"builder_t0_tooltip"						"每30秒为生命值最低的塔回复5点生命值"
 		"DOTA_Tooltip_builder_t0"					"个人 Perk：建造者"
 		"builder_t1"								"建造者"
-		"builder_t1_tooltip"						"每30秒为生命值最低的塔回复20点生命值"
+		"builder_t1_tooltip"						"每30秒为生命值最低的塔回复10点生命值"
 		"DOTA_Tooltip_builder_t1"					"个人 Perk：建造者"
 		"builder_t2"								"专业建造者"
-		"builder_t2_tooltip"						"每30秒为生命值最低的塔回复40点生命值"
+		"builder_t2_tooltip"						"每30秒为生命值最低的塔回复20点生命值"
 		"DOTA_Tooltip_builder_t2"					"个人 Perk：建造者"
 		"DOTA_Tooltip_modifier_builder_tower"		"建造者治疗"
 		
@@ -647,10 +647,10 @@
 		"delayed_damage_t0_tooltip"						"有8%的传入伤害存在5秒延迟"
 		"DOTA_Tooltip_delayed_damage_t0"				"个人 Perk：延迟伤害"
 		"delayed_damage_t1"								"延迟伤害"
-		"delayed_damage_t1_tooltip"						"有15%的传入伤害存在5秒延迟"
+		"delayed_damage_t1_tooltip"						"有16%的传入伤害存在8秒延迟"
 		"DOTA_Tooltip_delayed_damage_t1"				"个人 Perk：延迟伤害"
 		"delayed_damage_t2"								"进阶延迟伤害"
-		"delayed_damage_t2_tooltip"						"有30%的传入伤害存在5秒延迟"
+		"delayed_damage_t2_tooltip"						"有32%的传入伤害存在10秒延迟"
 		"DOTA_Tooltip_delayed_damage_t2"				"个人 Perk：延迟伤害"
 
 		"traveler_t0"                              "小旅行家"
