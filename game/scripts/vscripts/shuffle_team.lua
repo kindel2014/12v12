@@ -1,9 +1,9 @@
 ShuffleTeam = class({})
 DEFAULT_MMR = 1500
 BASE_BONUS = 10
-MIN_DIFF = 500
-BONUS_MMR_STEP = 100
-BONUS_FOR_STEP = 3
+MIN_DIFF = 300
+BONUS_MMR_STEP = 500
+BONUS_FOR_STEP = 5
 MAX_BONUS = 100
 MAX_PLAYERS_IN_TEAM = 12
 LinkLuaModifier("modifier_bonus_for_weak_team_in_mmr", "modifier_bonus_for_weak_team_in_mmr", LUA_MODIFIER_MOTION_NONE)
@@ -128,14 +128,22 @@ function ShuffleTeam:SendNotificationForWeakTeam()
 end
 
 function ShuffleTeam:GiveBonusToHero(player)
-	local hero = player:GetAssignedHero()
-	if hero then
-		hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
-	else
-		Timers:CreateTimer(2, function()
-			self:GiveBonusToHero(player)
-		end)
+	-- Check if player exists, sometimes doesn't due to volvo things
+	if player and not player:IsNull() then
+		local hero = player:GetAssignedHero()
+		
+		-- Check if player has a hero yet
+		if hero then
+			-- Apply weak team modifier granting bonus xp and gold gain based on difference in MMR between teams
+			hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
+			return
+		end
 	end
+	
+	-- Keep checking every 2 seconds until player has a hero
+	Timers:CreateTimer(2, function()
+			self:GiveBonusToHero(player)
+	end)
 end
 
 function ShuffleTeam:GiveBonusToWeakTeam()
