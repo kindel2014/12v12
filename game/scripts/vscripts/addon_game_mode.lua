@@ -1323,7 +1323,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
-		if ability:GetAbilityName() == "item_relic" then
+		if ability and ability:GetAbilityName() == "item_relic" then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannotpullit" })
 			return false
 		end
