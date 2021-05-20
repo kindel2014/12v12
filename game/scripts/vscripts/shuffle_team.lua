@@ -1,9 +1,9 @@
 ShuffleTeam = class({})
 DEFAULT_MMR = 1500
 BASE_BONUS = 10
-MIN_DIFF = 500
-BONUS_MMR_STEP = 100
-BONUS_FOR_STEP = 3
+MIN_DIFF = 200
+BONUS_MMR_STEP = 50
+BONUS_FOR_STEP = 5
 MAX_BONUS = 100
 MAX_PLAYERS_IN_TEAM = 12
 LinkLuaModifier("modifier_bonus_for_weak_team_in_mmr", "modifier_bonus_for_weak_team_in_mmr", LUA_MODIFIER_MOTION_NONE)
