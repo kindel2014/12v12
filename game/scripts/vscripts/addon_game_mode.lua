@@ -776,6 +776,10 @@ end
 
 function CMegaDotaGameMode:OnThink()
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+		-- Weak team must be called here due to disconnect on game start
+		-- Any player who isn't connected at this point will not receive weak team buff
+		ShuffleTeam:GiveBonusToWeakTeam()
+		
 		-- update the scale factor:
 	 	-- * SCALE_FACTOR_INITIAL at the start of the game
 		-- * SCALE_FACTOR_FINAL after SCALE_FACTOR_FADEIN_SECONDS have elapsed
@@ -934,7 +938,6 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	end
 
 	if newState == DOTA_GAMERULES_STATE_PRE_GAME then
-		ShuffleTeam:GiveBonusToWeakTeam()
 		if GameOptions:OptionsIsActive("super_towers") then
 			local towers = Entities:FindAllByClassname('npc_dota_tower')
 			for _, tower in pairs(towers) do
