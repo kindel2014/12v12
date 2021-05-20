@@ -129,7 +129,7 @@ end
 
 function ShuffleTeam:GiveBonusToHero(player)
 	-- Check if player exists, sometimes doesn't due to volvo things
-	if player and type(player) ~= none then
+	if player and not player:IsNull() then
 		local hero = player:GetAssignedHero()
 		
 		-- Check if player has a hero yet
