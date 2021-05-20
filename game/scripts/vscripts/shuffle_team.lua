@@ -128,14 +128,22 @@ function ShuffleTeam:SendNotificationForWeakTeam()
 end
 
 function ShuffleTeam:GiveBonusToHero(player)
-	local hero = player:GetAssignedHero()
-	if hero then
-		hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
-	else
-		Timers:CreateTimer(2, function()
-			self:GiveBonusToHero(player)
-		end)
+	-- Check if player exists, sometimes doesn't due to volvo things
+	if player and type(player) ~= none then
+		local hero = player:GetAssignedHero()
+		
+		-- Check if player has a hero yet
+		if hero then
+			-- Apply weak team modifier granting bonus xp and gold gain based on difference in MMR between teams
+			hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
+			return
+		end
 	end
+	
+	-- Keep checking every 2 seconds until player has a hero
+	Timers:CreateTimer(2, function()
+			self:GiveBonusToHero(player)
+	end)
 end
 
 function ShuffleTeam:GiveBonusToWeakTeam()
