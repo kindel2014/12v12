@@ -392,7 +392,7 @@ function CMegaDotaGameMode:DamageFilter(event)
 			["delayed_damage_perk"] = true,
 			["skeleton_king_reincarnation"] = true,
 		}
-		if not ability or not black_list_for_delay[ability:GetName()] then
+		if (not ability or not black_list_for_delay[ability:GetName()]) and (not event.damagetype_const or event.damagetype_const > 0) then
 			event.damage = event.damage - delayed_damage
 			target:AddNewModifier(target, nil, "modifier_delayed_damage", {
 				duration = target.delay_damage_by_perk_duration,
