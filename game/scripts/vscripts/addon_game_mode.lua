@@ -184,7 +184,7 @@ function CMegaDotaGameMode:InitGameMode()
 				if item and item.GetAbilityName and not item:IsNull() and  item:GetAbilityName():find( "item_ward_" ) then
 					local owner = item:GetOwner()
 
-					if owner then
+					if owner and not owner:IsNull() then
 						local team = owner:GetTeam()
 						local fountain
 						local multiplier
@@ -204,7 +204,7 @@ function CMegaDotaGameMode:InitGameMode()
 							pos_item.z = fountain_pos.z
 
 							container:SetAbsOrigin( pos_item )
-							CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( owner:GetPlayerID() ), "display_custom_error", { message = "#dropped_wards_return_error" } )
+							CustomGameEventManager:Send_ServerToPlayer( owner:GetPlayerOwner(), "display_custom_error", { message = "#dropped_wards_return_error" } )
 						end
 					end
 				end
@@ -298,8 +298,6 @@ function ItWorstKD(unit) -- use minimun TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN
 	return true
 end
 function CMegaDotaGameMode:SetTeamColors()
-	local ggp = 0
-	local bgp = 0
 	local ggcolor = {
 		{70,70,255},
 		{0,255,255},
@@ -328,17 +326,21 @@ function CMegaDotaGameMode:SetTeamColors()
 		{255,127,80},
 		{0,0,0}
 	}
-	for i=0, PlayerResource:GetPlayerCount()-1 do
-		if PlayerResource:GetTeam(i) == DOTA_TEAM_GOODGUYS then
-			ggp = ggp + 1
-			PlayerResource:SetCustomPlayerColor(i,ggcolor[ggp][1],ggcolor[ggp][2],ggcolor[ggp][3])
-		end
-		if PlayerResource:GetTeam(i) == DOTA_TEAM_BADGUYS then
-			bgp = bgp + 1
-			PlayerResource:SetCustomPlayerColor(i,bgcolor[bgp][1],bgcolor[bgp][2],bgcolor[bgp][3])
-		end
+	local team_colors = {
+		[DOTA_TEAM_GOODGUYS] = { 0 , ggcolor },
+		[DOTA_TEAM_BADGUYS] = { 0 , bgcolor },
+	}
+	
+	for player_id = 0, PlayerResource:GetPlayerCount()-1 do
+		local team = PlayerResource:GetTeam(player_id)
+		local counter = team_colors[team][1] + 1
+		team_colors[team][1] = counter
+		local color = team_colors[team][2][counter]
+		
+		if color then PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3]) end
 	end
 end
+
 function CMegaDotaGameMode:OnHeroPicked(event)
 	local hero = EntIndexToHScript(event.heroindex)
 	if not hero then return end
@@ -658,22 +660,6 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
 			CreateDummyInventoryForPlayer(playerId, spawnedUnit)
 		end
-
-		if not spawnedUnit.dummyCaster then
-			Timers:CreateTimer(0.5, function()
-				if spawnedUnit:IsControllableByAnyPlayer() then
-					Cosmetics:InitCosmeticForUnit(spawnedUnit)
-				end
-			end)
-		end
-
-		--if not self.spawned_couriers[playerId] then
-		--	Timers:CreateTimer(0.5, function()
-		--		if spawnedUnit:IsControllableByAnyPlayer() then
-		--			self:CreateCourierForPlayer(spawnedUnit:GetAbsOrigin(), playerId)
-		--		end
-		--	end)
-		--end
 	end
 end
 
@@ -1283,14 +1269,16 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		local is_not_owned_unit = false
 		for _, _unit_ent in pairs (filterTable.units) do
 			local _unit = EntIndexToHScript(_unit_ent)
-			local unit_owner_id = _unit:GetPlayerOwnerID()
-			if
-				unit_owner_id and
-				unit_owner_id ~= playerId and
-				PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and
-				GameRules:GetDOTATime(false,false) < 900
-			then
-				is_not_owned_unit = true
+			if _unit and IsValidEntity(_unit) then
+				local unit_owner_id = _unit:GetPlayerOwnerID()
+				if
+					unit_owner_id and
+					unit_owner_id ~= playerId and
+					PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and
+					GameRules:GetDOTATime(false,false) < 900
+				then
+					is_not_owned_unit = true
+				end
 			end
 		end
 		if is_not_owned_unit then
@@ -1299,7 +1287,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
-		if target:GetName() == "npc_dota_seasonal_ti9_drums" then
+		if target and target:GetName() == "npc_dota_seasonal_ti9_drums" then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#dota_hud_error_cant_cast_on_other" })
 			return
 		end
@@ -1352,7 +1340,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_PICKUP_ITEM then
-		if not target then return true end
+		if not target or not target.GetContainedItem then return true end
 		local pickedItem = target:GetContainedItem()
 		if not pickedItem then return true end
 		local itemName = pickedItem:GetAbilityName()
@@ -1479,7 +1467,8 @@ votimer = {}
 vousedcol = {}
 SelectVO = function(keys)
 	local supporter_level = Supporters:GetLevel(keys.PlayerID)
-	print(keys.num)
+	if not keys.num then return end
+	
 	local heroes = {
 		"abaddon",
 		"alchemist",
@@ -1744,8 +1733,11 @@ SelectVO = function(keys)
 			selectedstr = mesarrs[keys.num]
 			selectedid2 = keys.num
 		else
+			local hero = PlayerResource:GetSelectedHeroEntity(keys.PlayerID)
+			if not hero or hero:IsNull() or not hero.GetName() then return end
+
 			local locnum = keys.num - (startheronums-8)
-			local nowheroname = string.sub(PlayerResource:GetSelectedHeroEntity(keys.PlayerID):GetName(), 15)
+			local nowheroname = string.sub(hero:GetName(), 15)
 			local mesarrs = {
 				"_laugh",
 				"_thank",
@@ -3174,7 +3166,7 @@ function GetTopPlayersList(fromTopCount, team, sortFunction)
 	local playersSortInfo = {}
 
 	for _, focusHero in pairs(focusTableHeroes) do
-		if focusHero then
+		if focusHero and not focusHero:IsNull() and IsValidAlive(focusHero) and focusHero.GetPlayerOwnerID then
 			playersSortInfo[focusHero:GetPlayerOwnerID()] = sortFunction(focusHero)
 		end
 	end
@@ -3404,11 +3396,11 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 	local playerId = data.PlayerID
 	if not playerId then return end
 
-	if WebApi.playerSettings and WebApi.playerSettings[data.PlayerID] then
+	if WebApi.player_settings and WebApi.player_settings[data.PlayerID] then
 		local favourites = data.favourites
 		if not favourites then return end
 
-		WebApi.playerSettings[data.PlayerID].chatWheelFavourites = favourites
+		WebApi.player_settings[data.PlayerID].chatWheelFavourites = favourites
 		WebApi:ScheduleUpdateSettings(data.PlayerID)
 	end
 end)

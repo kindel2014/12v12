@@ -2,9 +2,11 @@ Payments = Payments or {}
 
 RegisterCustomEventListener("payments:create", function(event)
 	local payerId = event.PlayerID
-	local steamId = tostring(PlayerResource:GetSteamID(payerId))
+	local steamId = Battlepass:GetSteamId(payerId)
 	local matchId = tonumber(tostring(GameRules:Script_GetMatchID()))
 	local is_gift_code = event.isGiftCode or false
+	
+	if not steamId or not matchId then return end
 	
 	WebApi:Send(
 		"payment/create",

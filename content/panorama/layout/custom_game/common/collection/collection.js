@@ -75,7 +75,7 @@ function _ChangeItemEquipState(itemName, equipState) {
 	Game.EmitSound(equipState ? "ui.inv_equip" : "ui.inv_unequip");
 	GameEvents.SendCustomGameEventToServer(
 		equipState ? "battlepass_inventory:equip_item" : "battlepass_inventory:take_off_item",
-		{ itemName: itemName },
+		{ item_name: itemName },
 	);
 }
 const ITEM_BUTTON_FUNCTIONS = {
@@ -155,6 +155,11 @@ function AddItemToAvailebleList(itemName, state, count) {
 	itemPanel.count = count;
 	if (itemPanel.season) itemPanel.visible = true;
 	itemPanel.FindChildTraverse("ItemActionButton").style.washColor = null;
+
+	if (itemPanel.sourceClassName == "Other") {
+		$(`#ItemType_${itemPanel.category}`).AddClass("NotOtherOnly");
+	}
+
 	const itemPreviewPanel = $("#ItemPreview_" + itemName);
 	if (!itemPreviewPanel) return;
 	itemPreviewPanel.RemoveClass("BW");
@@ -233,6 +238,9 @@ function SetItemToNotAvailebleList(itemName) {
 	}
 
 	item.sourceClassName = sourceClassName;
+	if (sourceClassName != "Other") {
+		$(`#ItemType_${item.category}`).AddClass("NotOtherOnly");
+	}
 	item.AddClass(sourceClassName);
 
 	const itemCountText = item.FindChildTraverse("ItemCount");
@@ -263,7 +271,7 @@ function UpdatePlayerItems(data) {
 		.Children()
 		.forEach((panel, index) => {
 			const tabPanel = $("#ItemsTypesList").GetChild(index);
-			tabPanel.SetHasClass("IsHasAvailbleItems", index < 2);
+			tabPanel.SetHasClass("IsHasAvailbleItems", PERMANENT_SHOW_TYPES.indexOf(ITEMS_TYPES[index]) > -1);
 			const itemParent = panel.FindChildTraverse("Items");
 			const items = itemParent.Children();
 			for (const item of items) {
