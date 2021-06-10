@@ -1729,7 +1729,7 @@ SelectVO = function(keys)
 			selectedid2 = keys.num
 		else
 			local hero = PlayerResource:GetSelectedHeroEntity(keys.PlayerID)
-			if not hero or hero:IsNull() or not hero.GetName() then return end
+			if not hero or hero:IsNull() or not hero.GetName then return end
 
 			local locnum = keys.num - (startheronums-8)
 			local nowheroname = string.sub(hero:GetName(), 15)
@@ -3394,7 +3394,12 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 	if WebApi.player_settings and WebApi.player_settings[data.PlayerID] then
 		local favourites = data.favourites
 		if not favourites then return end
-
+		
+		local old_settings = CustomNetTables:GetTableValue("player_settings", tostring(playerId))
+		old_settings.chatWheelFavourites = favourites
+		
+		CustomNetTables:SetTableValue("player_settings", tostring(playerId), old_settings)
+		
 		WebApi.player_settings[data.PlayerID].chatWheelFavourites = favourites
 		WebApi:ScheduleUpdateSettings(data.PlayerID)
 	end
