@@ -80,7 +80,20 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-
+	
+	"special_bonus_unique_silencer_2"
+	{
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"value"						"1"
+				"ad_linked_ability"			"silencer_glaives_of_wisdom"
+			}
+		}
+	}
+	
 	//=================================================================================================================
 	// Ability: Bloodseeker's Thirst
 	//=================================================================================================================

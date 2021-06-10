@@ -123,10 +123,6 @@
 		"DOTA_Tooltip_ability_item_banhammer_Description"	"<h1>使用：发起踢人投票</h1>发起投票从游戏中踢出对队友有恶意行为的玩家。仅可在确实存在恶意行为时使用。支持者可免疫踢出恶意玩家物品的影响。"
 		"DOTA_Tooltip_ability_item_banhammer_Lore"			"拥有权利也是一项重大责任。"
 
-		"DOTA_Tooltip_modifier_silencer_new_int_steal"				"所窃取智力"
-		"DOTA_Tooltip_modifier_silencer_new_int_steal_Description"	"沉默术士在完成击杀或者辅助击杀后会偷取目标智力."
-		"DOTA_Tooltip_ability_special_bonus_unique_silencer_2"		"+1 智力窃取"
-
 		"DOTA_Tooltip_modifier_troll_feed_token_couter"				"不良玩家恶意送人头计数代币"
 		"DOTA_Tooltip_modifier_troll_debuff_stop_feed"				"送人头惩罚"
 		"DOTA_Tooltip_modifier_troll_debuff_stop_feed_Description"	"你已被系统判定为恶意送人头。作为惩罚，你会获得时长10分钟的减益效果，且在10分钟内你的每次死亡都会使该减益效果延长1分钟。减益效果生效内，系统将判定你的死亡为友方被反补，并且你的重生时间将被延长至2.5倍。若2.5倍的重生时间少于60秒，则重生时间按60秒计算。"
@@ -1593,6 +1589,9 @@
         "DOTA_Tooltip_ability_item_linken_perk_2"                    "林肯坠饰"
         "DOTA_Tooltip_ability_item_linken_perk_2_Description"        "<h1>主动技能：口袋法术抵抗</h1>保护友方英雄免受针对其施放的有害技能的伤害。持续%buff_duration%秒。<br><br>施放范围：%abilitycastrange%"
         "DOTA_Tooltip_modifier_linken_perk"                          "林肯坠饰法术抵抗"
+        
+		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"		"任何敌方英雄在925范围内死亡，或沉默术士击杀了任何敌方英雄，沉默术士就能永久窃取其2点（升级天赋后为3点）智力。"
+		"DOTA_Tooltip_modifier_silencer_int_steal_Description"				"任何敌方英雄在925范围内死亡，或沉默术士击杀了任何敌方英雄，沉默术士就能永久窃取其2点（升级天赋后为3点）智力。"
 	}
 }
 

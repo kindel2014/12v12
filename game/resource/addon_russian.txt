@@ -84,10 +84,6 @@
 		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Использование: Голосование</h1>Начните голосовение против союзника-тролля, что-бы выгнать его из игры. Решение принимается командой. Используйте данный предмет с умом. Поддержавшие не могут быть изгнаны из игры."
 		"DOTA_Tooltip_ability_item_banhammer_Lore"					"С большой властью приходит большая ответственность."
 
-		"DOTA_Tooltip_modifier_silencer_new_int_steal"					"Украденный интеллект"
-		"DOTA_Tooltip_modifier_silencer_new_int_steal_Description"		"Silencer навсегда крадет 1 единицу интеллекта у убитого вражеского героя."
-		"DOTA_Tooltip_ability_special_bonus_unique_silencer_2"			"+1 к краже интеллекта"
-
         "DOTA_Tooltip_modifier_troll_feed_token_couter"					"Жетон Фидера"
         "DOTA_Tooltip_modifier_troll_debuff_stop_feed"					"Метка фидера"
         "DOTA_Tooltip_modifier_troll_debuff_stop_feed_Description"		"Дополнительное время возрождения"
@@ -1090,5 +1086,7 @@
 		"DOTA_Tooltip_modifier_linken_perk"							"Отражение заклинания от Linken's Pendant"
 		
 		"Close"		"Закрыть"
+		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"	"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
+		"DOTA_Tooltip_modifier_silencer_int_steal_Description"			"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
 	}
 }

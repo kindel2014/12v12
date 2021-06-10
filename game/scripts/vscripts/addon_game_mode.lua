@@ -49,7 +49,6 @@ WebApi.customGame = "Dota12v12"
 LinkLuaModifier("modifier_dummy_inventory", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_shadow_amulet_thinker", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_fountain_phasing", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_feed_token", 'anti_feed_system/modifier_troll_feed_token', LUA_MODIFIER_MOTION_NONE)
@@ -641,13 +640,9 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 
 	if spawnedUnit:IsRealHero() then
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_rax_bonus", {})
-		-- Silencer Nerf
 		local playerId = spawnedUnit:GetPlayerID()
+		
 		Timers:CreateTimer(1, function()
-			if spawnedUnit:HasModifier("modifier_silencer_int_steal") then
-				spawnedUnit:RemoveModifierByName('modifier_silencer_int_steal')
-				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_silencer_new_int_steal", {})
-			end
 			UniquePortraits:UpdatePortraitsDataFromPlayer(playerId)
 		end)
 		

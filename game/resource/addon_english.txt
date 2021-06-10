@@ -122,10 +122,6 @@
 		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use: Start Kick Vote</h1>Vote to kick a trolling allied player from the game. Should only be used against genuine trolls. Supporters are immune to Kick Troll item."
 		"DOTA_Tooltip_ability_item_banhammer_Lore"					"With Great Power Comes Great Responsibility."
 
-		"DOTA_Tooltip_modifier_silencer_new_int_steal"					"Stolen Intelligence"
-		"DOTA_Tooltip_modifier_silencer_new_int_steal_Description"		"Silencer steals intelligent when he kills or assists a kill."
-		"DOTA_Tooltip_ability_special_bonus_unique_silencer_2"			"+1 Intelligence Steal"
-
 		"DOTA_Tooltip_modifier_troll_feed_token_couter"					"Troll Feed Token"
 		"DOTA_Tooltip_modifier_troll_debuff_stop_feed"					"Feeder Debuff"
 		"DOTA_Tooltip_modifier_troll_debuff_stop_feed_Description"		"You have been marked as feeding. This debuff lasts for 10 minutes but increases by 1 minute every time you die. You will be denied when you die. Your respawn rate is 2.5x higher, or 60 seconds, whichever value is higher."
@@ -1611,5 +1607,8 @@
 		"DOTA_Tooltip_ability_item_linken_perk_2"					"Linken's Pendant"
 		"DOTA_Tooltip_ability_item_linken_perk_2_Description"		"<h1>Active: Pocket Spell Block</h1> Grants an allied hero protection against a single harmful ability targeted on them. Lasts for %buff_duration% seconds.<br><br>Cast range: %abilitycastrange%"
 		"DOTA_Tooltip_modifier_linken_perk"							"Linken's Pendant Spell Block"
+		
+		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"		"Silencer will permanently steal 2 (3 with Talent) Intelligence from any enemy hero he kills, and any enemy hero that dies within 925 range."
+		"DOTA_Tooltip_modifier_silencer_int_steal_Description"				"Silencer will permanently steal 2 (3 with Talent) Intelligence from any enemy hero he kills, and any enemy hero that dies within 925 range."
 	}
 }
