@@ -1090,5 +1090,10 @@
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"			"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
 		
 		"html_loading"	"Страница все еще загружается. Это может занять несколько секунд."
+		
+		"leaderboard"						"Таблица лидеров"
+		"leaderboard_rank"					"Ранг"
+		"leaderboard_player"				"Игрок"
+		"leaderboard_rating"				"Рейтинг"
 	}
 }

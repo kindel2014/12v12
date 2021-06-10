@@ -141,16 +141,17 @@
 	font-size: 18px;
 	vertical-align: center;
 	margin-top: 1px;
+	text-align: center;
 }
 #h1 {
-	margin-left: 20px;
+	width: 80px;
 }
 #h2 {
 	horizontal-align: center;
 }
 #h3 {
 	horizontal-align: right;
-	margin-right: 20px;
+	width: 100px;
 }
 
 .LeaderboardPlayer {
