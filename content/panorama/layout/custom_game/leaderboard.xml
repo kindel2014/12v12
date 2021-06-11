@@ -26,7 +26,7 @@
 	<Panel class="LeaderboardRoot">
 		<Panel id="Leaderboard">
 			<Panel id="LeaderboardHeaderRoot">
-				<Label id="LeaderboardHeader" text="LEADERBOARD"/>
+				<Label id="LeaderboardHeader" text="#leaderboard"/>
 				<Button id="CloseLeaderboard" onactivate="CloseLeaderboard()"/>
 			</Panel>
 			<Panel id="LocalRatingInfoRoot">
@@ -45,9 +45,9 @@
 				<Panel id="OverlayShadow_Top" hittest="false"/>
 				<Panel id="OverlayShadow_Bottom" hittest="false"/>
 				<Panel id="TableHeader" class="FullSize">
-					<Label class="HeaderText" id="h1" text="Rank"/>
-					<Label class="HeaderText" id="h2" text="Player"/>
-					<Label class="HeaderText" id="h3" text="Rating"/>
+					<Label class="HeaderText" id="h1" text="#leaderboard_rank"/>
+					<Label class="HeaderText" id="h2" text="#leaderboard_player"/>
+					<Label class="HeaderText" id="h3" text="#leaderboard_rating"/>
 				</Panel>
 			</Panel>
 		</Panel>

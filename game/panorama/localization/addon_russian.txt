@@ -15,6 +15,7 @@
 		"player_stats_title"							"Ваша статистика на {s:map_name}"
 		"player_stats_wins_loses"						"Побед/Порожений: "
 		"player_stats_average_kda"						"Средний KDA: "
+		"player_stats_average_streak"					"Серия побед (лучшая/текущая): "
 
 		"patreon_perks"									"Возм. для поддержавших"
 		"emblem_supporter"								"Эмблема поддержавшего"

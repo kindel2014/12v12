@@ -514,6 +514,10 @@
 	border-top-left-radius: 7px;
 	padding-left: 10px;
 	padding-top: 2px;
+	visibility: collapse;
+}
+.ItemType.NotOtherOnly {
+	visibility: visible;
 }
 .ItemType.Selected {
 	background-color: BlackBackground;

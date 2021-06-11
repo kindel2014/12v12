@@ -96,9 +96,12 @@ function ShuffleTeam:SortInMMR()
 	for player_id = 0, 23 do
 		set_team(player_id, DOTA_TEAM_NOTEAM)
 	end
-	for team_id,team_data in pairs(teams) do
+	for team_id, team_data in pairs(teams) do
 		for _, player_id in pairs(team_data.players) do
-			set_team(player_id, team_id)		
+			if PlayerResource:GetPlayerCountForTeam(team_id) >= MAX_PLAYERS_IN_TEAM then
+				team_id = team_id == 2 and 3 or 2
+			end
+			set_team(player_id, team_id)
 		end
 	end
 	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 12)

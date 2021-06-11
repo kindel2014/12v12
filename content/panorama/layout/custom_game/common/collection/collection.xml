@@ -405,12 +405,16 @@
 
 		<Panel id="PaymentWindow" onactivate="">
 			<Panel id="PaymentWindowContent">
+				<Panel id="PaymentWindowHTML_Loading">
+					<Label class="PaymentMessage" text="#html_loading"/>
+					<Panel class="Spinner" />
+				</Panel>
 				<HTML id="PaymentWindowHTML" acceptsinput="true" />
 				<Panel id="PaymentWindowLoader">
 					<Panel class="Spinner" />
 				</Panel>
 				<Panel id="PaymentWindowError">
-					<Label id="PaymentWindowErrorMessage" />
+					<Label id="PaymentWindowErrorMessage" class="PaymentMessage"/>
 				</Panel>
 			</Panel>
 			<Button class="CloseButton" onactivate="setPaymentWindowStatus('closed')" />

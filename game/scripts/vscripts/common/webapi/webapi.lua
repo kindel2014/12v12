@@ -1,9 +1,9 @@
 WebApi = WebApi or {}
-WebApi.playerSettings = WebApi.playerSettings or {}
+WebApi.player_settings = WebApi.player_settings or {}
 
 local isTesting = IsInToolsMode() and true or false
 for playerId = 0, 23 do
-	WebApi.playerSettings[playerId] = WebApi.playerSettings[playerId] or {}
+	WebApi.player_settings[playerId] = WebApi.player_settings[playerId] or {}
 end
 WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 FREE_SUPPORTER_COUNT = 6
@@ -104,7 +104,7 @@ function WebApi:BeforeMatch()
 			end
 			
 			if player.settings then
-				WebApi.playerSettings[playerId] = player.settings
+				WebApi.player_settings[playerId] = player.settings
 				CustomNetTables:SetTableValue("player_settings", tostring(playerId), player.settings)
 			end
 			if player.stats then
@@ -151,7 +151,7 @@ function WebApi:ForceSaveSettings(_playerId)
 	local players = {}
 	for playerId = 0, 23 do
 		if PlayerResource:IsValidPlayerID(playerId) and (WebApi.scheduledUpdateSettingsPlayers[playerId] or _playerId == playerId) then
-			local settings = WebApi.playerSettings[playerId]
+			local settings = WebApi.player_settings[playerId]
 			if next(settings) ~= nil then
 				local steamId = tostring(PlayerResource:GetSteamID(playerId))
 				table.insert(players, { steamId = steamId, settings = settings })

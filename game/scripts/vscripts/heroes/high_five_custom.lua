@@ -92,10 +92,10 @@ modifier_high_five_custom_search = class({
 	end,
 
 	GetRgbColor = function(self, target)
-		if not GameMode or not GameMode.vTeamColors or not GameMode.vTeamColors[target:GetTeam()] or not IsServer() then
+		if not CMegaDotaGameMode.vTeamColors or not CMegaDotaGameMode.vTeamColors[target:GetTeam()] then
 			return 'rgb(255,255,255)'
 		end
-		local colorTeam = GameMode.vTeamColors[target:GetTeam()]
+		local colorTeam = CMegaDotaGameMode.vTeamColors[target:GetTeam()]
 		return 'rgb(' .. colorTeam[1] .. ',' .. colorTeam[2] .. ',' .. colorTeam[3] .. ')'
 	end,
 

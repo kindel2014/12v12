@@ -20,6 +20,7 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 	if not _G.votingForKick and IsServer() then
 		_G.votingForKick = {}
 		local playerInit = PlayerResource:GetPlayer(data.PlayerID)
+		local team = playerInit:GetTeam()
 		local heroInit = PlayerResource:GetSelectedHeroEntity(data.PlayerID)
 		local heroTarget = heroInit.wantToKick
 
@@ -28,6 +29,7 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 		local playerTargetID = heroTarget:GetPlayerOwnerID()
 
 		_G.votingForKick.playersVoted = {}
+		_G.votingForKick.team = team
 		_G.votingForKick.reason = data.reason
 		_G.votingForKick.init = data.PlayerID
 		_G.votingForKick.target = playerTargetID
@@ -36,21 +38,21 @@ RegisterCustomEventListener("voting_to_kick_reason_is_picked", function(data)
 		UpdateVotingForKick()
 		local all_heroes = HeroList:GetAllHeroes()
 		for _, hero in pairs(all_heroes) do
-			if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and (hero:GetTeam() == playerInit:GetTeam())then
+			if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and (hero:GetTeam() ==team)then
 				EmitSoundOn("Hero_Chen.TeleportOut", hero)
 			end
 		end
 
-		CustomGameEventManager:Send_ServerToTeam(playerInit:GetTeam(), "voting_to_kick_show_voting", { playerId = playerTargetID, reason = data.reason, playerIdInit = data.PlayerID})
+		CustomGameEventManager:Send_ServerToTeam(team, "voting_to_kick_show_voting", { playerId = playerTargetID, reason = data.reason, playerIdInit = data.PlayerID})
 		CustomGameEventManager:Send_ServerToPlayer(playerInit, "voting_to_kick_hide_reason", {})
 
 		Timers:CreateTimer("start_voting_to_kick", {
 			useGameTime = false,
 			endTime = timeToVoting,
 			callback = function()
-				CustomGameEventManager:Send_ServerToTeam(playerInit:GetTeam(), "voting_to_kick_hide_voting", {})
+				CustomGameEventManager:Send_ServerToTeam(team, "voting_to_kick_hide_voting", {})
 				if _G.votingForKick.votes < votesToKick then
-					GameRules:SendCustomMessageToTeam("#voting_to_kick_voting_failed", playerInit:GetTeam(), _G.votingForKick.target, 0)
+					GameRules:SendCustomMessageToTeam("#voting_to_kick_voting_failed", team, _G.votingForKick.target, 0)
 				end
 				_G.votingForKick = nil
 				return nil
@@ -109,7 +111,7 @@ RegisterCustomEventListener("voting_to_kick_vote_yes", function(data)
 		if _G.votingForKick.votes >= votesToKick then
 			_G.kicks[_G.votingForKick.target] = true
 			Timers:RemoveTimer("start_voting_to_kick")
-			CustomGameEventManager:Send_ServerToTeam(PlayerResource:GetPlayer(_G.votingForKick.init):GetTeam(), "voting_to_kick_hide_voting", {})
+			CustomGameEventManager:Send_ServerToTeam(_G.votingForKick.team, "voting_to_kick_hide_voting", {})
 			SendToServerConsole('kickid '.. _G.tUserIds[_G.votingForKick.target]);
 			GameRules:SendCustomMessage("#voting_to_kick_player_kicked", _G.votingForKick.target, 0)
 			_G.votingForKick = nil

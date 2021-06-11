@@ -7,6 +7,7 @@ function setPaymentWindowStatus(state) {
 	const hid = $("#PaymentWindow").BHasClass("Hidden");
 	const visible = state !== "closed";
 	$("#PaymentWindow").SetHasClass("Hidden", !visible);
+	$("#PaymentWindowHTML_Loading").visible = state == "html";
 	GameEvents.SendCustomGameEventToServer("payments:window", { visible });
 	$("#PaymentWindowLoader").visible = state === "loading";
 	$("#PaymentWindowHTML").visible = state === "html";
