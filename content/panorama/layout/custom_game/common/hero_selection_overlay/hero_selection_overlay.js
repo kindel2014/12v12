@@ -27,7 +27,6 @@ smartRandomButton.BLoadLayout(
 );
 
 SubscribeToNetTableKey("game_state", "player_stats", function (playerStats) {
-	$.Msg(playerStats);
 	var localStats = playerStats[Game.GetLocalPlayerID()];
 	if (!localStats) return;
 

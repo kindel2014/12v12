@@ -1264,7 +1264,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		local is_not_owned_unit = false
 		for _, _unit_ent in pairs (filterTable.units) do
 			local _unit = EntIndexToHScript(_unit_ent)
-			if _unit and IsValidEntity(_unit) then
+			if _unit and IsValidEntity(_unit) and _unit.GetPlayerOwnerID then
 				local unit_owner_id = _unit:GetPlayerOwnerID()
 				if
 					unit_owner_id and
