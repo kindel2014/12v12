@@ -48,14 +48,13 @@ PORTRAITS_FROM_MODEL = {
 	["models/items/techies/bigshot/bigshot.vmdl"] = "npc_dota_hero_techies_alt1",
 	["models/heroes/zeus/zeus_arcana.vmdl"] = "npc_dota_hero_zuus_alt1",
 }
-
 function UniquePortraits:Init()
 	self.portraitsData = {}
 	CustomNetTables:SetTableValue("game_state", "portraits", self.portraitsData)
 end
 
-function UniquePortraits:UpdatePortraitsDataFromPlayer(playerId)
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+function UniquePortraits:UpdatePortraitsDataFromPlayer(player_id)
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 	if hero then
 		local models = {}
 		local model = hero:FirstMoveChild()
@@ -70,24 +69,24 @@ function UniquePortraits:UpdatePortraitsDataFromPlayer(playerId)
 			model = model:NextMovePeer()
 		end
 
-		for _, checkModel in pairs(models) do
-			local portraitData = PORTRAITS_FROM_MODEL[checkModel.modelName]
-			if portraitData then
-				local portraitImage
-				if (type(portraitData) == 'table') then
-					portraitImage = portraitData[checkModel.material]
-				elseif (type(portraitData) == 'string') then
-					portraitImage = portraitData
+		for _, check_model in pairs(models) do
+			local portrait_data = PORTRAITS_FROM_MODEL[check_model.modelName]
+			if portrait_data then
+				local unique_icon
+				if (type(portrait_data) == 'table') then
+					unique_icon = portrait_data[check_model.material]
+				elseif (type(portrait_data) == 'string') then
+					unique_icon = portrait_data
 				end
-				if portraitImage then
-					self.portraitsData[playerId] = portraitImage
+				if unique_icon then
+					self.portraitsData[player_id] = unique_icon
 				end
 			end
 		end
 		CustomNetTables:SetTableValue("game_state", "portraits", self.portraitsData)
 	else
 		Timers:CreateTimer(1, function()
-			self:UpdatePortraitsDataFromPlayer(playerId)
+			self:UpdatePortraitsDataFromPlayer(player_id)
 		end)
 	end
 end

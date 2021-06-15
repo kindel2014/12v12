@@ -297,6 +297,7 @@ function ItWorstKD(unit) -- use minimun TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN
 	return true
 end
 function CMegaDotaGameMode:SetTeamColors()
+	self.players_colors = {}
 	local ggcolor = {
 		{70,70,255},
 		{0,255,255},
@@ -336,7 +337,10 @@ function CMegaDotaGameMode:SetTeamColors()
 		team_colors[team][1] = counter
 		local color = team_colors[team][2][counter]
 		
-		if color then PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3]) end
+		if color then
+			self.players_colors[player_id] = color
+			PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3]) 
+		end
 	end
 end
 
@@ -3430,4 +3434,51 @@ RegisterCustomEventListener("ResetMmrRequest", function(data)
 			print("error while reset mmr: ", e)
 		end
 	)
+end)
+
+PING_PARTICLE = {
+	[0] = "particles/custom_pings/custom_ping_world.vpcf",
+	[1] = "particles/custom_pings/custom_ping_danger.vpcf",
+	[4] = "particles/ui_mouseactions/ping_attack.vpcf",
+	[6] = "particles/ui_mouseactions/ping_friendlyward.vpcf",
+	[5] = "particles/ui_mouseactions/ping_enemyward.vpcf",
+	[3] = "particles/custom_pings/custom_ping_retreat.vpcf",
+	[2] = "particles/custom_pings/custom_ping_waypoint.vpcf",
+}
+
+RegisterCustomEventListener("custom_ping:ping", function(data)
+	local player_id = data.PlayerID
+	if not player_id then return end
+
+	local team = PlayerResource:GetTeam(player_id)
+	if not team then return end
+	
+	local ping_type = data.type
+	if not ping_type then return end
+	
+	local pos_x = data.pos["0"]
+	local pos_y = data.pos["1"]
+
+	if PING_PARTICLE[ping_type] then
+		local ping_particle = ParticleManager:CreateParticleForTeam(PING_PARTICLE[ping_type], PATTACH_CUSTOMORIGIN, nil, team )
+		ParticleManager:SetParticleControl(ping_particle, 0, Vector(pos_x, pos_y, GetGroundHeight(Vector(pos_x, pos_y, 0), nil)))
+		ParticleManager:SetParticleControl(ping_particle, 5, Vector(3, 0, 0))
+		local color = CMegaDotaGameMode.players_colors[player_id]
+		if ping_type == 3 then
+			ParticleManager:SetParticleControl(ping_particle, 7, Vector(255, 10, 10))
+		elseif color then
+			ParticleManager:SetParticleControl(ping_particle, 7, Vector(color[1], color[2], color[3]))
+		end
+		Timers:CreateTimer(3.5, function()
+			ParticleManager:DestroyParticle( ping_particle, false)
+			ParticleManager:ReleaseParticleIndex( ping_particle )
+		end)
+	end
+	
+	CustomGameEventManager:Send_ServerToTeam(team, "custom_ping:ping_client", {
+		pos_x = pos_x,
+		pos_y = pos_y,
+		type = ping_type,
+		player_id = player_id,
+	})
 end)

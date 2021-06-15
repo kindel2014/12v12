@@ -1592,6 +1592,10 @@
         
 		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"		"任何敌方英雄在925范围内死亡，或沉默术士击杀了任何敌方英雄，沉默术士就能永久窃取其2点（升级天赋后为3点）智力。"
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"				"任何敌方英雄在925范围内死亡，或沉默术士击杀了任何敌方英雄，沉默术士就能永久窃取其2点（升级天赋后为3点）智力。"
+		
+		"and"								"与"
+		"High_five_just" 					"刚刚击了个掌。"
+		"High_five_LeftHanging"	 			"试着击掌但被无视了。"
 	}
 }
 
