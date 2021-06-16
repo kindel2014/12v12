@@ -98,11 +98,11 @@ function WebApi:BeforeMatch()
 			if player.masteries then
 				BP_Masteries:SetMasteriesForPlayer(playerId, player.masteries)
 			end
-			
+
 			if player.gift_codes then
 				GiftCodes:SetCodesForPlayer(playerId, player.gift_codes)
 			end
-			
+
 			if player.settings then
 				WebApi.player_settings[playerId] = player.settings
 				CustomNetTables:SetTableValue("player_settings", tostring(playerId), player.settings)
@@ -110,7 +110,7 @@ function WebApi:BeforeMatch()
 			if player.stats then
 				WebApi.playerMatchesCount[playerId] = (player.stats.wins or 0) + (player.stats.loses or 0)
 			end
-			
+
 			publicStats[playerId] = {
 				streak = player.streak.current or 0,
 				bestStreak = player.streak.best or 0,
@@ -121,7 +121,7 @@ function WebApi:BeforeMatch()
 				loses = player.stats.loses,
 				rating = player.rating,
 			}
-			SmartRandom:SetPlayerInfo(playerId, nil, "no_stats") -- TODO: either make working or get rid of it
+			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, "no_stats")
 		end
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
 		CustomNetTables:SetTableValue("game_state", "player_ratings", data.mapPlayersRating)
