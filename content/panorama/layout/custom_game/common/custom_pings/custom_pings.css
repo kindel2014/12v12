@@ -134,3 +134,11 @@
 .HUDFlipped #MapOverlay {
 	horizontal-align: right;
 }
+
+.HeroNamePing {
+	font-size: 21px;
+	text-shadow: 0px 0px 1px 3 #000000;
+	font-weight: bold;
+	brightness: 1.2;
+	padding: 10px;
+}

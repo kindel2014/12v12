@@ -1,29 +1,3 @@
-const HUD_ROOT_FOR_TRACKER = FindDotaHudElement("HeroRelicProgress");
-const HUD_PING_WHEEL = $("#Custom_PingWheel");
-const HUD_FOR_CUSTOM_PINGS = $("#CustomPings_Minimap");
-
-const ROOT = $.GetContextPanel();
-const minimap = FindDotaHudElement("minimap_block");
-const dota_hud = FindDotaHudElement("Hud");
-
-const THINK = 0.01;
-const PINGS_COUNT = 7;
-const MIN_OFFSET = 18;
-const MAX_OFFSET = 200;
-const TRIGGER_TIME_FOR_WHEEL = 0.3;
-
-// 80 - that's 1/2 of height/width from HUD_PING_WHEEL
-const hud_wheel_half_width = 80;
-const hud_wheel_half_height = 80;
-
-// 80 - that's 1/2 of height/width from HUD_PING_WHEEL
-const hud_ping_root_half_width = 25;
-const hud_ping_root_half_height = 25;
-
-// Game World width / height
-const WORLD_Y = 8000;
-const WORLD_X = 8000;
-
 let time_counter = 0;
 let b_root_visible = false;
 let tracker_hud;
@@ -51,12 +25,6 @@ function PingToServer() {
 				pos: Game.ScreenXYToWorld(x, y),
 				type: panel.GetAttributeInt("ping-type", 0),
 			});
-			// ClientPing({
-			// 	pos_x: Game.ScreenXYToWorld(x, y)[0],
-			// 	pos_y: Game.ScreenXYToWorld(x, y)[1],
-			// 	type: panel.GetAttributeInt("ping-type", 0),
-			// 	player_id: 0,
-			// });
 		}
 	}
 }
@@ -121,8 +89,9 @@ function ClientPing(data) {
 	const original_map_width = Math.ceil(minimap.actuallayoutwidth / minimap.actualuiscale_x);
 	const original_map_height = Math.ceil(minimap.actuallayoutheight / minimap.actualuiscale_y);
 
-	const coef_x = data.pos_x / (WORLD_X * 2);
-	const coef_y = data.pos_y / (WORLD_Y * 2);
+	const world_pos = data.pos.split(" ");
+	const coef_x = world_pos[0] / (WORLD_X * 2);
+	const coef_y = world_pos[1] / (WORLD_Y * 2);
 	const pos_x = (coef_x + 0.5) * original_map_width;
 	const pos_y = (0.5 - coef_y) * original_map_height;
 
@@ -153,18 +122,43 @@ function ClientPing(data) {
 	}
 
 	if (data.type == C_PingsTypes.DEFAULT || data.type == C_PingsTypes.DANGER || data.type == C_PingsTypes.WAYPOINT) {
-		const player_color = GetHEXPlayerColor(data.player_id);
+		var player_color = GetHEXPlayerColor(data.player_id);
 		image.style.washColor = player_color;
 	} else if (data.type == C_PingsTypes.RETREAT) {
 		image.style.washColor = "#ff0a0a;";
 	}
 
+	let text_label;
+
 	if (data.type == C_PingsTypes.WAYPOINT) {
-		new_ping.GetChild(1).SetImage(GetPortraitIcon(data.player_id, Players.GetPlayerSelectedHero(data.player_id)));
+		let hero_name = Players.GetPlayerSelectedHero(data.player_id);
+		new_ping.GetChild(1).SetImage(GetPortraitIcon(data.player_id, hero_name));
+		text_label = $.CreatePanel("Label", ROOT, "");
+		text_label.AddClass("HeroNamePing");
+		text_label.text = $.Localize(hero_name);
+		text_label.style.color = player_color;
+		text_label.SetParent(tracker_hud);
+		$.Schedule(0.01, () => {
+			FreezePanel(text_label, parseInt(world_pos[0]), parseInt(world_pos[1]), parseInt(world_pos[2]) + 120);
+		});
 	}
 
 	$.Schedule(3.5, () => {
 		new_ping.DeleteAsync(0);
+		if (text_label) text_label.DeleteAsync(0);
+	});
+}
+
+function FreezePanel(panel, pos_x, pos_y, pos_z) {
+	if (!panel.IsValid()) return;
+	const sX = Game.WorldToScreenX(pos_x, pos_y, pos_z);
+	const sY = Game.WorldToScreenY(pos_x, pos_y, pos_z);
+
+	var x = sX / panel.actualuiscale_x - panel.actuallayoutwidth / 2;
+	var y = sY / panel.actualuiscale_y - panel.actuallayoutheight;
+	panel.SetPositionInPixels(x, y, 0);
+	$.Schedule(0, () => {
+		FreezePanel(panel, pos_x, pos_y, pos_z);
 	});
 }
 

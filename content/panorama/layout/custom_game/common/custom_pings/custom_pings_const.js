@@ -1,3 +1,21 @@
+const THINK = 0.01;
+const PINGS_COUNT = 7;
+const MIN_OFFSET = 18;
+const MAX_OFFSET = 200;
+const TRIGGER_TIME_FOR_WHEEL = 0.3;
+
+// 80 - that's 1/2 of height/width from HUD_PING_WHEEL
+const hud_wheel_half_width = 80;
+const hud_wheel_half_height = 80;
+
+// 80 - that's 1/2 of height/width from HUD_PING_WHEEL
+const hud_ping_root_half_width = 25;
+const hud_ping_root_half_height = 25;
+
+// Game World width / height
+const WORLD_Y = 8000;
+const WORLD_X = 8000;
+
 const C_PingsTypes = {
 	DEFAULT: 0,
 	DANGER: 1,
@@ -38,3 +56,13 @@ const PINGS_DATA = {
 		sound: "General.PingFriendlyWard",
 	},
 };
+
+/* HUD */
+const HUD_ROOT_FOR_TRACKER = FindDotaHudElement("HeroRelicProgress");
+const HUD_PING_WHEEL = $("#Custom_PingWheel");
+const HUD_FOR_CUSTOM_PINGS = $("#CustomPings_Minimap");
+const ROOT = $.GetContextPanel();
+
+/* DOTA HUD */
+const minimap = FindDotaHudElement("minimap_block");
+const dota_hud = FindDotaHudElement("Hud");

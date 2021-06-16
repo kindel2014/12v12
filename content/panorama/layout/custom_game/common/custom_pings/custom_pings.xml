@@ -12,9 +12,9 @@
 
 	<snippets>
 		<snippet name="CustomPing">
-			<Image class="CustomPing" hittest="false" hittestchildren="false">
-				<Image id="CustomPing_Marker" src="file://{resources}/images/custom_game/import_dota/ping_icon_friendlyward_psd.png"/>
-				<Image id="CustomPing_HeroImage"/>
+			<Image class="CustomPing" hittest="false">
+				<Image id="CustomPing_Marker" src="file://{resources}/images/custom_game/import_dota/ping_icon_friendlyward_psd.png" hittest="false"/>
+				<Image id="CustomPing_HeroImage" hittest="false"/>
 			</Image>
 		</snippet>
 	</snippets>

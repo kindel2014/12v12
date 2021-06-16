@@ -3458,10 +3458,11 @@ RegisterCustomEventListener("custom_ping:ping", function(data)
 	
 	local pos_x = data.pos["0"]
 	local pos_y = data.pos["1"]
-
+	local pos_for_ping = Vector(pos_x, pos_y, GetGroundHeight(Vector(pos_x, pos_y, 0), nil))
+	
 	if PING_PARTICLE[ping_type] then
 		local ping_particle = ParticleManager:CreateParticleForTeam(PING_PARTICLE[ping_type], PATTACH_CUSTOMORIGIN, nil, team )
-		ParticleManager:SetParticleControl(ping_particle, 0, Vector(pos_x, pos_y, GetGroundHeight(Vector(pos_x, pos_y, 0), nil)))
+		ParticleManager:SetParticleControl(ping_particle, 0, pos_for_ping)
 		ParticleManager:SetParticleControl(ping_particle, 5, Vector(3, 0, 0))
 		local color = CMegaDotaGameMode.players_colors[player_id]
 		if ping_type == 3 then
@@ -3476,8 +3477,7 @@ RegisterCustomEventListener("custom_ping:ping", function(data)
 	end
 	
 	CustomGameEventManager:Send_ServerToTeam(team, "custom_ping:ping_client", {
-		pos_x = pos_x,
-		pos_y = pos_y,
+		pos = pos_for_ping,
 		type = ping_type,
 		player_id = player_id,
 	})
