@@ -3161,7 +3161,7 @@ function GetTopPlayersList(fromTopCount, team, sortFunction)
 	local playersSortInfo = {}
 
 	for _, focusHero in pairs(focusTableHeroes) do
-		if focusHero and not focusHero:IsNull() and IsValidAlive(focusHero) and focusHero.GetPlayerOwnerID then
+		if focusHero and not focusHero:IsNull() and IsValidEntity(focusHero) and focusHero.GetPlayerOwnerID then
 			playersSortInfo[focusHero:GetPlayerOwnerID()] = sortFunction(focusHero)
 		end
 	end
