@@ -42,6 +42,7 @@ require("neutral_items_drop_choice")
 require("gpm_lib")
 require("game_options/game_options")
 require("shuffle_team")
+require("custom_pings")
 Precache = require( "precache" )
 
 WebApi.customGame = "Dota12v12"
@@ -219,6 +220,7 @@ function CMegaDotaGameMode:InitGameMode()
 	CustomChat:Init()
 	GamePerks:Init()
 	GiftCodes:Init()
+	CustomPings:Init()
 end
 
 function IsInBugZone(pos)
@@ -336,7 +338,10 @@ function CMegaDotaGameMode:SetTeamColors()
 		team_colors[team][1] = counter
 		local color = team_colors[team][2][counter]
 		
-		if color then PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3]) end
+		if color then
+			CustomPings:SetColor(player_id, color)
+			PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3]) 
+		end
 	end
 end
 

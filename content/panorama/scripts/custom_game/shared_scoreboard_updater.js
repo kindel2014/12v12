@@ -230,12 +230,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel(scoreboardConfig, playersContainer
 		var playerPortrait = playerPanel.FindChildInLayoutFile("HeroIcon");
 		if (playerPortrait) {
 			if (playerInfo.player_selected_hero !== "") {
-				const uniquePortraits = CustomNetTables.GetTableValue("game_state", "portraits");
-				if (uniquePortraits && uniquePortraits[playerId]) {
-					playerPortrait.SetImage("file://{images}/heroes/" + uniquePortraits[playerId] + ".png");
-				} else {
-					playerPortrait.SetImage("file://{images}/heroes/" + playerInfo.player_selected_hero + ".png");
-				}
+				playerPortrait.SetImage(GetPortraitImage(playerId, playerInfo.player_selected_hero));
 			} else {
 				playerPortrait.SetImage("file://{images}/custom_game/unassigned.png");
 			}

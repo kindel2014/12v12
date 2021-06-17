@@ -1095,5 +1095,9 @@
 		"leaderboard_rank"					"Ранг"
 		"leaderboard_player"				"Игрок"
 		"leaderboard_rating"				"Рейтинг"
+		
+		"and"								"и"
+		"High_five_just" 					"дали друг другу пять!"
+		"High_five_LeftHanging"	 			"пытается дать кому-нибудь пять, но безуспешно."
 	}
 }

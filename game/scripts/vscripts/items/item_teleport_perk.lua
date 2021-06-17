@@ -70,7 +70,8 @@ function item_teleport_perk:OnChannelFinish(b_interrupted)
 	else
 		MinimapEvent( caster:GetTeamNumber(), caster, 0, 0, DOTA_MINIMAP_EVENT_CANCEL_TELEPORTING, 0 )
 	end
-	
+
+	caster:StopSound("Hero_Tinker.MechaBoots.Loop")
 	caster:StopSound("Portal.Loop_Appear")
 	caster:RemoveModifierByName("modifier_teleport_from_perk")
 
