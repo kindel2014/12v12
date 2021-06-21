@@ -2,7 +2,7 @@ const THINK = 0.01;
 const PINGS_COUNT = 7;
 const MIN_OFFSET = 18;
 const MAX_OFFSET = 200;
-const TRIGGER_TIME_FOR_WHEEL = 0.3;
+const TRIGGER_TIME_FOR_WHEEL = 0.1;
 
 // 80 - that's 1/2 of height/width from HUD_PING_WHEEL
 const hud_wheel_half_width = 80;
