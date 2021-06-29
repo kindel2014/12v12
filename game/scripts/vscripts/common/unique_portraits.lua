@@ -35,6 +35,10 @@ PORTRAITS_FROM_MODEL = {
 	["models/heroes/legion_commander/legion_commander.vmdl"] = {
 		[628863847] = "npc_dota_hero_legion_commander_alt1",
 	},
+	["models/items/spectre/spectre_arcana/spectre_arcana_base.vmdl"] = {
+		[1977497166] = "npc_dota_hero_spectre_alt1",
+		[628863847] = "npc_dota_hero_spectre_alt2",
+	},
 	["models/heroes/pudge_cute/pudge_cute_hook.vmdl"] = "npc_dota_hero_pudge_persona1",
 	["models/heroes/antimage_female/antimage_female.vmdl"] = "npc_dota_hero_antimage_persona1",
 	["models/heroes/invoker_kid/invoker_kid.vmdl"] = "npc_dota_hero_invoker_persona1",
@@ -47,6 +51,8 @@ PORTRAITS_FROM_MODEL = {
 	["models/items/rubick/rubick_arcana/rubick_arcana_base.vmdl"] = "npc_dota_hero_rubick_alt",
 	["models/items/techies/bigshot/bigshot.vmdl"] = "npc_dota_hero_techies_alt1",
 	["models/heroes/zeus/zeus_arcana.vmdl"] = "npc_dota_hero_zuus_alt1",
+	["models/heroes/dragon_knight_persona/dk_persona_base.vmdl"] = "npc_dota_hero_dragon_knight_persona1",
+	["models/items/io/io_ti7/io_ti7.vmdl"] = "npc_dota_hero_wisp_alt",
 }
 function UniquePortraits:Init()
 	self.portraitsData = {}
