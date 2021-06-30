@@ -1610,5 +1610,7 @@
 		"leaderboard_rank"					"Rank"
 		"leaderboard_player"				"Player"
 		"leaderboard_rating"				"Rating"
+		
+		"mute_all_hint"	"Mute All"
 	}
 }

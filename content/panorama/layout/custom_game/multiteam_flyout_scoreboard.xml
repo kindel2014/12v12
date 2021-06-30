@@ -60,6 +60,7 @@
 				</Panel>
 			</Panel>
 		</Panel>
+		<ToggleButton id="MuteAll" onactivate="MuteAll()" onmouseover="UIShowTextTooltip(#mute_all_hint)" onmouseout="UIHideTextTooltip()"/>
   </Panel>
 </root>
 
