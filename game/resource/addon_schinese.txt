@@ -228,7 +228,7 @@
 		"zhil_do_konsta"					"Жил до конца, умер как герой"
 		"ay_ay_ay"							"Ай-ай-ай-ай-ай, что сейчас произошло!"
 		"ehto_g_g"							"Это ГГ"
-		"eto_prosto_netchto"				"Это.Просто.Нечто."
+		"eto_prosto_netchto"				"Это. Просто. Нечто."
 		"krasavchik"						"Красавчик!"
 		"bozhe_kak_eto_bolno"				"Боже, как это больно!"
 		"oy_oy_bezhat"						"Ой-ой-ой-ой-ой, бежать!"
@@ -635,13 +635,13 @@
 		"DOTA_Tooltip_hunter_t2"				"个人特权：猎人"
 
 		"builder_t0"								"初级建造者"
-		"builder_t0_tooltip"						"每30秒为生命值最低的塔回复5点生命值"
+		"builder_t0_tooltip"						"每30秒为生命值最低的建筑物回复5点生命值"
 		"DOTA_Tooltip_builder_t0"					"个人特权：建造者"
 		"builder_t1"								"建造者"
-		"builder_t1_tooltip"						"每30秒为生命值最低的塔回复10点生命值"
+		"builder_t1_tooltip"						"每30秒为生命值最低的建筑物回复10点生命值"
 		"DOTA_Tooltip_builder_t1"					"个人特权：建造者"
 		"builder_t2"								"专业建造者"
-		"builder_t2_tooltip"						"每30秒为生命值最低的塔回复20点生命值"
+		"builder_t2_tooltip"						"每30秒为生命值最低的建筑物回复20点生命值"
 		"DOTA_Tooltip_builder_t2"					"个人特权：建造者"
 		"DOTA_Tooltip_modifier_builder_tower"		"建造者治疗"
 
@@ -1610,5 +1610,7 @@
 		"leaderboard_rank"					"排名"
 		"leaderboard_player"				"玩家"
 		"leaderboard_rating"				"评分"
+		
+		"mute_all_hint"	"静音全部"
 	}
 }
