@@ -23,7 +23,9 @@ end
 agi_for_kill_t0 = class(agi_for_kill)
 agi_for_kill_t1 = class(agi_for_kill)
 agi_for_kill_t2 = class(agi_for_kill)
+agi_for_kill_t3 = class(agi_for_kill)
 
 function agi_for_kill_t0:OnCreated() self.v = 1 end
 function agi_for_kill_t1:OnCreated() self.v = 2 end
 function agi_for_kill_t2:OnCreated() self.v = 3 end
+function agi_for_kill_t3:OnCreated() self.v = 4 end

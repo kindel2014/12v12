@@ -205,6 +205,7 @@ function WebApi:AfterMatch(winnerTeam)
 					deaths = PlayerResource:GetDeaths(playerId),
 					assists = PlayerResource:GetAssists(playerId),
 					perk = GamePerks.choosed_perks[playerId],
+					kickAbusedCount = Kicks.reports[playerId]
 				}
 				table.insert(team_data.players, player_data)
 			end

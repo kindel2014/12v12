@@ -33,7 +33,9 @@ end
 manaburn_t0 = class(manaburn)
 manaburn_t1 = class(manaburn)
 manaburn_t2 = class(manaburn)
+manaburn_t3 = class(manaburn)
 
 function manaburn_t0:OnCreated() self.v = 8 end
 function manaburn_t1:OnCreated() self.v = 16 end
 function manaburn_t2:OnCreated() self.v = 32 end
+function manaburn_t3:OnCreated() self.v = 64 end

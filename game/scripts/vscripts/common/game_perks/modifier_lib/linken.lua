@@ -14,3 +14,5 @@ linken_t1 = class(linken)
 linken_t1.v = 1
 linken_t2 = class(linken)
 linken_t2.v = 2
+linken_t3 = class(linken)
+linken_t3.v = 3

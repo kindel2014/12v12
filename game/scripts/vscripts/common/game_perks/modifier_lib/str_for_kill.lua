@@ -23,7 +23,9 @@ end
 str_for_kill_t0 = class(str_for_kill)
 str_for_kill_t1 = class(str_for_kill)
 str_for_kill_t2 = class(str_for_kill)
+str_for_kill_t3 = class(str_for_kill)
 
 function str_for_kill_t0:OnCreated() self.v = 1 end
 function str_for_kill_t1:OnCreated() self.v = 2 end
 function str_for_kill_t2:OnCreated() self.v = 3 end
+function str_for_kill_t3:OnCreated() self.v = 4 end

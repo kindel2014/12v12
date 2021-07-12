@@ -11,7 +11,9 @@ end
 damage_t0 = class(damage)
 damage_t1 = class(damage)
 damage_t2 = class(damage)
+damage_t3 = class(damage)
 
 function damage_t0:OnCreated() self.v = {5, 1, 0.5} end
 function damage_t1:OnCreated() self.v = {10, 1, 1} end
 function damage_t2:OnCreated() self.v = {20, 1, 2} end
+function damage_t3:OnCreated() self.v = {40, 1, 4} end

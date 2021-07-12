@@ -16,6 +16,7 @@ end
 item_linken_perk_0 = class(item_linken_perk)
 item_linken_perk_1 = class(item_linken_perk)
 item_linken_perk_2 = class(item_linken_perk)
+item_linken_perk_3 = class(item_linken_perk)
 
 modifier_linken_perk = modifier_linken_perk or class({})
 function modifier_linken_perk:RemoveOnDeath() return true end

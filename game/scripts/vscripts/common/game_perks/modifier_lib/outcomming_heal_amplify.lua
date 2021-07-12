@@ -9,7 +9,9 @@ function outcomming_heal_amplify:GetModifierHealAmplify_PercentageSource() retur
 outcomming_heal_amplify_t0 = class(outcomming_heal_amplify)
 outcomming_heal_amplify_t1 = class(outcomming_heal_amplify)
 outcomming_heal_amplify_t2 = class(outcomming_heal_amplify)
+outcomming_heal_amplify_t3 = class(outcomming_heal_amplify)
 
 function outcomming_heal_amplify_t0:OnCreated() self.v = 8 end
 function outcomming_heal_amplify_t1:OnCreated() self.v = 16 end
 function outcomming_heal_amplify_t2:OnCreated() self.v = 32 end
+function outcomming_heal_amplify_t3:OnCreated() self.v = 64 end

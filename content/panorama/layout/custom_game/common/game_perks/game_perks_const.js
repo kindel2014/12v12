@@ -1,5 +1,6 @@
 const perks_levels = 3;
 const game_perks = [
+	`family`,
 	`magician`,
 	`linken`,
 	`buff_amplify`,

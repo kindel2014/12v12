@@ -512,6 +512,9 @@
 "file://{resources}/layout/custom_game/common/game_perks/icons/delayed_damage_t0.png"
 "file://{resources}/layout/custom_game/common/game_perks/icons/delayed_damage_t1.png"
 "file://{resources}/layout/custom_game/common/game_perks/icons/delayed_damage_t2.png"
+"file://{resources}/layout/custom_game/common/game_perks/icons/family_t0.png"
+"file://{resources}/layout/custom_game/common/game_perks/icons/family_t1.png"
+"file://{resources}/layout/custom_game/common/game_perks/icons/family_t2.png"
 
 "file://{resources}/images/custom_game/minimap_overlay_12v12.png"
 "file://{resources}/images/custom_game/custom_pings_map_mask.png"

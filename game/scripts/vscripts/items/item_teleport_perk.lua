@@ -89,3 +89,4 @@ end
 item_teleport_perk_0 = class(item_teleport_perk)
 item_teleport_perk_1 = class(item_teleport_perk)
 item_teleport_perk_2 = class(item_teleport_perk)
+item_teleport_perk_3 = class(item_teleport_perk)

@@ -38,15 +38,19 @@ function GamePerks:Init()
 		["builder"] = true;
 		["traveler"] = true;
 		["delayed_damage"] = true;
+		["family"] = true;
 	};
 
 	self.choosed_perks = {}
+	self.family_perks = {}
 	self.visible_perks_for_enemies = {}
 	
 	for perk_name in pairs(self.game_perks) do
 		for tier = 0, 2 do
-			local full_perk_name = perk_name .. "_t" .. tier
-			LinkLuaModifier( full_perk_name, "common/game_perks/modifier_lib/" .. perk_name, LUA_MODIFIER_MOTION_NONE )
+			if perk_name ~= "family" then
+				local full_perk_name = perk_name .. "_t" .. tier
+				LinkLuaModifier( full_perk_name, "common/game_perks/modifier_lib/" .. perk_name, LUA_MODIFIER_MOTION_NONE )
+			end
 		end
 	end
 	CustomGameEventManager:RegisterListener("game_perks:get_level_and_perks",function(_, event)
@@ -63,9 +67,10 @@ end
 function GamePerks:CheckPatreonLevelAndPerks(event)
 	local player_id = event.PlayerID
 	if not player_id then return end
-	
+
 	local patreon_lvl = Supporters:GetLevel(player_id)
 	local current_perk = self.choosed_perks[player_id]
+
 	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "game_perks:set_supp_level", {
 		patreon_level = patreon_lvl,
 		current_perk = current_perk
@@ -101,10 +106,26 @@ function GamePerks:SetGamePerk(event)
 	end
 	
 	local hero = player:GetAssignedHero()
+
+	if string.match(perk_name, "family") then
+		self.family_perks[player_id] = perk_name
+		perk_name = perk_name:gsub("family_t", "")
+		local perks_pool = {}
+
+		for _perk_name, _ in pairs(self.game_perks) do
+			if _perk_name ~= "family" then table.insert(perks_pool, _perk_name) end
+		end
+
+		local random_perk = table.random(perks_pool)
+		perk_name = random_perk .. "_t" .. perk_name + 1
+	end
 	
 	if hero and not hero:IsNull() and hero:IsAlive() then
 		self.choosed_perks[player_id] = perk_name
 		hero:AddNewModifier(hero, nil, perk_name, {duration = -1})
+		if self.family_perks[player_id] then
+			self:CheckPatreonLevelAndPerks({ PlayerID = player_id })
+		end
 	else
 		GamePerks:SetGamePerkSchedule(event)
 	end
@@ -118,7 +139,11 @@ function GamePerks:CheckPerks(event)
 	if not self.visible_perks_for_enemies[playerTeam] then return end
 	for _, visible_player_id in pairs(self.visible_perks_for_enemies[playerTeam]) do
 		if self.choosed_perks[visible_player_id] then
-			local perkName = self.choosed_perks[visible_player_id]:gsub("_t%d*$", "_t0")
+			local base_name = self.choosed_perks[visible_player_id]
+			if self.family_perks[player_id] then
+				base_name = self.family_perks[player_id]
+			end
+			local perkName = base_name:gsub("_t%d*$", "_t0")
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "game_perks:show_player_perk", { 
 				playerId = visible_player_id, 
 				perkName = perkName
@@ -161,7 +186,11 @@ function GamePerks:StartTrackPerks()
 								local focus_hero = PlayerResource:GetSelectedHeroEntity(player_id)
 								
 								if beacon_hero and focus_hero and beacon_hero:CanEntityBeSeenByMyTeam(focus_hero) then
-									CustomGameEventManager:Send_ServerToTeam(insepction_team, "show_player_perk", { playerId = player_id, perkName = self.choosed_perks[player_id]:gsub("_t%d*$", "_t0")})
+									local base_name = self.choosed_perks[player_id]
+									if self.family_perks[player_id] then
+										base_name = self.family_perks[player_id]
+									end
+									CustomGameEventManager:Send_ServerToTeam(insepction_team, "game_perks:show_player_perk", { playerId = player_id, perkName = base_name:gsub("_t%d*$", "_t0")})
 									table.insert(self.visible_perks_for_enemies[insepction_team], player_id)
 								else
 									any_untrack = true

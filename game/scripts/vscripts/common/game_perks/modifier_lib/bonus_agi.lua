@@ -11,7 +11,9 @@ end
 bonus_agi_t0 = class(bonus_agi)
 bonus_agi_t1 = class(bonus_agi)
 bonus_agi_t2 = class(bonus_agi)
+bonus_agi_t3 = class(bonus_agi)
 
 function bonus_agi_t0:OnCreated() self.v = {0, 1, 0.5} end
 function bonus_agi_t1:OnCreated() self.v = {0, 1, 1} end
 function bonus_agi_t2:OnCreated() self.v = {0, 1, 2} end
+function bonus_agi_t3:OnCreated() self.v = {0, 1, 4} end

@@ -47,7 +47,9 @@ function modifier_builder_tower:GetTexture() return "perkIcons/builder" end
 builder_t0 = class(builder)
 builder_t1 = class(builder)
 builder_t2 = class(builder)
+builder_t3 = class(builder)
 
 function builder_t0:OnCreated() self.v = 5 self:StartIntervalThink(30) end
 function builder_t1:OnCreated() self.v = 10 self:StartIntervalThink(30) end
 function builder_t2:OnCreated() self.v = 20 self:StartIntervalThink(30) end
+function builder_t3:OnCreated() self.v = 40 self:StartIntervalThink(30) end

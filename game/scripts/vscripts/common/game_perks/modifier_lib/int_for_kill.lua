@@ -23,7 +23,9 @@ end
 int_for_kill_t0 = class(int_for_kill)
 int_for_kill_t1 = class(int_for_kill)
 int_for_kill_t2 = class(int_for_kill)
+int_for_kill_t3 = class(int_for_kill)
 
 function int_for_kill_t0:OnCreated() self.v = 1 end
 function int_for_kill_t1:OnCreated() self.v = 2 end
 function int_for_kill_t2:OnCreated() self.v = 4 end
+function int_for_kill_t3:OnCreated() self.v = 8 end

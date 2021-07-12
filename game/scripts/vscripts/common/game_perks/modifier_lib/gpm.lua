@@ -7,7 +7,9 @@ function gpm:GetTexture() return "perkIcons/gpm" end
 gpm_t0 = class(gpm)
 gpm_t1 = class(gpm)
 gpm_t2 = class(gpm)
+gpm_t3 = class(gpm)
 
 function gpm_t0:OnCreated() self:GetParent().bonusGpmForPerkPerMinute = 50 end
 function gpm_t1:OnCreated() self:GetParent().bonusGpmForPerkPerMinute = 100 end
 function gpm_t2:OnCreated() self:GetParent().bonusGpmForPerkPerMinute = 150 end
+function gpm_t3:OnCreated() self:GetParent().bonusGpmForPerkPerMinute = 300 end

@@ -9,7 +9,9 @@ function bonus_movespeed:GetModifierMoveSpeedBonus_Constant() return self.v end
 bonus_movespeed_t0 = class(bonus_movespeed)
 bonus_movespeed_t1 = class(bonus_movespeed)
 bonus_movespeed_t2 = class(bonus_movespeed)
+bonus_movespeed_t3 = class(bonus_movespeed)
 
 function bonus_movespeed_t0:OnCreated() self.v = 10 end
 function bonus_movespeed_t1:OnCreated() self.v = 20 end
 function bonus_movespeed_t2:OnCreated() self.v = 40 end
+function bonus_movespeed_t3:OnCreated() self.v = 80 end

@@ -22,7 +22,9 @@ end
 lifesteal_t0 = class(lifesteal)
 lifesteal_t1 = class(lifesteal)
 lifesteal_t2 = class(lifesteal)
+lifesteal_t3 = class(lifesteal)
 
 function lifesteal_t0:OnCreated() self.v = 5 end
 function lifesteal_t1:OnCreated() self.v = 10 end
 function lifesteal_t2:OnCreated() self.v = 20 end
+function lifesteal_t3:OnCreated() self.v = 40 end

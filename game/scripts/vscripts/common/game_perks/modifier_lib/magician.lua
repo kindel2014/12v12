@@ -85,7 +85,9 @@ end
 magician_t0 = class(magician)
 magician_t1 = class(magician)
 magician_t2 = class(magician)
+magician_t3 = class(magician)
 
 function magician_t0:OnCreated() self.v = 1.05 end
 function magician_t1:OnCreated() self.v = 1.1 end
 function magician_t2:OnCreated() self.v = 1.2 end
+function magician_t3:OnCreated() self.v = 1.4 end

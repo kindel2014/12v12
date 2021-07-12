@@ -14,3 +14,5 @@ buff_amplify_t1 = class(buff_amplify)
 buff_amplify_t1.v = 1.2
 buff_amplify_t2 = class(buff_amplify) 
 buff_amplify_t2.v = 1.4
+buff_amplify_t3 = class(buff_amplify)
+buff_amplify_t3.v = 1.8

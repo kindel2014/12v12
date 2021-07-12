@@ -36,6 +36,8 @@ delayed_damage_t1 = class(delayed_damage)
 delayed_damage_t1.v = {16, 8}
 delayed_damage_t2 = class(delayed_damage) 
 delayed_damage_t2.v = {32, 10}
+delayed_damage_t3 = class(delayed_damage)
+delayed_damage_t3.v = {64, 12}
 
 modifier_delayed_damage = class(base_game_perk)
 function modifier_delayed_damage:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end

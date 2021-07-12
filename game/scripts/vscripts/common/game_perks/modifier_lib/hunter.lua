@@ -23,7 +23,9 @@ end
 hunter_t0 = class(hunter)
 hunter_t1 = class(hunter)
 hunter_t2 = class(hunter)
+hunter_t3 = class(hunter)
 
 function hunter_t0:OnCreated() self.v = 0.1 end
 function hunter_t1:OnCreated() self.v = 0.2 end
 function hunter_t2:OnCreated() self.v = 0.4 end
+function hunter_t3:OnCreated() self.v = 0.8 end

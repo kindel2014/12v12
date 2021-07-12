@@ -14,3 +14,5 @@ traveler_t1 = class(traveler)
 traveler_t1.v = 1
 traveler_t2 = class(traveler)
 traveler_t2.v = 2
+traveler_t3 = class(traveler)
+traveler_t3.v = 2

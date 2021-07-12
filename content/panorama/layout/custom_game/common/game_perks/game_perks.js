@@ -5,6 +5,7 @@ const ROOT = $.GetContextPanel();
 
 const PERK_MENU = $("#GamePerksMenu");
 const CLOSE_PERK_MENU = $("#CloseGamePerks");
+const TIERS_ROOT = $("#GamePerksTierList");
 
 function SetPlayerPatreonLevel(data) {
 	patreon_level = data.patreon_level;
@@ -35,7 +36,10 @@ function ReloadSettingButton() {
 function SetGamePerkButtonAction(panel, perk_name) {
 	panel.SetPanelEvent("onactivate", function () {
 		current_perk = perk_name;
-		SETTINGS_BUTTON.style.backgroundImage = `url('file://{resources}/layout/custom_game/common/game_perks/icons/${perk_name}.png')`;
+		SETTINGS_BUTTON.style.backgroundImage = `url('file://{resources}/layout/custom_game/common/game_perks/icons/${perk_name.replace(
+			"_t4",
+			"_t3",
+		)}.png')`;
 
 		GameEvents.SendCustomGameEventToServer("game_perks:set_perk", {
 			newPerkName: perk_name,
@@ -46,8 +50,8 @@ function SetGamePerkButtonAction(panel, perk_name) {
 		SETTINGS_BUTTON.ClearPanelEvent(`onactivate`);
 
 		HideGamePerks();
-		PERK_MENU.DeleteAsync(0);
-		CLOSE_PERK_MENU.DeleteAsync(0);
+		// PERK_MENU.DeleteAsync(0);
+		// CLOSE_PERK_MENU.DeleteAsync(0);
 	});
 
 	panel.SetPanelEvent("onmouseover", function () {
@@ -71,7 +75,6 @@ function UpdateBlockGamePerk(panel, current_patreon_level) {
 	});
 }
 
-const TIERS_ROOT = $("#GamePerksTierList");
 function CreateGamePerks() {
 	TIERS_ROOT.RemoveAndDeleteChildren();
 	for (let tier = 0; tier < perks_levels; tier++) {
@@ -106,7 +109,10 @@ function CreateGamePerks() {
 			}
 
 			if (current_perk != null) {
-				SETTINGS_BUTTON.style.backgroundImage = `url('file://{resources}/layout/custom_game/common/game_perks/icons/${current_perk}.png')`;
+				SETTINGS_BUTTON.style.backgroundImage = `url('file://{resources}/layout/custom_game/common/game_perks/icons/${current_perk.replace(
+					"_t4",
+					"_t3",
+				)}.png')`;
 				SETTINGS_BUTTON.SetPanelEvent("onmouseover", function () {
 					$.DispatchEvent("DOTAShowTextTooltip", SETTINGS_BUTTON, $.Localize(`${current_perk}_tooltip`));
 				});

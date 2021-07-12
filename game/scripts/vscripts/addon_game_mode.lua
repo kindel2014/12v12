@@ -221,6 +221,7 @@ function CMegaDotaGameMode:InitGameMode()
 	GamePerks:Init()
 	GiftCodes:Init()
 	CustomPings:Init()
+	Kicks:Init()
 end
 
 function IsInBugZone(pos)
