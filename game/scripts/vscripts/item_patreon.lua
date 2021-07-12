@@ -53,6 +53,7 @@ function OnSpellStartBanHammer(event)
         if target:IsRealHero() and target:IsControllableByAnyPlayer() and not target:IsTempestDouble() then
             if (supporter_level > 0) then
                 CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "display_custom_error", { message = "#cannotkickotherpatreons" })
+				ability:EndCooldown()
             else
                 if not _G.votingForKick then
                     caster.wantToKick = target
