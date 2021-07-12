@@ -125,6 +125,7 @@ function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderV
 		orderType == DOTA_UNIT_ORDER_CAST_TARGET and
 		target and
 		disabledAbilities[ability:GetAbilityName()] and
+		target:GetTeam() == unit:GetTeam() and
 		PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID())
 	) then
 		DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
