@@ -37,8 +37,8 @@ function SetGamePerkButtonAction(panel, perk_name) {
 	panel.SetPanelEvent("onactivate", function () {
 		current_perk = perk_name;
 		SETTINGS_BUTTON.style.backgroundImage = `url('file://{resources}/layout/custom_game/common/game_perks/icons/${perk_name.replace(
-			"_t4",
 			"_t3",
+			"_t2",
 		)}.png')`;
 
 		GameEvents.SendCustomGameEventToServer("game_perks:set_perk", {
@@ -110,8 +110,8 @@ function CreateGamePerks() {
 
 			if (current_perk != null) {
 				SETTINGS_BUTTON.style.backgroundImage = `url('file://{resources}/layout/custom_game/common/game_perks/icons/${current_perk.replace(
-					"_t4",
 					"_t3",
+					"_t2",
 				)}.png')`;
 				SETTINGS_BUTTON.SetPanelEvent("onmouseover", function () {
 					$.DispatchEvent("DOTAShowTextTooltip", SETTINGS_BUTTON, $.Localize(`${current_perk}_tooltip`));

@@ -46,7 +46,7 @@ function GamePerks:Init()
 	self.visible_perks_for_enemies = {}
 	
 	for perk_name in pairs(self.game_perks) do
-		for tier = 0, 2 do
+		for tier = 0, 3 do
 			if perk_name ~= "family" then
 				local full_perk_name = perk_name .. "_t" .. tier
 				LinkLuaModifier( full_perk_name, "common/game_perks/modifier_lib/" .. perk_name, LUA_MODIFIER_MOTION_NONE )
