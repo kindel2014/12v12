@@ -4,6 +4,19 @@ GamePerks = GamePerks or {}
 
 function GamePerks:Init()
 	self.game_perks = {
+		["family"] = true;
+		["magician"] = true;
+		["linken"] = true;
+		["buff_amplify"] = true;
+		["builder"] = true;
+		["traveler"] = true;
+		["delayed_damage"] = true;
+		["str_for_kill"] = true;
+		["agi_for_kill"] = true;
+		["int_for_kill"] = true;
+		["cleave"] = true;
+		["cd_after_death"] = true;
+		["manaburn"] = true;
 		["mp_regen"] = true;
 		["hp_regen"] = true;
 		["bonus_movespeed"] = true;
@@ -25,20 +38,6 @@ function GamePerks:Init()
 		["outcomming_heal_amplify"] = true;
 		["debuff_time"] = true;
 		["bonus_gold"] = true;
-		["gpm"] = true;
-		["str_for_kill"] = true;
-		["agi_for_kill"] = true;
-		["int_for_kill"] = true;
-		["cleave"] = true;
-		["cd_after_death"] = true;
-		["manaburn"] = true;
-		["magician"] = true;
-		["linken"] = true;
-		["buff_amplify"] = true;
-		["builder"] = true;
-		["traveler"] = true;
-		["delayed_damage"] = true;
-		["family"] = true;
 	};
 
 	self.choosed_perks = {}
@@ -140,8 +139,8 @@ function GamePerks:CheckPerks(event)
 	for _, visible_player_id in pairs(self.visible_perks_for_enemies[playerTeam]) do
 		if self.choosed_perks[visible_player_id] then
 			local base_name = self.choosed_perks[visible_player_id]
-			if self.family_perks[player_id] then
-				base_name = self.family_perks[player_id]
+			if self.family_perks[visible_player_id] then
+				base_name = self.family_perks[visible_player_id]
 			end
 			local perkName = base_name:gsub("_t%d*$", "_t0")
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "game_perks:show_player_perk", { 
