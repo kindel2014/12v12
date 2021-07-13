@@ -789,7 +789,7 @@
 		"family_t1"							"Strong Family"
 		"family_t1_tooltip"					"Select random perk but one tier higher (Second tier)"
 		"family_t2"							"The Strongest Family"
-		"family_t2_tooltip"					"Select random perk but one tier higher (Extra tier)"
+		"family_t2_tooltip"					"Select random perk but one tier higher (Extra tier, roughly 2x the power of a tier 3 perk)"
 		"DOTA_Tooltip_family_t0" 			"Family"
 		
 		"HighSupportersOnly"					"High Supporters Only"
