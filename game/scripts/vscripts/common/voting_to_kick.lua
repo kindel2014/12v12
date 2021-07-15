@@ -53,7 +53,7 @@ function Kicks:Report(player_id)
 	
 	local init_pid = _G.votingForKick.init
 	
-	if _G.votingForKick.reports_count >= 1 then
+	if _G.votingForKick.reports_count >= 6 then
 		self:StopVoting(false)
 		self.stats[init_pid].voting_reported = self.stats[init_pid].voting_reported + 1
 	end
