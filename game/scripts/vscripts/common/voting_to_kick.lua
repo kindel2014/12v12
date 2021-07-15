@@ -17,10 +17,14 @@ function Kicks:Init()
 		[104356809] = 1, -- Sheodar
 		[93913347] = 1, -- Darklord
 	}
-	self.reports = {}
+	self.stats = {}
 
 	for player_id = 0, 24 do
-		self.reports[player_id] = 0
+		self.stats[player_id] = {
+			reports = 0,
+			voting_start = 0,
+			voting_reported = 0
+		}
 	end
 
 	CustomGameEventManager:RegisterListener("voting_to_kick_reason_is_picked",function(_, keys)
@@ -41,14 +45,20 @@ function Kicks:Init()
 end
 
 function Kicks:Report(player_id)
-	if not player_id or not _G.votingForKick or not _G.votingForKick.init then return end
+	if not player_id or not _G.votingForKick or not _G.votingForKick.init or not _G.votingForKick.reports_count then return end
 	if _G.votingForKick.players_reports and _G.votingForKick.players_reports[player_id] then return end
 
 	_G.votingForKick.players_reports[player_id] = true
+	_G.votingForKick.reports_count = _G.votingForKick.reports_count + 1
 	
 	local init_pid = _G.votingForKick.init
 	
-	self.reports[init_pid] = self.reports[init_pid] + 1
+	if _G.votingForKick.reports_count >= 1 then
+		self:StopVoting(false)
+		self.stats[init_pid].voting_reported = self.stats[init_pid].voting_reported + 1
+	end
+	
+	self.stats[init_pid].reports = self.stats[init_pid].reports + 1
 end
 
 function Kicks:StartVoting(data)
@@ -74,9 +84,12 @@ function Kicks:StartVoting(data)
 		init = data.PlayerID,
 		target = playerTargetID,
 		votes = 1,
-		players_reports = {}
+		players_reports = {},
+		reports_count = 0,
 	}
 
+	self.stats[data.PlayerID].voting_start = self.stats[data.PlayerID].voting_start + 1
+	
 	_G.votingForKick.playersVoted[data.PlayerID] = true
 	self:UpdateVotingForKick()
 	
@@ -94,14 +107,17 @@ function Kicks:StartVoting(data)
 		useGameTime = false,
 		endTime = self.time_to_voting,
 		callback = function()
-			CustomGameEventManager:Send_ServerToTeam(team, "voting_to_kick_hide_voting", {})
-			if _G.votingForKick.votes < self.votes_for_kick then
-				GameRules:SendCustomMessageToTeam("#voting_to_kick_voting_failed", team, _G.votingForKick.target, 0)
-			end
-			_G.votingForKick = nil
+			self:StopVoting(false)
 			return nil
 		end
 	})
+end
+
+function Kicks:StopVoting(successful_voting)
+	Timers:RemoveTimer("start_voting_to_kick")
+	CustomGameEventManager:Send_ServerToTeam(_G.votingForKick.team, "voting_to_kick_hide_voting", {})
+	GameRules:SendCustomMessage(successful_voting and "#voting_to_kick_player_kicked" or "#voting_to_kick_voting_failed", _G.votingForKick.target, 0)
+	_G.votingForKick = nil
 end
 
 function Kicks:UpdateVotingForKick()
@@ -155,11 +171,8 @@ function Kicks:VoteYes(data)
 	self:SendDegugResult(data, "YES TOTAL VOICES: ".._G.votingForKick.votes)
 	if _G.votingForKick.votes >= self.votes_for_kick then
 		_G.kicks[_G.votingForKick.target] = true
-		Timers:RemoveTimer("start_voting_to_kick")
-		CustomGameEventManager:Send_ServerToTeam(_G.votingForKick.team, "voting_to_kick_hide_voting", {})
 		SendToServerConsole('kickid '.. _G.tUserIds[_G.votingForKick.target]);
-		GameRules:SendCustomMessage("#voting_to_kick_player_kicked", _G.votingForKick.target, 0)
-		_G.votingForKick = nil
+		self:StopVoting(true)
 	end
 	
 	self:UpdateVotingForKick()
@@ -178,4 +191,16 @@ function Kicks:CheckState(data)
 			playerVoted = _G.votingForKick.playersVoted[data.PlayerID],
 		})
 	end
+end
+
+function Kicks:GetReports(player_id)
+	return self.stats[player_id] and self.stats[player_id].reports or 0
+end
+
+function Kicks:GetInitVotings(player_id)
+	return self.stats[player_id] and self.stats[player_id].voting_start or 0
+end
+
+function Kicks:GetFailedVotings(player_id)
+	return self.stats[player_id] and self.stats[player_id].voting_reported or 0
 end
