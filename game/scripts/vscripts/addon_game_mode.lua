@@ -94,6 +94,7 @@ function CMegaDotaGameMode:InitGameMode()
 
 	_G.neutralItems = {}
 	self.spawned_couriers = {}
+	self.disconnected_players = {}
 	for _, data in pairs( neutral_items ) do
 		for item, turn in pairs( data.items ) do
 			if turn == 1 then
@@ -359,7 +360,7 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 	end
 	
 	local player_id = hero:GetPlayerOwnerID()
-	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] then
+	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] and not self.disconnected_players[player_id] then
 		SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
 	end
 end
@@ -1230,6 +1231,13 @@ function CMegaDotaGameMode:OnConnectFull(data)
 end
 
 function CMegaDotaGameMode:OnPlayerDisconnect(data)
+	local player_id = data.PlayerID
+	if not player_id then return end
+	
+	if not self.disconnected_players[player_id] then
+		self.disconnected_players[player_id] = true
+	end
+	
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = true, playerId = data.PlayerID} )
 	Timers:CreateTimer(1, function()
 		CheckTeamBalance()
