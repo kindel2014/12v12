@@ -308,8 +308,8 @@
 		"patreons_perk_hide_choose"					   						"选择你的特权"
 
 		"patreon_perks_list_error_tier_0"					   				"该Perk仅适用于非支持者"
-		"patreon_perks_list_error_tier_1"					   				"该Perk仅适用于支持者"
-		"patreon_perks_list_error_tier_2"					   				"该Perk仅适用于高级支持者<br>(<font color='#28c41a'>25$</font>)"
+		"patreon_perks_list_error_tier_1"					   				"该Perk仅适用于Patreon支持者"
+		"patreon_perks_list_error_tier_2"					   				"该Perk仅适用于高级Patreon支持者<br>（<font color='#28c41a'>$25</font>）"
 
 		"game_perk_tolltip_tier_0"					   				"基本级"
 		"game_perk_tolltip_tier_1"					   				"第一级"
@@ -324,6 +324,9 @@
         "mp_regen_t2" 						"高级魔法回复"
         "mp_regen_t2_tooltip" 				"+3魔法回复且每级+0.4"
 		"DOTA_Tooltip_mp_regen_t2" 		"个人特权：魔法回复"
+		"mp_regen_t3" 						"家族魔法回复"
+		"mp_regen_t3_tooltip" 				"+6魔法回复且每级+0.8"
+		"DOTA_Tooltip_mp_regen_t3" 			"个人特权：魔法回复"
 
         "hp_regen_t0" 						"初级生命回复"
         "hp_regen_t0_tooltip" 				"+1.5生命回复且每级+0.25"
@@ -334,7 +337,10 @@
         "hp_regen_t2" 						"高级生命回复"
 		"hp_regen_t2_tooltip" 				"+6生命回复且每级+1"
 		"DOTA_Tooltip_hp_regen_t2" 		"个人特权：生命回复"
-
+        "hp_regen_t3" 						"家族生命回复"
+		"hp_regen_t3_tooltip" 				"+12生命回复且每级+2"
+		"DOTA_Tooltip_hp_regen_t3" 			"个人特权：生命回复"
+		
         "bonus_movespeed_t0" 				"初级移动速度"
 		"bonus_movespeed_t0_tooltip" 		"+15移动速度"
 		"DOTA_Tooltip_bonus_movespeed_t0" 	"个人特权：移动速度"
@@ -344,7 +350,10 @@
         "bonus_movespeed_t2" 				"高级移动速度"
         "bonus_movespeed_t2_tooltip" 		"+60移动速度"
         "DOTA_Tooltip_bonus_movespeed_t2" 	"个人特权：移动速度"
-
+        "bonus_movespeed_t3" 				"家族移动速度"
+        "bonus_movespeed_t3_tooltip" 		"+120移动速度"
+        "DOTA_Tooltip_bonus_movespeed_t3" 	"个人特权：移动速度"
+        
         "bonus_agi_t0"						"初级敏捷"
         "bonus_agi_t0_tooltip"				"每级+0.5敏捷"
         "DOTA_Tooltip_bonus_agi_t0" 		"个人特权：敏捷"
@@ -354,7 +363,10 @@
 		"bonus_agi_t2"						"高级敏捷"
 		"bonus_agi_t2_tooltip"				"每级+2敏捷"
 		"DOTA_Tooltip_bonus_agi_t2" 		"个人特权：敏捷"
-
+		"bonus_agi_t3"						"家族敏捷"
+		"bonus_agi_t3_tooltip"				"每级+4敏捷"
+		"DOTA_Tooltip_bonus_agi_t3" 		"个人特权：敏捷"
+		
         "bonus_str_t0"						"初级力量"
         "bonus_str_t0_tooltip"				"每级+0.5力量"
         "DOTA_Tooltip_bonus_str_t0" 		"个人特权：力量"
@@ -364,7 +376,10 @@
         "bonus_str_t2"						"高级力量"
         "bonus_str_t2_tooltip"				"每级+2力量"
         "DOTA_Tooltip_bonus_str_t2" 		"个人特权：力量"
-
+        "bonus_str_t3"						"家族力量"
+        "bonus_str_t3_tooltip"				"每级+4力量"
+        "DOTA_Tooltip_bonus_str_t3" 		"个人特权：力量"
+        
         "bonus_int_t0"						"初级智力"
         "bonus_int_t0_tooltip"				"每级+0.75智力"
         "DOTA_Tooltip_bonus_int_t0" 		"个人特权：智力"
@@ -374,7 +389,10 @@
 		"bonus_int_t2"						"高级智力"
 		"bonus_int_t2_tooltip"				"每级+3智力"
 		"DOTA_Tooltip_bonus_int_t2" 		"个人特权：智力"
-
+		"bonus_int_t3"						"家族智力"
+		"bonus_int_t3_tooltip"				"每级+6智力"
+		"DOTA_Tooltip_bonus_int_t3" 		"个人特权：智力"
+		
         "bonus_all_stats_t0" 				"初级所有数据"
         "bonus_all_stats_t0_tooltip" 		"每级+0.25所有数据"
         "DOTA_Tooltip_bonus_all_stats_t0" 	"个人特权：所有数据"
@@ -384,6 +402,9 @@
 		"bonus_all_stats_t2" 				"高级所有数据"
 		"bonus_all_stats_t2_tooltip" 		"每级+1所有数据"
 		"DOTA_Tooltip_bonus_all_stats_t2" 	"个人特权：所有数据"
+		"bonus_all_stats_t3" 				"家族所有数据"
+		"bonus_all_stats_t3_tooltip" 		"每级+2所有数据"
+		"DOTA_Tooltip_bonus_all_stats_t3" 	"个人特权：所有数据"
 
         "attack_range_t0"					"初级攻击范围"
         "attack_range_t0_tooltip"			"+40攻击范围（远程英雄）或+30攻击范围（近战英雄）"
@@ -394,6 +415,9 @@
         "attack_range_t2"					"高级攻击范围"
         "attack_range_t2_tooltip"			"+160攻击范围（远程英雄）或+120攻击范围（近战英雄）"
         "DOTA_Tooltip_attack_range_t2" 	"个人特权：攻击范围"
+        "attack_range_t3"					"家族攻击范围"
+        "attack_range_t3_tooltip"			"+320攻击范围（远程英雄）或+240攻击范围（近战英雄）"
+        "DOTA_Tooltip_attack_range_t3" 		"个人特权：攻击范围"
 
         "bonus_hp_pct_t0"					"铜铸体质"
         "bonus_hp_pct_t0_tooltip"			"+10%生命值"
@@ -404,6 +428,9 @@
         "bonus_hp_pct_t2"					"钢铸体质"
         "bonus_hp_pct_t2_tooltip"			"+40%生命值"
         "DOTA_Tooltip_bonus_hp_pct_t2" 	"个人特权：生命值"
+        "bonus_hp_pct_t3"					"家族生命值"
+        "bonus_hp_pct_t3_tooltip"			"+80%生命值"
+        "DOTA_Tooltip_bonus_hp_pct_t3" 		"个人特权：生命值"
 
         "cast_range_t0"					"初级施法距离"
         "cast_range_t0_tooltip"			"+45施法距离"
@@ -414,6 +441,9 @@
         "cast_range_t2"					"高级施法距离"
         "cast_range_t2_tooltip"			"+180施法距离"
         "DOTA_Tooltip_cast_range_t2" 		"个人特权：施法距离"
+        "cast_range_t3"					"家族施法距离"
+        "cast_range_t3_tooltip"			"+360施法距离"
+        "DOTA_Tooltip_cast_range_t3" 		"个人特权：施法距离"
 
         "cooldown_reduction_t0"				"初级冷却时间缩短"
         "cooldown_reduction_t0_tooltip"		"+4%冷却时间缩短"
@@ -424,6 +454,9 @@
         "cooldown_reduction_t2"				"高级冷却时间缩短"
         "cooldown_reduction_t2_tooltip"		"+15%冷却时间缩短"
         "DOTA_Tooltip_cooldown_reduction_t2"	"个人特权：冷却时间缩短"
+        "cooldown_reduction_t3"					"家族冷却时间缩短"
+        "cooldown_reduction_t3_tooltip"			"+25%冷却时间缩短"
+        "DOTA_Tooltip_cooldown_reduction_t3"	"个人特权：冷却时间缩短"
 
         "damage_t0"						"初级伤害加成"
         "damage_t0_tooltip"				"+5伤害且每级+0.5"
@@ -434,6 +467,9 @@
         "damage_t2"						"高级伤害加成"
         "damage_t2_tooltip"				"+20伤害且每级+2"
         "DOTA_Tooltip_damage_t2"			"个人特权：伤害加成"
+        "damage_t3"						"家族伤害加成"
+        "damage_t3_tooltip"				"+40伤害且每级+4"
+        "DOTA_Tooltip_damage_t3"			"个人特权：伤害加成"
 
         "evasion_t0"						"初级闪避"
         "evasion_t0_tooltip"				"+15%闪避变更"
@@ -444,6 +480,9 @@
         "evasion_t2"						"高级闪避"
         "evasion_t2_tooltip"				"+40%闪避变更"
         "DOTA_Tooltip_evasion_t2"			"个人特权：闪避"
+        "evasion_t3"						"家族闪避"
+        "evasion_t3_tooltip"				"+60%闪避变更"
+        "DOTA_Tooltip_evasion_t3"			"个人特权：闪避"
 
         "lifesteal_t0"						"初级吸血"
         "lifesteal_t0_tooltip"				"+8%吸血"
@@ -454,6 +493,9 @@
         "lifesteal_t2"						"高级吸血"
         "lifesteal_t2_tooltip"				"+32%吸血"
         "DOTA_Tooltip_lifesteal_t2"		"个人特权：吸血"
+        "lifesteal_t3"						"家族吸血"
+        "lifesteal_t3_tooltip"				"+64%吸血"
+        "DOTA_Tooltip_lifesteal_t3"		"个人特权：吸血"
 
         "mag_resist_t0"					"初级魔法抗性"
         "mag_resist_t0_tooltip"			"+10%魔法抗性"
@@ -464,7 +506,10 @@
         "mag_resist_t2"					"高级魔法抗性"
         "mag_resist_t2_tooltip"			"+35%魔法抗性"
         "DOTA_Tooltip_mag_resist_t2"		"个人特权：魔法抗性"
-
+        "mag_resist_t3"					"家族魔法抗性"
+        "mag_resist_t3_tooltip"			"+50%魔法抗性"
+        "DOTA_Tooltip_mag_resist_t3"		"个人特权：魔法抗性"
+        
         "spell_amp_t0"						"初级法术强化"
         "spell_amp_t0_tooltip"				"+5%法术强化"
         "DOTA_Tooltip_spell_amp_t0"		"个人特权：法术强化"
@@ -474,6 +519,9 @@
         "spell_amp_t2"						"高级法术强化"
         "spell_amp_t2_tooltip"				"+20%法术强化"
         "DOTA_Tooltip_spell_amp_t2"		"个人特权：法术强化"
+        "spell_amp_t3"						"家族法术强化"
+        "spell_amp_t3_tooltip"				"+40%法术强化"
+        "DOTA_Tooltip_spell_amp_t3"		"个人特权：法术强化"
 
         "spell_lifesteal_t0"				"初级法术吸血"
         "spell_lifesteal_t0_tooltip"		"+5%法术吸血"
@@ -484,6 +532,9 @@
         "spell_lifesteal_t2"				"高级法术吸血"
         "spell_lifesteal_t2_tooltip"		"+20%法术吸血"
         "DOTA_Tooltip_spell_lifesteal_t2"	"个人特权：法术吸血"
+        "spell_lifesteal_t3"				"家族法术吸血"
+        "spell_lifesteal_t3_tooltip"		"+40%法术吸血"
+        "DOTA_Tooltip_spell_lifesteal_t3"	"个人特权：法术吸血"
 
 		"status_resistance_t0"					"初级状态抗性"
 		"status_resistance_t0_tooltip"			"+15%状态抗性"
@@ -494,6 +545,9 @@
 		"status_resistance_t2"					"高级状态抗性"
 		"status_resistance_t2_tooltip"			"+40%状态抗性"
 		"DOTA_Tooltip_status_resistance_t2"	"个人特权：状态抗性"
+		"status_resistance_t3"					"家族状态抗性"
+		"status_resistance_t3_tooltip"			"+60%状态抗性"
+		"DOTA_Tooltip_status_resistance_t3"	"个人特权：状态抗性"
 
 		"outcomming_heal_amplify_t0"				"初级治疗强化"
 		"outcomming_heal_amplify_t0_tooltip"		"所有治疗技能额外回复10%生命值"
@@ -504,6 +558,9 @@
 		"outcomming_heal_amplify_t2"				"高级治疗强化"
 		"outcomming_heal_amplify_t2_tooltip"		"所有治疗技能额外回复40%生命值"
 		"DOTA_Tooltip_outcomming_heal_amplify_t2"	"个人特权：治疗强化"
+		"outcomming_heal_amplify_t3"				"家族治疗强化"
+		"outcomming_heal_amplify_t3_tooltip"		"所有治疗技能额外回复80%生命值"
+		"DOTA_Tooltip_outcomming_heal_amplify_t3"	"个人特权：治疗强化"
 
 		"debuff_time_t0"					"初级诅咒强化"
 		"debuff_time_t0_tooltip"			"+10%所有输出负面效果持续时间"
@@ -514,6 +571,9 @@
 		"debuff_time_t2"					"高级诅咒强化"
 		"debuff_time_t2_tooltip"			"+40%所有输出负面效果持续时间"
 		"DOTA_Tooltip_debuff_time_t2"		"个人特权：诅咒强化"
+		"debuff_time_t3"					"家族诅咒强化"
+		"debuff_time_t3_tooltip"			"+80%所有输出负面效果持续时间"
+		"DOTA_Tooltip_debuff_time_t3"		"个人特权：诅咒强化"
 
 		"bonus_gold_t0"					"一点金币"
 		"bonus_gold_t0_tooltip"			"+200金币"
@@ -524,6 +584,9 @@
 		"bonus_gold_t2"					"很多金币"
 		"bonus_gold_t2_tooltip"			"+800金币"
 		"DOTA_Tooltip_bonus_gold_t2"		"个人特权：额外金币"
+		"bonus_gold_t3"					"家族金币包"
+		"bonus_gold_t3_tooltip"			"+1600金币"
+		"DOTA_Tooltip_bonus_gold_t3"		"个人特权：额外金币"
 
 		"gpm_t0"					"初级每分钟金币"
 		"gpm_t0_tooltip"			"每分钟额外+50金币"
@@ -534,6 +597,9 @@
 		"gpm_t2"					"高级每分钟金币"
 		"gpm_t2_tooltip"			"每分钟额外+150金币"
 		"DOTA_Tooltip_gpm_t2"		"个人特权：每分钟金币"
+		"gpm_t3"					"家族每分钟金币"
+		"gpm_t3_tooltip"			"每分钟额外+300金币"
+		"DOTA_Tooltip_gpm_t3"		"个人特权：每分钟金币"
 
 		"str_for_kill_t0"							"毛绒屠夫"
 		"str_for_kill_t0_tooltip"					"每次击杀+1力量"
@@ -547,6 +613,10 @@
 		"str_for_kill_t2_tooltip"					"每次击杀+3力量"
 		"DOTA_Tooltip_str_for_kill_t2"				"个人特权：屠夫"
 		"DOTA_Tooltip_str_for_kill_t2_Description"	"力量加强%dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%"
+		"str_for_kill_t3"							"家族屠夫"
+		"str_for_kill_t3_tooltip"					"每次击杀+4力量"
+		"DOTA_Tooltip_str_for_kill_t3"				"个人特权：屠夫"
+		"DOTA_Tooltip_str_for_kill_t3_Description"	"力量加强%dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%"
 
 		"agi_for_kill_t0"							"小游侠"
 		"agi_for_kill_t0_tooltip"					"每次击杀+1敏捷"
@@ -560,6 +630,10 @@
 		"agi_for_kill_t2_tooltip"					"每次击杀+3敏捷"
 		"DOTA_Tooltip_agi_for_kill_t2"				"个人特权：游侠"
 		"DOTA_Tooltip_agi_for_kill_t2_Description"	"敏捷增加%dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%"
+		"agi_for_kill_t3"							"家族游侠"
+		"agi_for_kill_t3_tooltip"					"每次击杀+4敏捷"
+		"DOTA_Tooltip_agi_for_kill_t3"				"个人特权：游侠"
+		"DOTA_Tooltip_agi_for_kill_t3_Description"	"敏捷增加%dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%"
 
 		"int_for_kill_t0"							"法师学徒"
 		"int_for_kill_t0_tooltip"					"每次击杀+1智力"
@@ -573,6 +647,10 @@
 		"int_for_kill_t2_tooltip"					"每次击杀+4智力"
 		"DOTA_Tooltip_int_for_kill_t2"				"个人特权：战斗法师"
 		"DOTA_Tooltip_int_for_kill_t2_Description"	"智力提高%dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%"
+		"int_for_kill_t3"							"家族大法师"
+		"int_for_kill_t3_tooltip"					"每次击杀+8智力"
+		"DOTA_Tooltip_int_for_kill_t3"				"个人特权：战斗法师"
+		"DOTA_Tooltip_int_for_kill_t3_Description"	"智力提高%dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%"
 
 		"cleave_t0"								"轻武器"
 		"cleave_t0_tooltip"						"在半径300范围内提供15%（远程英雄为7.5%）的溅射伤害"
@@ -583,6 +661,9 @@
 		"cleave_t2"								"怪兽武器"
 		"cleave_t2_tooltip"						"在半径300范围内提供45%（远程英雄为22.5%）的溅射伤害"
 		"DOTA_Tooltip_cleave_t2"					"个人特权：重武器"
+		"cleave_t3"								"家族武器"
+		"cleave_t3_tooltip"						"在半径300范围内提供90%（远程英雄为45%）的溅射伤害"
+		"DOTA_Tooltip_cleave_t3"					"个人特权：重武器"
 
 		"cd_after_death_t0"						"初级战斗准备"
 		"cd_after_death_t0_tooltip"				"如果敌方英雄将你击杀，重生后你的物品与技能冷却时间将减少40%"
@@ -593,16 +674,22 @@
 		"cd_after_death_t2"						"高级战斗准备"
 		"cd_after_death_t2_tooltip"				"如果敌方英雄将你击杀，重生后你的物品与技能冷却时间将减少80%"
 		"DOTA_Tooltip_cd_after_death_t2"			"个人特权：战斗准备"
+		"cd_after_death_t3"						"家族战斗准备"
+		"cd_after_death_t3_tooltip"				"如果敌方英雄将你击杀，重生后你的物品与技能冷却时间将减少100%"
+		"DOTA_Tooltip_cd_after_death_t3"			"个人特权：战斗准备"
 
 		"manaburn_t0"								"初级法力燃烧"
-		"manaburn_t0_tooltip"						"每次攻击都会烧掉目标的10点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t0_tooltip"						"每次攻击都会烧掉目标的8点魔法。根据燃烧的魔法值造成伤害"
 		"DOTA_Tooltip_manaburn_t0"					"个人特权：法力燃烧"
 		"manaburn_t1"								"法力燃烧"
-		"manaburn_t1_tooltip"						"每次攻击都会烧掉目标的20点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t1_tooltip"						"每次攻击都会烧掉目标的16点魔法。根据燃烧的魔法值造成伤害"
 		"DOTA_Tooltip_manaburn_t1"					"个人特权：法力燃烧"
 		"manaburn_t2"								"高级法力燃烧"
-		"manaburn_t2_tooltip"						"每次攻击都会烧掉目标的40点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t2_tooltip"						"每次攻击都会烧掉目标的32点魔法。根据燃烧的魔法值造成伤害"
 		"DOTA_Tooltip_manaburn_t2"					"个人特权：法力燃烧"
+		"manaburn_t3"								"家族法力燃烧"
+		"manaburn_t3_tooltip"						"每次攻击都会烧掉目标的32点魔法。根据燃烧的魔法值造成伤害"
+		"DOTA_Tooltip_manaburn_t3"					"个人特权：法力燃烧"
 
 		"magician_t0"								"基础魔法师"
 		"magician_t0_tooltip"						"+5%法术半径和效果范围"
@@ -613,6 +700,9 @@
 		"magician_t2"								"进阶魔法师"
 		"magician_t2_tooltip"						"+20%法术半径和效果范围"
 		"DOTA_Tooltip_magician_t2"					"个人特权：魔法师"
+		"magician_t3"								"家族魔法师"
+		"magician_t3_tooltip"						"+40%法术半径和效果范围"
+		"DOTA_Tooltip_magician_t3"					"个人特权：魔法师"
 
 		"linken_t0"								"普通林肯坠饰"
 		"linken_t0_tooltip"						"提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>60</b>秒<br>增益持续时间：<b>7</b>秒"
@@ -623,6 +713,9 @@
 		"linken_t2"								"远古林肯坠饰"
 		"linken_t2_tooltip"						"提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>30</b>秒<br>增益持续时间：<b>7</b>秒"
 		"DOTA_Tooltip_linken_t2"				"个人特权：林肯坠饰"
+		"linken_t3"								"家族林肯坠饰"
+		"linken_t3_tooltip"						"提供可用于友方英雄并阻挡一次针对其施放的单次技能的物品。<br>冷却时间：<b>15</b>秒<br>增益持续时间：<b>7</b>秒"
+		"DOTA_Tooltip_linken_t3"				"个人特权：林肯坠饰"
 
 		"hunter_t0"								"小猎人"
 		"hunter_t0_tooltip"						"对中立生物造成10%额外伤害"
@@ -633,27 +726,36 @@
 		"hunter_t2"								"职业猎人"
 		"hunter_t2_tooltip"						"对中立生物造成40%额外伤害"
 		"DOTA_Tooltip_hunter_t2"				"个人特权：猎人"
+		"hunter_t3"								"家族猎人"
+		"hunter_t3_tooltip"						"对中立生物造成80%额外伤害"
+		"DOTA_Tooltip_hunter_t3"				"个人特权：猎人"
 
 		"builder_t0"								"初级建造者"
-		"builder_t0_tooltip"						"每15秒为生命值最低的塔回复30点生命值"
+		"builder_t0_tooltip"						"每15秒为生命值最低的建筑物回复30点生命值"
 		"DOTA_Tooltip_builder_t0"					"个人特权：建造者"
 		"builder_t1"								"建造者"
-		"builder_t1_tooltip"						"每15秒为生命值最低的塔回复60点生命值"
+		"builder_t1_tooltip"						"每15秒为生命值最低的建筑物回复60点生命值"
 		"DOTA_Tooltip_builder_t1"					"个人特权：建造者"
 		"builder_t2"								"专业建造者"
-		"builder_t2_tooltip"						"每15秒为生命值最低的塔回复120点生命值"
+		"builder_t2_tooltip"						"每15秒为生命值最低的建筑物回复120点生命值"
 		"DOTA_Tooltip_builder_t2"					"个人特权：建造者"
+		"builder_t3"								"家族建造者"
+		"builder_t3_tooltip"						"每15秒为生命值最低的建筑物回复240点生命值"
+		"DOTA_Tooltip_builder_t3"					"个人特权：建造者"
 		"DOTA_Tooltip_modifier_builder_tower"		"建造者治疗"
 
 		"delayed_damage_t0"								"基础延迟伤害"
-		"delayed_damage_t0_tooltip"						"有15%的传入伤害存在10秒延迟"
+		"delayed_damage_t0_tooltip"						"有8%的传入伤害存在5秒延迟"
 		"DOTA_Tooltip_delayed_damage_t0"				"个人特权：延迟伤害"
 		"delayed_damage_t1"								"延迟伤害"
-		"delayed_damage_t1_tooltip"						"有25%的传入伤害存在10秒延迟"
+		"delayed_damage_t1_tooltip"						"有16%的传入伤害存在8秒延迟"
 		"DOTA_Tooltip_delayed_damage_t1"				"个人特权：延迟伤害"
 		"delayed_damage_t2"								"进阶延迟伤害"
-		"delayed_damage_t2_tooltip"						"有40%的传入伤害存在10秒延迟"
+		"delayed_damage_t2_tooltip"						"有32%的传入伤害存在10秒延迟"
 		"DOTA_Tooltip_delayed_damage_t2"				"个人特权：延迟伤害"
+		"delayed_damage_t3"								"家族延迟伤害"
+		"delayed_damage_t3_tooltip"						"有64%的传入伤害存在12秒延迟"
+		"DOTA_Tooltip_delayed_damage_t3"				"个人特权：延迟伤害"
 
 		"traveler_t0"								"小旅行家"
 		"traveler_t0_tooltip"						"提供一个将你传送至附近任意友方单位位置的物品。冷却时间为<b>90</b>秒。"
@@ -664,6 +766,9 @@
 		"traveler_t2"								"职业旅行家"
 		"traveler_t2_tooltip"						"提供一个将你传送至附近任意友方单位位置的物品。冷却时间为<b>30</b>秒。"
 		"DOTA_Tooltip_traveler_t2"					"个人特权：旅行家"
+		"traveler_t3"								"家族旅行家"
+		"traveler_t3_tooltip"						"提供一个将你传送至附近任意友方单位位置的物品。冷却时间为<b>15</b>秒。"
+		"DOTA_Tooltip_traveler_t3"					"个人特权：旅行家"
 
 
 		"buff_amplify_t0"					"基础福佑加强"
@@ -675,6 +780,17 @@
 		"buff_amplify_t2"					"高级福佑加强"
 		"buff_amplify_t2_tooltip"			"+40%所有输出增益持续时间"
 		"DOTA_Tooltip_buff_amplify_t2"		"个人特权：福佑加强"
+		"buff_amplify_t3"					"家族福佑加强"
+		"buff_amplify_t3_tooltip"			"+80%所有输出增益持续时间"
+		"DOTA_Tooltip_buff_amplify_t3"		"个人特权：福佑加强"
+		
+		"family_t0"							"家族"
+		"family_t0_tooltip"					"提供下一级中的随机特权（第2级，第4级比第3级强力大约2倍）"
+		"family_t1"							"强大家族"
+		"family_t1_tooltip"					"提供下一级中的随机特权（第3级，第4级比第3级强力大约2倍）"
+		"family_t2"							"最强家族"
+		"family_t2_tooltip"					"提供下一级中的随机特权（第4级，第4级比第3级强力大约2倍）"
+		"DOTA_Tooltip_family_t0" 			"家族"
 		
 		"HighSupportersOnly"					"仅限高级支持者"
 		"SupportersOnly"						"仅限支持者"
@@ -689,7 +805,7 @@
 		"first_pick_low"							"首先选择英雄"
         "first_pick_low_description"				"你可在其他玩家前选择英雄"
 
-		"first_pick_high"							"可在普通支持者前选择英雄"
+		"first_pick_high"							"甚至可在支持者之前挑选英雄"
         "first_pick_high_description"				"你可在其他玩家与普通支持者前选择英雄"
 
 		"supporter_perks_high"						"高级支持者特权"
@@ -723,7 +839,7 @@
 		"LoadingTip_11"				"米拉娜的‘-70秒月之暗面冷却’天赋削减为-20秒。宙斯的静电场伤害是正常dota中的一半。"
 		"LoadingTip_12"				"12v12是一款开源游戏，由一队致力于长久维护该游戏的开发人员进行开发工作。如果你喜欢这一定制游戏，同时也有足够的资金购买的话，请考虑支持我们。"
 		"LoadingTip_13"				"通过右键点击最喜爱的聊天轮盘语句来保存。这会将其放入‘最爱’子菜单中。这些东西将在游戏场次之间进行保存/加载。"
-		"LoadingTip_14"				"如果地方团队的平均评分在300以上，你的团队将获得所有来源的额外金币与经验（每500评分<font color='#ebce0d'>10%</font> + <font color='#ebce0d'>5%</font）"
+		"LoadingTip_14"				"如果敌方团队的平均评分在300以上，你的团队将获得所有来源的额外金币与经验（每500评分<font color='#ebce0d'>10%</font> + <font color='#ebce0d'>5%</font）"
 
 		"auto_team_add_patreon"						"祝贺！出于平衡考虑，你已收到免费支持者Perk。"
 
@@ -1612,5 +1728,8 @@
 		"leaderboard_rating"				"评分"
 		
 		"mute_all_hint"	"静音全部"
+		
+		"report_voting"			"举报投票"	
+		"report_voting_hint"	"举报投票发起者以阻止其在未来再次发起踢人投票"
 	}
 }
