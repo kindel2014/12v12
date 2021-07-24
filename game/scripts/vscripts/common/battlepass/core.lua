@@ -26,6 +26,7 @@ function Battlepass:Init()
 	WearFunc:Init()
 	Feedback:Init()
 	Cosmetics:Init()
+	SyncedChat:Init()
 
 	Battlepass:InitConversionTables()
 end

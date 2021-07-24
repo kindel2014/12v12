@@ -463,7 +463,7 @@
 		"bonus_gold_t3"					"Семейное Хранилище Золота"
 		"bonus_gold_t3_tooltip"			"+1600 золота"
 		"DOTA_Tooltip_bonus_gold_t3"		"Талант: Дополнительное золото"
-		
+
 		"gpm_t0"					"Базовая Прибыль"
 		"gpm_t0_tooltip"			"+50 дополнительного золота в минуту"
 		"DOTA_Tooltip_gpm_t0"		"Талант: Дополнительная Прибыль"
@@ -606,7 +606,7 @@
 		"hunter_t3"								"Семейный Охотник"
 		"hunter_t3_tooltip"						"Урон по крипам увеличен на 80%"
 		"DOTA_Tooltip_hunter_t3"				"Талант: Охотник"
-				
+
 		"builder_t0"								"Начинающий Строитель"
 		"builder_t0_tooltip"						"Восстанавливает самой поврежденной вышке 30 здоровья каждые 15 секунд"
 		"DOTA_Tooltip_builder_t0"					"Талант: Строитель"
@@ -620,7 +620,7 @@
 		"builder_t3_tooltip"						"Восстанавливает самой поврежденной вышке 240 здоровья каждые 15 секунд"
 		"DOTA_Tooltip_builder_t3"					"Талант: Строитель"
 		"DOTA_Tooltip_modifier_builder_tower"		"Восстановление Строителя"
-				
+
 		"delayed_damage_t0"								"Базовая Задержка Урона"
 		"delayed_damage_t0_tooltip"						"Вы получете 15% входящего урона с задержкой 10 секунд"
 		"DOTA_Tooltip_delayed_damage_t0"				"Талант: Задержка Урона"
@@ -646,7 +646,7 @@
 		"traveler_t3"								"Семейный Путешественник"
 		"traveler_t3_tooltip"						"Добавляет предмент для телепортации к любому союзному юниту или зданию. Перезарядка: <b>15</b> сек."
 		"DOTA_Tooltip_traveler_t3"					"Талант: Путешественник"
-				
+
 		"buff_amplify_t0"					"Базовое Усиление Благословений"
 		"buff_amplify_t0_tooltip"			"+10% к длительности положительных эффектов"
 		"DOTA_Tooltip_buff_amplify_t0"		"Талант: Усиление Благословений"
@@ -668,7 +668,7 @@
 		"family_t2"							"Сильнейшая Семья"
 		"family_t2_tooltip"					"Выбирает случайный талант, но на один уровень выше - 4. (Уровень 4 примерно в два раза мощнее 3-его)"
 		"DOTA_Tooltip_family_t0" 			"Семья"
-		
+
 		"HighSupportersOnly"					"Для высокоуровневых поддержавших"
 		"SupportersOnly"						"Для поддержавших"
 
@@ -1150,7 +1150,7 @@
 
 		"workaround_description" "Обратите внимание, что игра заставит вас отключиться, чтобы избежать ошибки штрафа Valve. Пожалуйста, восстановите связь, чтобы продолжить игру."
 		"workaround_chat_message"	"<font color='#ff0000'>Обратите внимание, что игра заставит вас отключиться, чтобы избежать ошибки штрафа Valve. Пожалуйста, восстановите связь, чтобы продолжить игру.</font>"
-		
+
 		"pay_item_like_gift_code"	"КУПИТЬ КАК ПОДАРОЧНЫЙ КОД"
 		"gift_codes_header"			"ПОДАРОЧНЫЕ КОДЫ"
 		"gift_codes_description"	"Вы можете отправить подарок с помощью кода другим игрокам непосредственно в лобби, наведя на кнопку <Отправить>. Если вы хотите отправить подарок игрокам не из лобби, раскройте свой код, скопируйте его и отправьте своему другу. Он сможет применить этот код в игре в любое время.\n\nДля приобретения подарочного кода выберите пункт `Купить как подарочный код` при покупке предмета."
@@ -1178,15 +1178,15 @@
 		"gift_code_self_from"			"От:"
 		"gift_code_open_collection"		"Открыть коллекцию"
 		"gift_code_was_sent_to"			" отправил подарок "
-		
+
 		"reset_mmr_purchase_header"		"СБРОС РЕЙТИНГА"
 		"reset_mmr_purchase_description" "Эта операция сбросит ваш рейтинг в <b>Dota 12на12</b> (до <b>1500</b>).<br><br>Ручной сброс рейтинга не дарует Вам никаких наград за сезон.<br><br>При ручном сбросе рейтинга Ваш старый рейтинг никак не будет учитываться в конце сезона. Ваш старый рейтинг будет утерян навсегда."
-		
+
 		"DOTA_Tooltip_ability_item_reset_mmr"				"Сброс Рейтинга"
 		"DOTA_Tooltip_ability_item_reset_mmr_Description"	"<h1>Использование: Сброс Рейтинга</h1>Этот предмет сбросит ваш рейтинг в <b>12на12.</b><br><br>Ручной сброс рейтинга не дарует Вам никаких наград за сезон.<br><br>При ручном сбросе рейтинга Ваш старый рейтинг никак не будет учитываться в конце сезона. Ваш старый рейтинг будет утерян навсегда."
 		"DOTA_Tooltip_ability_item_reset_mmr_Lore"			"Никогда не поздно начать все с нуля!"
-		
-		
+
+
 		"DOTA_Tooltip_ability_item_teleport_perk_0"					"Perk Teleporter"
 		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя к любому союзному юниту или зданию."
 		"DOTA_Tooltip_ability_item_teleport_perk_1"					"Perk Teleporter"
@@ -1195,7 +1195,7 @@
 		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя к любому союзному юниту или зданию."
 		"DOTA_Tooltip_ability_item_teleport_perk_3"					"Perk Teleporter"
 		"DOTA_Tooltip_ability_item_teleport_perk_3_Description"		"<h1>Использование: Teleport</h1>После %tooltip_channel_time% сек. произнесения заклинания, телепортирует героя к любому союзному юниту или зданию."
-		
+
 		"DOTA_Tooltip_ability_item_linken_perk_0"					"Linken's Pendant"
 		"DOTA_Tooltip_ability_item_linken_perk_0_Description"		"<h1>Активное: Transfer Spellblock</h1>Дарует цели эффект, который блокирует одну направленную способность, на %buff_duration% сек.<br><br>Дальность применения: %abilitycastrange%"
 		"DOTA_Tooltip_ability_item_linken_perk_1"					"Linken's Pendant"
@@ -1205,22 +1205,26 @@
 		"DOTA_Tooltip_ability_item_linken_perk_3"					"Linken's Pendant"
 		"DOTA_Tooltip_ability_item_linken_perk_3_Description"		"<h1>Активное: Transfer Spellblock</h1>Дарует цели эффект, который блокирует одну направленную способность, на %buff_duration% сек.<br><br>Дальность применения: %abilitycastrange%"
 		"DOTA_Tooltip_modifier_linken_perk"							"Отражение заклинания от Linken's Pendant"
-		
+
 		"Close"		"Закрыть"
 		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"	"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"			"Герой навсегда крадёт 2 единицы интеллекта (3 с талантом) у любого вражеского героя, который умирает в радиусе 925."
-		
+
 		"html_loading"	"Страница все еще загружается. Это может занять несколько секунд."
-		
+
 		"leaderboard"						"Таблица лидеров"
 		"leaderboard_rank"					"Ранг"
 		"leaderboard_player"				"Игрок"
 		"leaderboard_rating"				"Рейтинг"
-		
+
 		"and"								"и"
 		"High_five_just" 					"дали друг другу пять!"
 		"High_five_LeftHanging"	 			"пытается дать кому-нибудь пять, но безуспешно."
-		
+
 		"mute_all_hint"	"Заглушить всех"
+
+		"synced_chat_header"		"Чат для поддержавших"
+		"synced_chat_placeholder"	"Введите сообщение..."
+		"synced_chat_tooltip"		"Отправить введенное сообщение. Его будет видно во всех остальных играх этого режима и в специальном канале Discord сервера разработчиков!"
 	}
 }

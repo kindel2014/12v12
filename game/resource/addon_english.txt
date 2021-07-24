@@ -340,7 +340,7 @@
         "hp_regen_t3" 						"Family Health Regen"
 		"hp_regen_t3_tooltip" 				"+12 Health Regen and +2 Per Level"
 		"DOTA_Tooltip_hp_regen_t3" 			"Personal Perk: Health Regen"
-		
+
         "bonus_movespeed_t0" 				"Basic Movement Speed"
 		"bonus_movespeed_t0_tooltip" 		"+15 Movement Speed"
 		"DOTA_Tooltip_bonus_movespeed_t0" 	"Personal Perk: Movement Speed"
@@ -353,7 +353,7 @@
         "bonus_movespeed_t3" 				"Family Movement Speed"
         "bonus_movespeed_t3_tooltip" 		"+120 Movement Speed"
         "DOTA_Tooltip_bonus_movespeed_t3" 	"Personal Perk: Movement Speed"
-        
+
         "bonus_agi_t0"						"Basic Agility"
         "bonus_agi_t0_tooltip"				"+0.5 Agility Per Level"
         "DOTA_Tooltip_bonus_agi_t0" 		"Personal Perk: Agility"
@@ -366,7 +366,7 @@
 		"bonus_agi_t3"						"Family Agility"
 		"bonus_agi_t3_tooltip"				"+4 Agility Per Level"
 		"DOTA_Tooltip_bonus_agi_t3" 		"Personal Perk: Agility"
-		
+
         "bonus_str_t0"						"Basic Strength"
         "bonus_str_t0_tooltip"				"+0.5 Strength Per Level"
         "DOTA_Tooltip_bonus_str_t0" 		"Personal Perk: Strength"
@@ -379,7 +379,7 @@
         "bonus_str_t3"						"Family Strength"
         "bonus_str_t3_tooltip"				"+4 Strength Per Level"
         "DOTA_Tooltip_bonus_str_t3" 		"Personal Perk: Strength"
-        
+
         "bonus_int_t0"						"Basic Intellect"
         "bonus_int_t0_tooltip"				"+0.75 Intellect Per Level"
         "DOTA_Tooltip_bonus_int_t0" 		"Personal Perk: Intellect"
@@ -392,7 +392,7 @@
 		"bonus_int_t3"						"Family Intellect"
 		"bonus_int_t3_tooltip"				"+6 Intellect Per Level"
 		"DOTA_Tooltip_bonus_int_t3" 		"Personal Perk: Intellect"
-		
+
         "bonus_all_stats_t0" 				"Basic All Stats"
         "bonus_all_stats_t0_tooltip" 		"+0.25 All Stats Per Level"
         "DOTA_Tooltip_bonus_all_stats_t0" 	"Personal Perk: All Stats"
@@ -509,7 +509,7 @@
         "mag_resist_t3"					"Family Magic Resistance"
         "mag_resist_t3_tooltip"			"+50% Magic Resistance"
         "DOTA_Tooltip_mag_resist_t3"		"Personal Perk: Magic Resistance"
-        
+
         "spell_amp_t0"						"Basic Spell Amplify"
         "spell_amp_t0_tooltip"				"+5% Spell Amplify"
         "DOTA_Tooltip_spell_amp_t0"		"Personal Perk: Spell Amplify"
@@ -783,7 +783,7 @@
 		"buff_amplify_t3"					"Family Blessings Amplify"
 		"buff_amplify_t3_tooltip"			"+80% increases all outgoing buffs duration"
 		"DOTA_Tooltip_buff_amplify_t3"		"Personal Perk: Blessings Amplify"
-		
+
 		"family_t0"							"Family"
 		"family_t0_tooltip"					"Grants a random perk from the next tier (Tier 2, Tier 4 is roughly 2x the power of Tier 3)"
 		"family_t1"							"Strong Family"
@@ -791,7 +791,7 @@
 		"family_t2"							"The Strongest Family"
 		"family_t2_tooltip"					"Grants a random perk from the next tier (Tier 4, Tier 4 is roughly 2x the power of Tier 3)"
 		"DOTA_Tooltip_family_t0" 			"Family"
-		
+
 		"HighSupportersOnly"					"High Supporters Only"
 		"SupportersOnly"						"Supporters Only"
 
@@ -1700,15 +1700,15 @@
 		"DOTA_Tooltip_ability_item_reset_mmr_Lore"			"It's never too late to start over!"
 
 		"DOTA_Tooltip_ability_delayed_damage_perk"			"Delayed Damage Perk"
-		
-		
+
+
 		"DOTA_Tooltip_ability_item_teleport_perk_0"					"Perk Teleporter"
 		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>Use: Teleport</h1>After channeling for %tooltip_channel_time% seconds, teleports you to any allied unit."
 		"DOTA_Tooltip_ability_item_teleport_perk_1"					"Perk Teleporter"
 		"DOTA_Tooltip_ability_item_teleport_perk_1_Description"		"<h1>Use: Teleport</h1>After channeling for %tooltip_channel_time% seconds, teleports you to any allied unit"
 		"DOTA_Tooltip_ability_item_teleport_perk_2"					"Perk Teleporter"
 		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>Use: Teleport</h1>After channeling for %tooltip_channel_time% seconds, teleports you to any allied unit"
-		
+
 		"DOTA_Tooltip_ability_item_linken_perk_0"					"Linken's Pendant"
 		"DOTA_Tooltip_ability_item_linken_perk_0_Description"		"<h1>Active: Pocket Spell Block</h1> Grants an allied hero protection against a single harmful ability targeted on them. Lasts for %buff_duration% seconds.<br><br>Cast range: %abilitycastrange%"
 		"DOTA_Tooltip_ability_item_linken_perk_1"					"Linken's Pendant"
@@ -1716,20 +1716,24 @@
 		"DOTA_Tooltip_ability_item_linken_perk_2"					"Linken's Pendant"
 		"DOTA_Tooltip_ability_item_linken_perk_2_Description"		"<h1>Active: Pocket Spell Block</h1> Grants an allied hero protection against a single harmful ability targeted on them. Lasts for %buff_duration% seconds.<br><br>Cast range: %abilitycastrange%"
 		"DOTA_Tooltip_modifier_linken_perk"							"Linken's Pendant Spell Block"
-		
+
 		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"		"Silencer will permanently steal 2 (3 with Talent) Intelligence from any enemy hero he kills, and any enemy hero that dies within 925 range."
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"				"Silencer will permanently steal 2 (3 with Talent) Intelligence from any enemy hero he kills, and any enemy hero that dies within 925 range."
-		
+
 		"html_loading"		"Page loading, this may take a few seconds."
-		
+
 		"leaderboard"						"Leaderboard"
 		"leaderboard_rank"					"Rank"
 		"leaderboard_player"				"Player"
 		"leaderboard_rating"				"Rating"
-		
+
 		"mute_all_hint"	"Mute All"
-		
-		"report_voting"			"Report Voting"	
+
+		"report_voting"			"Report Voting"
 		"report_voting_hint"	"Report the voting initiator to block them from starting kick votes in the future"
+
+		"synced_chat_header"		"Supporters Chat"
+		"synced_chat_placeholder"	"Waiting for your input..."
+		"synced_chat_tooltip"		"Send entered message. It will be visible in all other 12v12 games and special dev chatroom!"
 	}
 }

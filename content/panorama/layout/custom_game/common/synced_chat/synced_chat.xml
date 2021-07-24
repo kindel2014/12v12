@@ -1,0 +1,48 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/layout/custom_game/common/synced_chat/synced_chat.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/synced_chat/synced_chat.js" />
+	</scripts>
+
+	<snippets>
+		<snippet name="SC_MessageLine">
+			<Panel class="SC_Message">
+				<Label class="SC_Msg_Date SC_Msg_Component"/>
+				<DOTAAvatarImage class="SC_Msg_Avatar SC_Msg_Component"/>
+				<DOTAUserName class="SC_Msg_Name SC_Msg_Component"/>
+				<Label class="SC_Msg_Dev_Name SC_Msg_Component"/>
+				<Label class="SC_Msg_Delimeter SC_Msg_Component" text=": "/>
+				<Label class="SC_Msg_Text SC_Msg_Component"/>
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="SC_Root" hittest="false">
+		<Panel id="SC_ChatHeader">
+			<Label id="SC_ChatHeaderText" text="#synced_chat_header"/>
+			<Button id="SC_Close" onactivate="CloseSyncedChat()"/>
+		</Panel>
+		<Panel id="SC_TopShadow"></Panel>
+		<Panel id="SC_MessagesContainer">
+			<!-- filled with snippets from code -->
+		</Panel>
+
+		<Panel id="SC_BottomShadow"></Panel>
+		<Panel id="SC_InputLine">
+			<TextEntry id="SC_TextEntry" multiline="false" placeholder="#synced_chat_placeholder" maxchars="100"
+						ontextentrychange="UpdateChatMessageText()"/>
+			<Label id="SC_SymbolsCounter" text="{s:curr}/{s:max}"/>
+			<Button id="SC_Submit" class="" onactivate="SendChatMessage()" onmouseover="DOTAShowTextTooltip(#synced_chat_tooltip)" onmouseout="DOTAHideTextTooltip()">
+				<Label id="SC_SubmitText" text="#feedback_send"/>
+			</Button>
+		</Panel>
+		<Panel id="SC_Locked" hittest="true">
+			<Label class="SC_LockedText" text="#locked_supporters_only"/>
+		</Panel>
+	</Panel>
+</root>

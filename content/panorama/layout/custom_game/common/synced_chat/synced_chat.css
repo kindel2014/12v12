@@ -1,0 +1,209 @@
+.SC_Root {
+	align: center center;
+	width: 60%;
+	height: 600px;
+	background-image: url("file://{resources}/images/custom_game/collection/spin_background.png");
+	background-size: 100%;
+	box-shadow: black 0px 0px 10px 0px;
+	opacity: 0;
+	z-index: -10;
+}
+
+.show {
+	opacity: 1;
+	visibility: visible;
+}
+
+#SC_Locked {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.95);
+	z-index: 10;
+}
+
+.SC_LockedText {
+	align: center center;
+	font-size: 30px;
+}
+
+#SC_ChatHeader {
+	width: 100%;
+	height: 32px;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
+}
+
+#SC_ChatHeaderText {
+	align: center center;
+	font-size: 22px;
+	color: white;
+	text-shadow: 1px 1px 2px 3 #000000ff;
+	text-transform: uppercase;
+	font-weight: semi-bold;
+	font-family: titleFont;
+}
+
+#SC_Close {
+	width: 18px;
+	height: 18px;
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
+	background-size: 100%;
+	wash-color: #889be2;
+	align: right top;
+	margin: 5px 6px 0 0;
+	transition: brightness 0.15s ease-in-out 0s;
+}
+#SC_Close:hover {
+	brightness: 1.6;
+}
+#SC_Close:active {
+	brightness: 0.8;
+	sound: "General.ButtonClick";
+}
+
+#SC_MessagesContainer {
+	margin-top: 32px;
+	margin-bottom: 36px;
+	height: 100%;
+	width: 100%;
+	flow-children: down;
+	overflow: squish scroll;
+}
+
+#SC_TopShadow {
+	margin-top: 32px;
+	width: 100%;
+	height: 40px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from(rgba(0, 0, 0, 0.8)), color-stop(0.35, transparent), to(transparent) );
+}
+
+#SC_BottomShadow {
+	vertical-align: bottom;
+	margin-bottom: 44px;
+	width: 100%;
+	height: 40px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.65, transparent), to(rgba(0, 0, 0, 0.8)) );
+}
+
+#SC_InputLine {
+	width: 100%;
+	height: 44px;
+	vertical-align: bottom;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
+}
+
+
+#SC_TextEntry {
+	vertical-align: center;
+	horizontal-align: left;
+	width: 83%;
+	margin-bottom: 2px;
+	margin-left: 2px;
+}
+
+#SC_SymbolsCounter {
+	height: 36px;
+	width: 7%;
+	vertical-align: center;
+	horizontal-align: right;
+	margin-right: 10%;
+	text-align: center;
+	padding: 8px;
+	text-shadow: 1px 1px 2px 3 #000000ff;
+}
+
+.LIMIT {
+	color: red !important;
+}
+
+#SC_SymbolsCounter:not(.LIMIT) {
+	color: white;
+}
+
+#SC_Submit {
+	height: 36px;
+	width: 10%;
+	horizontal-align: right;
+	vertical-align: center;
+	box-shadow: fill rgba(0, 0, 0, 0.6) 0px 1px 2px 2px;
+	transition-property: brightness;
+	transition-duration: 0.1s;
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
+	background-size: 100%;
+	margin-bottom: 1px;
+	margin-right: 2px;
+}
+
+#SC_Submit:hover:not(.COOLDOWN) {
+	brightness: 1.5;
+}
+#SC_Submit:active:not(.COOLDOWN) {
+	brightness: 1.1;
+}
+
+#SC_SubmitText {
+	align: center center;
+	color: white;
+	text-shadow: 1px 1px 2px 2 #000000ff;
+	font-weight: bold;
+}
+
+
+.SC_Message {
+	width: 100%;
+	height: 36px;
+	flow-children: right;
+	border-bottom: 1px solid black;
+}
+
+.SC_Msg_Component {
+	vertical-align: center;
+	margin-right: 5px;
+}
+
+
+.SC_Msg_Date {
+	width: 70px;
+	margin-left: 5px;
+	text-align: center;
+}
+
+.SC_Msg_Avatar {
+	width: 34px;
+	height: 34px;
+	vertical-align: center;
+}
+
+.SC_Msg_Name {
+	font-weight: bold;
+}
+
+.SC_Msg_Dev_Name {
+	font-weight: bold;
+	color: green;
+	font-size: 18px;
+	text-shadow: 1px 1px 2px 2 #000000ff;
+}
+
+.SC_Msg_Text {
+	color: white;
+	height: 20px;
+	text-align: center;
+	text-shadow: 1px 1px 2px 2 #000000ff;
+}
+
+
+.SC_Msg_Delimeter {
+	color: white;
+	text-shadow: 1px 1px 2px 2 #000000ff;
+	font-weight: bold;
+}
+
+
+#OpenSyncedChat {
+	background-image: url("file://{resources}/layout/custom_game/common/synced_chat/chat_icon.png");
+	background-size: 28px;
+	vertical-align: top;
+	margin-left: 15px;
+}
