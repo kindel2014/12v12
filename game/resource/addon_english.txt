@@ -107,6 +107,7 @@
 
 		"dropped_wards_return_error"								"Dropped wards return to fountain"
 
+		"new_stat_mmr"												"MMR"
 		"new_stat_gpm"												"GPM"
 		"new_stat_total_damage"										"Total damage"
 		"new_stat_total_healing"									"Total healing"

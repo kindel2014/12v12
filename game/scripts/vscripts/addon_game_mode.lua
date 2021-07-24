@@ -102,7 +102,13 @@ function CMegaDotaGameMode:InitGameMode()
 			end
 		end
 	end
+	
+	self.last_player_orders = {}
 
+	for player_id = 0, 24 do
+		self.last_player_orders[player_id] = 0
+	end
+	
 	-- Adjust team limits
 	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 12 )
 	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 12 )
@@ -796,6 +802,36 @@ function CMegaDotaGameMode:OnThink()
 				end
 			end
 		end
+
+		for player_id, last_order_time in pairs(self.last_player_orders) do
+			if GameRules:GetGameTime() - last_order_time > 120 and PlayerResource:GetConnectionState(player_id) == DOTA_CONNECTION_STATE_CONNECTED then
+				self.last_player_orders[player_id] = 9999999
+				local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+				if hero then
+					local team = hero:GetTeam()
+
+					local fountain
+					local multiplier
+
+					if team == DOTA_TEAM_GOODGUYS then
+						multiplier = -350
+						fountain = Entities:FindByName( nil, "ent_dota_fountain_good" )
+					elseif team == DOTA_TEAM_BADGUYS then
+						multiplier = -650
+						fountain = Entities:FindByName( nil, "ent_dota_fountain_bad" )
+					end
+
+					local fountain_pos = fountain:GetAbsOrigin()
+					local move_pos = fountain_pos:Normalized() * multiplier + RandomVector( RandomFloat( 0, 200 ) ) + fountain_pos
+
+					ExecuteOrderFromTable({
+						UnitIndex = hero:entindex(),
+						OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+						Position = move_pos
+					})
+				end
+			end 
+		end
 	end
 	return 5
 end
@@ -1269,6 +1305,10 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	-- TODO: Are there orders without a unit?
 	if filterTable.units and filterTable.units["0"] then
 		unit = EntIndexToHScript(filterTable.units["0"])
+	end
+
+	if playerId then
+		self.last_player_orders[playerId] = GameRules:GetGameTime()
 	end
 	
 	if not IsInToolsMode() and unit and unit.GetTeam and PlayerResource:GetPlayer(playerId) then

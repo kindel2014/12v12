@@ -217,7 +217,29 @@ function WebApi:AfterMatch(winnerTeam)
 
 	if isTesting or #requestBody.teams[1].players + #requestBody.teams[2].players >= 5 then
 		print("Sending aftermatch request: ", #requestBody.teams[1].players + #requestBody.teams[2].players)
-		WebApi:Send("match/after", requestBody)
+
+		WebApi:Send(
+			"match/after",
+			requestBody,
+			function(resp)
+				local end_game_data = {}
+				if resp.players then
+					for steam_id, data in pairs(resp.players) do
+						local player_id = Battlepass:GetPlayerId(steam_id)
+						if player_id then
+							end_game_data[player_id] = {
+								mmr_changes = data.ratingChange,
+							}
+						end
+					end
+					CustomNetTables:SetTableValue("end_game_data", "end_game_data", end_game_data)
+				end
+				print("Successfull after match")
+			end,
+			function(e)
+				print("Error after match: ", e)
+			end
+		)
 	else
 		print("Aftermatch send failed: ", #requestBody.teams[1].players + #requestBody.teams[2].players)
 	end
