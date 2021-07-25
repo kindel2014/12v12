@@ -1736,5 +1736,8 @@
 		"synced_chat_header"		"Supporters Chat"
 		"synced_chat_placeholder"	"Waiting for your input..."
 		"synced_chat_tooltip"		"Send entered message. It will be visible in all other 12v12 games and special dev chatroom!"
+		"be_anonymous"				"Send messages anonymous"
+		"load_more_messages"		"Load more messages"
+		"anon_player"				"Anon Player"
 	}
 }

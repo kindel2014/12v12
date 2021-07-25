@@ -20,6 +20,11 @@
 				<Label class="SC_Msg_Text SC_Msg_Component"/>
 			</Panel>
 		</snippet>
+		<snippet name="MoreMessage">
+			<Button class="MoreMessageButton">
+				<Label text="#load_more_messages"/>
+			</Button>
+		</snippet>
 	</snippets>
 
 	<Panel class="SC_Root" hittest="false">
@@ -27,12 +32,12 @@
 			<Label id="SC_ChatHeaderText" text="#synced_chat_header"/>
 			<Button id="SC_Close" onactivate="CloseSyncedChat()"/>
 		</Panel>
-		<Panel id="SC_TopShadow"></Panel>
+		<Panel id="SC_TopShadow"/>
 		<Panel id="SC_MessagesContainer">
 			<!-- filled with snippets from code -->
 		</Panel>
 
-		<Panel id="SC_BottomShadow"></Panel>
+		<Panel id="SC_BottomShadow"/>
 		<Panel id="SC_InputLine">
 			<TextEntry id="SC_TextEntry" multiline="false" placeholder="#synced_chat_placeholder" maxchars="100"
 						ontextentrychange="UpdateChatMessageText()"/>
@@ -40,6 +45,7 @@
 			<Button id="SC_Submit" class="" onactivate="SendChatMessage()" onmouseover="DOTAShowTextTooltip(#synced_chat_tooltip)" onmouseout="DOTAHideTextTooltip()">
 				<Label id="SC_SubmitText" text="#feedback_send"/>
 			</Button>
+			<ToggleButton id="AnonMessageCheck" onmouseover="DOTAShowTextTooltip(#be_anonymous)" onmouseout="DOTAHideTextTooltip()"/>
 		</Panel>
 		<Panel id="SC_Locked" hittest="true">
 			<Label class="SC_LockedText" text="#locked_supporters_only"/>

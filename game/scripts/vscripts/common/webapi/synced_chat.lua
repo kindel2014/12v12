@@ -13,9 +13,34 @@ function SyncedChat:Init()
 	SyncedChat.current_messages = {}
 	RegisterCustomEventListener("synced_chat:send", function(data) SyncedChat:Send(data) end)
 	RegisterCustomEventListener("synced_chat:request_inital", function(data) SyncedChat:SendInitialMessages(data) end)
+	RegisterCustomEventListener("synced_chat:get_older_messages", function(data) SyncedChat:GetOlderMessages(data) end)
 	SyncedChat.last_seen_id = 0
+	
+	self.last_page = 1
 end
 
+function SyncedChat:GetOlderMessages()
+	WebApi:Send(
+		"match/get_older_messages",
+		{
+			customGame = WebApi.customGame,
+			pageNum = self.last_page + 1,
+		},
+		function(response)
+			self.last_page = self.last_page + 1
+			
+			for key, val in pairs(response) do
+				if SyncedChat.current_messages[val.id] then
+					response[key] = nil
+				else
+					SyncedChat.current_messages[val.id] = val
+					if val.id > SyncedChat.last_seen_id then SyncedChat.last_seen_id = val.id end
+				end
+			end
+			CustomGameEventManager:Send_ServerToAllClients("synced_chat:add_older_messages", response)
+		end
+	)
+end
 
 function SyncedChat:Poll()
 	print("poll called")
@@ -39,7 +64,11 @@ end
 
 function SyncedChat:Send(data)
 	print("sending message from dota")
+	if data.text and data.text == "" then return end
+	
 	DeepPrintTable(data)
+	local anon = data.anon == 1
+	
 	WebApi:Send(
 		"match/send_chat_message",
 		{
@@ -47,6 +76,7 @@ function SyncedChat:Send(data)
 			steamId = data.steamId,
 			steamName = data.steamName,
 			text = data.text,
+			anon = anon,
 		},
 		function(resp)
 			if resp.id > SyncedChat.last_seen_id then SyncedChat.last_seen_id = resp.id end
