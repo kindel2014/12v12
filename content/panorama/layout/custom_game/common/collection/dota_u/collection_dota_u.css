@@ -4,7 +4,7 @@
 	tooltip-position: bottom;
 	visibility: collapse;
 	wash-color: #cdf;
-	margin-left: -40px;
+	margin-left: -80px;
 	margin-top: 40px;
 }
 
@@ -15,7 +15,7 @@
 	wash-color: #cdf;
 	z-index: -10;
 	margin-top: 80px;
-	margin-left: -40px;
+	margin-left: -80px;
 }
 
 #MasteryButtonTooltip,
