@@ -17,8 +17,9 @@
 #SC_Locked {
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.95);
+	background-color: rgba(48, 48, 48, 0.83);
 	z-index: 10;
+	margin-top: 32px;
 }
 
 .SC_LockedText {
@@ -68,6 +69,9 @@
 	width: 100%;
 	flow-children: down;
 	overflow: squish scroll;
+}
+#SC_MessagesContainer.Locked {
+	blur: gaussian(8);
 }
 
 #SC_TopShadow {
@@ -233,10 +237,13 @@
 	horizontal-align: center;
 	padding: 5px 50px;
 }
-.MoreMessageButton:hover {
+.MoreMessageButton.Cooldown {
+	saturation: 0;
+}
+.MoreMessageButton:not(.Cooldown):hover {
 	brightness: 1.5;
 }
-.MoreMessageButton:active {
+.MoreMessageButton:not(.Cooldown):active {
 	brightness: 0.9;
 }
 

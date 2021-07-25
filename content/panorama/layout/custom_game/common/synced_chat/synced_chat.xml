@@ -47,8 +47,9 @@
 			</Button>
 			<ToggleButton id="AnonMessageCheck" onmouseover="DOTAShowTextTooltip(#be_anonymous)" onmouseout="DOTAHideTextTooltip()"/>
 		</Panel>
-		<Panel id="SC_Locked" hittest="true">
+		<Panel id="SC_Locked" hittest="true" onactivate="">
 			<Label class="SC_LockedText" text="#locked_supporters_only"/>
+			
 		</Panel>
 	</Panel>
 </root>

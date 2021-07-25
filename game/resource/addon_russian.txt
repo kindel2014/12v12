@@ -1229,5 +1229,6 @@
 		"be_anonymous"				"Отправлять сообщения анонимно"
 		"load_more_messages"		"Загрузить больше сообщений"
 		"anon_player"				"Анонимный игрок"
+		"locked_supporters_only"	"Только для Поддержавших"
 	}
 }

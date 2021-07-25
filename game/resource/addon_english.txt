@@ -1739,5 +1739,6 @@
 		"be_anonymous"				"Send messages anonymous"
 		"load_more_messages"		"Load more messages"
 		"anon_player"				"Anon Player"
+		"locked_supporters_only"	"Only for Supporters"
 	}
 }

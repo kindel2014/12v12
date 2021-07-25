@@ -47,27 +47,37 @@ function AddOlderMessages(data) {
 		});
 }
 
+function ScrollMessages() {
+	const scroll_pos = MESSAGES_CONTAINER.scrolloffset_y;
+	const content_height = MESSAGES_CONTAINER.contentheight - MESSAGES_CONTAINER.desiredlayoutheight;
+	if (scroll_pos + content_height < 50) {
+		$.Schedule(0.2, function () {
+			MESSAGES_CONTAINER.ScrollToBottom();
+		});
+	}
+}
+
 function ProcessPollResult(data) {
 	Object.values(data).forEach((val) => {
 		AddMessage(val);
 	});
-	MESSAGES_CONTAINER.ScrollToBottom();
+	ScrollMessages();
 }
 
 function ProcessSentMessage(data) {
 	AddMessage(data);
 	TEXT_ENTRY.text = "";
-	$.Schedule(0.2, () => {
-		MESSAGES_CONTAINER.ScrollToBottom();
-	});
+	ScrollMessages();
 }
 
 function AddMessage(msg_data, is_old) {
-	if (NOT_SUPPORTER) return;
 	if (MESSAGES[msg_data.id]) return;
 
 	let text_content = msg_data.Content;
-	text_content = text_content.replace(/<:.*:\d*>/g, "");
+	text_content = text_content.replace(/<:.*:\d*>/g, (token) => {
+		token = token.replace(/^</, "").replace(/\d*>/, "");
+		return token;
+	});
 	if (text_content == "") return;
 
 	const message_panel = $.CreatePanel("Panel", MESSAGES_CONTAINER, "SC_Msg_" + msg_data.id);
@@ -123,6 +133,7 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 	}
 	LOCK_SCREEN.style.visibility = level == 0 ? "visible" : "collapse";
 	NOT_SUPPORTER = level == 0;
+	MESSAGES_CONTAINER.SetHasClass("Locked", NOT_SUPPORTER);
 });
 
 let more_mess_button;
@@ -132,7 +143,12 @@ let more_mess_button;
 	more_mess_button = $.CreatePanel("Button", MESSAGES_CONTAINER, "");
 	more_mess_button.BLoadLayoutSnippet("MoreMessage");
 	more_mess_button.SetPanelEvent("onactivate", () => {
+		if (more_mess_button.BHasClass("Cooldown")) return;
 		GameEvents.SendCustomGameEventToServer("synced_chat:get_older_messages", {});
+		more_mess_button.AddClass("Cooldown");
+		$.Schedule(15, () => {
+			more_mess_button.RemoveClass("Cooldown");
+		});
 	});
 
 	SYMBOLS_COUNTER.SetDialogVariable("max", MAX_SYMBOLS);
