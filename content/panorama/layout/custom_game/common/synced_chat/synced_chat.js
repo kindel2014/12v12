@@ -5,6 +5,7 @@ const SYMBOLS_COUNTER = $("#SC_SymbolsCounter");
 const SUBMIT_BUTTON = $("#SC_Submit");
 const LOCK_SCREEN = $("#SC_Locked");
 const ANON_HUD_CHECK = $("#AnonMessageCheck");
+let OPENED_STATE = false;
 let NOT_SUPPORTER = false;
 let MESSAGES = {};
 
@@ -123,6 +124,10 @@ function AddMessage(msg_data, is_old) {
 
 function CloseSyncedChat() {
 	$.GetContextPanel().SetHasClass("show", false);
+	OPENED_STATE = false;
+	GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
+		state: OPENED_STATE,
+	});
 }
 
 SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuses) {
@@ -146,7 +151,7 @@ let more_mess_button;
 		if (more_mess_button.BHasClass("Cooldown")) return;
 		GameEvents.SendCustomGameEventToServer("synced_chat:get_older_messages", {});
 		more_mess_button.AddClass("Cooldown");
-		$.Schedule(15, () => {
+		$.Schedule(10, () => {
 			more_mess_button.RemoveClass("Cooldown");
 		});
 	});
@@ -165,6 +170,10 @@ let more_mess_button;
 		sync_chat_toggle,
 		() => {
 			SYNCED_CHAT_ROOT.ToggleClass("show");
+			OPENED_STATE = !OPENED_STATE;
+			GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
+				state: OPENED_STATE,
+			});
 		},
 		() => {
 			$.DispatchEvent("DOTAShowTextTooltip", sync_chat_toggle, "#synced_chat_header");

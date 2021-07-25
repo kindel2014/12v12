@@ -1,23 +1,32 @@
 SyncedChat = SyncedChat or {}
 
+
 function SyncedChat:Init()
+	SyncedChat.poll_delay = 60
 	Timers:CreateTimer("sync_chat:poll_timer", {
 		useGameTime = false,
 		endTime = 10,
 		callback = function()
 			print("sync chat timer tick")
 			SyncedChat:Poll()
-			return 20
+			return SyncedChat.poll_delay
 		end
 	})
 	SyncedChat.current_messages = {}
 	RegisterCustomEventListener("synced_chat:send", function(data) SyncedChat:Send(data) end)
 	RegisterCustomEventListener("synced_chat:request_inital", function(data) SyncedChat:SendInitialMessages(data) end)
 	RegisterCustomEventListener("synced_chat:get_older_messages", function(data) SyncedChat:GetOlderMessages(data) end)
+	RegisterCustomEventListener("synced_chat:window_state", function(data) SyncedChat:SetWindowState(data) end)
 	SyncedChat.last_seen_id = 0
-	
+
+	SyncedChat.player_windows_state = {}
+	for i = 0, 24 do
+		SyncedChat.player_windows_state[i] = false
+	end
+
 	self.last_page = 1
 end
+
 
 function SyncedChat:GetOlderMessages()
 	WebApi:Send(
@@ -28,7 +37,7 @@ function SyncedChat:GetOlderMessages()
 		},
 		function(response)
 			self.last_page = self.last_page + 1
-			
+
 			for key, val in pairs(response) do
 				if SyncedChat.current_messages[val.id] then
 					response[key] = nil
@@ -41,6 +50,7 @@ function SyncedChat:GetOlderMessages()
 		end
 	)
 end
+
 
 function SyncedChat:Poll()
 	print("poll called")
@@ -63,12 +73,10 @@ end
 
 
 function SyncedChat:Send(data)
-	print("sending message from dota")
 	if data.text and data.text == "" then return end
-	
-	DeepPrintTable(data)
+
 	local anon = data.anon == 1
-	
+
 	WebApi:Send(
 		"match/send_chat_message",
 		{
@@ -89,7 +97,25 @@ function SyncedChat:Send(data)
 end
 
 
+function SyncedChat:SetWindowState(data)
+	local player_id = data.PlayerID
+	if not player_id then return end
+
+	SyncedChat.player_windows_state[player_id] = data.state == 1
+
+	-- set poll delay shorter if anyone is having chat open
+	for p_id, state in pairs(SyncedChat.player_windows_state) do
+		if state then
+			SyncedChat.poll_delay = 20
+			return
+		end
+	end
+	SyncedChat.poll_delay = 60
+end
+
+
 function SyncedChat:SendInitialMessages(data)
+	if not data.PlayerID then return end
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 	if player and not player:IsNull() then
 		CustomGameEventManager:Send_ServerToPlayer(player, "synced_chat:poll_result", SyncedChat.current_messages)
