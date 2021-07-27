@@ -7,6 +7,7 @@ const LOCK_SCREEN = $("#SC_Locked");
 const ANON_HUD_CHECK = $("#AnonMessageCheck");
 let OPENED_STATE = false;
 let NOT_SUPPORTER = false;
+let SUPP_LEVEL = 0;
 let MESSAGES = {};
 
 const MAX_SYMBOLS = 100;
@@ -23,9 +24,18 @@ function UpdateChatMessageText() {
 }
 
 function SendChatMessage() {
-	if (NOT_SUPPORTER) return;
 	if (SUBMIT_BUTTON.BHasClass("COOLDOWN")) return;
 	if (TEXT_ENTRY.text == "") return;
+
+	if (SUPP_LEVEL <= 0) {
+		GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
+			category: "Treasures",
+			boostGlow: true,
+		});
+		return;
+	}
+
+	if (NOT_SUPPORTER) return;
 
 	GameEvents.SendCustomGameEventToServer("synced_chat:send", {
 		steamId: LOCAL_PLAYER_INFO.player_steamid,
@@ -140,6 +150,7 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 
 	NOT_SUPPORTER = level == 0;
 
+	SUPP_LEVEL = level;
 	LOCK_SCREEN.visible = NOT_SUPPORTER;
 	SYNCED_CHAT_ROOT.SetHasClass("Locked", NOT_SUPPORTER);
 });

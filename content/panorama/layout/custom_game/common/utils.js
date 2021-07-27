@@ -87,8 +87,8 @@ const CENTER_SCREEN_MENUS = ["CollectionDotaU"];
 function ToggleMenu(name) {
 	FindDotaHudElement(name).ToggleClass("show");
 	if (name == "CollectionDotaU") {
-		if (glowSchelude != null) {
-			$.CancelScheduled(glowSchelude);
+		if (glowSchelude) {
+			glowSchelude = $.CancelScheduled(glowSchelude);
 		}
 		const glowPanel = FindDotaHudElement("DonateFocus");
 		glowPanel.SetHasClass("show", boostGlow);

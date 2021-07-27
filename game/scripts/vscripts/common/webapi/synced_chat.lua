@@ -68,6 +68,9 @@ function SyncedChat:Send(data)
 	local player_id = data.PlayerID
 	if not player_id then return end
 	
+	local supp_level = Supporters:GetLevel(player_id)
+	if not supp_level or supp_level <= 0 then return end
+	
 	if data.text and data.text == "" then return end
 
 	local anon = data.anon == 1
@@ -80,7 +83,7 @@ function SyncedChat:Send(data)
 			steamName = data.steamName,
 			text = data.text,
 			anon = anon,
-			supporterLevel = Supporters:GetLevel(player_id)
+			supporterLevel = supp_level
 		},
 		function(resp)
 			if resp.id > SyncedChat.last_seen_id then SyncedChat.last_seen_id = resp.id end
