@@ -20,6 +20,11 @@
 	background-color: rgba(48, 48, 48, 0.83);
 	z-index: 10;
 	margin-top: 32px;
+	opacity: 0;
+}
+
+.Loaded #SC_Locked {
+	opacity: 1;
 }
 
 .SC_LockedText {
@@ -100,6 +105,11 @@
 		color-stop(0.65, transparent),
 		to(rgba(0, 0, 0, 0.8))
 	);
+	opacity: 0;
+}
+
+.Loaded #SC_BottomShadow {
+	opacity: 1;
 }
 
 #SC_InputLine {
@@ -108,6 +118,11 @@
 	vertical-align: bottom;
 	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
 	background-size: 100%;
+	opacity: 0;
+}
+
+.Loaded #SC_InputLine {
+	opacity: 1;
 }
 
 #SC_TextEntry {
@@ -235,7 +250,13 @@
 	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px 1px;
 	horizontal-align: center;
 	padding: 5px 50px;
+	opacity: 0;
 }
+
+.Loaded .MoreMessageButton {
+	opacity: 1;
+}
+
 .MoreMessageButton.Cooldown {
 	saturation: 0;
 }
@@ -256,4 +277,15 @@
 }
 .NoUser Label {
 	color: white;
+}
+#SC_NotLoadedAlert {
+	align: center center;
+	text-align: center;
+	color: white;
+	text-shadow: 0px 0px 2px 2 black;
+	font-size: 35px;
+	text-transform: uppercase;
+}
+.Loaded #SC_NotLoadedAlert {
+	opacity: 0;
 }

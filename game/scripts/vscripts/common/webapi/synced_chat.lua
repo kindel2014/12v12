@@ -3,15 +3,7 @@ SyncedChat = SyncedChat or {}
 
 function SyncedChat:Init()
 	SyncedChat.poll_delay = 60
-	Timers:CreateTimer("sync_chat:poll_timer", {
-		useGameTime = false,
-		endTime = 10,
-		callback = function()
-			print("sync chat timer tick")
-			SyncedChat:Poll()
-			return SyncedChat.poll_delay
-		end
-	})
+	
 	SyncedChat.current_messages = {}
 	RegisterCustomEventListener("synced_chat:send", function(data) SyncedChat:Send(data) end)
 	RegisterCustomEventListener("synced_chat:request_inital", function(data) SyncedChat:SendInitialMessages(data) end)
@@ -73,6 +65,9 @@ end
 
 
 function SyncedChat:Send(data)
+	local player_id = data.PlayerID
+	if not player_id then return end
+	
 	if data.text and data.text == "" then return end
 
 	local anon = data.anon == 1
@@ -85,6 +80,7 @@ function SyncedChat:Send(data)
 			steamName = data.steamName,
 			text = data.text,
 			anon = anon,
+			supporterLevel = Supporters:GetLevel(player_id)
 		},
 		function(resp)
 			if resp.id > SyncedChat.last_seen_id then SyncedChat.last_seen_id = resp.id end
@@ -96,12 +92,30 @@ function SyncedChat:Send(data)
 	)
 end
 
+function SyncedChat:InitSchedule()
+	Timers:CreateTimer("sync_chat:poll_timer", {
+		useGameTime = false,
+		endTime = 0,
+		callback = function()
+			print("sync chat timer tick")
+			SyncedChat:Poll()
+			return SyncedChat.poll_delay
+		end
+	})
+end
 
 function SyncedChat:SetWindowState(data)
 	local player_id = data.PlayerID
 	if not player_id then return end
 
-	SyncedChat.player_windows_state[player_id] = data.state == 1
+	local b_open = data.state == 1
+
+	if not self.first_open and b_open then
+		self.first_open = true
+		self:InitSchedule()
+	end
+	
+	SyncedChat.player_windows_state[player_id] = b_open
 
 	-- set poll delay shorter if anyone is having chat open
 	for p_id, state in pairs(SyncedChat.player_windows_state) do

@@ -1740,5 +1740,6 @@
 		"load_more_messages"		"Load more messages"
 		"anon_player"				"Anon Player"
 		"locked_supporters_only"	"Only for Supporters"
+		"synced_chat_loading" "Loading..."
 	}
 }

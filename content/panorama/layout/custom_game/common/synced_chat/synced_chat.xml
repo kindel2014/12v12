@@ -32,11 +32,12 @@
 			<Label id="SC_ChatHeaderText" text="#synced_chat_header"/>
 			<Button id="SC_Close" onactivate="CloseSyncedChat()"/>
 		</Panel>
-		<Panel id="SC_TopShadow"/>
 		<Panel id="SC_MessagesContainer">
 			<!-- filled with snippets from code -->
 		</Panel>
 
+		<Panel id="SC_TopShadow"/>
+		<Label id="SC_NotLoadedAlert" text="#synced_chat_loading"/>
 		<Panel id="SC_BottomShadow"/>
 		<Panel id="SC_InputLine">
 			<TextEntry id="SC_TextEntry" multiline="false" placeholder="#synced_chat_placeholder" maxchars="100"

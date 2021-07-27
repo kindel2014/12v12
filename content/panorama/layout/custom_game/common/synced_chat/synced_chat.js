@@ -63,6 +63,7 @@ function ProcessPollResult(data) {
 		AddMessage(val);
 	});
 	ScrollMessages();
+	SYNCED_CHAT_ROOT.SetHasClass("Loaded", true);
 }
 
 function ProcessSentMessage(data) {
@@ -123,7 +124,7 @@ function AddMessage(msg_data, is_old) {
 }
 
 function CloseSyncedChat() {
-	$.GetContextPanel().SetHasClass("show", false);
+	SYNCED_CHAT_ROOT.SetHasClass("show", false);
 	OPENED_STATE = false;
 	GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
 		state: OPENED_STATE,
@@ -136,9 +137,11 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 	if (local_stats && local_stats.level) {
 		level = local_stats.level;
 	}
-	LOCK_SCREEN.style.visibility = level == 0 ? "visible" : "collapse";
+
 	NOT_SUPPORTER = level == 0;
-	$.GetContextPanel().SetHasClass("Locked", NOT_SUPPORTER);
+
+	LOCK_SCREEN.visible = NOT_SUPPORTER;
+	SYNCED_CHAT_ROOT.SetHasClass("Locked", NOT_SUPPORTER);
 });
 
 let more_mess_button;
