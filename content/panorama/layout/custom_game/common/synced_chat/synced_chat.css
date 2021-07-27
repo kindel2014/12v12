@@ -70,10 +70,9 @@
 	flow-children: down;
 	overflow: squish scroll;
 }
-#SC_MessagesContainer.Locked {
+.Locked #SC_MessagesContainer {
 	blur: gaussian(8);
 }
-
 #SC_TopShadow {
 	margin-top: 32px;
 	width: 100%;

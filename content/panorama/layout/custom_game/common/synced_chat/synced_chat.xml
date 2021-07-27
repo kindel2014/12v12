@@ -40,7 +40,7 @@
 		<Panel id="SC_BottomShadow"/>
 		<Panel id="SC_InputLine">
 			<TextEntry id="SC_TextEntry" multiline="false" placeholder="#synced_chat_placeholder" maxchars="100"
-						ontextentrychange="UpdateChatMessageText()"/>
+						ontextentrychange="UpdateChatMessageText()" oninputsubmit="SendChatMessage()"/>
 			<Label id="SC_SymbolsCounter" text="{s:curr}/{s:max}"/>
 			<Button id="SC_Submit" class="" onactivate="SendChatMessage()" onmouseover="DOTAShowTextTooltip(#synced_chat_tooltip)" onmouseout="DOTAHideTextTooltip()">
 				<Label id="SC_SubmitText" text="#feedback_send"/>

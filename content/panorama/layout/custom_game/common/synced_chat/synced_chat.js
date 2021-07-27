@@ -138,7 +138,7 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 	}
 	LOCK_SCREEN.style.visibility = level == 0 ? "visible" : "collapse";
 	NOT_SUPPORTER = level == 0;
-	MESSAGES_CONTAINER.SetHasClass("Locked", NOT_SUPPORTER);
+	$.GetContextPanel().SetHasClass("Locked", NOT_SUPPORTER);
 });
 
 let more_mess_button;
