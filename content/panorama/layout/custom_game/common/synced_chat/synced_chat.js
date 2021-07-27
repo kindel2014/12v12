@@ -174,6 +174,13 @@ let more_mess_button;
 			GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
 				state: OPENED_STATE,
 			});
+
+			if (SYNCED_CHAT_ROOT.first_open == undefined) {
+				SYNCED_CHAT_ROOT.first_open = true;
+				$.Schedule(0.1, () => {
+					MESSAGES_CONTAINER.ScrollToBottom();
+				});
+			}
 		},
 		() => {
 			$.DispatchEvent("DOTAShowTextTooltip", sync_chat_toggle, "#synced_chat_header");
