@@ -8,7 +8,7 @@ let OPENED_STATE = false;
 let NOT_SUPPORTER = true;
 let MESSAGES = {};
 
-const DATE_MULTIPLAYERS = {
+const DATE_MULTIPLIERS = {
 	DAY: 8.64e7,
 	HOUR: 3.6e6,
 	MIN: 60000,
@@ -107,15 +107,15 @@ function AddMessage(msg_data, is_old) {
 	today.setMinutes(today.getMinutes() + today.getTimezoneOffset());
 	let diff = Math.max(1000, today - added_at_date);
 
-	if (diff >= DATE_MULTIPLAYERS.DAY) {
-		const days = Math.floor(diff / DATE_MULTIPLAYERS.DAY);
+	if (diff >= DATE_MULTIPLIERS.DAY) {
+		const days = Math.floor(diff / DATE_MULTIPLIERS.DAY);
 		date_hud.text = days > 1 ? LocalizeWithValues("sc_days_ago", { v: days }) : $.Localize("sc_yesterday");
-	} else if (diff >= DATE_MULTIPLAYERS.HOUR) {
-		date_hud.text = LocalizeWithValues("sc_hours_ago", { v: Math.floor(diff / DATE_MULTIPLAYERS.HOUR) });
-	} else if (diff >= DATE_MULTIPLAYERS.MIN) {
-		date_hud.text = LocalizeWithValues("sc_mins_ago", { v: Math.floor(diff / DATE_MULTIPLAYERS.MIN) });
+	} else if (diff >= DATE_MULTIPLIERS.HOUR) {
+		date_hud.text = LocalizeWithValues("sc_hours_ago", { v: Math.floor(diff / DATE_MULTIPLIERS.HOUR) });
+	} else if (diff >= DATE_MULTIPLIERS.MIN) {
+		date_hud.text = LocalizeWithValues("sc_mins_ago", { v: Math.floor(diff / DATE_MULTIPLIERS.MIN) });
 	} else {
-		date_hud.text = LocalizeWithValues("sc_sec_ago", { v: Math.floor(diff / DATE_MULTIPLAYERS.SEC) });
+		date_hud.text = LocalizeWithValues("sc_sec_ago", { v: Math.floor(diff / DATE_MULTIPLIERS.SEC) });
 	}
 
 	const avatar = message_panel.FindChildTraverse("SC_Msg_Avatar");
