@@ -129,3 +129,10 @@ function GetHEXPlayerColor(player_id) {
 				player_color.substring(2, 4) +
 				player_color.substring(0, 2);
 }
+function LocalizeWithValues(line, kv) {
+	let result = $.Localize(line);
+	Object.entries(kv).forEach(([k, v]) => {
+		result = result.replace(`%%${k}%%`, v);
+	});
+	return result;
+}

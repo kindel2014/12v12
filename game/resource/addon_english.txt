@@ -1733,13 +1733,20 @@
 		"report_voting"			"Report Voting"
 		"report_voting_hint"	"Report the voting initiator to block them from starting kick votes in the future"
 
-		"synced_chat_header"		"Supporter/Developer Chat"
-		"synced_chat_placeholder"	"Waiting for your input..."
+		"synced_chat_header"		"Supporters/Developers Chat"
+		"synced_chat_placeholder"	"Type message..."
 		"synced_chat_tooltip"		"Send entered message. It will be visible in all other 12v12 games and special dev chatroom!"
-		"be_anonymous"				"Send messages anonymous"
-		"load_more_messages"		"Load more messages"
+		"be_anonymous"				"Send anonymously"
+		"load_more_messages"		"Load more messages..."
 		"anon_player"				"Anon Player"
 		"locked_supporters_only"	"Only for Supporters"
 		"synced_chat_loading" "Loading..."
+		
+		"sc_yesterday"	"Yesterday"
+		"sc_days_ago"	"%%v%% day(s) ago"
+		"sc_hours_ago"	"%%v%% hour(s) ago"
+		"sc_mins_ago"	"%%v%% minute(s) ago"
+		"sc_sec_ago"	"%%v%% second(s) ago"
+		"sc_dev"		"DEV"
 	}
 }

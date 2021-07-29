@@ -12,16 +12,23 @@
 	<snippets>
 		<snippet name="SC_MessageLine">
 			<Panel class="SC_Message">
-				<Label class="SC_Msg_Date SC_Msg_Component"/>
-				<DOTAAvatarImage class="SC_Msg_Avatar SC_Msg_Component"/>
-				<DOTAUserName class="SC_Msg_Name SC_Msg_Component"/>
-				<Label class="SC_Msg_Dev_Name SC_Msg_Component"/>
-				<Label class="SC_Msg_Delimeter SC_Msg_Component" text=": "/>
-				<Label class="SC_Msg_Text SC_Msg_Component"/>
+				<Panel class="SC_Message_Info">
+					<DOTAAvatarImage id="SC_Msg_Avatar" class="SC_Msg_Component"/>
+					<DOTAUserName id="SC_Msg_Name" class="SC_Msg_Component"/>
+					<Label id="SC_Msg_Anon" class="SC_Msg_Component" text="#anon_player"/>
+					<Panel id="SC_Dev_Root" class="SC_Msg_Component">
+						<Label class="SC_Dev SC_Msg_Component" text="#sc_dev"/>
+						<Label id="SC_Dev_Name" class="SC_Msg_Component"/>
+					</Panel>
+					<Label id="SC_Msg_Date" class="SC_Msg_Component"/>
+				</Panel>
+				<Label id="SC_Msg_Text"/>
+				
 			</Panel>
 		</snippet>
 		<snippet name="MoreMessage">
-			<Button class="MoreMessageButton">
+			<Button class="ChatButton">
+				<Image src="file://{resources}/images/custom_game/supp_plus.png"/>
 				<Label text="#load_more_messages"/>
 			</Button>
 		</snippet>
@@ -32,13 +39,12 @@
 			<Label id="SC_ChatHeaderText" text="#synced_chat_header"/>
 			<Button id="SC_Close" onactivate="CloseSyncedChat()"/>
 		</Panel>
-		<Panel id="SC_MessagesContainer">
-			<!-- filled with snippets from code -->
+		<Panel id="SC_MessagesRoot">
+			<Panel id="SC_MessagesContainer">
+				<!-- filled with snippets from code -->
+			</Panel>
+			<Label id="SC_NotLoadedAlert" text="#synced_chat_loading"/>
 		</Panel>
-
-		<Panel id="SC_TopShadow"/>
-		<Label id="SC_NotLoadedAlert" text="#synced_chat_loading"/>
-		<Panel id="SC_BottomShadow"/>
 		<Panel id="SC_InputLine">
 			<TextEntry id="SC_TextEntry" multiline="false" placeholder="#synced_chat_placeholder" maxchars="100"
 						ontextentrychange="UpdateChatMessageText()" oninputsubmit="SendChatMessage()"/>
@@ -46,10 +52,9 @@
 			<Button id="SC_Submit" class="" onactivate="SendChatMessage()" onmouseover="DOTAShowTextTooltip(#synced_chat_tooltip)" onmouseout="DOTAHideTextTooltip()">
 				<Label id="SC_SubmitText" text="#feedback_send"/>
 			</Button>
-			<ToggleButton id="AnonMessageCheck" onmouseover="DOTAShowTextTooltip(#be_anonymous)" onmouseout="DOTAHideTextTooltip()"/>
-		</Panel>
-		<Panel id="SC_Locked" hittest="true" onactivate="">
-			<Label class="SC_LockedText" text="#locked_supporters_only"/>
+			<ToggleButton id="AnonMessageCheck">
+				<Label text="#be_anonymous" />
+			</ToggleButton>
 		</Panel>
 	</Panel>
 </root>

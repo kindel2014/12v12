@@ -1,63 +1,47 @@
 .SC_Root {
 	align: center center;
-	width: 60%;
-	height: 600px;
+	width: 524px;
 	background-image: url("file://{resources}/images/custom_game/collection/spin_background.png");
 	background-size: 100%;
-	box-shadow: black 0px 0px 10px 0px;
+	box-shadow: transparent 0px 0px 0px 0px;
+	flow-children: down;
 	opacity: 0;
-	z-index: -10;
+	transform: translatey(-70px);
+	transition: opacity 0.2s ease-in-out 0s, transform 0.15s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s;
+	z-index: -100;
 }
 
 .show {
 	opacity: 1;
-	visibility: visible;
-}
-
-#SC_Locked {
-	width: 100%;
-	height: 100%;
-	background-color: rgba(48, 48, 48, 0.83);
-	z-index: 10;
-	margin-top: 32px;
-	opacity: 0;
-	margin-bottom: 44px;
-}
-
-.Loaded #SC_Locked {
-	opacity: 1;
-}
-
-.SC_LockedText {
-	align: center center;
-	font-size: 30px;
+	transform: translatey(0px);
+	box-shadow: black 0px 0px 10px 0px;
 }
 
 #SC_ChatHeader {
 	width: 100%;
-	height: 32px;
-	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
-	background-size: 100%;
+	height: 50px;
+	flow-children: right;
 }
 
 #SC_ChatHeaderText {
+	width: 420px;
 	align: center center;
-	font-size: 22px;
+	font-size: 25px;
 	color: white;
-	text-shadow: 1px 1px 2px 3 #000000ff;
-	text-transform: uppercase;
-	font-weight: semi-bold;
-	font-family: titleFont;
+	text-shadow: 0px 1px 2px 3 rgba(0, 0, 0, 0.4);
+	font-weight: lighter;
+	padding: 10px 0px 10px 11px;
+	text-overflow: shrink;
 }
 
 #SC_Close {
-	width: 18px;
-	height: 18px;
+	width: 28px;
+	height: 28px;
 	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 	background-size: 100%;
 	wash-color: #889be2;
-	align: right top;
-	margin: 5px 6px 0 0;
+	align: right center;
+	margin-right: 8px;
 	transition: brightness 0.15s ease-in-out 0s;
 }
 #SC_Close:hover {
@@ -67,59 +51,24 @@
 	brightness: 0.8;
 	sound: "General.ButtonClick";
 }
-
+#SC_MessagesRoot {
+	width: 100%;
+	height: 410px;
+	background-color: rgba(0, 0, 0, 0.6);
+	margin: 0px 10px;
+}
 #SC_MessagesContainer {
-	margin-top: 32px;
-	margin-bottom: 43px;
 	height: 100%;
 	width: 100%;
 	flow-children: down;
 	overflow: squish scroll;
 }
-.Locked #SC_MessagesContainer {
-	blur: gaussian(8);
-}
-#SC_TopShadow {
-	margin-top: 32px;
-	width: 100%;
-	height: 40px;
-	background-color: gradient(
-		linear,
-		0% 0%,
-		0% 100%,
-		from(rgba(0, 0, 0, 0.8)),
-		color-stop(0.35, transparent),
-		to(transparent)
-	);
-}
-
-#SC_BottomShadow {
-	vertical-align: bottom;
-	margin-bottom: 44px;
-	width: 100%;
-	height: 40px;
-	background-color: gradient(
-		linear,
-		0% 0%,
-		0% 100%,
-		from(transparent),
-		color-stop(0.65, transparent),
-		to(rgba(0, 0, 0, 0.8))
-	);
-	opacity: 0;
-}
-
-.Loaded #SC_BottomShadow {
-	opacity: 1;
-}
 
 #SC_InputLine {
 	width: 100%;
-	height: 44px;
 	vertical-align: bottom;
-	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
-	background-size: 100%;
 	opacity: 0;
+	margin: 10px 10px 5px 10px;
 }
 
 .Loaded #SC_InputLine {
@@ -127,47 +76,56 @@
 }
 
 #SC_TextEntry {
-	vertical-align: center;
-	horizontal-align: left;
-	width: 82%;
-	margin-bottom: 2px;
-	margin-left: 2px;
+	width: 345px;
+	border: 1px solid transparent;
+	background-color: rgba(0, 0, 0, 0.6);
 }
-
+#SC_TextEntry #PlaceholderText {
+	font-style: italic;
+}
 #SC_SymbolsCounter {
-	height: 36px;
-	width: 7%;
-	vertical-align: center;
-	horizontal-align: right;
-	margin-right: 137px;
 	text-align: center;
-	padding: 8px;
-	text-shadow: 1px 1px 2px 3 #000000ff;
+	margin-top: 40px;
 }
 
-.LIMIT {
-	color: red !important;
+.Limit {
+	color: gradient(linear, 0% 100%, 0% 0%, from(rgb(230, 0, 1)), to(#a20001));
 }
 
-#SC_SymbolsCounter:not(.LIMIT) {
-	color: white;
+#SC_SymbolsCounter:not(.Limit) {
+	color: #bfbfbf;
 }
 
 #SC_Submit {
-	height: 36px;
-	width: 120px;
-	horizontal-align: right;
-	vertical-align: center;
+	height: 33px;
+	width: 154px;
+	align: right top;
+	margin-top: 1px;
 	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px 1px;
 	transition-property: brightness;
 	transition-duration: 0.1s;
 	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
 	background-size: 100%;
-	margin-bottom: 1px;
-	margin-right: 28px;
 }
 #AnonMessageCheck {
-	align: right center;
+	horizontal-align: right;
+	padding: 0px;
+	margin-top: 40px;
+}
+#AnonMessageCheck Label {
+	letter-spacing: 0px;
+}
+#AnonMessageCheck .TickBox {
+	border: 0px solid transparent;
+	box-shadow: none;
+	background-color: rgba(0, 0, 0, 0.6);
+}
+#AnonMessageCheck:selected .TickBox {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#e7f6f5), to(#a0d6d7));
+	border: 3px solid rgba(0, 0, 0, 1);
+}
+#AnonMessageCheck:not(:selected):hover .TickBox {
+	background-color: rgba(0, 0, 0, 0.8);
 }
 #SC_Submit.COOLDOWN {
 	saturation: 0;
@@ -191,50 +149,91 @@
 
 .SC_Message {
 	width: 100%;
-	height: 36px;
-	flow-children: right;
-	border-bottom: 1px solid black;
+	flow-children: down;
+	padding: 8px 10px;
 }
 
+.SC_Message_Info {
+	width: 100%;
+	height: 25px;
+	flow-children: right-wrap;
+}
 .SC_Msg_Component {
 	vertical-align: center;
-	margin-right: 5px;
 }
 
-.SC_Msg_Date {
-	width: 70px;
-	margin-left: 5px;
+#SC_Msg_Date {
+	margin-left: 3px;
 	text-align: center;
+	font-weight: lighter;
+	color: #7c7d82;
+	font-size: 16px;
 }
 
-.SC_Msg_Avatar {
-	width: 34px;
-	height: 34px;
+.Dev #SC_Msg_Date {
+	margin-left: 5px;
+}
+
+#SC_Msg_Avatar {
+	width: 25px;
+	height: 25px;
 	vertical-align: center;
 }
 
-.SC_Msg_Name {
-	font-weight: bold;
+.Dev #SC_Msg_Avatar {
+	visibility: collapse;
 }
 
-.SC_Msg_Dev_Name {
+#SC_Msg_Name {
 	font-weight: bold;
-	color: green;
-	font-size: 18px;
-	text-shadow: 1px 1px 2px 2 #000000ff;
+	margin-left: 5px;
+	max-width: 320px;
 }
 
-.SC_Msg_Text {
+.Dev #SC_Msg_Name,
+.Anon #SC_Msg_Name {
+	visibility: collapse;
+}
+#SC_Msg_Anon {
 	color: white;
-	height: 20px;
-	text-align: center;
-	text-shadow: 1px 1px 2px 2 #000000ff;
+	font-weight: semi-bold;
+	visibility: collapse;
+	margin-left: 5px;
+}
+.Anon #SC_Msg_Anon {
+	visibility: visible;
 }
 
-.SC_Msg_Delimeter {
+#SC_Dev_Root {
+	visibility: collapse;
+	flow-children: right;
+}
+.Dev #SC_Dev_Root {
+	visibility: visible;
+}
+#SC_Dev_Root {
+	border: 1px solid #00bf00;
+	padding: 1px 5px;
+}
+.SC_Dev {
+	text-transform: uppercase;
 	color: white;
-	text-shadow: 1px 1px 2px 2 #000000ff;
-	font-weight: bold;
+	font-size: 13px;
+	font-weight: semi-bold;
+}
+#SC_Dev_Name {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#06ba11), to(#05f712));
+	margin-left: 2px;
+	max-width: 320px;
+}
+
+#SC_Msg_Text {
+	color: white;
+	text-shadow: 1px 1px 2px 2 rgba(0, 0, 0, 0.2);
+	margin-top: 2px;
+}
+.Locked #SC_Msg_Text {
+	blur: gaussian(6);
 }
 
 #OpenSyncedChat {
@@ -244,41 +243,67 @@
 	margin-left: 15px;
 }
 
-.MoreMessageButton {
+.ChatButton {
 	margin-top: 10px;
-	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
-	background-size: 100%;
-	box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 3px 1px;
+	background-color: rgba(0, 0, 0, 0.61);
 	horizontal-align: center;
-	padding: 5px 50px;
+	padding: 5px 15px;
 	opacity: 0;
+	flow-children: right;
 }
-
-.Loaded .MoreMessageButton {
+.ChatButton Image {
+	visibility: collapse;
+}
+.SuppChat {
+	background-image: url("file://{resources}/images/custom_game/loading_screen/patreon_button.png");
+	background-size: 100%;
+	width: 260px;
+	padding: 5px 10px 5px 15px;
+	visibility: collapse;
+}
+.Locked .SuppChat {
+	visibility: visible;
+}
+.Locked .MoreMessage {
+	visibility: collapse;
+}
+.ChatButton.SuppChat Label {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#ed7a21), to(#fdd817));
+	font-size: 20px;
+	margin-left: 3px;
+	text-overflow: shrink;
+	height: 24px;
+}
+.SuppChat Image {
+	visibility: visible;
+	width: 32px;
+	height: 32px;
+	vertical-align: center;
+	margin-top: 4px;
+}
+.Loaded .ChatButton {
 	opacity: 1;
 }
 
-.MoreMessageButton.Cooldown {
+.ChatButton.Cooldown {
 	saturation: 0;
+	visibility: collapse;
 }
-.MoreMessageButton:not(.Cooldown):hover {
+.ChatButton:not(.Cooldown):hover {
 	brightness: 1.5;
 }
-.MoreMessageButton:not(.Cooldown):active {
+.ChatButton:not(.Cooldown):active {
 	brightness: 0.9;
 }
 
-.MoreMessageButton Label {
+.ChatButton Label {
 	align: center center;
-	text-transform: uppercase;
 	font-size: 17px;
 	margin-top: 1px;
 	color: white;
 	text-shadow: 0px 0px 2px 2 black;
 }
-.NoUser Label {
-	color: white;
-}
+
 #SC_NotLoadedAlert {
 	align: center center;
 	text-align: center;

@@ -1226,10 +1226,17 @@
 		"synced_chat_header"		"Чат для поддержавших и разработчиков"
 		"synced_chat_placeholder"	"Введите сообщение..."
 		"synced_chat_tooltip"		"Отправить введенное сообщение. Его будет видно во всех остальных играх этого режима и в специальном канале Discord сервера разработчиков!"
-		"be_anonymous"				"Отправлять сообщения анонимно"
-		"load_more_messages"		"Загрузить больше сообщений"
+		"be_anonymous"				"Отправить анонимно"
+		"load_more_messages"		"Загрузить больше сообщений..."
 		"anon_player"				"Анонимный игрок"
 		"locked_supporters_only"	"Только для Поддержавших"
-		"synced_chat_loading" "Загрузка..."
+		"synced_chat_loading" 		"Загрузка..."
+		
+		"sc_yesterday"	"Вчера"
+		"sc_days_ago"	"%%v%% дней назад"
+		"sc_hours_ago"	"%%v%% часов назад"
+		"sc_mins_ago"	"%%v%% минут назад"
+		"sc_sec_ago"	"%%v%% секунд назад"
+		"sc_dev"		"Разработчик"
 	}
 }

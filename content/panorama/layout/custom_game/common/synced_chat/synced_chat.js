@@ -3,12 +3,17 @@ const MESSAGES_CONTAINER = $("#SC_MessagesContainer");
 const TEXT_ENTRY = $("#SC_TextEntry");
 const SYMBOLS_COUNTER = $("#SC_SymbolsCounter");
 const SUBMIT_BUTTON = $("#SC_Submit");
-const LOCK_SCREEN = $("#SC_Locked");
 const ANON_HUD_CHECK = $("#AnonMessageCheck");
 let OPENED_STATE = false;
-let NOT_SUPPORTER = false;
-let SUPP_LEVEL = 0;
+let NOT_SUPPORTER = true;
 let MESSAGES = {};
+
+const DATE_MULTIPLAYERS = {
+	DAY: 8.64e7,
+	HOUR: 3.6e6,
+	MIN: 60000,
+	SEC: 1000,
+};
 
 const MAX_SYMBOLS = 100;
 const LOCAL_PLAYER_INFO = Game.GetLocalPlayerInfo();
@@ -19,23 +24,23 @@ function TEXT_LENGTH() {
 
 function UpdateChatMessageText() {
 	let current_length = TEXT_LENGTH();
-	SYMBOLS_COUNTER.SetHasClass("LIMIT", current_length == MAX_SYMBOLS);
+	SYMBOLS_COUNTER.SetHasClass("Limit", current_length == MAX_SYMBOLS);
 	SYMBOLS_COUNTER.SetDialogVariable("curr", current_length);
 }
-
+function OpenShop() {
+	GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
+		category: "Treasures",
+		boostGlow: true,
+	});
+}
 function SendChatMessage() {
 	if (SUBMIT_BUTTON.BHasClass("COOLDOWN")) return;
 	if (TEXT_ENTRY.text == "") return;
 
-	if (SUPP_LEVEL <= 0) {
-		GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
-			category: "Treasures",
-			boostGlow: true,
-		});
+	if (NOT_SUPPORTER) {
+		OpenShop();
 		return;
 	}
-
-	if (NOT_SUPPORTER) return;
 
 	GameEvents.SendCustomGameEventToServer("synced_chat:send", {
 		steamId: LOCAL_PLAYER_INFO.player_steamid,
@@ -93,38 +98,43 @@ function AddMessage(msg_data, is_old) {
 	if (text_content == "") return;
 
 	const message_panel = $.CreatePanel("Panel", MESSAGES_CONTAINER, "SC_Msg_" + msg_data.id);
+	message_panel.BLoadLayoutSnippet("SC_MessageLine");
+
+	const date_hud = message_panel.FindChildTraverse("SC_Msg_Date");
 
 	const added_at_date = new Date(msg_data.AddedAt);
-	let hours = added_at_date.getHours().toString().padStart(2, 0);
-	let minutes = added_at_date.getMinutes().toString().padStart(2, 0);
-	let seconds = added_at_date.getSeconds().toString().padStart(2, 0);
+	let today = new Date();
+	today.setMinutes(today.getMinutes() + today.getTimezoneOffset());
+	let diff = Math.max(1000, today - added_at_date);
 
-	message_panel.BLoadLayoutSnippet("SC_MessageLine");
-	message_panel.GetChild(0).text = `${hours}:${minutes}:${seconds}`;
+	if (diff >= DATE_MULTIPLAYERS.DAY) {
+		const days = Math.floor(diff / DATE_MULTIPLAYERS.DAY);
+		date_hud.text = days > 1 ? LocalizeWithValues("sc_days_ago", { v: days }) : $.Localize("sc_yesterday");
+	} else if (diff >= DATE_MULTIPLAYERS.HOUR) {
+		date_hud.text = LocalizeWithValues("sc_hours_ago", { v: Math.floor(diff / DATE_MULTIPLAYERS.HOUR) });
+	} else if (diff >= DATE_MULTIPLAYERS.MIN) {
+		date_hud.text = LocalizeWithValues("sc_mins_ago", { v: Math.floor(diff / DATE_MULTIPLAYERS.MIN) });
+	} else {
+		date_hud.text = LocalizeWithValues("sc_sec_ago", { v: Math.floor(diff / DATE_MULTIPLAYERS.SEC) });
+	}
 
-	const avatar = message_panel.GetChild(1);
-	const steam_nickname = message_panel.GetChild(2);
-	const dev_nickname = message_panel.GetChild(3);
+	const avatar = message_panel.FindChildTraverse("SC_Msg_Avatar");
+	const steam_nickname = message_panel.FindChildTraverse("SC_Msg_Name");
 
 	if (msg_data.SteamId != "-1") {
 		if (msg_data.Anonymous == 0) {
 			avatar.steamid = msg_data.SteamId;
 			steam_nickname.steamid = msg_data.SteamId;
 		} else {
-			steam_nickname.AddClass("NoUser");
+			message_panel.AddClass("Anon");
 			avatar.GetChild(1).SetImage("file://{resources}/images/custom_game/no_user.png");
-			$.Schedule(0.1, () => {
-				steam_nickname.GetChild(0).text = $.Localize("anon_player");
-			});
 		}
-		dev_nickname.style.visibility = "collapse";
 	} else {
-		avatar.style.visibility = "collapse";
-		steam_nickname.style.visibility = "collapse";
-		dev_nickname.text = `[${$.Localize("#DEV")}] ${msg_data.SteamName}`;
+		message_panel.AddClass("Dev");
+		message_panel.FindChildTraverse("SC_Dev_Name").text = msg_data.SteamName;
 	}
 
-	message_panel.GetChild(5).text = text_content;
+	message_panel.FindChildTraverse("SC_Msg_Text").text = text_content;
 	MESSAGES[msg_data.id] = message_panel;
 
 	if (is_old != undefined) {
@@ -144,24 +154,33 @@ function CloseSyncedChat() {
 SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuses) {
 	let local_stats = patreon_bonuses[Game.GetLocalPlayerID()];
 	let level = 0;
+
 	if (local_stats && local_stats.level) {
 		level = local_stats.level;
 	}
 
 	NOT_SUPPORTER = level == 0;
-
-	SUPP_LEVEL = level;
-	LOCK_SCREEN.visible = NOT_SUPPORTER;
 	SYNCED_CHAT_ROOT.SetHasClass("Locked", NOT_SUPPORTER);
 });
+
+function AddButtonToChat(class_name, text_key, callback) {
+	const button = $.CreatePanel("Button", MESSAGES_CONTAINER, "");
+	button.BLoadLayoutSnippet("MoreMessage");
+	button.AddClass(class_name);
+	button.GetChild(1).text = $.Localize(text_key);
+	button.SetPanelEvent("onactivate", callback);
+
+	return button;
+}
 
 let more_mess_button;
 (function () {
 	MESSAGES_CONTAINER.RemoveAndDeleteChildren();
 
-	more_mess_button = $.CreatePanel("Button", MESSAGES_CONTAINER, "");
-	more_mess_button.BLoadLayoutSnippet("MoreMessage");
-	more_mess_button.SetPanelEvent("onactivate", () => {
+	AddButtonToChat("SuppChat", "loadscreen_become_supp", OpenShop);
+
+	more_mess_button = AddButtonToChat("MoreMessage", "load_more_messages", () => {
+		if (NOT_SUPPORTER) return;
 		if (more_mess_button.BHasClass("Cooldown")) return;
 		GameEvents.SendCustomGameEventToServer("synced_chat:get_older_messages", {});
 		more_mess_button.AddClass("Cooldown");
