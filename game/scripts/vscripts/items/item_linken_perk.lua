@@ -4,11 +4,11 @@ LinkLuaModifier("modifier_linken_perk_self","items/item_linken_perk", LUA_MODIFI
 
 function item_linken_perk:OnSpellStart()
 	if not IsServer() then return end
-	
+
 	local caster = self:GetCaster()
 	local parent = self:GetCursorTarget()
 	if not caster or not parent then return end
-	
+
 	parent:AddNewModifier(caster, self, "modifier_linken_perk", { duration = self:GetSpecialValueFor("buff_duration") })
 	parent:EmitSound("DOTA_Item.LinkensSphere.Target")
 end
@@ -32,13 +32,14 @@ function modifier_linken_perk:OnDestroy()
 	ParticleManager:ReleaseParticleIndex( self.particle )
 end
 
-function modifier_linken_perk:GetAbsorbSpell()
+function modifier_linken_perk:GetAbsorbSpell(kv)
 	local parent = self:GetParent()
 	if not parent then return end
-	
+	if kv.ability:GetCaster():GetTeam() == parent:GetTeam() then return end
+
 	parent:EmitSound("DOTA_Item.LinkensSphere.Activate")
 	ParticleManager:CreateParticle("particles/items_fx/immunity_sphere.vpcf", PATTACH_POINT_FOLLOW, parent)
 	self:Destroy()
-	
+
 	return 1
 end
