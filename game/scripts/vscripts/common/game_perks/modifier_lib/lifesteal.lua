@@ -9,6 +9,7 @@ function lifesteal:OnTakeDamage(params)
 	if self:GetParent() ~= params.attacker then return end
 	if DOTA_DAMAGE_CATEGORY_ATTACK ~= params.damage_category then return end
 	if params.damage <= 0 then return end
+	if params.unit:IsBuilding() then return end
 	local attacker = params.attacker
 	local steal = params.damage * (self.v/100)
 
