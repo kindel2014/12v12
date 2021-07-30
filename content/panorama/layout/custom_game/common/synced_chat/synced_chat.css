@@ -237,7 +237,8 @@
 	margin-top: 2px;
 }
 .Locked #SC_Msg_Text {
-	blur: gaussian(6);
+	text-shadow: rgba(255, 255, 255, 0.8) 0px 0px 9px 1;
+	color: transparent;
 }
 
 #OpenSyncedChat {

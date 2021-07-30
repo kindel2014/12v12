@@ -108,18 +108,18 @@ function AddMessage(msg_data, is_old, check_ping) {
 	const message_panel = $.CreatePanel("Panel", MESSAGES_CONTAINER, "SC_Msg_" + msg_data.id);
 	message_panel.BLoadLayoutSnippet("SC_MessageLine");
 
-	text_content = text_content.replace(/sid:\d*/g, (token) => {
-		token = token = token.replace("sid:", "");
-		let result = token;
-		if (account_id && account_id == token) {
-			result = `<font color='#fcb13b'>@${LOCAL_PLAYER_INFO.player_name}</font>`;
-			message_panel.AddClass("Ping");
-			if (check_ping && sc_top_button && !SYNCED_CHAT_ROOT.BHasClass("show")) {
-				sc_top_button.AddClass("Ping");
+	if (!SYNCED_CHAT_ROOT.BHasClass("Locked"))
+		text_content = text_content.replace(/@\d*/g, (token) => {
+			let result = token;
+			if (account_id && `@${account_id}` == token) {
+				result = `<font color='#fcb13b'>@${LOCAL_PLAYER_INFO.player_name}</font>`;
+				message_panel.AddClass("Ping");
+				if (check_ping && sc_top_button && !SYNCED_CHAT_ROOT.BHasClass("show")) {
+					sc_top_button.AddClass("Ping");
+				}
 			}
-		}
-		return result;
-	});
+			return result;
+		});
 
 	const date_hud = message_panel.FindChildTraverse("SC_Msg_Date");
 
