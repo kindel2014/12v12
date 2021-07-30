@@ -176,13 +176,12 @@
 	margin-left: 5px;
 }
 
-#SC_Msg_Avatar {
+#SC_Msg_Avatar,
+#SC_Msg_Anon_Image {
 	width: 25px;
 	height: 25px;
-	vertical-align: center;
 }
-
-.Dev #SC_Msg_Avatar {
+#SC_Msg_Anon_Image {
 	visibility: collapse;
 }
 
@@ -193,7 +192,9 @@
 }
 
 .Dev #SC_Msg_Name,
-.Anon #SC_Msg_Name {
+.Dev #SC_Msg_Avatar,
+.Anon #SC_Msg_Name,
+.Anon #SC_Msg_Avatar {
 	visibility: collapse;
 }
 #SC_Msg_Anon {
@@ -202,7 +203,8 @@
 	visibility: collapse;
 	margin-left: 5px;
 }
-.Anon #SC_Msg_Anon {
+.Anon #SC_Msg_Anon,
+.Anon #SC_Msg_Anon_Image {
 	visibility: visible;
 }
 

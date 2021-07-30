@@ -15,6 +15,7 @@
 				<Panel class="SC_Message_Info">
 					<DOTAAvatarImage id="SC_Msg_Avatar" class="SC_Msg_Component"/>
 					<DOTAUserName id="SC_Msg_Name" class="SC_Msg_Component"/>
+					<Image id="SC_Msg_Anon_Image" src="file://{resources}/images/custom_game/no_user.png"/>
 					<Label id="SC_Msg_Anon" class="SC_Msg_Component" text="#anon_player"/>
 					<Panel id="SC_Dev_Root" class="SC_Msg_Component">
 						<Label class="SC_Dev SC_Msg_Component" text="#sc_dev"/>

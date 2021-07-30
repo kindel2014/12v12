@@ -148,7 +148,6 @@ function AddMessage(msg_data, is_old, check_ping) {
 			steam_nickname.steamid = msg_data.SteamId;
 		} else {
 			message_panel.AddClass("Anon");
-			avatar.GetChild(1).SetImage("file://{resources}/images/custom_game/no_user.png");
 		}
 	} else {
 		message_panel.AddClass("Dev");
