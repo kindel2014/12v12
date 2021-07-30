@@ -7,6 +7,9 @@ const ANON_HUD_CHECK = $("#AnonMessageCheck");
 let OPENED_STATE = false;
 let NOT_SUPPORTER = true;
 let MESSAGES = {};
+let account_id;
+let more_mess_button;
+let sc_top_button;
 
 const DATE_MULTIPLIERS = {
 	DAY: 8.64e7,
@@ -74,8 +77,13 @@ function ScrollMessages() {
 }
 
 function ProcessPollResult(data) {
-	Object.values(data).forEach((val) => {
-		AddMessage(val);
+	if (data.account_id) account_id = data.account_id;
+
+	let check_ping = false;
+	if (data.ping) check_ping = true;
+
+	Object.values(data.msg).forEach((val) => {
+		AddMessage(val, false, check_ping);
 	});
 	ScrollMessages();
 	SYNCED_CHAT_ROOT.SetHasClass("Loaded", true);
@@ -87,7 +95,7 @@ function ProcessSentMessage(data) {
 	ScrollMessages();
 }
 
-function AddMessage(msg_data, is_old) {
+function AddMessage(msg_data, is_old, check_ping) {
 	if (MESSAGES[msg_data.id]) return;
 
 	let text_content = msg_data.Content;
@@ -99,6 +107,19 @@ function AddMessage(msg_data, is_old) {
 
 	const message_panel = $.CreatePanel("Panel", MESSAGES_CONTAINER, "SC_Msg_" + msg_data.id);
 	message_panel.BLoadLayoutSnippet("SC_MessageLine");
+
+	text_content = text_content.replace(/sid:\d*/g, (token) => {
+		token = token = token.replace("sid:", "");
+		let result = token;
+		if (account_id && account_id == token) {
+			result = `<font color='#fcb13b'>@${LOCAL_PLAYER_INFO.player_name}</font>`;
+			message_panel.AddClass("Ping");
+			if (check_ping && sc_top_button && !SYNCED_CHAT_ROOT.BHasClass("show")) {
+				sc_top_button.AddClass("Ping");
+			}
+		}
+		return result;
+	});
 
 	const date_hud = message_panel.FindChildTraverse("SC_Msg_Date");
 
@@ -137,7 +158,7 @@ function AddMessage(msg_data, is_old) {
 	message_panel.FindChildTraverse("SC_Msg_Text").text = text_content;
 	MESSAGES[msg_data.id] = message_panel;
 
-	if (is_old != undefined) {
+	if (is_old) {
 		MESSAGES_CONTAINER.MoveChildAfter(message_panel, more_mess_button);
 		message_panel.ScrollParentToMakePanelFit(1, true);
 	}
@@ -173,7 +194,6 @@ function AddButtonToChat(class_name, text_key, callback) {
 	return button;
 }
 
-let more_mess_button;
 (function () {
 	MESSAGES_CONTAINER.RemoveAndDeleteChildren();
 
@@ -198,9 +218,9 @@ let more_mess_button;
 
 	GameEvents.SendCustomGameEventToServer("synced_chat:request_inital", {});
 
-	const sync_chat_toggle = _AddMenuButton("OpenSyncedChat");
+	sc_top_button = _AddMenuButton("OpenSyncedChat");
 	CreateButtonInTopMenu(
-		sync_chat_toggle,
+		sc_top_button,
 		() => {
 			SYNCED_CHAT_ROOT.ToggleClass("show");
 			OPENED_STATE = !OPENED_STATE;
@@ -216,7 +236,8 @@ let more_mess_button;
 			}
 		},
 		() => {
-			$.DispatchEvent("DOTAShowTextTooltip", sync_chat_toggle, "#synced_chat_header");
+			sc_top_button.RemoveClass("Ping");
+			$.DispatchEvent("DOTAShowTextTooltip", sc_top_button, "#synced_chat_header");
 		},
 		() => {
 			$.DispatchEvent("DOTAHideTextTooltip");

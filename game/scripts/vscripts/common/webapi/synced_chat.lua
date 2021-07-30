@@ -5,6 +5,7 @@ function SyncedChat:Init()
 	SyncedChat.poll_delay = 60
 	
 	SyncedChat.current_messages = {}
+	SyncedChat.account_ids = {}
 	RegisterCustomEventListener("synced_chat:send", function(data) SyncedChat:Send(data) end)
 	RegisterCustomEventListener("synced_chat:request_inital", function(data) SyncedChat:SendInitialMessages(data) end)
 	RegisterCustomEventListener("synced_chat:get_older_messages", function(data) SyncedChat:GetOlderMessages(data) end)
@@ -14,6 +15,7 @@ function SyncedChat:Init()
 	SyncedChat.player_windows_state = {}
 	for i = 0, 24 do
 		SyncedChat.player_windows_state[i] = false
+		SyncedChat.player_windows_state[i] = PlayerResource:GetSteamAccountID(0)
 	end
 
 	self.last_page = 1
@@ -44,7 +46,7 @@ function SyncedChat:GetOlderMessages()
 end
 
 
-function SyncedChat:Poll()
+function SyncedChat:Poll(b_ping)
 	print("poll called")
 	WebApi:Send(
 		"match/poll_chat_messages",
@@ -53,7 +55,10 @@ function SyncedChat:Poll()
 			lastSeenMessageId = SyncedChat.last_seen_id > 0 and SyncedChat.last_seen_id or nil,
 		},
 		function(response)
-			CustomGameEventManager:Send_ServerToAllClients("synced_chat:poll_result", response)
+			CustomGameEventManager:Send_ServerToAllClients("synced_chat:poll_result", {
+				msg = response,
+				ping = b_ping,
+			})
 			DeepPrintTable(response)
 			for _, val in pairs(response) do
 				SyncedChat.current_messages[val.id] = val
@@ -96,12 +101,13 @@ function SyncedChat:Send(data)
 end
 
 function SyncedChat:InitSchedule()
+	SyncedChat:Poll(false)
 	Timers:CreateTimer("sync_chat:poll_timer", {
 		useGameTime = false,
-		endTime = 0,
+		endTime = 20,
 		callback = function()
 			print("sync chat timer tick")
-			SyncedChat:Poll()
+			SyncedChat:Poll(true)
 			return SyncedChat.poll_delay
 		end
 	})
@@ -132,9 +138,15 @@ end
 
 
 function SyncedChat:SendInitialMessages(data)
-	if not data.PlayerID then return end
-	local player = PlayerResource:GetPlayer(data.PlayerID)
+	local player_id = data.PlayerID
+	if not player_id then return end
+	
+	local player = PlayerResource:GetPlayer(player_id)
+	
 	if player and not player:IsNull() then
-		CustomGameEventManager:Send_ServerToPlayer(player, "synced_chat:poll_result", SyncedChat.current_messages)
+		CustomGameEventManager:Send_ServerToPlayer(player, "synced_chat:poll_result", {
+			msg = SyncedChat.current_messages, 
+			account_id = self.account_ids[player_id] or PlayerResource:GetSteamAccountID(player_id) or nil
+		})
 	end
 end

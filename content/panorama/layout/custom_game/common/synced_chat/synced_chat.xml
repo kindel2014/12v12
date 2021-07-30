@@ -22,8 +22,7 @@
 					</Panel>
 					<Label id="SC_Msg_Date" class="SC_Msg_Component"/>
 				</Panel>
-				<Label id="SC_Msg_Text"/>
-				
+				<Label id="SC_Msg_Text" html="true"/>
 			</Panel>
 		</snippet>
 		<snippet name="MoreMessage">
