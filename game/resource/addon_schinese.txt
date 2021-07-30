@@ -107,6 +107,7 @@
 
 		"dropped_wards_return_error"								"丢弃的守卫将回到泉水处"
 
+		"new_stat_mmr"												"MMR"
 		"new_stat_gpm"												"GPM"
 		"new_stat_total_damage"										"总伤害"
 		"new_stat_total_healing"									"总治疗"
@@ -340,7 +341,7 @@
         "hp_regen_t3" 						"家族生命回复"
 		"hp_regen_t3_tooltip" 				"+12生命回复且每级+2"
 		"DOTA_Tooltip_hp_regen_t3" 			"个人特权：生命回复"
-		
+
         "bonus_movespeed_t0" 				"初级移动速度"
 		"bonus_movespeed_t0_tooltip" 		"+15移动速度"
 		"DOTA_Tooltip_bonus_movespeed_t0" 	"个人特权：移动速度"
@@ -353,7 +354,7 @@
         "bonus_movespeed_t3" 				"家族移动速度"
         "bonus_movespeed_t3_tooltip" 		"+120移动速度"
         "DOTA_Tooltip_bonus_movespeed_t3" 	"个人特权：移动速度"
-        
+
         "bonus_agi_t0"						"初级敏捷"
         "bonus_agi_t0_tooltip"				"每级+0.5敏捷"
         "DOTA_Tooltip_bonus_agi_t0" 		"个人特权：敏捷"
@@ -366,7 +367,7 @@
 		"bonus_agi_t3"						"家族敏捷"
 		"bonus_agi_t3_tooltip"				"每级+4敏捷"
 		"DOTA_Tooltip_bonus_agi_t3" 		"个人特权：敏捷"
-		
+
         "bonus_str_t0"						"初级力量"
         "bonus_str_t0_tooltip"				"每级+0.5力量"
         "DOTA_Tooltip_bonus_str_t0" 		"个人特权：力量"
@@ -379,7 +380,7 @@
         "bonus_str_t3"						"家族力量"
         "bonus_str_t3_tooltip"				"每级+4力量"
         "DOTA_Tooltip_bonus_str_t3" 		"个人特权：力量"
-        
+
         "bonus_int_t0"						"初级智力"
         "bonus_int_t0_tooltip"				"每级+0.75智力"
         "DOTA_Tooltip_bonus_int_t0" 		"个人特权：智力"
@@ -392,7 +393,7 @@
 		"bonus_int_t3"						"家族智力"
 		"bonus_int_t3_tooltip"				"每级+6智力"
 		"DOTA_Tooltip_bonus_int_t3" 		"个人特权：智力"
-		
+
         "bonus_all_stats_t0" 				"初级所有数据"
         "bonus_all_stats_t0_tooltip" 		"每级+0.25所有数据"
         "DOTA_Tooltip_bonus_all_stats_t0" 	"个人特权：所有数据"
@@ -509,7 +510,7 @@
         "mag_resist_t3"					"家族魔法抗性"
         "mag_resist_t3_tooltip"			"+50%魔法抗性"
         "DOTA_Tooltip_mag_resist_t3"		"个人特权：魔法抗性"
-        
+
         "spell_amp_t0"						"初级法术强化"
         "spell_amp_t0_tooltip"				"+5%法术强化"
         "DOTA_Tooltip_spell_amp_t0"		"个人特权：法术强化"
@@ -783,7 +784,7 @@
 		"buff_amplify_t3"					"家族福佑加强"
 		"buff_amplify_t3_tooltip"			"+80%所有输出增益持续时间"
 		"DOTA_Tooltip_buff_amplify_t3"		"个人特权：福佑加强"
-		
+
 		"family_t0"							"家族"
 		"family_t0_tooltip"					"提供下一级中的随机特权（第2级，第4级比第3级强力大约2倍）"
 		"family_t1"							"强大家族"
@@ -791,7 +792,7 @@
 		"family_t2"							"最强家族"
 		"family_t2_tooltip"					"提供下一级中的随机特权（第4级，第4级比第3级强力大约2倍）"
 		"DOTA_Tooltip_family_t0" 			"家族"
-		
+
 		"HighSupportersOnly"					"仅限高级支持者"
 		"SupportersOnly"						"仅限支持者"
 
@@ -1700,15 +1701,15 @@
 		"DOTA_Tooltip_ability_item_reset_mmr_Lore"			"从头再来从来不晚！"
 
 		"DOTA_Tooltip_ability_delayed_damage_perk"			"延迟伤害特权"
-		
-		
+
+
 		"DOTA_Tooltip_ability_item_teleport_perk_0"					"传送者提升"
 		"DOTA_Tooltip_ability_item_teleport_perk_0_Description"		"<h1>使用：传送</h1>持续施法%tooltip_channel_time%秒后将你传送至任意友方处。"
 		"DOTA_Tooltip_ability_item_teleport_perk_1"					"传送者提升"
 		"DOTA_Tooltip_ability_item_teleport_perk_1_Description"		"<h1>使用：传送</h1>持续施法%tooltip_channel_time%秒后将你传送至任意友方处"
 		"DOTA_Tooltip_ability_item_teleport_perk_2"					"传送者提升"
 		"DOTA_Tooltip_ability_item_teleport_perk_2_Description"		"<h1>使用：传送</h1>持续施法%tooltip_channel_time%秒后将你传送至任意友方处"
-		
+
 		"DOTA_Tooltip_ability_item_linken_perk_0"					"林肯坠饰"
 		"DOTA_Tooltip_ability_item_linken_perk_0_Description"		"<h1>主动技能：口袋法术抵抗</h1>保护友方英雄免受针对其施放的有害技能的伤害。持续%buff_duration%秒。<br><br>施放范围：%abilitycastrange%"
 		"DOTA_Tooltip_ability_item_linken_perk_1"					"林肯坠饰"
@@ -1716,20 +1717,36 @@
 		"DOTA_Tooltip_ability_item_linken_perk_2"					"林肯坠饰"
 		"DOTA_Tooltip_ability_item_linken_perk_2_Description"		"<h1>主动技能：口袋法术抵抗</h1>保护友方英雄免受针对其施放的有害技能的伤害。持续%buff_duration%秒。<br><br>施放范围：%abilitycastrange%"
 		"DOTA_Tooltip_modifier_linken_perk"							"林肯坠饰法术抵抗"
-		
+
 		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"		"沉默术士将从任意被其击杀的英雄，以及在其附近925范围内死亡的英雄处永久性偷取2（有天赋时为3）点智力。"
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"				"沉默术士将从任意被其击杀的英雄，以及在其附近925范围内死亡的英雄处永久性偷取2（有天赋时为3）点智力。"
-		
+
 		"html_loading"		"页面加载中，这可能会需要几秒钟时间。"
-		
+
 		"leaderboard"						"排行榜"
 		"leaderboard_rank"					"排名"
 		"leaderboard_player"				"玩家"
 		"leaderboard_rating"				"评分"
-		
+
 		"mute_all_hint"	"静音全部"
-		
-		"report_voting"			"举报投票"	
+
+		"report_voting"			"举报投票"
 		"report_voting_hint"	"举报投票发起者以阻止其在未来再次发起踢人投票"
+
+		"synced_chat_header"		"支持者/开发人员聊天"
+		"synced_chat_placeholder"	"输入消息..."
+		"synced_chat_tooltip"		"发送输入的消息。其将在我们的所有其他12v12游戏与特别开发人员聊天室中可见！"
+		"be_anonymous"				"匿名发送"
+		"load_more_messages"		"加载更多消息..."
+		"anon_player"				"匿名玩家"
+		"locked_supporters_only"	"仅限支持者"
+		"synced_chat_loading" "加载中..."
+		
+		"sc_yesterday"	"昨天"
+		"sc_days_ago"	"%%v%%天前"
+		"sc_hours_ago"	"%%v%%小时前"
+		"sc_mins_ago"	"%%v%%分钟前"
+		"sc_sec_ago"	"%%v%%秒前"
+		"sc_dev"		"DEV"
 	}
 }
