@@ -112,6 +112,9 @@
 	padding: 0px;
 	margin-top: 40px;
 }
+#AnonMessageCheck:active {
+	sound: "synced_chat.anon";
+}
 #AnonMessageCheck Label {
 	letter-spacing: 0px;
 }
@@ -297,6 +300,9 @@
 }
 .Locked .MoreMessage {
 	visibility: collapse;
+}
+.MoreMessage:active {
+	sound: "General.ButtonClick";
 }
 .ChatButton.SuppChat Label {
 	color: gradient(linear, 0% 100%, 0% 0%, from(#ed7a21), to(#fdd817));

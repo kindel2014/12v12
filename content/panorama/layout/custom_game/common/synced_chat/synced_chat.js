@@ -27,7 +27,9 @@ function TEXT_LENGTH() {
 
 function UpdateChatMessageText() {
 	let current_length = TEXT_LENGTH();
-	SYMBOLS_COUNTER.SetHasClass("Limit", current_length == MAX_SYMBOLS);
+	const is_limit = current_length == MAX_SYMBOLS;
+	if (is_limit) Game.EmitSound("synced_chat.symbols_limit");
+	SYMBOLS_COUNTER.SetHasClass("Limit", is_limit);
 	SYMBOLS_COUNTER.SetDialogVariable("curr", current_length);
 }
 function OpenShop() {
@@ -37,6 +39,7 @@ function OpenShop() {
 	});
 }
 function SendChatMessage() {
+	Game.EmitSound("synced_chat.submit");
 	if (SUBMIT_BUTTON.BHasClass("COOLDOWN")) return;
 	if (TEXT_ENTRY.text == "") return;
 
@@ -51,6 +54,9 @@ function SendChatMessage() {
 		text: TEXT_ENTRY.text,
 		anon: ANON_HUD_CHECK.IsSelected(),
 	});
+
+	TEXT_ENTRY.text = "";
+	Game.EmitSound("synced_chat.submit");
 
 	SUBMIT_BUTTON.SetHasClass("COOLDOWN", true);
 	$.Schedule(10, () => {
@@ -91,9 +97,10 @@ function ProcessPollResult(data) {
 
 function ProcessSentMessage(data) {
 	AddMessage(data);
-	TEXT_ENTRY.text = "";
 	ScrollMessages();
 }
+
+let is_ping_cooldown = false;
 
 function AddMessage(msg_data, is_old, check_ping) {
 	if (MESSAGES[msg_data.id]) return;
@@ -114,8 +121,15 @@ function AddMessage(msg_data, is_old, check_ping) {
 			if (account_id && `@${account_id}` == token) {
 				result = `<font color='#fcb13b'>@${LOCAL_PLAYER_INFO.player_name}</font>`;
 				message_panel.AddClass("Ping");
-				if (check_ping && sc_top_button && !SYNCED_CHAT_ROOT.BHasClass("show")) {
-					sc_top_button.AddClass("Ping");
+				if (check_ping && sc_top_button) {
+					sc_top_button.SetHasClass("Ping", !SYNCED_CHAT_ROOT.BHasClass("show"));
+					if (!is_ping_cooldown) {
+						is_ping_cooldown = true;
+						Game.EmitSound("synced_chat.ping");
+					} else
+						$.Schedule(1, () => {
+							is_ping_cooldown = false;
+						});
 				}
 			}
 			return result;
@@ -222,6 +236,7 @@ function AddButtonToChat(class_name, text_key, callback) {
 		sc_top_button,
 		() => {
 			SYNCED_CHAT_ROOT.ToggleClass("show");
+			Game.EmitSound("ui_chat_slide_in");
 			OPENED_STATE = !OPENED_STATE;
 			GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
 				state: OPENED_STATE,
