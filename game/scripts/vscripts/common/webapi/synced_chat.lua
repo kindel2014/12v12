@@ -5,7 +5,7 @@ function SyncedChat:Init()
 	SyncedChat.poll_delay = 60
 	
 	SyncedChat.current_messages = {}
-	SyncedChat.account_ids = {}
+	
 	RegisterCustomEventListener("synced_chat:send", function(data) SyncedChat:Send(data) end)
 	RegisterCustomEventListener("synced_chat:request_inital", function(data) SyncedChat:SendInitialMessages(data) end)
 	RegisterCustomEventListener("synced_chat:get_older_messages", function(data) SyncedChat:GetOlderMessages(data) end)
@@ -15,7 +15,6 @@ function SyncedChat:Init()
 	SyncedChat.player_windows_state = {}
 	for i = 0, 24 do
 		SyncedChat.player_windows_state[i] = false
-		SyncedChat.account_ids[i] = PlayerResource:GetSteamAccountID(0)
 	end
 
 	self.last_page = 1
@@ -149,7 +148,7 @@ function SyncedChat:SendInitialMessages(data)
 	if player and not player:IsNull() then
 		CustomGameEventManager:Send_ServerToPlayer(player, "synced_chat:poll_result", {
 			msg = SyncedChat.current_messages, 
-			account_id = self.account_ids[player_id] or PlayerResource:GetSteamAccountID(player_id) or nil
+			account_id = PlayerResource:GetSteamAccountID(player_id) or nil
 		})
 	end
 end
