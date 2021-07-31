@@ -15,7 +15,7 @@ function SyncedChat:Init()
 	SyncedChat.player_windows_state = {}
 	for i = 0, 24 do
 		SyncedChat.player_windows_state[i] = false
-		SyncedChat.player_windows_state[i] = PlayerResource:GetSteamAccountID(0)
+		SyncedChat.account_ids[i] = PlayerResource:GetSteamAccountID(0)
 	end
 
 	self.last_page = 1
@@ -58,6 +58,7 @@ function SyncedChat:Poll(b_ping)
 			CustomGameEventManager:Send_ServerToAllClients("synced_chat:poll_result", {
 				msg = response,
 				ping = b_ping,
+				pool_delay = self.poll_delay,
 			})
 			DeepPrintTable(response)
 			for _, val in pairs(response) do
@@ -102,9 +103,11 @@ end
 
 function SyncedChat:InitSchedule()
 	SyncedChat:Poll(false)
+	SyncedChat.poll_delay = 20
+	
 	Timers:CreateTimer("sync_chat:poll_timer", {
 		useGameTime = false,
-		endTime = 20,
+		endTime = SyncedChat.poll_delay,
 		callback = function()
 			print("sync chat timer tick")
 			SyncedChat:Poll(true)

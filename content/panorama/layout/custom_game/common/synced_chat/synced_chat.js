@@ -4,6 +4,7 @@ const TEXT_ENTRY = $("#SC_TextEntry");
 const SYMBOLS_COUNTER = $("#SC_SymbolsCounter");
 const SUBMIT_BUTTON = $("#SC_Submit");
 const ANON_HUD_CHECK = $("#AnonMessageCheck");
+const TIMER_HUD = $("#TimerForUpdateRoot").GetChild(1);
 let OPENED_STATE = false;
 let NOT_SUPPORTER = true;
 let MESSAGES = {};
@@ -39,7 +40,6 @@ function OpenShop() {
 	});
 }
 function SendChatMessage() {
-	Game.EmitSound("synced_chat.submit");
 	if (SUBMIT_BUTTON.BHasClass("COOLDOWN")) return;
 	if (TEXT_ENTRY.text == "") return;
 
@@ -93,6 +93,12 @@ function ProcessPollResult(data) {
 	});
 	ScrollMessages();
 	SYNCED_CHAT_ROOT.SetHasClass("Loaded", true);
+
+	if (data.pool_delay) {
+		let today = new Date();
+		today.setSeconds(today.getSeconds() + data.pool_delay);
+		next_update_time = today;
+	}
 }
 
 function ProcessSentMessage(data) {
@@ -183,6 +189,7 @@ function CloseSyncedChat() {
 	GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {
 		state: OPENED_STATE,
 	});
+	$.DispatchEvent("DropInputFocus");
 }
 
 SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuses) {
@@ -207,7 +214,30 @@ function AddButtonToChat(class_name, text_key, callback) {
 	return button;
 }
 
+let next_update_time;
+function UpdateTimer() {
+	TIMER_HUD.SetDialogVariable(
+		"sec",
+		Math.floor(Math.max(next_update_time - new Date(), 0) / 1000)
+			.toString()
+			.padStart(2, "0"),
+	);
+	$.Schedule(0.5, () => {
+		UpdateTimer();
+	});
+}
+
+function FocusEntry(b_focus) {
+	$.Msg(`Focus entry : [${b_focus}]`);
+	if (b_focus) {
+		SYNCED_CHAT_ROOT.SetHasClass("show", true);
+		TEXT_ENTRY.SetFocus();
+	} else if (!SYNCED_CHAT_ROOT.BHasHoverStyle()) CloseSyncedChat();
+}
+
 (function () {
+	next_update_time = new Date();
+	UpdateTimer();
 	MESSAGES_CONTAINER.RemoveAndDeleteChildren();
 
 	AddButtonToChat("SuppChat", "loadscreen_become_supp", OpenShop);
@@ -236,6 +266,7 @@ function AddButtonToChat(class_name, text_key, callback) {
 		sc_top_button,
 		() => {
 			SYNCED_CHAT_ROOT.ToggleClass("show");
+			if (SYNCED_CHAT_ROOT.BHasClass("show")) SYNCED_CHAT_ROOT.SetFocus();
 			Game.EmitSound("ui_chat_slide_in");
 			OPENED_STATE = !OPENED_STATE;
 			GameEvents.SendCustomGameEventToServer("synced_chat:window_state", {

@@ -1748,5 +1748,6 @@
 		"sc_mins_ago"	"%%v%% minute(s) ago"
 		"sc_sec_ago"	"%%v%% second(s) ago"
 		"sc_dev"		"DEV"
+		"sc_time_to_refresh_messages"		"Time until new messages are received"
 	}
 }
