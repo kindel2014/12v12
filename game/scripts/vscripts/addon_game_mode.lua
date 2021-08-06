@@ -1218,6 +1218,7 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 								UTIL_Remove( container )
 							end
 						end
+						purchaser:AddItemByName(itemName)
 					end)
 				end
 				local unique_key_cd = itemName .. "_" .. purchaser:GetEntityIndex()
