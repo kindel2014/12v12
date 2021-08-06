@@ -759,13 +759,13 @@
 		"only_owned_items"		"Показать только имеющиеся"
 
 		"base_booster_glory"	"+750 славы и 3.000 опыта"
-		"base_booster_xp"		"+100% Боевого опыта"
+		"base_booster_xp"		"+100% опыта Пропуска"
 		"base_booster_daily"	"+1 Ежедневный вызов"
 		"base_booster_items"	"Уникальные предметы!"
 		"base_booster_fortune"	"+15 Удачи!"
 
 		"golden_booster_glory"	"+3.000 славы и 10.000 опыта"
-		"golden_booster_xp"		"+200% Боевого опыта"
+		"golden_booster_xp"		"+300% опыта Пропуска"
 		"golden_booster_daily"	"+2 Ежедневных вызова"
 		"golden_booster_items"	"Эксклюзивные предметы!"
 		"golden_booster_fortune""+60 Удачи!"

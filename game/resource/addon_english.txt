@@ -902,13 +902,13 @@
 		"only_owned_items"		"Show owned items only"
 
 		"base_booster_glory"	"+750 glory & 3,000 EXP"
-		"base_booster_xp"		"+100% Experience Gain"
+		"base_booster_xp"		"+100% BP Experience Gain"
 		"base_booster_daily"	"+1 daily quest"
 		"base_booster_items"	"+Supporter items!"
 		"base_booster_fortune"	"+15 Fortune!"
 
 		"golden_booster_glory"	"+3,000 glory & 10,000 EXP"
-		"golden_booster_xp"		"+300% Experience Gain"
+		"golden_booster_xp"		"+300% BP Experience Gain"
 		"golden_booster_daily"	"+2 daily quests"
 		"golden_booster_items"	"+Exclusive items!"
 		"golden_booster_fortune""+60 Fortune!"

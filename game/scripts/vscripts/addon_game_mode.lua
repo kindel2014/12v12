@@ -1209,7 +1209,16 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 
 			if (filterTable["item_parent_entindex_const"] > 0) and correctInventory and (ItemIsFastBuying(hItem:GetName()) or supporter_level > 0) then
 				if hItem:TransferToBuyer(hInventoryParent) == false then
-					return false
+					Timers:CreateTimer(0, function()
+						if hItem or hItem:IsNull() then
+							hInventoryParent:DropItemAtPositionImmediate(hItem, hInventoryParent:GetAbsOrigin())
+							local container = hItem:GetContainer()
+							if container then
+								UTIL_Remove( hItem )
+								UTIL_Remove( container )
+							end
+						end
+					end)
 				end
 				local unique_key_cd = itemName .. "_" .. purchaser:GetEntityIndex()
 				if _G.lastTimeBuyItemWithCooldown[unique_key_cd] and (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key_cd]) < _G.itemsCooldownForPlayer[itemName]) then
