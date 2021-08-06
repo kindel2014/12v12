@@ -105,7 +105,7 @@ function CDOTA_Item:TransferToBuyer(unit)
 		if not itemsWithCharges[itemName] then
 			--UTIL_Remove(self)
 			--buyer:AddItemByName(itemName)
-			return false
+			return true
 		else
 			self:SetCooldownStackedItem(itemName, buyer)
 		end

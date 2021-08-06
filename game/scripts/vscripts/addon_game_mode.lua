@@ -1208,17 +1208,22 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			local correctInventory = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
 
 			if (filterTable["item_parent_entindex_const"] > 0) and correctInventory and (ItemIsFastBuying(hItem:GetName()) or supporter_level > 0) then
-				if hItem:TransferToBuyer(hInventoryParent) == false then
+				local transfer_result = hItem:TransferToBuyer(hInventoryParent)
+				if transfer_result ~= nil then
+					hItem:SetCombineLocked(true)
 					Timers:CreateTimer(0, function()
-						if hItem or hItem:IsNull() then
+						if hItem and not hItem:IsNull() then
 							hInventoryParent:DropItemAtPositionImmediate(hItem, hInventoryParent:GetAbsOrigin())
 							local container = hItem:GetContainer()
 							if container then
 								UTIL_Remove( hItem )
 								UTIL_Remove( container )
 							end
+
+							if transfer_result == true then
+								purchaser:AddItemByName(itemName)
+							end
 						end
-						purchaser:AddItemByName(itemName)
 					end)
 				end
 				local unique_key_cd = itemName .. "_" .. purchaser:GetEntityIndex()
