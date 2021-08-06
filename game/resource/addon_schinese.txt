@@ -229,7 +229,7 @@
 		"zhil_do_konsta"					"Жил до конца, умер как герой"
 		"ay_ay_ay"							"Ай-ай-ай-ай-ай, что сейчас произошло!"
 		"ehto_g_g"							"Это ГГ"
-		"eto_prosto_netchto"				"Это. Просто. Нечто."
+		"eto_prosto_netchto"				"Это.Просто.Нечто."
 		"krasavchik"						"Красавчик!"
 		"bozhe_kak_eto_bolno"				"Боже, как это больно!"
 		"oy_oy_bezhat"						"Ой-ой-ой-ой-ой, бежать!"
@@ -902,13 +902,13 @@
 		"only_owned_items"		"仅展示已有物品"
 
 		"base_booster_glory"	"+750荣耀与3,000经验"
-		"base_booster_xp"		"+100%经验值获取"
+		"base_booster_xp"		"+100% BP经验值获取"
 		"base_booster_daily"	"+1每日任务"
 		"base_booster_items"	"+支持者物品！"
 		"base_booster_fortune"	"+15财富！"
 
 		"golden_booster_glory"	"+3,000荣耀与10,000经验"
-		"golden_booster_xp"		"+300%经验值获取"
+		"golden_booster_xp"		"+300% BP经验值获取"
 		"golden_booster_daily"	"+2每日任务"
 		"golden_booster_items"	"+专属物品！"
 		"golden_booster_fortune""+60财富！"
@@ -1748,5 +1748,6 @@
 		"sc_mins_ago"	"%%v%%分钟前"
 		"sc_sec_ago"	"%%v%%秒前"
 		"sc_dev"		"DEV"
+		"sc_time_to_refresh_messages"		"接收新消息的时间"
 	}
 }
