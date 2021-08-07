@@ -80,7 +80,7 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}
-	
+
 	"special_bonus_unique_silencer_2"
 	{
 		"AbilitySpecial"
@@ -93,7 +93,7 @@
 			}
 		}
 	}
-	
+
 	//=================================================================================================================
 	// Ability: Bloodseeker's Thirst
 	//=================================================================================================================
@@ -115,7 +115,7 @@
 	"item_ward_sentry"
 	{
 		"ItemCost"						"50"
-		"ItemStockTime"					"60.0"
+		"ItemStockTime"					"45.0"
 	}
 	//=================================================================================================================
 	// Dust
@@ -131,5 +131,44 @@
 	"item_gem"
 	{
 		"ItemStockTime"					"300.0"
+	}
+
+	//=================================================================================================================
+	// Ability: Elder Titan's Astral Spirit
+	//=================================================================================================================
+	"elder_titan_ancestral_spirit"
+	{
+		"AbilitySpecial"
+		{
+			"09"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"damage_heroes"					"10 20 30 40"
+				"LinkedSpecialBonus"			"special_bonus_unique_elder_titan"
+				"CalculateSpellDamageTooltip"	"0"
+			}
+			"13"
+			{
+				"var_type"						"FIELD_INTEGER"
+				"scepter_magic_immune_per_hero"	"1"
+				"RequiresScepter"				"1"
+			}
+		}
+	}
+
+	//=================================================================================================================
+	// Ability: Mirana's Moonlight Shadow
+	//=================================================================================================================
+	"mirana_invis"
+	{
+		"AbilitySpecial"
+		{
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"13.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_mirana_5"
+			}
+		}
 	}
 }

@@ -33,6 +33,7 @@
 			<Image src="file://{resources}/images/custom_game/tips_icon/respawn.png"/>
 			<Image src="file://{resources}/images/custom_game/tips_icon/savefavs.png"/>
 			<Image src="file://{resources}/images/custom_game/tips_icon/mmr_balance.png"/>
+			<Image src="file://{resources}/images/custom_game/tips_icon/nerfed2.png"/>
 		</Panel>
 
 <!--		<Panel class="FormLinkContainer">-->
