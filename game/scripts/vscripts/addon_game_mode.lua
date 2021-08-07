@@ -102,13 +102,13 @@ function CMegaDotaGameMode:InitGameMode()
 			end
 		end
 	end
-	
+
 	self.last_player_orders = {}
 
 	for player_id = 0, 24 do
 		self.last_player_orders[player_id] = 0
 	end
-	
+
 	-- Adjust team limits
 	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 12 )
 	GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 12 )
@@ -339,16 +339,16 @@ function CMegaDotaGameMode:SetTeamColors()
 		[DOTA_TEAM_GOODGUYS] = { 0 , ggcolor },
 		[DOTA_TEAM_BADGUYS] = { 0 , bgcolor },
 	}
-	
+
 	for player_id = 0, PlayerResource:GetPlayerCount()-1 do
 		local team = PlayerResource:GetTeam(player_id)
 		local counter = team_colors[team][1] + 1
 		team_colors[team][1] = counter
 		local color = team_colors[team][2][counter]
-		
+
 		if color then
 			CustomPings:SetColor(player_id, color)
-			PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3]) 
+			PlayerResource:SetCustomPlayerColor(player_id, color[1], color[2], color[3])
 		end
 	end
 end
@@ -364,7 +364,7 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 	if hero:GetTeamNumber() == DOTA_TEAM_BADGUYS then
 		table.insert(_G.tableDireHeroes, hero)
 	end
-	
+
 	local player_id = hero:GetPlayerOwnerID()
 	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] and not self.disconnected_players[player_id] then
 		SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
@@ -399,7 +399,7 @@ function CMegaDotaGameMode:DamageFilter(event)
 		end
 		target:Kill(nil, target)
 	end
-	
+
 	if target and target.delay_damage_by_perk and target.delay_damage_by_perk_duration and event.damage > 10 then
 		local delayed_damage = event.damage * (target.delay_damage_by_perk / 100)
 		local black_list_for_delay = {
@@ -654,17 +654,17 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	if spawnedUnit:IsRealHero() then
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_rax_bonus", {})
 		local playerId = spawnedUnit:GetPlayerID()
-		
+
 		Timers:CreateTimer(1, function()
 			UniquePortraits:UpdatePortraitsDataFromPlayer(playerId)
 		end)
-		
+
 		if not spawnedUnit.firstTimeSpawned then
 			spawnedUnit.firstTimeSpawned = true
 			spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			end, 2/30)
 		end
-		
+
 		if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
 			CreateDummyInventoryForPlayer(playerId, spawnedUnit)
 		end
@@ -711,27 +711,27 @@ function CMegaDotaGameMode:ModifierGainedFilter(filterTable)
 	if parent.isDummy then
 		return false
 	end
-	
+
 	--[[ BUFF AMPLIFY LOGIC PART ]]--
-	
+
 	local caster = filterTable.entindex_caster_const and filterTable.entindex_caster_const ~= 0 and EntIndexToHScript(filterTable.entindex_caster_const)
 	if not caster or not parent then return end
-	
+
 	local ability = filterTable.entindex_ability_const and filterTable.entindex_ability_const ~= 0 and EntIndexToHScript(filterTable.entindex_ability_const)
 	local m_name = filterTable.name_const
-	
+
 	local is_amplified_perk = amplified_modifier[m_name] or counter_updaters[m_name] or self_updaters[m_name]
 	if ability then
 		is_amplified_perk = is_amplified_perk and (not common_buffs_not_amplify_by_skills[m_name] or not common_buffs_not_amplify_by_skills[m_name][ability:GetAbilityName()])
 	end
-	
+
 	local is_correct_source = (parent:GetTeam() == caster:GetTeam()) or enemies_buff[m_name]
 	local is_correct_duration = filterTable.duration and filterTable.duration > 0
 	local amplify_source = buffs_from_parent[m_name] and parent or caster
-	
+
 	if amplify_source and amplify_source.buff_amplify and is_amplified_perk and is_correct_source and is_correct_duration then
 		local new_duration = filterTable.duration * amplify_source.buff_amplify
-		
+
 		if counter_updaters[m_name] then
 			Timers:CreateTimer(0, function()
 				local parent_modifier = parent:FindModifierByName(counter_updaters[m_name])
@@ -751,8 +751,14 @@ function CMegaDotaGameMode:ModifierGainedFilter(filterTable)
 				return 0.1
 			end)
 		end
-		
+
 		filterTable.duration = new_duration
+	end
+
+	--[[ Elder Titan's Spell Immunity from Astral Spirit ]]--
+	if m_name == "modifier_elder_titan_echo_stomp_magic_immune" then
+		local duration_ratio = ability:GetSpecialValueFor("scepter_magic_immune_per_hero_new_value") / ability:GetSpecialValueFor("scepter_magic_immune_per_hero")
+		filterTable.duration = filterTable.duration * duration_ratio
 	end
 
 	return true
@@ -773,7 +779,7 @@ function CMegaDotaGameMode:OnThink()
 		-- Weak team must be called here due to disconnect on game start
 		-- Any player who isn't connected at this point will not receive weak team buff
 		ShuffleTeam:GiveBonusToWeakTeam()
-		
+
 		-- update the scale factor:
 	 	-- * SCALE_FACTOR_INITIAL at the start of the game
 		-- * SCALE_FACTOR_FINAL after SCALE_FACTOR_FADEIN_SECONDS have elapsed
@@ -830,7 +836,7 @@ function CMegaDotaGameMode:OnThink()
 						Position = move_pos
 					})
 				end
-			end 
+			end
 		end
 	end
 	return 5
@@ -1026,9 +1032,9 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
         local fountains = Entities:FindAllByClassname('ent_dota_fountain')
 		-- Loop over all ents
         for k,fountain in pairs(fountains) do
-			
+
 			fountain:AddNewModifier(fountain, nil, "modifier_fountain_phasing", { duration = 90 })
-			
+
             for skillName,skillLevel in pairs(toAdd) do
                 fountain:AddAbility(skillName)
                 local ab = fountain:FindAbilityByName(skillName)
@@ -1284,11 +1290,11 @@ end
 function CMegaDotaGameMode:OnPlayerDisconnect(data)
 	local player_id = data.PlayerID
 	if not player_id then return end
-	
+
 	if not self.disconnected_players[player_id] then
 		self.disconnected_players[player_id] = true
 	end
-	
+
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = true, playerId = data.PlayerID} )
 	Timers:CreateTimer(1, function()
 		CheckTeamBalance()
@@ -1325,7 +1331,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	if playerId then
 		self.last_player_orders[playerId] = GameRules:GetGameTime()
 	end
-	
+
 	if not IsInToolsMode() and unit and unit.GetTeam and PlayerResource:GetPlayer(playerId) then
 		if unit:GetTeam() ~= PlayerResource:GetPlayer(playerId):GetTeam() then
 			return false
@@ -1471,8 +1477,8 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 			end
 		end
 	end
-	
-	
+
+
 	if unit and unit:IsCourier() then
 		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
 			local purchaser = ability:GetPurchaser()
@@ -1483,7 +1489,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 			end
 		end
 	end
-	
+
 	--for _, _unit_ent in pairs (filterTable.units) do
 	--	local _unit = EntIndexToHScript(_unit_ent)
 	--	local unit_owner_id = _unit:GetOwner():GetPlayerID()
@@ -1491,7 +1497,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	--		return false
 	--	end
 	--end
-	
+
 	return true
 end
 
@@ -1532,7 +1538,7 @@ vousedcol = {}
 SelectVO = function(keys)
 	local supporter_level = Supporters:GetLevel(keys.PlayerID)
 	if not keys.num then return end
-	
+
 	local heroes = {
 		"abaddon",
 		"alchemist",
@@ -3463,12 +3469,12 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 	if WebApi.player_settings and WebApi.player_settings[data.PlayerID] then
 		local favourites = data.favourites
 		if not favourites then return end
-		
+
 		local old_settings = CustomNetTables:GetTableValue("player_settings", tostring(playerId))
 		old_settings.chatWheelFavourites = favourites
-		
+
 		CustomNetTables:SetTableValue("player_settings", tostring(playerId), old_settings)
-		
+
 		WebApi.player_settings[data.PlayerID].chatWheelFavourites = favourites
 		WebApi:ScheduleUpdateSettings(data.PlayerID)
 	end

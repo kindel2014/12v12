@@ -147,11 +147,10 @@
 				"LinkedSpecialBonus"			"special_bonus_unique_elder_titan"
 				"CalculateSpellDamageTooltip"	"0"
 			}
-			"13"
+			"30"	//scepter_magic_immune_per_hero
 			{
-				"var_type"						"FIELD_INTEGER"
-				"scepter_magic_immune_per_hero"	"1"
-				"RequiresScepter"				"1"
+				"var_type"						"FIELD_FLOAT"
+				"scepter_magic_immune_per_hero_new_value"	"1.5"
 			}
 		}
 	}
