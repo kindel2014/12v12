@@ -284,6 +284,7 @@
 		"you_cannot_control_courier"					                "You cannot control courier"
 		"already_voiting_against_troll"					                "You have already voted the maximum number of times"
 		"you_can_buy_only_one_item"					               		"You can buy only one item of this type"
+		"you_must_be_near_secret_shop"									"You must be near a secret shop to purchase this item!"
 
 		"start_troll_voting_1"					               			"<font color='#FF1111'>[[[</font>%s1<font color='#FF1111'>]]]</font> Start voting for punishment against:"
 		"start_troll_voting_2"					               			"<font color='#FF1111'>[[[</font>%s1<font color='#FF1111'>]]]</font>"

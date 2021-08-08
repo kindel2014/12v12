@@ -9,6 +9,7 @@ require("common/smart_random")
 
 require("common/items_limits")
 require("common/block_holding_wards")
+require("common/secret_shop_items")
 require("common/game_perks/game_perks_core")
 require("common/voting_to_kick")
 require("common/auto_team")

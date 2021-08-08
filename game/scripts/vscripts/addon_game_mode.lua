@@ -139,6 +139,7 @@ function CMegaDotaGameMode:InitGameMode()
 
 	GameRules:GetGameModeEntity():SetKillableTombstones( true )
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
+	GameRules:SetUseUniversalShopMode(true)
 	Convars:SetInt("dota_max_physical_items_purchase_limit", 100)
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
@@ -1377,6 +1378,10 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 			elseif not _G.playerHasTimerWards[playerId] then
 				StartTimerHoldingCheckerForPlayer(playerId)
 			end
+		end
+		if IsSecretShopItem(filterTable["shop_item_name"]) and not ((Supporters:GetLevel(playerId) >= 2) or IsNearSecretShop(unit)) then
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#you_must_be_near_secret_shop" })
+			return false
 		end
 	end
 
