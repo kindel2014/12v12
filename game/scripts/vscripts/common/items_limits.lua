@@ -143,10 +143,14 @@ end
 
 function CDOTA_BaseNPC:CheckPersonalCooldown(item)
 	if not item or item:IsNull() then return end
+	if not self:DoesHeroHasFreeSlot() then return end
 	
 	local buyerEntIndex = self:GetEntityIndex()
 	local itemName = item:GetAbilityName()
 	local unique_key = itemName .. "_" .. buyerEntIndex
+	
+	if _G.itemsIsBuy[unique_key] then return true end
+	
 	local playerID = self:GetPlayerID()
 	local supporter_level = Supporters:GetLevel(playerID)
 
