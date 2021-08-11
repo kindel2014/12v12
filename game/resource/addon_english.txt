@@ -1752,5 +1752,8 @@
 		"sc_sec_ago"	"%%v%% second(s) ago"
 		"sc_dev"		"DEV"
 		"sc_time_to_refresh_messages"		"Time until new messages are received"
+		
+		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
+		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
 	}
 }
