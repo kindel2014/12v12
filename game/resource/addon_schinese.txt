@@ -1749,5 +1749,7 @@
 		"sc_sec_ago"	"%%v%%秒前"
 		"sc_dev"		"DEV"
 		"sc_time_to_refresh_messages"		"接收新消息的时间"
+
+		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1由于长时间没有重连至比赛，已经被系统踢出游戏。"
 	}
 }
