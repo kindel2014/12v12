@@ -1239,5 +1239,8 @@
 		"sc_sec_ago"	"%%v%% секунд назад"
 		"sc_dev"		"Разработчик"
 		"sc_time_to_refresh_messages"		"Время до получения новых сообщений"
+		
+		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
+		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 удаляется из игры из-за долгого отсутствия."
 	}
 }
