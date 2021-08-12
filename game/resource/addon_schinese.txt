@@ -229,7 +229,7 @@
 		"zhil_do_konsta"					"Жил до конца, умер как герой"
 		"ay_ay_ay"							"Ай-ай-ай-ай-ай, что сейчас произошло!"
 		"ehto_g_g"							"Это ГГ"
-		"eto_prosto_netchto"				"Это.Просто.Нечто."
+		"eto_prosto_netchto"				"Это. Просто. Нечто."
 		"krasavchik"						"Красавчик!"
 		"bozhe_kak_eto_bolno"				"Боже, как это больно!"
 		"oy_oy_bezhat"						"Ой-ой-ой-ой-ой, бежать!"
@@ -841,6 +841,7 @@
 		"LoadingTip_12"				"12v12是一款开源游戏，由一队致力于长久维护该游戏的开发人员进行开发工作。如果你喜欢这一定制游戏，同时也有足够的资金购买的话，请考虑支持我们。"
 		"LoadingTip_13"				"通过右键点击最喜爱的聊天轮盘语句来保存。这会将其放入‘最爱’子菜单中。这些东西将在游戏场次之间进行保存/加载。"
 		"LoadingTip_14"				"如果敌方团队的平均评分在300以上，你的团队将获得所有来源的额外金币与经验（每500评分<font color='#ebce0d'>10%</font> + <font color='#ebce0d'>5%</font）"
+		"LoadingTip_15"				"米拉娜的月之暗面持续时间已被减少至15秒。上古巨神从灵体游魂的英雄命中中所获得的奖励减少。"
 
 		"auto_team_add_patreon"						"祝贺！出于平衡考虑，你已收到免费支持者Perk。"
 
@@ -1721,6 +1722,8 @@
 		"DOTA_Tooltip_modifier_silencer_glaives_of_wisdom_Description"		"沉默术士将从任意被其击杀的英雄，以及在其附近925范围内死亡的英雄处永久性偷取2（有天赋时为3）点智力。"
 		"DOTA_Tooltip_modifier_silencer_int_steal_Description"				"沉默术士将从任意被其击杀的英雄，以及在其附近925范围内死亡的英雄处永久性偷取2（有天赋时为3）点智力。"
 
+		"DOTA_Tooltip_ability_elder_titan_ancestral_spirit_scepter_description"	"使你在幽魂返回时从每个受影响敌方英雄处获得%scepter_magic_immune_per_hero_new_value%秒法术免疫。"
+
 		"html_loading"		"页面加载中，这可能会需要几秒钟时间。"
 
 		"leaderboard"						"排行榜"
@@ -1741,7 +1744,7 @@
 		"anon_player"				"匿名玩家"
 		"locked_supporters_only"	"仅限支持者"
 		"synced_chat_loading" "加载中..."
-		
+
 		"sc_yesterday"	"昨天"
 		"sc_days_ago"	"%%v%%天前"
 		"sc_hours_ago"	"%%v%%小时前"
@@ -1749,7 +1752,8 @@
 		"sc_sec_ago"	"%%v%%秒前"
 		"sc_dev"		"DEV"
 		"sc_time_to_refresh_messages"		"接收新消息的时间"
-
-		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1由于长时间没有重连至比赛，已经被系统踢出游戏。"
+		
+		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
+		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1已断开连接太久，且已从游戏中移除。"
 	}
 }
