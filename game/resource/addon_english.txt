@@ -11,7 +11,7 @@
 		"DOTA_Chat_Tombstone_Pinged"										"Fallen teammate here."
 
 		"random_unlimited"											"Unlimited Random"
-		"random_unlimited_description"								"Unlock unlimited use of smart random button!"
+		"random_unlimited_description"								"Unlock unlimited uses of the smart random button!"
 
 		"cosmetics_box"												"Cosmetics box"
 		"cosmetics_box_description"									"Use cosmetic abilities, add one of 21 effects for your hero, wards, courier or pet, effect when you kill and select pet"
@@ -36,12 +36,12 @@
 		"purchase_confirmation_yes"									"Yes, this is correct"
 		"purchase_confirmation_no"									"No, let me change this"
 
-		"high_tier_supporter_perk"									"Hi-tier supporter (25$) feature only"
+		"high_tier_supporter_perk"									"High tier supporter (25$) feature only"
 		"available_perk"											"Available"
 
-		"not_supporter"												"You are not supporter"
-		"standard_tier_supporter"									"You are standart tier supporter"
-		"high_tier_supporter"										"You are high tier supporter"
+		"not_supporter"												"You are not a supporter"
+		"standard_tier_supporter"									"You are a standard tier supporter"
+		"high_tier_supporter"										"You are a high tier supporter"
 		"thanks_for_supporting"										"Thank you for supporting us!"
 		"purchase_for"												"Purchasing for:"
 		"received_gift_1"											"Has been gifted a <font color='#ff4040'>level 1</font> subscription!"
@@ -98,12 +98,12 @@
 		"DOTA_Tooltip_ability_item_patreonbundle_2"						"Frosthaven Consumables Bundle"
 		"DOTA_Tooltip_ability_item_patreonbundle_2_Description"			"<h1>Use</h1>Contains a full set of consumables for both normal Dota and the Frosthaven special event."
 
-		"nopatreonerror"											"This item for Supporters only"
+		"nopatreonerror"											"This item is for Supporters only"
 		"nopatreonerror2"											"Only Hi-Level Supporters (25$) can use this item"
 		"notyettime"												"Cannot kick trolls in the first 5 minutes"
 		"block_spawn_error"											"Cannot block your team's neutral camps"
 
-		"DOTA_Tooltip_ability_special_bonus_unique_mirana_4"		"-20 Moonlight Shadow Cooldown"
+		"DOTA_Tooltip_ability_special_bonus_unique_mirana_4"		"-20s Moonlight Shadow Cooldown"
 
 		"dropped_wards_return_error"								"Dropped wards return to fountain"
 
@@ -113,11 +113,11 @@
 		"new_stat_total_healing"									"Total healing"
 		"new_stat_tower_damage"										"Building damage"
 		"new_stat_networth"											"Networth"
-		"new_stat_wards"											"Wards sentries/obsrvrs"
+		"new_stat_wards"											"Sentries/observers"
 		"new_stat_killed_heroes"									"Killed enemies"
 
 		"DOTA_Tooltip_ability_luna_moon_glaive_fountain"						"Bouncing Attack"
-		"DOTA_Tooltip_ability_luna_moon_glaive_fountain_Description"			"Can attack multiple campers."
+		"DOTA_Tooltip_ability_luna_moon_glaive_fountain_Description"			"Can attack multiple players."
 
 		"DOTA_Tooltip_ability_item_banhammer"						"Kick Troll"
 		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use: Start Kick Vote</h1>Vote to kick a trolling allied player from the game. Should only be used against genuine trolls. Supporters are immune to Kick Troll item."
@@ -129,7 +129,7 @@
 		"anti_feed_system_add_debuff_message"		                    "%s1 has been detected as feeding. For 10 minutes they will have 2.5x respawn rate and be denied upon dying."
 
 		"destroyed_goodguys_melee_rax"									"Radiant team respawn time increased by 2 seconds and dire team respawn time reduced by 2 seconds"
-		"destroyed_goodguys_range_rax"									"Radiant team respawn time increased by 1 second and dire team respawn time reduced by 2 second"
+		"destroyed_goodguys_range_rax"									"Radiant team respawn time increased by 1 second and dire team respawn time reduced by 1 second"
 		"destroyed_goodguys_all_rax"									"All Radiant Barracks Destroyed. Radiant team respawn time increased by 2 seconds and dire team respawn time reduced by 2 seconds"
 		"destroyed_badguys_melee_rax"									"Dire team respawn time increased by 2 seconds and radiant team respawn time reduced by 2 seconds"
 		"destroyed_badguys_range_rax"									"Dire team respawn time increased by 1 second and radiant team respawn time reduced by 1 second"
@@ -266,7 +266,7 @@
 		"zai_jian_le_bao_bei"				"再见了宝贝儿！"
 
 		"DOTA_Tooltip_ability_item_disable_help_custom"					"Disable Help"
-		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Use: Disable Help</h1> Cast on an ally hero to prevent them from using abusive spells on you. Alternatively you can use the checkbox on the scoreboard to disable help."
+		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Use: Disable Help</h1> Cast on an allied hero to prevent them from using abusive spells on you. Alternatively you can use the checkbox on the scoreboard to disable help."
 		"DOTA_Tooltip_ability_item_disable_help_custom_Lore"			"With friends like these, who needs enemies?"
 
 		"DOTA_Tooltip_ability_item_mute_custom"					        "Mute Player"
@@ -276,8 +276,8 @@
 		"fast_buy_items"					                            "Cannot Buy Yet"
 		"allcouriersdie"					                            "All Сouriers Are Dead"
 
-		"rapier_small_networth"					                        "Your net worth too small to buy Divine Rapier (need 20k>)"
-		"rapier_littleKD"					                            "You must have a positive kills to death ratio"
+		"rapier_small_networth"					                        "Your net worth is too low to buy Divine Rapier (need >20k)"
+		"rapier_littleKD"					                            "You must have a positive kill to death ratio"
 		"cannotpullit"					                            	"You cannot pull it on ground"
 
 		"you_cannot_buy_it"												"You cannot buy it"
@@ -288,16 +288,16 @@
 		"start_troll_voting_1"					               			"<font color='#FF1111'>[[[</font>%s1<font color='#FF1111'>]]]</font> Start voting for punishment against:"
 		"start_troll_voting_2"					               			"<font color='#FF1111'>[[[</font>%s1<font color='#FF1111'>]]]</font>"
 
-		"troll_voting_final"					               			"%s1 Geted punishment for bad behavior."
+		"troll_voting_final"					               			"%s1 Got punishment for bad behavior."
 		"cannot_voite_against_high_tier_patreons"					    "You cannot vote against high tier patreons"
-		"target_has_troll_debuff_with_voiting"					   		"The player is already punished"
+		"target_has_troll_debuff_with_voiting"					   		"The player has already been punished"
 
 		"inventory_full_custom_message"					   				"You cannot get item. Inventory is full"
 		"cannotpickupit"					                            "You cannot pick up it."
 		"npc_dummy_inventory"					                        "Dummy Inventory"
 
 		"alertforban"					                        		"Your team wants to disconnect you from the game. This is a warning."
-		"playerhasalertforban"					   						"This player is already warned. Try later."
+		"playerhasalertforban"					   						"This player is already warned. Try again later."
 		"DOTA_Tooltip_modifier_alert_before_kick_lua"					"Alert for kick from this game."
 		"cannotkickotherpatreons"					               		"You cannot kick supporters"
 
@@ -801,16 +801,16 @@
 		"our_thanks_and_appreciation_description"	"We are grateful to all the players who play in our project and support us"
 
 		"supporter_perks_low"						"Supporter Perks"
-        "supporter_perks_low_description"			"Supporters have improved versions of common personal perks"
+        "supporter_perks_low_description"			"Supporters have improved versions of standard personal perks"
 
 		"first_pick_low"							"Pick Hero First"
-        "first_pick_low_description"				"You can choose hero before other players"
+        "first_pick_low_description"				"You can choose your hero before non-supporters"
 
 		"first_pick_high"							"Pick Heroes Even Before Supporters"
-        "first_pick_high_description"				"You can choose hero before other players and even supporters"
+        "first_pick_high_description"				"You can choose your hero before non-supporters and standard supporters"
 
 		"supporter_perks_high"						"High-Supporter Perks"
-		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
+		"supporter_perks_high_description"			"High Supporters have improved versions of standard supporters personal perks"
 
 		"voting_to_kick_yes"						"Yes"
 		"voting_to_kick_no"							"No"
@@ -825,23 +825,23 @@
 		"voting_to_kick_voiting_for_now"			"There is already a voting for kick player"
 		"voting_to_kick_voting_failed"				"Voting for kick %s1 failed."
 		"voting_to_kick_kda_tooltip"				"<font color='#94a6be'>K/D/A</font>"
-		"you_cannot_buy_more_items_this_type"		"You cannot buy more items this type"
+		"you_cannot_buy_more_items_this_type"		"You cannot buy more items of this type"
 
-		"LoadingTip_1"				"You can use custom chat wheel in game (Press L). It has some cooldown for use."
+		"LoadingTip_1"				"You can use custom chat wheel in game (Press L). It has a cooldown when used."
 		"LoadingTip_2"				"Towers in 12v12 have 1000 more HP than regular dota. Their attack rate is also faster, from 1 > 0.8."
-		"LoadingTip_3"				"If there is a troll in your game, you can use the kick troll item to initiate a vote against them. For a vote to pass it requires 6 votes. Use farily."
+		"LoadingTip_3"				"If there is a troll in your game, you can use the kick troll item to initiate a vote against them. For a vote to pass it requires 6 votes. Use this feature fairly."
 		"LoadingTip_4"				"Respawn rates are reduced by 35% in 12v12."
-		"LoadingTip_5"				"If an ally is using their abilities to troll you, you can use the Disable Help item on them to prevent this. You an also tick a checkbox in the scoreboard, this does the same thing."
+		"LoadingTip_5"				"If an ally is using their abilities to troll you, you can use the Disable Help item on them to prevent this. You an also tick a checkbox in the scoreboard which does the same thing."
 		"LoadingTip_6"				"You can mute players by using the Mute Player item, alternatively you can click the icon on the scoreboard next to their name. Muting a player also prevents hearing their chat wheel spam."
 		"LoadingTip_7"				"Destroying enemy barracks reduces your team's respawn time and increases enemy respawn time by the same amount. Melee barracks reduce by 2 seconds and ranged barracks by 1 second. If all raxes are destroyed you gain another 2 seconds less respawn time."
-		"LoadingTip_8"				"Fountain is very strong in 12v12. It has Fury Swipes (increases 1 damage every strike), Moon Glaives that bounce twice and true-strike. Even if its not targeting you, you can be decimated by the bounces. Be careful."
+		"LoadingTip_8"				"The Fountain is very strong in 12v12. It has Fury Swipes (increases 1 damage every attack), Moon Glaives that bounce twice and true-strike. Even if its not targeting you, you can be decimated by the bounces. Be careful."
 		"LoadingTip_9"				"Supporters will get their items instantly transfered to them after purchase. This does not include Consumeables."
 		"LoadingTip_10"				"Supporters can choose superior perks at the start of the game. High-supporters can get even better perks!"
-		"LoadingTip_11"				"Mirana's '-70 Moonlight Shadow Cooldown' talent has been reduced to -20. Zeus's static field only does half the damage it does in regular dota."
+		"LoadingTip_11"				"Mirana's '-70s Moonlight Shadow Cooldown' talent has been reduced to -20s and Moonlight Shadow's duration has been reduced to 15s. Zeus's Static Field only does half the damage it does in regular Dota."
 		"LoadingTip_12"				"12v12 is open source and is developed by a team of developers who are committed to working on this game for the years to come. If you enjoy this custom game and can afford it, please consider supporting us."
 		"LoadingTip_13"				"Save your favourite chat wheel lines by right-clicking them. This will put them into the 'Favourites' sub menu. These are saved/loaded between games."
 		"LoadingTip_14"				"If the enemy team has 300 more average rating, your team will get (<font color='#ebce0d'>10%</font> + <font color='#ebce0d'>5%</font> for each 500 rating) bonus gold and experience from all sources"
-		"LoadingTip_15"				"Mirana's Moonlight Shadow's duration has been reduced to 15 seconds. Elder Titan gains reduced bonuses per hero hit from Astral Spirit."
+		"LoadingTip_15"				"Chaos Knight's Phantasm cooldown has been reduced to 15s. Elder Titan gains 25% reduced bonuses per hero hit by Astral Spirit."
 
 		"auto_team_add_patreon"						"Congratulations! You have received free supporter perks, for balance reasons!"
 
@@ -849,7 +849,7 @@
 		"player_changed_team"						"changed team"
 		"cooldown_for_change_team"					"Cooldown for change team"
 		"player_still_have_a_lot_of_neutral_items"	"You still have 3 neutral items"
-		"unit_still_have_a_lot_of_neutral_items"	"Unit still have 3 neutral items"
+		"unit_still_have_a_lot_of_neutral_items"	"Unit still has 3 neutral items"
 
 		"vote_options_header"					"VOTE OPTIONS"
 		"vote_options_total_votes"				"Votes"
@@ -866,15 +866,15 @@
         "game_option_no_switch_team_tooltip"	"In this game players cannot switch team for balance if one of team has fewer players"
 
         "game_option_no_mmr_sort"				"No MMR sorting"
-        "game_option_no_mmr_sort_tooltip"		"In this game players will note sort in mmr (balance teams)"
+        "game_option_no_mmr_sort_tooltip"		"In this game players will not be sorted based on mmr (balance teams)"
 
         "game_option_no_bonus_for_weak_team"			"No bonuses for weak team"
         "game_option_no_bonus_for_weak_team_tooltip"	"In this game bonuses for weak team by MMR will be disabled (bonus gold/exp)"
 
 		"custom_rating_text"					"Rank"
 
-		"too_huge_kda_for_change_team"			"You have too huge KDA stats for changing team"
-		"too_huge_nw_for_change_team"			"You have too huge networth for changing team"
+		"too_huge_kda_for_change_team"			"Your KDA is too high to change team"
+		"too_huge_nw_for_change_team"			"Your netowrth is too high to change team"
 
 		"cannot_see_perk_now"					"For now you don't know this player's personal perk"
 
@@ -882,7 +882,7 @@
 		"12v12_china_tournament_open_in_browser"	"Open in browser (pass: e37w)"
 
 		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr"				"Weak Team"
-		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr_Description"	"Players in this team will get additional gold and experiance"
+		"DOTA_Tooltip_modifier_bonus_for_weak_team_in_mmr_Description"	"Players in this team will get additional gold and experience"
 
 		"less_mmr_bonus_header"	"Your team has {s:mmr_diff} less MMR and will get bonuses for this game"
 		"less_mmr_bonus_exp"	"{s:exp_pct}% Experiance"
@@ -1573,7 +1573,7 @@
 		"DOTA_Tooltip_ability_spray_custom_Description"	"Leave your own spray on the map, visible to everyone!<br>You can choose or take off spray in <font color='#f3c409'>COLLECTION</font>"
 
 		"rerolls_from_collection"		"Unlock in Collection"
-		"rerolls_from_collection_hint"	"Click for open collection and unlock more rerolls"
+		"rerolls_from_collection_hint"	"Click to open collection and unlock more rerolls"
 		"item_owned"					"Owned"
 		"ability_reroll_1"				"First reroll for abilities"
 		"ability_reroll_1_description"	"You can reroll abilties additional time with this item in game"
