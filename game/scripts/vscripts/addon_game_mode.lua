@@ -368,7 +368,7 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 
 	local player_id = hero:GetPlayerOwnerID()
 	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] and not self.disconnected_players[player_id] then
-		-- SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
+		SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
 	end
 end
 ---------------------------------------------------------------------------
