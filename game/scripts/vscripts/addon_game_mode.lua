@@ -1247,15 +1247,7 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 						end
 						
 						if transfer_result == true then
-							local player_owner = hInventoryParent:GetPlayerOwner()
-							local new_item = CreateItem(itemName, player_owner, player_owner)
-
-							new_item:SetPurchaseTime(GameRules:GetGameTime())
-							new_item:SetPurchaser(purchaser)
-							new_item.transfer = true
-							purchaser:AddItem(new_item)
-							
-							--purchaser:AddItemByName(itemName)
+							purchaser:FakeBuyItem(itemName)
 						end
 					end)
 				end
