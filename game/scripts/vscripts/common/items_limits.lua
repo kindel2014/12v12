@@ -49,7 +49,7 @@ function ItemIsFastBuying(itemName)
 end
 
 function CDOTA_BaseNPC:DoesHeroHasFreeSlot()
-	for i = 0, 15 do
+	for i = 0, 14 do
 		if self:GetItemInSlot(i) == nil then
 			return i
 		end
