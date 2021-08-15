@@ -3523,3 +3523,22 @@ RegisterCustomEventListener("ResetMmrRequest", function(data)
 		end
 	)
 end)
+
+RegisterCustomEventListener("shortcut_shop_request_item_costs", function(event)
+	local player_id = event.PlayerID
+	if not player_id then return end
+
+	local player = PlayerResource:GetPlayer(player_id)
+	if not player then return end
+
+	event.PlayerID = nil
+
+	local res = {}
+
+	for item_name,_ in pairs(event) do
+		res[item_name] = GetItemCost(item_name)
+	end
+
+	CustomGameEventManager:Send_ServerToPlayer(player, "shortcut_shop_item_costs", res)
+end)
+
