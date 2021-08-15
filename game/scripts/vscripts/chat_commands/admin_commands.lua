@@ -16,10 +16,16 @@ function Commands:sell(player, arg)
 	
 	local player_id = 0
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+	local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
 
-	for i = 0, 20 do
-		if hero:GetItemInSlot(i) ~= nil then
-			hero:SellItem(hero:GetItemInSlot(i))
+	local sell_items  = function(unit) 
+		for i = 0, 20 do
+			if unit:GetItemInSlot(i) ~= nil then
+				hero:ModifyGold(unit:GetItemInSlot(i):GetCost(), false, 0)
+				UTIL_Remove(unit:GetItemInSlot(i))
+			end
 		end
 	end
+	sell_items(hero)
+	sell_items(courier)
 end

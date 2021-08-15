@@ -1245,10 +1245,19 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 								UTIL_Remove(container)
 							end
 						end
+						
+						if transfer_result == true then
+							local player_owner = hInventoryParent:GetPlayerOwner()
+							local new_item = CreateItem(itemName, player_owner, player_owner)
+
+							new_item:SetPurchaseTime(GameRules:GetGameTime())
+							new_item:SetPurchaser(purchaser)
+							new_item.transfer = true
+							purchaser:AddItem(new_item)
+							
+							--purchaser:AddItemByName(itemName)
+						end
 					end)
-					if transfer_result == true then
-						purchaser:AddItemByName(itemName)
-					end
 				end
 				local unique_key_cd = itemName .. "_" .. purchaser:GetEntityIndex()
 				if _G.lastTimeBuyItemWithCooldown[unique_key_cd] and (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key_cd]) < _G.itemsCooldownForPlayer[itemName]) then

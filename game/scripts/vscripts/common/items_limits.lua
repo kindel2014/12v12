@@ -99,9 +99,9 @@ function CDOTA_Item:TransferToBuyer(unit)
 		return false
 	end
 
-	_G.itemsIsBuy[unique_key] = not _G.itemsIsBuy[unique_key]
+	--_G.itemsIsBuy[unique_key] = not _G.itemsIsBuy[unique_key]
 
-	if _G.itemsIsBuy[unique_key] == true then
+	if not self.transfer then
 		if not itemsWithCharges[itemName] then
 			--UTIL_Remove(self)
 			--buyer:AddItemByName(itemName)
@@ -149,7 +149,7 @@ function CDOTA_BaseNPC:CheckPersonalCooldown(item)
 	local itemName = item:GetAbilityName()
 	local unique_key = itemName .. "_" .. buyerEntIndex
 	
-	if _G.itemsIsBuy[unique_key] then return true end
+	if not item.transfer then return true end
 	
 	local playerID = self:GetPlayerID()
 	local supporter_level = Supporters:GetLevel(playerID)
