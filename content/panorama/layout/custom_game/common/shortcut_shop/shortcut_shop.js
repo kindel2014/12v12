@@ -19,11 +19,14 @@ function CreateItemButton(name, id) {
 	panel.style.height = "28px"
 	panel.style.margin = "1px"
 
-	// I cant find way to trigger DOTAShopPanal update, so for now this just disabled
-	panel.RemoveClass("ShowStockAmount")
-	panel.RemoveClass("OutOfStock")
+	// I cant find way to trigger DOTAShopPanel update, so for now this disabled
+	panel.FindChild("OutOfStockOverlay").ClearPropertyFromCode("clip")
 
 	panel.SetPanelEvent("oncontextmenu", () => {
+
+		if (!panel.BHasClass("CanPurchase") || panel.BHasClass("OutOfStock") || Game.IsGamePaused()) return;
+
+		Game.EmitSound("General.Buy")
 		Game.PrepareUnitOrders({
 			OrderType: dotaunitorder_t.DOTA_UNIT_ORDER_PURCHASE_ITEM,
 			UnitIndex: Players.GetLocalPlayerPortraitUnit(),
@@ -41,7 +44,21 @@ function CreateItemButton(name, id) {
 		panel.SetHasClass("CanPurchase", gold >= item_costs[name])
 	}
 
+	const updateSlow = function() {
+		if (!panel.IsValid()) return
+		$.Schedule(0.33, updateSlow)
+
+		// Ultimative hack to check stock amount
+		const dummy = $.CreatePanelWithProperties("DOTAShopItem", CONTEXT, "", { itemname: name })
+		dummy.visible = false
+		panel.SetHasClass("OutOfStock", dummy.BHasClass("OutOfStock"))
+		panel.SetHasClass("ShowStockAmount", dummy.BHasClass("ShowStockAmount"))
+		panel.FindChild("StockAmount").text = dummy.FindChild("StockAmount").text
+		dummy.DeleteAsync(0)
+	}
+
 	update()
+	updateSlow()
 }
 
 GameEvents.SendCustomGameEventToServer("shortcut_shop_request_item_costs", items)
@@ -62,5 +79,3 @@ $.RegisterEventHandler("PanelStyleChanged", QUICK_BUY_ROW, function() {
 $.RegisterEventHandler("PanelStyleChanged", SHOP, function() {
 	CONTEXT.SetHasClass("Hidden", SHOP.BHasClass("ShopOpen"))
 })
-
-
