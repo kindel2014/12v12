@@ -93,7 +93,7 @@ function CDOTA_Item:TransferToBuyer(unit)
 		return
 	end
 	if not buyer:DoesHeroHasFreeSlot() and not itemsWithCharges[itemName] then
-		buyer:ModifyGold(self:GetCost(), false, 0)
+		--buyer:ModifyGold(self:GetCost(), false, 0)
 		--UTIL_Remove(self)
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(buyer:GetPlayerID()), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
 		return false

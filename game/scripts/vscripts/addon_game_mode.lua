@@ -60,6 +60,7 @@ LinkLuaModifier("modifier_super_tower","game_options/modifiers_lib/modifier_supe
 LinkLuaModifier("modifier_mega_creep","game_options/modifiers_lib/modifier_mega_creep", LUA_MODIFIER_MOTION_NONE)
 
 LinkLuaModifier("modifier_delayed_damage","common/game_perks/modifier_lib/delayed_damage", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("creep_secret_shop","creep_secret_shop", LUA_MODIFIER_MOTION_NONE)
 
 _G.newStats = newStats or {}
 
@@ -665,9 +666,25 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			end, 2/30)
 		end
 
-		if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
+		local player = PlayerResource:GetPlayer(playerId)
+		if player and not player.dummyInventory then
 			CreateDummyInventoryForPlayer(playerId, spawnedUnit)
 		end
+		if not player.checked_courier_secret_shop then
+			CheckSuppCourier(spawnedUnit:GetPlayerOwnerID())
+		end
+	end
+end
+
+function CheckSuppCourier(player_id)
+	local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+	if courier then
+		if Supporters:GetLevel(player_id) > 0 then
+			courier:AddNewModifier(courier, nil, "creep_secret_shop", { duration = -1 })
+			PlayerResource:GetPlayer(player_id).checked_courier_secret_shop = true
+		end
+	else
+		Timers:CreateTimer(0.5, function() CheckSuppCourier(player_id) end)
 	end
 end
 
