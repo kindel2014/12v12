@@ -2,7 +2,7 @@
 {
 	maps = 
 	[
-		"test",
+		"dota",
 		"dota_tournament",
 	]
 	IsPlayable = 1
@@ -21,7 +21,7 @@
 	[
 		{
 			MaxPlayers = 24
-			map = "test"
+			map = "dota"
 		},
 		{
 			MaxPlayers = 24
