@@ -1,0 +1,21 @@
+
+.shortcut_items {
+	flow-children: right;
+	align: right bottom;
+	margin-bottom: 100px;
+}
+
+.HUDFlipped .shortcut_items {
+	align: left bottom;
+}
+
+.Hidden.QuickBuyTwoRows {
+	opacity: 0;
+}
+
+.QuickBuyTwoRows.shortcut_items {
+	margin-bottom: 134px;
+}
+
+
+
