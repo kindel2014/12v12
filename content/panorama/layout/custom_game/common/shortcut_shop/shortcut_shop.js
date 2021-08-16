@@ -9,7 +9,8 @@ const items = {
 let item_costs
 
 const SHOP = FindDotaHudElement("shop")
-const QUICK_BUY_ROW = FindDotaHudElement("lower_hud").FindChildTraverse("quickbuy").FindChildTraverse("Row1")
+const QUICK_BUY = FindDotaHudElement("lower_hud").FindChildTraverse("quickbuy")
+const QUICK_BUY_ROW = QUICK_BUY.FindChildTraverse("Row1")
 const CONTEXT = $.GetContextPanel()
 
 function CreateItemButton(name, id) {
@@ -42,6 +43,8 @@ function CreateItemButton(name, id) {
 			
 		const gold = Players.GetGold(Game.GetLocalPlayerID())
 		panel.SetHasClass("CanPurchase", gold >= item_costs[name])
+
+		CONTEXT.style.marginBottom = QUICK_BUY.actuallayoutheight / ( Game.GetScreenHeight() / 1080 ) + "px"
 	}
 
 	const updateSlow = function() {
