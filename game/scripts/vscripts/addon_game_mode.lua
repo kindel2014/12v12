@@ -1516,6 +1516,13 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 				end
 			end
 		end
+
+		if unit:HasModifier("creep_secret_shop") and orderType ~= DOTA_UNIT_ORDER_PURCHASE_ITEM then
+			local modifier = unit:FindModifierByName("creep_secret_shop")
+			if modifier.OrderFilter then
+				modifier:OrderFilter(filterTable)
+			end
+		end
 	end
 
 	--for _, _unit_ent in pairs (filterTable.units) do

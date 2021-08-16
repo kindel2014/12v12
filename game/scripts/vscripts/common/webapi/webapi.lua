@@ -54,8 +54,14 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 			if err.traceId then
 				message = message .. " Report it to the developer with this id: " .. err.traceId
 			end
+			
 			err.message = message
+			err.status_code = response.StatusCode
 
+			if response.Body and type(response.Body) == "string" then
+				err.body = response.Body
+			end
+			
 			if retryWhile and retryWhile(err) then
 				WebApi:Send(path, data, onSuccess, onError, retryWhile)
 			elseif onError then
@@ -110,7 +116,9 @@ function WebApi:BeforeMatch()
 			if player.stats then
 				WebApi.playerMatchesCount[playerId] = (player.stats.wins or 0) + (player.stats.loses or 0)
 			end
-
+			if player.MutedUntil then
+				SyncedChat:MutePlayer(playerId, player.MutedUntil, false)
+			end
 			publicStats[playerId] = {
 				streak = player.streak.current or 0,
 				bestStreak = player.streak.best or 0,

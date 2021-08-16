@@ -1876,5 +1876,6 @@
 		
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
+		"sc_mute_date"	"You are muted for the next %%days%% days %%hours%% hours %%mins%% minutes"
 	}
 }

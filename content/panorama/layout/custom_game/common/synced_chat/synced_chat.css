@@ -375,3 +375,28 @@
 	text-overflow: shrink;
 	text-align: center;
 }
+
+#SC_MuteRoot {
+	width: 100%;
+	height: 36px;
+	background-color: rgba(0, 0, 0, 0.6);
+	visibility: collapse;
+}
+
+#SC_MuteRoot Label {
+	align: center center;
+	text-align: center;
+	text-overflow: shrink;
+	max-height: 100%;
+	color: gradient(linear, 0% 100%, 0% 0%, from(rgb(230, 0, 1)), to(#ae0001));
+}
+
+.BPlayerMuted #SC_MuteRoot {
+	visibility: visible;
+}
+.BPlayerMuted #SC_TextEntry,
+.BPlayerMuted #SC_Submit,
+.BPlayerMuted #SC_SymbolsCounter,
+.BPlayerMuted #AnonMessageCheck {
+	visibility: collapse;
+}

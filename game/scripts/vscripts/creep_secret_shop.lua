@@ -7,7 +7,6 @@ function creep_secret_shop:IsHidden() return true end
 function creep_secret_shop:RemoveOnDeath() return false end
 function creep_secret_shop:IsPurgeException() return false end
 function creep_secret_shop:RemoveOnDeath() return false end
-function creep_secret_shop:DeclareFunctions() return { MODIFIER_EVENT_ON_ORDER } end
 
 local secret_shop_pos = {
 	[DOTA_TEAM_BADGUYS] = Vector(4860, -1228, 129),
@@ -58,11 +57,9 @@ function creep_secret_shop:OnIntervalThink()
 	end
 end
 
-function creep_secret_shop:OnOrder(data)
+function creep_secret_shop:OrderFilter(data)
 	if not IsServer() then return end
-	if data.unit and data.unit ~= self.parent then return end
-	if data.order_type and data.order_type == DOTA_UNIT_ORDER_PURCHASE_ITEM then return end
-	
+
 	local current_pos = self.parent:GetAbsOrigin()
 
 	if self.is_secret_shop then

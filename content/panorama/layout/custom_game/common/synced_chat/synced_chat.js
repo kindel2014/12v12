@@ -5,6 +5,7 @@ const SYMBOLS_COUNTER = $("#SC_SymbolsCounter");
 const SUBMIT_BUTTON = $("#SC_Submit");
 const ANON_HUD_CHECK = $("#AnonMessageCheck");
 const TIMER_HUD = $("#TimerForUpdateRoot").GetChild(1);
+const MUTE_LABEL = $("#SC_MuteRoot").GetChild(0);
 let OPENED_STATE = false;
 let NOT_SUPPORTER = true;
 let MESSAGES = {};
@@ -41,6 +42,8 @@ function OpenShop() {
 }
 function SendChatMessage() {
 	if (SUBMIT_BUTTON.BHasClass("COOLDOWN")) return;
+	if (SYNCED_CHAT_ROOT.BHasClass("BPlayerMuted")) return;
+
 	if (TEXT_ENTRY.text == "") return;
 
 	if (NOT_SUPPORTER) {
@@ -83,6 +86,7 @@ function ScrollMessages() {
 }
 
 function ProcessPollResult(data) {
+	if (data.unmute_date) MuteChat({ unmute_date: data.unmute_date });
 	if (data.account_id) account_id = data.account_id;
 
 	let check_ping = false;
@@ -222,6 +226,32 @@ function UpdateTimer() {
 			.toString()
 			.padStart(2, "0"),
 	);
+
+	if (unmute_date) {
+		let time = {
+			days: 0,
+			hours: 0,
+			mins: 0,
+		};
+		let today = new Date();
+		today.setMinutes(today.getMinutes() + today.getTimezoneOffset());
+		let diff = Math.max(0, new Date(unmute_date) - today);
+
+		const set_time = (t_name, format) => {
+			let v = Math.floor(diff / format);
+			time[t_name] = v.toString().padStart(2, 0);
+			diff = diff - format * v;
+		};
+		set_time("days", 8.64e7);
+		set_time("hours", 3.6e6);
+		set_time("mins", 60000);
+		MUTE_LABEL.text = LocalizeWithValues("sc_mute_date", {
+			days: time.days,
+			hours: time.hours,
+			mins: time.mins,
+		});
+	}
+
 	$.Schedule(0.5, () => {
 		UpdateTimer();
 	});
@@ -235,7 +265,14 @@ function FocusEntry(b_focus) {
 	} else if (!SYNCED_CHAT_ROOT.BHasHoverStyle()) CloseSyncedChat();
 }
 
+let unmute_date;
+function MuteChat(data) {
+	unmute_date = data.unmute_date;
+	SYNCED_CHAT_ROOT.SetHasClass("BPlayerMuted", true);
+}
+
 (function () {
+	SYNCED_CHAT_ROOT.SetHasClass("BPlayerMuted", false);
 	next_update_time = new Date();
 	UpdateTimer();
 	MESSAGES_CONTAINER.RemoveAndDeleteChildren();
@@ -258,6 +295,7 @@ function FocusEntry(b_focus) {
 	GameEvents.Subscribe("synced_chat:poll_result", ProcessPollResult);
 	GameEvents.Subscribe("synced_chat:add_older_messages", AddOlderMessages);
 	GameEvents.Subscribe("synced_chat:message_sent", ProcessSentMessage);
+	GameEvents.Subscribe("synced_chat:mute", MuteChat);
 
 	GameEvents.SendCustomGameEventToServer("synced_chat:request_inital", {});
 
