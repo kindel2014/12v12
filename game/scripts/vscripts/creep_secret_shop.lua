@@ -1,3 +1,6 @@
+local DEFAULT_THINK_TIME = 2
+local NOT_HOME_THINK_TIME = 30
+
 creep_secret_shop = class({})
 
 function creep_secret_shop:IsHidden() return true end
@@ -27,12 +30,13 @@ function creep_secret_shop:OnCreated()
 	self.is_secret_shop = false
 	self.parent = parent
 	self.team = team
+	self.time = 0
 	self.home_pos = home_shop_pos[team] + RandomVector(RandomFloat(100, 100))
 	self.secret_pos = secret_shop_pos[team] + RandomVector(RandomFloat(50, 50))
 
 	self.last_pos = self.parent:GetAbsOrigin()
 	
-	self:StartIntervalThink(30)
+	self:StartIntervalThink(DEFAULT_THINK_TIME)
 end
 
 function creep_secret_shop:OnIntervalThink()
@@ -42,8 +46,10 @@ function creep_secret_shop:OnIntervalThink()
 	local current_pos = self.parent:GetAbsOrigin()
 	
 	if current_pos == self.secret_pos then return end
+
+	self.time = self.time + DEFAULT_THINK_TIME
 	
-	if self.last_pos == current_pos then
+	if self.last_pos == current_pos and (self.parent:IsInRangeOfShop(DOTA_SHOP_HOME, true) or self.time >= NOT_HOME_THINK_TIME) then
 		self.is_secret_shop = true
 		self.parent:AddNoDraw()
 		self:MoveToPos(self.secret_pos)
@@ -66,8 +72,9 @@ function creep_secret_shop:OnOrder(data)
 	
 	self.last_pos = current_pos
 	self.is_secret_shop = false
+	self.time = 0
 	
-	self:StartIntervalThink(30)
+	self:StartIntervalThink(DEFAULT_THINK_TIME)
 end
 
 function creep_secret_shop:MoveToPos(pos)

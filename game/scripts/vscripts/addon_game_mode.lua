@@ -43,6 +43,8 @@ require("gpm_lib")
 require("game_options/game_options")
 require("shuffle_team")
 require("custom_pings")
+require("chat_commands/admin_commands")
+
 Precache = require( "precache" )
 
 WebApi.customGame = "Dota12v12"
@@ -1239,13 +1241,13 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 							hInventoryParent:DropItemAtPositionImmediate(hItem, hInventoryParent:GetAbsOrigin())
 							local container = hItem:GetContainer()
 							if container then
-								UTIL_Remove( hItem )
-								UTIL_Remove( container )
+								UTIL_Remove(hItem)
+								UTIL_Remove(container)
 							end
-
-							if transfer_result == true then
-								purchaser:AddItemByName(itemName)
-							end
+						end
+						
+						if transfer_result == true then
+							purchaser:FakeBuyItem(itemName)
 						end
 					end)
 				end
@@ -1297,7 +1299,7 @@ end
 
 function CMegaDotaGameMode:OnConnectFull(data)
 	_G.tUserIds[data.PlayerID] = data.userid
-	if _G.kicks and _G.kicks[data.PlayerID] then
+	if Kicks:IsPlayerKicked(data.PlayerID) then
 		SendToServerConsole('kickid '.. data.userid);
 	end
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = data.PlayerID} )
@@ -1373,6 +1375,15 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		end
 	end
 
+	if orderType == DOTA_UNIT_ORDER_TAKE_ITEM_FROM_NEUTRAL_ITEM_STASH  then
+		local main_hero = PlayerResource:GetSelectedHeroEntity(playerId)
+		Timers:CreateTimer(0, function()
+			if main_hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT) == nil then
+				main_hero:SwapItems(ability:GetItemSlot(), DOTA_ITEM_NEUTRAL_SLOT)
+			end
+		end)
+	end
+	
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
 		if target and target:GetName() == "npc_dota_seasonal_ti9_drums" then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#dota_hud_error_cant_cast_on_other" })
@@ -1532,6 +1543,24 @@ function CMegaDotaGameMode:OnPlayerChat(keys)
 			data.PlayerID = playerid
 			SelectVO(data)
 		end
+	end
+
+	local player = PlayerResource:GetPlayer(keys.playerid)
+
+	local args = {}
+
+	for i in string.gmatch(text, "%S+") do
+		table.insert(args, i)
+	end
+
+	local command = args[1]
+	if not command then return end
+	table.remove(args, 1)
+
+	local fixed_command = command.sub(command, 2)
+
+	if Commands[fixed_command] then
+		Commands[fixed_command](Commands, player, args)
 	end
 end
 
@@ -3523,3 +3552,22 @@ RegisterCustomEventListener("ResetMmrRequest", function(data)
 		end
 	)
 end)
+
+RegisterCustomEventListener("shortcut_shop_request_item_costs", function(event)
+	local player_id = event.PlayerID
+	if not player_id then return end
+
+	local player = PlayerResource:GetPlayer(player_id)
+	if not player then return end
+
+	event.PlayerID = nil
+
+	local res = {}
+
+	for item_name,_ in pairs(event) do
+		res[item_name] = GetItemCost(item_name)
+	end
+
+	CustomGameEventManager:Send_ServerToPlayer(player, "shortcut_shop_item_costs", res)
+end)
+

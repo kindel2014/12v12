@@ -49,13 +49,26 @@ function ItemIsFastBuying(itemName)
 end
 
 function CDOTA_BaseNPC:DoesHeroHasFreeSlot()
-	for i = 0, 15 do
+	for i = 0, 14 do
 		if self:GetItemInSlot(i) == nil then
 			return i
 		end
 	end
 	return false
 end
+
+function CDOTA_BaseNPC:FakeBuyItem(item_name)
+	local player_owner = self:GetPlayerOwner()
+	local new_item = CreateItem(item_name, player_owner, player_owner)
+
+	new_item:SetPurchaseTime(GameRules:GetGameTime())
+	new_item:SetPurchaser(self)
+	new_item.transfer = true
+	self:AddItem(new_item)
+	
+	return new_item
+end
+
 
 function CDOTA_Item:SetCooldownStackedItem(itemName, buyer)
 	if _G.itemsCooldownForPlayer[itemName] then
@@ -65,7 +78,7 @@ function CDOTA_Item:SetCooldownStackedItem(itemName, buyer)
 			local item = self
 			if not notFastItems[itemName] then
 				UTIL_Remove(item)
-				item = buyer:AddItemByName(itemName)
+				item = buyer:FakeBuyItem(itemName)
 			end
 			local unique_key_cd = itemName .. "_" .. buyerEntIndex
 			if _G.lastTimeBuyItemWithCooldown[unique_key_cd] == nil or (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key_cd]) >= _G.itemsCooldownForPlayer[itemName]) then
@@ -87,24 +100,17 @@ function CDOTA_Item:TransferToBuyer(unit)
 		self:SetCooldownStackedItem(itemName, buyer)
 		return
 	end
-	local unique_key = itemName .. "_" .. buyerEntIndex
 
 	if unit:IsIllusion() then
 		return
 	end
 	if not buyer:DoesHeroHasFreeSlot() and not itemsWithCharges[itemName] then
-		--buyer:ModifyGold(self:GetCost(), false, 0)
-		--UTIL_Remove(self)
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(buyer:GetPlayerID()), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
 		return false
 	end
 
-	_G.itemsIsBuy[unique_key] = not _G.itemsIsBuy[unique_key]
-
-	if _G.itemsIsBuy[unique_key] == true then
+	if not self.transfer then
 		if not itemsWithCharges[itemName] then
-			--UTIL_Remove(self)
-			--buyer:AddItemByName(itemName)
 			return true
 		else
 			self:SetCooldownStackedItem(itemName, buyer)
@@ -149,7 +155,7 @@ function CDOTA_BaseNPC:CheckPersonalCooldown(item)
 	local itemName = item:GetAbilityName()
 	local unique_key = itemName .. "_" .. buyerEntIndex
 	
-	if _G.itemsIsBuy[unique_key] then return true end
+	if not item.transfer then return true end
 	
 	local playerID = self:GetPlayerID()
 	local supporter_level = Supporters:GetLevel(playerID)

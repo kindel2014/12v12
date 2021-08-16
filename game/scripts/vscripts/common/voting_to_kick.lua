@@ -1,12 +1,14 @@
 Kicks = Kicks or class({})
 
-_G.votingForKick = nil
-_G.kicks = {}
 _G.tUserIds = {}
 
 function Kicks:Init()
 	self.time_to_voting = 40
 	self.votes_for_kick = 6
+	self.voting = nil
+	self.kicks_id = {}
+	self.pre_voting = {}
+	
 	self.reasons_for_kick = {
 		["feeding"] = true,
 		["ability_abuse"] = true,
@@ -44,16 +46,23 @@ function Kicks:Init()
 	end)
 end
 
-function Kicks:Report(player_id)
-	if not player_id or not _G.votingForKick or not _G.votingForKick.init or not _G.votingForKick.reports_count then return end
-	if _G.votingForKick.players_reports and _G.votingForKick.players_reports[player_id] then return end
+function Kicks:IsPlayerKicked(player_id)
+	if Kicks.kicks_id and Kicks.kicks_id[player_id] then
+		return true
+	end
+	return false
+end
 
-	_G.votingForKick.players_reports[player_id] = true
-	_G.votingForKick.reports_count = _G.votingForKick.reports_count + 1
+function Kicks:Report(player_id)
+	if not player_id or not self.voting or not self.voting.init or not self.voting.reports_count then return end
+	if self.voting.players_reports and self.voting.players_reports[player_id] then return end
+
+	self.voting.players_reports[player_id] = true
+	self.voting.reports_count = self.voting.reports_count + 1
 	
-	local init_pid = _G.votingForKick.init
+	local init_pid = self.voting.init
 	
-	if _G.votingForKick.reports_count >= 6 then
+	if self.voting.reports_count >= 6 then
 		self:StopVoting(false)
 		self.stats[init_pid].voting_reported = self.stats[init_pid].voting_reported + 1
 	end
@@ -62,27 +71,27 @@ function Kicks:Report(player_id)
 end
 
 function Kicks:StartVoting(data)
-	if _G.votingForKick then
+	local player_init_id = data.PlayerID
+	if not player_init_id then return end
+	
+	if self.voting then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
 		return
 	end
 	
-	local playerInit = PlayerResource:GetPlayer(data.PlayerID)
-	local team = playerInit:GetTeam()
-	local heroInit = PlayerResource:GetSelectedHeroEntity(data.PlayerID)
-	local heroTarget = heroInit.wantToKick
+	local player_init = PlayerResource:GetPlayer(player_init_id)
+	local team = player_init:GetTeam()
 
-	if not heroTarget then return end
 	if not self.reasons_for_kick[data.reason] then return end
 	
-	local playerTargetID = heroTarget:GetPlayerOwnerID()
+	local player_target_id = self.pre_voting[player_init_id]
 
-	_G.votingForKick = {
+	self.voting = {
 		playersVoted = {},
 		team = team,
 		reason = data.reason,
 		init = data.PlayerID,
-		target = playerTargetID,
+		target = player_target_id,
 		votes = 1,
 		players_reports = {},
 		reports_count = 0,
@@ -90,18 +99,18 @@ function Kicks:StartVoting(data)
 
 	self.stats[data.PlayerID].voting_start = self.stats[data.PlayerID].voting_start + 1
 	
-	_G.votingForKick.playersVoted[data.PlayerID] = true
+	self.voting.playersVoted[data.PlayerID] = true
 	self:UpdateVotingForKick()
 	
 	local all_heroes = HeroList:GetAllHeroes()
 	for _, hero in pairs(all_heroes) do
-		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and (hero:GetTeam() ==team)then
+		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and (hero:GetTeam() == team)then
 			EmitSoundOn("Hero_Chen.TeleportOut", hero)
 		end
 	end
 
-	CustomGameEventManager:Send_ServerToTeam(team, "voting_to_kick_show_voting", { playerId = playerTargetID, reason = data.reason, playerIdInit = data.PlayerID})
-	CustomGameEventManager:Send_ServerToPlayer(playerInit, "voting_to_kick_hide_reason", {})
+	CustomGameEventManager:Send_ServerToTeam(team, "voting_to_kick_show_voting", { playerId = player_target_id, reason = data.reason, playerIdInit = data.PlayerID})
+	CustomGameEventManager:Send_ServerToPlayer(player_init, "voting_to_kick_hide_reason", {})
 
 	Timers:CreateTimer("start_voting_to_kick", {
 		useGameTime = false,
@@ -115,18 +124,18 @@ end
 
 function Kicks:StopVoting(successful_voting)
 	Timers:RemoveTimer("start_voting_to_kick")
-	CustomGameEventManager:Send_ServerToTeam(_G.votingForKick.team, "voting_to_kick_hide_voting", {})
-	GameRules:SendCustomMessage(successful_voting and "#voting_to_kick_player_kicked" or "#voting_to_kick_voting_failed", _G.votingForKick.target, 0)
-	_G.votingForKick = nil
+	CustomGameEventManager:Send_ServerToTeam(self.voting.team, "voting_to_kick_hide_voting", {})
+	GameRules:SendCustomMessage(successful_voting and "#voting_to_kick_player_kicked" or "#voting_to_kick_voting_failed", self.voting.target, 0)
+	self.voting = nil
 end
 
 function Kicks:UpdateVotingForKick()
-	if not _G.votingForKick then return end
+	if not self.voting then return end
 	local max_voices_in_team = 0
 	local voted_parties = {}
 	for playerId = 0, 24 do
 		local connectionState = PlayerResource:GetConnectionState(playerId)
-		if PlayerResource:GetTeam(_G.votingForKick.target) == PlayerResource:GetTeam(playerId)
+		if PlayerResource:GetTeam(self.voting.target) == PlayerResource:GetTeam(playerId)
 			and (connectionState == DOTA_CONNECTION_STATE_CONNECTED or connectionState == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) then
 			local party = tostring(PlayerResource:GetPartyID(playerId));
 			if voted_parties[party] then
@@ -154,8 +163,8 @@ end
 
 
 function Kicks:GetVoteWeight(player_id)
-	if not _G.votingForKick then return end
-	for _player_id, _ in pairs(_G.votingForKick.playersVoted) do
+	if not self.voting then return end
+	for _player_id, _ in pairs(self.voting.playersVoted) do
 		if PlayerResource:GetPartyID(player_id) == PlayerResource:GetPartyID(_player_id) then
 			return 0.5
 		end
@@ -164,14 +173,14 @@ function Kicks:GetVoteWeight(player_id)
 end
 
 function Kicks:VoteYes(data)
-	if not _G.votingForKick then return end
+	if not self.voting then return end
 	
-	_G.votingForKick.votes = _G.votingForKick.votes + self:GetVoteWeight(data.PlayerID)
-	_G.votingForKick.playersVoted[data.PlayerID] = true
-	self:SendDegugResult(data, "YES TOTAL VOICES: ".._G.votingForKick.votes)
-	if _G.votingForKick.votes >= self.votes_for_kick then
-		_G.kicks[_G.votingForKick.target] = true
-		SendToServerConsole('kickid '.. _G.tUserIds[_G.votingForKick.target]);
+	self.voting.votes = self.voting.votes + self:GetVoteWeight(data.PlayerID)
+	self.voting.playersVoted[data.PlayerID] = true
+	self:SendDegugResult(data, "YES TOTAL VOICES: "..self.voting.votes)
+	if self.voting.votes >= self.votes_for_kick then
+		self.kicks_id[self.voting.target] = true
+		SendToServerConsole('kickid '.. _G.tUserIds[self.voting.target]);
 		self:StopVoting(true)
 	end
 	
@@ -183,14 +192,18 @@ function Kicks:VoteNo(data)
 end
 
 function Kicks:CheckState(data)
-	if _G.votingForKick and _G.votingForKick.target and data.PlayerID and (PlayerResource:GetTeam(_G.votingForKick.target) == PlayerResource:GetTeam(data.PlayerID)) then
+	if self.voting and self.voting.target and data.PlayerID and (PlayerResource:GetTeam(self.voting.target) == PlayerResource:GetTeam(data.PlayerID)) then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "voting_to_kick_show_voting", {
-			playerId = _G.votingForKick.target,
-			reason = _G.votingForKick.reason,
-			playerIdInit = _G.votingForKick.init,
-			playerVoted = _G.votingForKick.playersVoted[data.PlayerID],
+			playerId = self.voting.target,
+			reason = self.voting.reason,
+			playerIdInit = self.voting.init,
+			playerVoted = self.voting.playersVoted[data.PlayerID],
 		})
 	end
+end
+
+function Kicks:PreVoting(caster_id, target_id)
+	self.pre_voting[caster_id] = target_id
 end
 
 function Kicks:GetReports(player_id)
