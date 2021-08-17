@@ -179,6 +179,7 @@ function Kicks:VoteYes(data)
 	self.voting.playersVoted[data.PlayerID] = true
 	self:SendDegugResult(data, "YES TOTAL VOICES: "..self.voting.votes)
 	if self.voting.votes >= self.votes_for_kick then
+		self:DropItemsForDisconnetedPlayer(self.voting.target)
 		self.kicks_id[self.voting.target] = true
 		SendToServerConsole('kickid '.. _G.tUserIds[self.voting.target]);
 		self:StopVoting(true)
@@ -199,6 +200,43 @@ function Kicks:CheckState(data)
 			playerIdInit = self.voting.init,
 			playerVoted = self.voting.playersVoted[data.PlayerID],
 		})
+	end
+end
+
+function Kicks:DropItemsForDisconnetedPlayer(player_id)
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+	if not hero then return end
+
+	local neutral_item = hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)
+	if neutral_item then
+		ExecuteOrderFromTable({
+			UnitIndex = hero:entindex(),
+			OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN,
+			AbilityIndex = neutral_item:entindex(),
+		})
+	end
+	
+	local home_shop_pos = {
+		[DOTA_TEAM_BADGUYS] = Vector(6980, 6334, 390),
+		[DOTA_TEAM_GOODGUYS] = Vector(-7045, -6480, 384)
+	}
+	
+	local team = hero:GetTeamNumber()
+	if not team or not home_shop_pos[team] then return end
+
+	local items_for_drop = {
+		["item_ward_dispenser"] = true,
+		["item_ward_observer"] = true,
+		["item_ward_sentry"] = true,
+	}
+
+	for i = 0, 14 do
+		local item = hero:GetItemInSlot(i)
+		if item ~= nil and item and not item:IsNull() then
+			if items_for_drop[item:GetAbilityName()] then
+				hero:DropItemAtPositionImmediate(item, home_shop_pos[hero:GetTeamNumber()] + RandomVector(RandomFloat(100,100)))
+			end
+		end
 	end
 end
 

@@ -1300,6 +1300,7 @@ end
 function CMegaDotaGameMode:OnConnectFull(data)
 	_G.tUserIds[data.PlayerID] = data.userid
 	if Kicks:IsPlayerKicked(data.PlayerID) then
+		Kicks:DropItemsForDisconnetedPlayer(data.PlayerID)
 		SendToServerConsole('kickid '.. data.userid);
 	end
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = data.PlayerID} )
