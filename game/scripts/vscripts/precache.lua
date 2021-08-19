@@ -6,7 +6,8 @@ local particles = {
 }
 local sounds = {
 	"soundevents/custom_soundboard_soundevents.vsndevts",
-	"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+	"soundevents/game_sounds_heroes/game_sounds_chen.vsndevts",
+	"soundevents/game_sounds_items.vsndevts"
 }
 local particle_folders = {}
 return function(context)

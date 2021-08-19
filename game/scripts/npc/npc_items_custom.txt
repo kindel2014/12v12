@@ -750,7 +750,49 @@
             "ItemCost"                      "0"
             "ItemPurchasable"               "0"
     }
-
+    "item_unstable_wand"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_pogo_stick"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_misericorde"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_paintball"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_ascetic_cap"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_heavy_blade"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_force_field"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    "item_black_powder_bag"
+    {
+            "ItemCost"                      "0"
+            "ItemPurchasable"               "0"
+    }
+    
+    
+    
 	"item_reset_mmr"
 	{
 		"BaseClass"						"item_lua"

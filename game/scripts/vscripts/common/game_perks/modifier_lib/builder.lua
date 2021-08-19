@@ -1,9 +1,12 @@
 require("common/game_perks/base_game_perk")
 LinkLuaModifier("modifier_builder_tower", 'common/game_perks/modifier_lib/builder', LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_builder_tower_hp_boost", 'common/game_perks/modifier_lib/builder', LUA_MODIFIER_MOTION_NONE)
 
 builder = class(base_game_perk)
 
 function builder:GetTexture() return "perkIcons/builder" end
+function builder:OnCreated() self:StartIntervalThink(15) end
+
 function builder:OnIntervalThink()
 	if not IsServer() then return end
 	
@@ -31,25 +34,45 @@ function modifier_builder_tower:OnCreated(params)
 	self.particle = ParticleManager:CreateParticle("particles/items5_fx/repair_kit.vpcf", PATTACH_ABSORIGIN_FOLLOW, parent)
 	ParticleManager:SetParticleControl(self.particle, 0, parent:GetAbsOrigin())
 	ParticleManager:SetParticleControl(self.particle, 1, parent:GetAbsOrigin())
+	
+	parent:EmitSound("DOTA_Item.RepairKit.Target")
 end
 function modifier_builder_tower:OnIntervalThink()
 	if not IsServer() then return end
 	local parent = self:GetParent()
-	parent:Heal(self.heal_per_sec, nil)
+	if parent:GetHealth() == parent:GetMaxHealth() then
+		local hp_mod
+		local hp_mod_name = "modifier_builder_tower_hp_boost"
+		if parent:HasModifier(hp_mod_name) then
+			hp_mod = parent:FindModifierByName(hp_mod_name)
+		else
+			hp_mod = parent:AddNewModifier(parent, nil, hp_mod_name, { duration = -1 })
+		end
+		hp_mod:SetStackCount(hp_mod:GetStackCount() + self.heal_per_sec)
+		parent:CalculateGenericBonuses()
+	else
+		parent:Heal(self.heal_per_sec, nil)
+	end
 end
 function modifier_builder_tower:OnDestroy()
 	ParticleManager:DestroyParticle(self.particle, false)
 	ParticleManager:ReleaseParticleIndex( self.particle )
+
+	self:GetParent():StopSound("DOTA_Item.RepairKit.Target")
 end
 function modifier_builder_tower:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 function modifier_builder_tower:GetTexture() return "perkIcons/builder" end
 
-builder_t0 = class(builder)
-builder_t1 = class(builder)
-builder_t2 = class(builder)
-builder_t3 = class(builder)
+modifier_builder_tower_hp_boost = class(base_game_perk)
+function modifier_builder_tower_hp_boost:DeclareFunctions() return { MODIFIER_PROPERTY_EXTRA_HEALTH_BONUS } end
+function modifier_builder_tower_hp_boost:GetTexture() return "perkIcons/builder" end
+function modifier_builder_tower_hp_boost:GetModifierExtraHealthBonus()	return self:GetStackCount() end
 
-function builder_t0:OnCreated() self.v = 15 self:StartIntervalThink(15) end
-function builder_t1:OnCreated() self.v = 30 self:StartIntervalThink(15) end
-function builder_t2:OnCreated() self.v = 60 self:StartIntervalThink(15) end
-function builder_t3:OnCreated() self.v = 120 self:StartIntervalThink(15) end
+builder_t0 = class(builder)
+builder_t0.v = 15
+builder_t1 = class(builder)
+builder_t1.v = 30
+builder_t2 = class(builder)
+builder_t2.v = 60
+builder_t3 = class(builder)
+builder_t3.v = 120
