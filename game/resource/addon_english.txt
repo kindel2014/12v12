@@ -772,19 +772,19 @@
 		"DOTA_Tooltip_cd_after_death_t3_Description"	"Reduces the remaining cooldown on all skills upon respawning"
 
 		"manaburn_t0"									"Basic Manaburn"
-		"manaburn_t0_tooltip"							"Each attack burns 10 mana from the target. Deals damage according to burned mana"
+		"manaburn_t0_tooltip"							"Each attack burns 10 mana from the target. Deals damage according to burned mana. Illusions burn half as much mana"
 		"DOTA_Tooltip_manaburn_t0"						"Personal Perk: Manaburn"
 		"DOTA_Tooltip_manaburn_t0_Description"			"Causes attacks to burn a portion of the targets mana, dealing damage equal to the mana burned"
 		"manaburn_t1"									"Manaburn"
-		"manaburn_t1_tooltip"							"Each attack burns 20 mana from the target. Deals damage according to burned mana"
+		"manaburn_t1_tooltip"							"Each attack burns 20 mana from the target. Deals damage according to burned mana. Illusions burn half as much mana"
 		"DOTA_Tooltip_manaburn_t1"						"Personal Perk: Manaburn"
 		"DOTA_Tooltip_manaburn_t1_Description"			"Causes attacks to burn a portion of the targets mana, dealing damage equal to the mana burned"
 		"manaburn_t2"									"Advanced Manaburn"
-		"manaburn_t2_tooltip"							"Each attack burns 40 mana from the target. Deals damage according to burned mana"
+		"manaburn_t2_tooltip"							"Each attack burns 40 mana from the target. Deals damage according to burned mana. Illusions burn half as much mana"
 		"DOTA_Tooltip_manaburn_t2"						"Personal Perk: Manaburn"
 		"DOTA_Tooltip_manaburn_t2_Description"			"Causes attacks to burn a portion of the targets mana, dealing damage equal to the mana burned"
 		"manaburn_t3"									"Family Manaburn"
-		"manaburn_t3_tooltip"							"Each attack burns 80 mana from the target. Deals damage according to burned mana"
+		"manaburn_t3_tooltip"							"Each attack burns 80 mana from the target. Deals damage according to burned mana. Illusions burn half as much mana"
 		"DOTA_Tooltip_manaburn_t3"						"Personal Perk: Manaburn"
 		"DOTA_Tooltip_manaburn_t3_Description"			"Causes attacks to burn a portion of the targets mana, dealing damage equal to the mana burned"
 
@@ -851,7 +851,7 @@
 		"builder_t3_tooltip"							"Every 15 seconds, restores 240 health to your most damaged tower. If the tower has full health, any excess healing is converted to permanent max health instead."
 		"DOTA_Tooltip_builder_t3"						"Personal Perk: Builder"
 		"DOTA_Tooltip_builder_t3_Description"			"Heals your lowest hp building every 15 seconds"
-		
+
 		"DOTA_Tooltip_modifier_builder_tower"						"Heal from Builder"
 		"DOTA_Tooltip_modifier_builder_tower_hp_boost"				"Builder"
 		"DOTA_Tooltip_modifier_builder_tower_hp_boost_Description"	"Health increased by %dMODIFIER_PROPERTY_EXTRA_HEALTH_BONUS%."
@@ -1876,7 +1876,7 @@
 		"sc_sec_ago"	"%%v%% second(s) ago"
 		"sc_dev"		"DEV"
 		"sc_time_to_refresh_messages"		"Time until new messages are received"
-		
+
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
 		"sc_mute_date"	"You are muted for the next %%days%% days %%hours%% hours %%mins%% minutes"
