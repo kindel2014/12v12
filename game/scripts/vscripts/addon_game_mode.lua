@@ -679,6 +679,14 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 end
 
 function CheckSuppCourier(player_id)
+	local connect_state = PlayerResource:GetConnectionState(player_id)
+	if connect_state == DOTA_CONNECTION_STATE_ABANDONED then return end
+	
+	if connect_state ~= DOTA_CONNECTION_STATE_CONNECTED then
+		Timers:CreateTimer(0.5, function() CheckSuppCourier(player_id) end)
+		return
+	end
+	
 	local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
 	if courier then
 		if Supporters:GetLevel(player_id) > 0 then
