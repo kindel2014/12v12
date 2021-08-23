@@ -42,6 +42,7 @@ amplified_modifier = {
 	["modifier_omninight_guardian_angel"] = true,
 	["modifier_phoenix_fire_spirit_count"] = true,
 	["modifier_phoenix_sun_ray"] = true,
+	["modifier_phoenix_sun_ray_vision"] = true,
 	["modifier_prevent_taunts"] = true,
 	["modifier_sandking_sand_storm_slow_aura_thinker"] = true,
 	["modifier_sandking_sand_storm"] = true,
