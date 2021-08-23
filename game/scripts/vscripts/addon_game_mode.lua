@@ -772,7 +772,7 @@ function CMegaDotaGameMode:ModifierGainedFilter(filterTable)
 				local modifier = parent:FindModifierByName(m_name)
 				if not modifier then return nil end
 				local time = modifier:GetRemainingTime() + modifier:GetElapsedTime()
-				if time < new_duration then
+				if (time + 0.05) < new_duration then
 					modifier:SetDuration(new_duration, true)
 				end
 				return 0.1

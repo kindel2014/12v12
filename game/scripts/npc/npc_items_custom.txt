@@ -342,7 +342,7 @@
     {
         // General
         //-------------------------------------------------------------------------------------------------------------
-        "ID"							"1503"
+        "ID"							"20001"
         "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
         "ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES"
         "BaseClass"						"item_datadriven"
@@ -818,7 +818,7 @@
 	"item_teleport_perk_0"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5000"
+		"ID"							"20001"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
@@ -845,7 +845,7 @@
 	"item_teleport_perk_1"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5001"
+		"ID"							"20002"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
@@ -872,7 +872,7 @@
 	"item_teleport_perk_2"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5002"
+		"ID"							"20003"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
@@ -899,7 +899,7 @@
 	"item_teleport_perk_3"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5007"
+		"ID"							"20004"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 		"AbilityTextureName"	        "item_teleport_perk"
 		"ScriptFile"					"items/item_teleport_perk.lua"
@@ -926,7 +926,7 @@
 	"item_linken_perk_0"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5003"
+		"ID"							"20005"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
@@ -961,7 +961,7 @@
 	"item_linken_perk_1"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5004"
+		"ID"							"20006"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
@@ -996,7 +996,7 @@
 	"item_linken_perk_2"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5005"
+		"ID"							"20007"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
@@ -1031,7 +1031,7 @@
 	"item_linken_perk_3"
 	{
 		"BaseClass"						"item_lua"
-		"ID"							"5006"
+		"ID"							"20008"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
