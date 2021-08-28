@@ -100,7 +100,7 @@
 
 		"items"
 		{
-			"item_black_powder_bag"			  "1"
+			"item_bullwhip"			  		  "1"
 			"item_quicksilver_amulet"		  "1"
 			"item_pupils_gift"				  "1"
 			"item_dragon_scale"				  "1"
@@ -123,7 +123,7 @@
 		{
 			"item_ring_of_aquila"			  "1"
 			"item_vambrace"			 		  "1"
-			"item_bullwhip"					  "1"
+			"item_paintball"			      "1"
 			"item_enchanted_quiver"			  "1"
 		}
 	}
@@ -164,7 +164,7 @@
 		"items"
 		{
 			"item_mind_breaker"				  "1"
-			"item_paintball"			      "1"
+			"item_black_powder_bag"			  "1"
 			"item_cloak_of_flames"			  "1"
 			"item_heavy_blade"				  "1"
 		}
@@ -186,7 +186,7 @@
 		{
 			"item_titan_sliver"				  "1"
 			"item_ceremonial_robe"			  "1"
-			"item_ninja_gear"				  "1"
+			"item_psychic_headband"			  "1"
 			"item_the_leveller"				  "1"
 		}
 	}
@@ -205,7 +205,7 @@
 
 		"items"
 		{
-			"item_psychic_headband"			  "1"
+			"item_ninja_gear"			      "1"
 			"item_penta_edged_sword"		  "1"
 			"item_stormcrafter"				  "1"
 			"item_flicker"					  "1"
