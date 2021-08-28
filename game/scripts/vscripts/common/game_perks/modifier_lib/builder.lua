@@ -4,22 +4,29 @@ LinkLuaModifier("modifier_builder_tower_hp_boost", 'common/game_perks/modifier_l
 
 builder = class(base_game_perk)
 
+function builder:AllowIllusionDuplicate() return false end
 function builder:GetTexture() return "perkIcons/builder" end
-function builder:OnCreated() self:StartIntervalThink(15) end
+function builder:OnCreated()
+	if self:GetParent():HasModifier("modifier_monkey_king_fur_army_soldier_hidden") then
+		self:Destroy()
+		return
+	end
+	self:StartIntervalThink(15)
+end
 
 function builder:OnIntervalThink()
 	if not IsServer() then return end
-	
+
 	local towers = Entities:FindAllByClassname('npc_dota_tower')
 	local weakiest_tower
 	local parent = self:GetParent()
-	
+
 	for _, tower in pairs(towers) do
 		if parent:GetTeam() == tower:GetTeam() and ((not weakiest_tower) or weakiest_tower:GetHealth() > tower:GetHealth()) then
 			weakiest_tower = tower
 		end
 	end
-	
+
 	if weakiest_tower then
 		weakiest_tower:AddNewModifier(parent, nil, "modifier_builder_tower", { duration = 2, heal_per_sec = self.v })
 	end
@@ -34,8 +41,10 @@ function modifier_builder_tower:OnCreated(params)
 	self.particle = ParticleManager:CreateParticle("particles/items5_fx/repair_kit.vpcf", PATTACH_ABSORIGIN_FOLLOW, parent)
 	ParticleManager:SetParticleControl(self.particle, 0, parent:GetAbsOrigin())
 	ParticleManager:SetParticleControl(self.particle, 1, parent:GetAbsOrigin())
-	
-	parent:EmitSound("DOTA_Item.RepairKit.Target")
+
+	if IsServer() then
+		parent:EmitSound("DOTA_Item.RepairKit.Target")
+	end
 end
 function modifier_builder_tower:OnIntervalThink()
 	if not IsServer() then return end
@@ -58,7 +67,9 @@ function modifier_builder_tower:OnDestroy()
 	ParticleManager:DestroyParticle(self.particle, false)
 	ParticleManager:ReleaseParticleIndex( self.particle )
 
-	self:GetParent():StopSound("DOTA_Item.RepairKit.Target")
+	if IsServer() then
+		self:GetParent():StopSound("DOTA_Item.RepairKit.Target")
+	end
 end
 function modifier_builder_tower:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
 function modifier_builder_tower:GetTexture() return "perkIcons/builder" end
