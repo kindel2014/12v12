@@ -980,8 +980,8 @@
 		"DOTA_Tooltip_modifier_super_tower"		"Super Tower"
 		"DOTA_Tooltip_modifier_mega_creep"		"Mega Creep"
 
-		"game_option_super_towers"				"Super towers"
-		"game_option_super_towers_tooltip"		"Towers will get increased stats:<br><br><font color='#24d124'>Health</font>: 2800-3100 > 4800-5100<br><font color='#a9cce8'>Base Attack Time</font>: 0.8 > 0.65"
+		"game_option_super_towers"				"Weak towers"
+		"game_option_super_towers_tooltip"		"Towers will get increased stats:<br><br><font color='#24d124'>Health</font>: 4800-5100 > 2800-3100<br><font color='#a9cce8'>Base Attack Time</font>: 0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"No trolls kick"
         "game_option_no_trolls_kick_tooltip"	"In this game players cannot start voting for kicking troll"

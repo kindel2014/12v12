@@ -717,8 +717,8 @@
 		"vote_options_header"					"ГОЛОСОВАНИЕ ЗА НАСТРОЙКИ"
 		"vote_options_total_votes"				"Голоса"
 		"DOTA_Tooltip_modifier_super_tower"		"Усиленная Башня"
-		"game_option_super_towers"				"Усиленные Башни"
-		"game_option_super_towers_tooltip"		"Характеристики Башен в игре будут увеличены:<br><br><font color='#24d124'>Здоровье</font>: 2800-3100 > 4800-5100<br><font color='#a9cce8'>Базовое Время Атаки</font>: 0.8 > 0.65"
+		"game_option_super_towers"				"Ослабленные Башни"
+		"game_option_super_towers_tooltip"		"Характеристики Башен в игре будут увеличены:<br><br><font color='#24d124'>Здоровье</font>: 4800-5100 > 2800-3100<br><font color='#a9cce8'>Базовое Время Атаки</font>: 0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"Без изгнания троллей"
 		"game_option_no_trolls_kick_tooltip"	"В этой игре игроки не смогут начать голосование за изгнание другого игрока"

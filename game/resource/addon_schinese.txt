@@ -977,8 +977,8 @@
 		"DOTA_Tooltip_modifier_super_tower"		"超级防御塔"
 		"DOTA_Tooltip_modifier_mega_creep"		"超级兵"
 
-		"game_option_super_towers"				"超级防御塔"
-		"game_option_super_towers_tooltip"		"防御塔的数据将提高：<br><br><br><br><font color='#24d124'>生命值</font>：2800-3100 > 4800-5100<br><font color='#a9cce8'>基本攻击时间</font>：0.8 > 0.65"
+		"game_option_super_towers"				"虚弱的塔"
+		"game_option_super_towers_tooltip"		"防御塔的数据将提高：<br><br><br><br><font color='#24d124'>生命值</font>：4800-5100 > 2800-3100<br><font color='#a9cce8'>基本攻击时间</font>：0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"不能恶意玩家踢出"
         "game_option_no_trolls_kick_tooltip"	"在本场游戏中，玩家不能发起踢出恶意玩家的投票"
