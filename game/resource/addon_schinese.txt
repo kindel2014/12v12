@@ -772,19 +772,19 @@
 		"DOTA_Tooltip_cd_after_death_t3_Description"	"重生时减少所有技能的剩余冷却时间"
 
 		"manaburn_t0"									"初级法力燃烧"
-		"manaburn_t0_tooltip"							"每次攻击都会烧掉目标的8点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t0_tooltip"							"每次攻击都会烧掉目标的8点魔法。根据燃烧的魔法值造成伤害。幻象燃烧的法力为一半"
 		"DOTA_Tooltip_manaburn_t0"						"个人特权：法力燃烧"
 		"DOTA_Tooltip_manaburn_t0_Description"			"使得攻击燃烧部分目标魔法，同时造成等于被燃烧魔法的伤害。"
 		"manaburn_t1"									"法力燃烧"
-		"manaburn_t1_tooltip"							"每次攻击都会烧掉目标的16点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t1_tooltip"							"每次攻击都会烧掉目标的16点魔法。根据燃烧的魔法值造成伤害。幻象燃烧的法力为一半"
 		"DOTA_Tooltip_manaburn_t1"						"个人特权：法力燃烧"
 		"DOTA_Tooltip_manaburn_t1_Description"			"使得攻击燃烧部分目标魔法，同时造成等于被燃烧魔法的伤害。"
 		"manaburn_t2"									"高级法力燃烧"
-		"manaburn_t2_tooltip"							"每次攻击都会烧掉目标的32点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t2_tooltip"							"每次攻击都会烧掉目标的32点魔法。根据燃烧的魔法值造成伤害。幻象燃烧的法力为一半"
 		"DOTA_Tooltip_manaburn_t2"						"个人特权：法力燃烧"
 		"DOTA_Tooltip_manaburn_t2_Description"			"使得攻击燃烧部分目标魔法，同时造成等于被燃烧魔法的伤害。"
 		"manaburn_t3"									"家族法力燃烧"
-		"manaburn_t3_tooltip"							"每次攻击都会烧掉目标的32点魔法。根据燃烧的魔法值造成伤害"
+		"manaburn_t3_tooltip"							"每次攻击都会烧掉目标的32点魔法。根据燃烧的魔法值造成伤害。幻象燃烧的法力为一半"
 		"DOTA_Tooltip_manaburn_t3"						"个人特权：法力燃烧"
 		"DOTA_Tooltip_manaburn_t3_Description"			"使得攻击燃烧部分目标魔法，同时造成等于被燃烧魔法的伤害。"
 
@@ -836,22 +836,25 @@
 		"DOTA_Tooltip_hunter_t3"						"个人特权：猎人"
 
 		"builder_t0"									"初级建造者"
-		"builder_t0_tooltip"							"每15秒为生命值最低的建筑物回复30点生命值"
+		"builder_t0_tooltip"							"每15秒回复受损最严重的防御塔30点生命值。如果防御塔未受损，则所有额外治疗会被转换为其永久最大生命值。"
 		"DOTA_Tooltip_builder_t0"						"个人特权：建造者"
 		"DOTA_Tooltip_builder_t0_Description"			"每15秒治疗一次生命值最低的建筑"
 		"builder_t1"									"建造者"
-		"builder_t1_tooltip"							"每15秒为生命值最低的建筑物回复60点生命值"
+		"builder_t1_tooltip"							"每15秒回复受损最严重的防御塔60点生命值。如果防御塔未受损，则所有额外治疗会被转换为其永久最大生命值。"
 		"DOTA_Tooltip_builder_t1"						"个人特权：建造者"
 		"DOTA_Tooltip_builder_t1_Description"			"每15秒治疗一次生命值最低的建筑"
 		"builder_t2"									"专业建造者"
-		"builder_t2_tooltip"							"每15秒为生命值最低的建筑物回复120点生命值"
+		"builder_t2_tooltip"							"每15秒回复受损最严重的防御塔120点生命值。如果防御塔未受损，则所有额外治疗会被转换为其永久最大生命值。"
 		"DOTA_Tooltip_builder_t2"						"个人特权：建造者"
 		"DOTA_Tooltip_builder_t2_Description"			"每15秒治疗一次生命值最低的建筑"
 		"builder_t3"									"家族建造者"
-		"builder_t3_tooltip"							"每15秒为生命值最低的建筑物回复240点生命值"
+		"builder_t3_tooltip"							"每15秒回复受损最严重的防御塔240点生命值。如果防御塔未受损，则所有额外治疗会被转换为其永久最大生命值。"
 		"DOTA_Tooltip_builder_t3"						"个人特权：建造者"
 		"DOTA_Tooltip_builder_t3_Description"			"每15秒治疗一次生命值最低的建筑"
-		"DOTA_Tooltip_modifier_builder_tower"			"建造者治疗"
+
+		"DOTA_Tooltip_modifier_builder_tower"						"建造者治疗"
+		"DOTA_Tooltip_modifier_builder_tower_hp_boost"				"建造者"
+		"DOTA_Tooltip_modifier_builder_tower_hp_boost_Description"	"生命值提升%dMODIFIER_PROPERTY_EXTRA_HEALTH_BONUS%。"
 
 		"delayed_damage_t0"								"基础延迟伤害"
 		"delayed_damage_t0_tooltip"						"有15%的传入伤害存在5秒延迟"
@@ -977,7 +980,7 @@
 		"DOTA_Tooltip_modifier_super_tower"		"超级防御塔"
 		"DOTA_Tooltip_modifier_mega_creep"		"超级兵"
 
-		"game_option_super_towers"				"虚弱的塔"
+		"game_option_super_towers"				"弱防御塔"
 		"game_option_super_towers_tooltip"		"防御塔的数据将提高：<br><br><br><br><font color='#24d124'>生命值</font>：4800-5100 > 2800-3100<br><font color='#a9cce8'>基本攻击时间</font>：0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"不能恶意玩家踢出"
@@ -1873,7 +1876,7 @@
 		"sc_sec_ago"	"%%v%%秒前"
 		"sc_dev"		"DEV"
 		"sc_time_to_refresh_messages"		"接收新消息的时间"
-		
+
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1已断开连接太久，且已从游戏中移除。"
 		"sc_mute_date"	"你在接下来的%%days%%天%%hours%%小时%%mins%%分钟内被静音"
