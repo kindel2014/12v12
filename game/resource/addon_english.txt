@@ -952,7 +952,7 @@
 		"you_cannot_buy_more_items_this_type"		"You cannot buy more items of this type"
 
 		"LoadingTip_1"				"You can use custom chat wheel in game (Press L). It has a cooldown when used."
-		"LoadingTip_2"				"Towers in 12v12 have 1000 more HP than regular dota. Their attack rate is also faster, from 1 > 0.8."
+		"LoadingTip_2"				"Towers in 12v12 have 3000 more HP than regular dota. Their attack rate is also faster, from 1 > 0.65."
 		"LoadingTip_3"				"If there is a troll in your game, you can use the kick troll item to initiate a vote against them. For a vote to pass it requires 6 votes. Use this feature fairly."
 		"LoadingTip_4"				"Respawn rates are reduced by 35% in 12v12."
 		"LoadingTip_5"				"If an ally is using their abilities to troll you, you can use the Disable Help item on them to prevent this. You an also tick a checkbox in the scoreboard which does the same thing."
@@ -981,7 +981,7 @@
 		"DOTA_Tooltip_modifier_mega_creep"		"Mega Creep"
 
 		"game_option_super_towers"				"Weak towers"
-		"game_option_super_towers_tooltip"		"Towers will get increased stats:<br><br><font color='#24d124'>Health</font>: 4800-5100 > 2800-3100<br><font color='#a9cce8'>Base Attack Time</font>: 0.65 > 0.8"
+		"game_option_super_towers_tooltip"		"Towers will get reduced stats:<br><br><font color='#24d124'>Health</font>: 4800-5100 > 2800-3100<br><font color='#a9cce8'>Base Attack Time</font>: 0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"No trolls kick"
         "game_option_no_trolls_kick_tooltip"	"In this game players cannot start voting for kicking troll"
