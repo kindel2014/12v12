@@ -4,6 +4,12 @@ LinkLuaModifier("linken_ready", "common/game_perks/modifier_lib/linken", LUA_MOD
 LinkLuaModifier("linken_cooldown", "common/game_perks/modifier_lib/linken", LUA_MODIFIER_MOTION_NONE)
 linken = class(base_game_perk)
 
+linken.OnCreated = function(self)
+	if not IsServer() then return end
+	local parent = self:GetParent()
+	parent:AddNewModifier(parent, nil, "linken_ready", {})
+end
+
 function linken:IsHidden() return true end
 function linken:DeclareFunctions() return { MODIFIER_PROPERTY_ABSORB_SPELL } end
 function linken:GetTexture() return "perkIcons/linken" end
@@ -38,7 +44,7 @@ function linken:GetAbsorbSpell(params)
 	ParticleManager:SetParticleControlEnt(pfx, 0, parent, PATTACH_POINT_FOLLOW, "attach_hitloc", parent:GetAbsOrigin(), true)
 	ParticleManager:ReleaseParticleIndex(pfx)
 	
-	parent:AddNewModifier(parent, self:GetAbility(), "linken_cooldown", {duration = self.v})
+	parent:AddNewModifier(parent, nil, "linken_cooldown", {duration = self.v})
 	local modifier = parent:FindModifierByName("linken_ready")
 	if modifier and not modifier:IsNull() then
 		parent:RemoveModifierByName("linken_ready")
@@ -56,9 +62,9 @@ function linken_cooldown:GetTexture() return "perkIcons/linken" end
 function linken_cooldown:GetAttributes() return MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
 
 function linken_cooldown:OnDestroy()
-	if IsServer() then
-		self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "linken_ready", {})
-	end
+	if not IsServer() then return end
+	local parent = self:GetParent()
+	parent:AddNewModifier(parent, nil, "linken_ready", {})
 end
 
 linken_ready = class({})
@@ -81,30 +87,11 @@ function linken_ready:ShouldUseOverheadOffset()
 	return true
 end
 
-
-
 linken_t0 = class(linken)
+linken_t0.v = 90
 linken_t1 = class(linken)
+linken_t1.v = 60
 linken_t2 = class(linken)
+linken_t2.v = 30
 linken_t3 = class(linken)
-
-function linken_t0:OnCreated() 
-	if not IsServer() then return end 
-	self.v = 90
-	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "linken_ready", {})
-end
-function linken_t1:OnCreated() 
-	if not IsServer() then return end 
-	self.v = 60 
-	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "linken_ready", {})
-end
-function linken_t2:OnCreated() 
-	if not IsServer() then return end 
-	self.v = 30 
-	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "linken_ready", {})
-end
-function linken_t3:OnCreated() 
-	if not IsServer() then return end 
-	self.v = 15 
-	self:GetParent():AddNewModifier(self:GetParent(), self:GetAbility(), "linken_ready", {})
-end
+linken_t3.v = 15
