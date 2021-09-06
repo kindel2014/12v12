@@ -593,7 +593,10 @@
 		"linken_t3"								"Семейный Щит Отражения"
 		"linken_t3_tooltip"						"Пассивно блокирует одну направленную способность.<br>Перезарядка: <b>15</b> сек."
 		"DOTA_Tooltip_linken_t3"				"Талант: Щит Отражения"
-
+    	"DOTA_Tooltip_linken_cooldown"			"Восстановление Щита Отражения"
+		"DOTA_Tooltip_linken_ready"				"Щит Отражения"
+		"DOTA_Tooltip_linken_ready_Description"	"Пассивно блокирует одну направленную способность, сочетается с Linken's Sphere"
+		
 		"hunter_t0"								"Молодой Охотник"
 		"hunter_t0_tooltip"						"Урон по крипам увеличен на 10%"
 		"DOTA_Tooltip_hunter_t0"				"Талант: Охотник"
