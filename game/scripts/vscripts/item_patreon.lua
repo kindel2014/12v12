@@ -38,48 +38,19 @@ end
 function OnSpellStartBanHammer(event)
 	if not IsServer() then return end
 	
-    local target = event.target
-    local caster = event.caster
     local ability = event.ability
-	
-	local caster_player = caster:GetPlayerOwner()
-	local caster_id = caster:GetPlayerOwnerID()
-	local target_id = target:GetPlayerOwnerID()
-	
-	if target_id and ((WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5) or PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED) then
+
+	local init_kick = Kicks:InitKickFromPlayerToPlayer({
+		target_id = event.target:GetPlayerOwnerID(),
+		caster_id = event.caster:GetPlayerOwnerID(),
+	})
+
+	if init_kick == INIT_KICK_FAIL then
 		ability:EndCooldown()
-		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
 		return
 	end
-	
-    if caster:IsRealHero() then
-        local supporter_level = Supporters:GetLevel(target_id)
-
-        if target:IsRealHero() and target:IsControllableByAnyPlayer() and not target:IsTempestDouble() then
-            if (supporter_level > 0) then
-                CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#cannotkickotherpatreons" })
-				ability:EndCooldown()
-            else
-                if not Kicks.voting then
-					Kicks:PreVoting(caster_id, target_id)
-					
-                    CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
-
-                    GameRules:SendCustomMessage("#alert_for_ban_message_1", caster_id, 0)
-                    GameRules:SendCustomMessage("#alert_for_ban_message_2", target_id, 0)
-
-                    local all_heroes = HeroList:GetAllHeroes()
-                    for _, hero in pairs(all_heroes) do
-                        if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
-                            EmitSoundOn("Hero_Chen.HandOfGodHealHero", hero)
-                        end
-                    end
-                    ability:RemoveSelf()
-                else
-                    ability:EndCooldown()
-                    CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
-                end
-            end
-        end
-    end
+	if init_kick == INIT_KICK_SUCCESSFUL then
+		ability:RemoveSelf()
+		return
+	end
 end

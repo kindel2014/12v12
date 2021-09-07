@@ -985,9 +985,6 @@
 		"game_option_no_trolls_kick"			"No trolls kick"
         "game_option_no_trolls_kick_tooltip"	"In this game players cannot start voting for kicking troll"
 
-        "game_option_no_switch_team"			"No switch team"
-        "game_option_no_switch_team_tooltip"	"In this game players cannot switch team for balance if one of team has fewer players"
-
         "game_option_no_mmr_sort"				"No MMR sorting"
         "game_option_no_mmr_sort_tooltip"		"In this game players will not be sorted based on mmr (balance teams)"
 
@@ -1879,5 +1876,7 @@
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 has been disconnected for too long and has been removed from the game."
 		"sc_mute_date"	"You are muted for the next %%days%% days %%hours%% hours %%mins%% minutes"
+		
+		"cannot_use_it_for_now"	"You cannot use it for now"
 	}
 }

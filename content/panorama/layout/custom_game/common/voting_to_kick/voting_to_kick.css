@@ -8,7 +8,7 @@
 	flow-children: down;
 	horizontal-align: right;
 	vertical-align: center;
-	background-image: url("file://{resources}/images/custom_game/import_dotaitem_purchase_bg_psd.png");
+	background-image: url("file://{resources}/images/custom_game/import_dota/item_purchase_bg_psd.png");
 	background-size: cover;
 	transform: translatex(1000px);
 	transition-property: transform;

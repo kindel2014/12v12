@@ -62,7 +62,6 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/game_perks/game_perks.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/voting_to_kick/voting_to_kick.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/leaderboard.xml" />
-		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/change_team/change_team.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/auto_team_notification.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/notifications_ui/notifications_ui.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/ingame_warning/ingame_warning.xml" />

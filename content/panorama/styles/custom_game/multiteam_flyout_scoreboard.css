@@ -455,3 +455,22 @@
 #MuteAll:selected {
 	background-image: url("s2r://panorama/images/custom_game/import_dota/button_audio_off_psd_CUSTOM_NOT_DOTA.png");
 }
+#KickPlayer {
+	width: 30px;
+	height: 30px;
+	background-image: url("s2r://panorama/images/compendium/international2020/icon_bounty_crosshair_shadow.png");
+	background-size: 100%;
+	wash-color: red;
+	opacity: 0;
+	margin-left: -8px;
+	margin-top: -8px;
+}
+#KickPlayer.Show {
+	opacity: 0.5;
+}
+#KickPlayer.Show:hover {
+	opacity: 1;
+}
+#KickPlayer.Show:active {
+	brightness: 2;
+}

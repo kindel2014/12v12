@@ -44,6 +44,9 @@ function Kicks:Init()
 	CustomGameEventManager:RegisterListener("voting_to_kick_report",function(_, keys)
 		self:Report(keys.PlayerID)
 	end)
+	CustomGameEventManager:RegisterListener("ui_kick_player",function(_, keys)
+		self:InitKickFromPlayerUI(keys)
+	end)
 end
 
 function Kicks:IsPlayerKicked(player_id)
@@ -235,6 +238,75 @@ function Kicks:DropItemsForDisconnetedPlayer(player_id)
 		if item ~= nil and item and not item:IsNull() then
 			if items_for_drop[item:GetAbilityName()] then
 				hero:DropItemAtPositionImmediate(item, home_shop_pos[hero:GetTeamNumber()] + RandomVector(RandomFloat(100,100)))
+			end
+		end
+	end
+end
+
+function Kicks:InitKickFromPlayerUI(data)
+	local player_id = data.PlayerID
+	local target_id = data.target_id
+	if not player_id or not target_id then return end
+	
+	if Supporters:GetLevel(player_id) < 1 then return end
+	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
+	
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+	local item_name = "item_banhammer"
+	
+	if hero:CheckPersonalCooldown(nil, item_name, true, "#cannot_use_it_for_now", true) then
+		Kicks:InitKickFromPlayerToPlayer({
+			target_id = target_id,
+			caster_id = player_id
+		})
+	end	
+end
+
+INIT_KICK_FAIL = 0
+INIT_KICK_SUCCESSFUL = 1
+function Kicks:InitKickFromPlayerToPlayer(data)
+	local target_id = data.target_id
+	local caster_id = data.caster_id
+
+	if not target_id or not caster_id then return end
+	
+	local target = PlayerResource:GetSelectedHeroEntity(target_id)
+	local caster = PlayerResource:GetSelectedHeroEntity(caster_id)
+	if not target or not caster then return end
+	local caster_player = caster:GetPlayerOwner()
+
+	if target_id and ((WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5) or PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED) then
+		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
+		return INIT_KICK_FAIL
+	end
+
+	if caster:IsRealHero() then
+		local supporter_level = Supporters:GetLevel(target_id)
+
+		if target:IsRealHero() and target:IsControllableByAnyPlayer() and not target:IsTempestDouble() then
+			if (supporter_level > 0) then
+				CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#cannotkickotherpatreons" })
+				return INIT_KICK_FAIL
+			else
+				if not Kicks.voting then
+					Kicks:PreVoting(caster_id, target_id)
+
+					CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
+
+					GameRules:SendCustomMessage("#alert_for_ban_message_1", caster_id, 0)
+					GameRules:SendCustomMessage("#alert_for_ban_message_2", target_id, 0)
+
+					local all_heroes = HeroList:GetAllHeroes()
+					for _, hero in pairs(all_heroes) do
+						if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
+							EmitSoundOn("Hero_Chen.HandOfGodHealHero", hero)
+						end
+					end
+					return INIT_KICK_SUCCESSFUL
+				else
+					CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_voiting_for_now" })
+					return INIT_KICK_FAIL
+				end
 			end
 		end
 	end

@@ -122,22 +122,25 @@ function CDOTA_Item:HasPersonalCooldown()
 	return itemsCooldownForPlayer[self:GetName()] and true
 end
 
-function MessageToPlayerItemCooldown(itemName, playerID)
+function MessageToPlayerItemCooldown(itemName, playerID, custom_message)
 	if _G.itemsCooldownForPlayer[itemName] then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#fast_buy_items" })
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = custom_message or "#fast_buy_items" })
 	else
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#you_can_buy_only_one_item" })
 	end
 end
 
-function CheckMaxItemCount(item, unique_key,playerID,checker)
-	local itemName = item:GetAbilityName()
+function CheckMaxItemCount(itemName, unique_key,playerID,checker, skip_limit_message)
 	if maxItemsForPlayer[itemName] then
 		if not maxItemsForPlayersData[unique_key] then
 			maxItemsForPlayersData[unique_key] = 1
 		else
 			if maxItemsForPlayersData[unique_key] >=  maxItemsForPlayer[itemName] then
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "you_cannot_buy_more_items_this_type" })
+				if not skip_limit_message then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", {
+						message = "you_cannot_buy_more_items_this_type"
+					})
+				end
 				return false
 			elseif checker then
 				maxItemsForPlayersData[unique_key] = maxItemsForPlayersData[unique_key]+1
@@ -147,12 +150,15 @@ function CheckMaxItemCount(item, unique_key,playerID,checker)
 	return true
 end
 
-function CDOTA_BaseNPC:CheckPersonalCooldown(item)
-	if not item or item:IsNull() then return end
+function CDOTA_BaseNPC:CheckPersonalCooldown(item, _itemName , b_no_item, message_cd, skip_limit_message)
+	if b_no_item then
+		item = { transfer = true }
+	end
+	if not item or (item.IsNull and item:IsNull()) then return end
 	if not self:DoesHeroHasFreeSlot() then return end
 	
 	local buyerEntIndex = self:GetEntityIndex()
-	local itemName = item:GetAbilityName()
+	local itemName = _itemName or item:GetAbilityName() 
 	local unique_key = itemName .. "_" .. buyerEntIndex
 	
 	if not item.transfer then return true end
@@ -163,26 +169,26 @@ function CDOTA_BaseNPC:CheckPersonalCooldown(item)
 	if _G.lastTimeBuyItemWithCooldown[unique_key] == nil or (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key]) >= _G.itemsCooldownForPlayer[itemName]) then
 		if not itemsWithCharges[itemName] then
 			_G.lastTimeBuyItemWithCooldown[unique_key] = GameRules:GetGameTime()
-			local checkMaxCount = CheckMaxItemCount(item, unique_key, playerID, true)
+			local checkMaxCount = CheckMaxItemCount(itemName, unique_key, playerID, true, skip_limit_message)
 			return (true and checkMaxCount)
 		elseif not ItemIsFastBuying(itemName) and (not (supporter_level > 0)) then
 			_G.lastTimeBuyItemWithCooldown[unique_key] = GameRules:GetGameTime()
-			local checkMaxCount = CheckMaxItemCount(item, unique_key, playerID, true)
+			local checkMaxCount = CheckMaxItemCount(itemName, unique_key, playerID, true, skip_limit_message)
 			return (true and checkMaxCount)
 		end
 	elseif _G.itemsCooldownForPlayer[itemName] then
 		if itemsWithCharges[itemName] then
 			if not ItemIsFastBuying(itemName) and (not (supporter_level > 0)) then
-				local checkMaxCount = CheckMaxItemCount(item, unique_key, playerID, false)
+				local checkMaxCount = CheckMaxItemCount(itemName, unique_key, playerID, false, skip_limit_message)
 				if checkMaxCount then
-					MessageToPlayerItemCooldown(itemName, playerID)
+					MessageToPlayerItemCooldown(itemName, playerID, message_cd)
 				end
 				return false
 			end
 		else
-			local checkMaxCount = CheckMaxItemCount(item, unique_key, playerID, false)
+			local checkMaxCount = CheckMaxItemCount(itemName, unique_key, playerID, false, skip_limit_message)
 			if checkMaxCount then
-				MessageToPlayerItemCooldown(itemName, playerID)
+				MessageToPlayerItemCooldown(itemName, playerID, message_cd)
 			end
 			return false
 		end

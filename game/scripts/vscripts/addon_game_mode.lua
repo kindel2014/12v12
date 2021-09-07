@@ -24,15 +24,6 @@ local TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI = 0.5 -- 10 assists = 5 "kills"
 --Requirements to Buy Divine Rapier
 local NET_WORSE_FOR_RAPIER_MIN = 20000
 
---Change team system
-local ts_entities = LoadKeyValues('scripts/kv/ts_entities.kv')
-local COOLDOWN_FOR_CHANGE_TEAM = (60 * 3) -- 3 minutes
-local MIN_DIFFERNCE_PLAYERS_IN_TEAM = 2 -- Player can change team if they're playing 10vs12, not 11vs12
-local TIME_LIMIT_FOR_CHANGE_TEAM = (60 * 20) -- Players cannot change team after this time
-_G.changeTeamProgress = false
-_G.changeTeamTimes = {}
-_G.isChangeTeamAvailable = false
-
 --Max neutral items for each player (hero/stash/courier)
 _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER = 3
 
@@ -1081,7 +1072,6 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		Convars:SetFloat("host_timescale", 1)
-		CheckTeamBalance()
 		if game_start then
 			game_start = false
 			Timers:CreateTimer(0.1, function()
@@ -1261,7 +1251,7 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 				local unique_key_cd = itemName .. "_" .. purchaser:GetEntityIndex()
 				if _G.lastTimeBuyItemWithCooldown[unique_key_cd] and (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key_cd]) < _G.itemsCooldownForPlayer[itemName]) then
-					local checkMaxCount = CheckMaxItemCount(hItem, unique_key_cd, prshID, false)
+					local checkMaxCount = CheckMaxItemCount(hItem:GetAbilityName(), unique_key_cd, prshID, false)
 					if checkMaxCount then
 						MessageToPlayerItemCooldown(itemName, prshID)
 					end
@@ -1312,7 +1302,6 @@ function CMegaDotaGameMode:OnConnectFull(data)
 		SendToServerConsole('kickid '.. data.userid);
 	end
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = data.PlayerID} )
-	CheckTeamBalance()
 end
 
 function CMegaDotaGameMode:OnPlayerDisconnect(data)
@@ -1324,12 +1313,6 @@ function CMegaDotaGameMode:OnPlayerDisconnect(data)
 	end
 
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = true, playerId = data.PlayerID} )
-	Timers:CreateTimer(1, function()
-		CheckTeamBalance()
-	end)
-	Timers:CreateTimer(310, function()
-		CheckTeamBalance()
-	end)
 end
 
 function GetBlockItemByID(id)
@@ -3325,61 +3308,6 @@ function GetTopPlayersList(fromTopCount, team, sortFunction)
 	return topPlayers
 end
 
-function CheckTeamBalance()
-	if GameRules:GetDOTATime(false, true) >= TIME_LIMIT_FOR_CHANGE_TEAM then
-		CustomGameEventManager:Send_ServerToAllClients("HideTeamChangePanel", {} )
-		return
-	end
-
-	if GameOptions:OptionsIsActive("no_switch_team") then
-		return
-	end
-
-	if GetMapName() == "dota_tourtament" then
-		return
-	end
-
-	_G.changeTeamProgress = false
-	local radiantPlayers = 0
-	local direPlayers = 0
-
-	for playerID = 0, 23 do
-		local state = PlayerResource:GetConnectionState(playerID)
-		if state == DOTA_CONNECTION_STATE_DISCONNECTED or state == DOTA_CONNECTION_STATE_CONNECTED or state == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED then
-			local team = PlayerResource:GetTeam(playerID)
-			if team == DOTA_TEAM_GOODGUYS then
-				radiantPlayers = radiantPlayers + 1
-			elseif team == DOTA_TEAM_BADGUYS then
-				direPlayers = direPlayers + 1
-			end
-		end
-	end
-
-	if math.abs(radiantPlayers-direPlayers) >= MIN_DIFFERNCE_PLAYERS_IN_TEAM then
-		local highTeam = DOTA_TEAM_GOODGUYS
-		if radiantPlayers < direPlayers then
-			highTeam = DOTA_TEAM_BADGUYS
-		end
-		Timers:CreateTimer(0.5, function()
-			_G.isChangeTeamAvailable = true
-			CustomGameEventManager:Send_ServerToTeam(highTeam, "ShowTeamChangePanel", {} )
-		end)
-	else
-		CustomGameEventManager:Send_ServerToAllClients("HideTeamChangePanel", {} )
-	end
-end
-
-RegisterCustomEventListener("PlayerChangeTeam", function(data)
-	local oldTeam = PlayerResource:GetTeam(data.PlayerID)
-	local newTeam
-	if oldTeam == DOTA_TEAM_GOODGUYS then
-		newTeam = DOTA_TEAM_BADGUYS
-	else
-		newTeam = DOTA_TEAM_GOODGUYS
-	end
-	ChangeTeam(data.PlayerID, newTeam)
-end)
-
 function PlayerForFeedBack(team)
 	for id = 0, 23 do
 		local state = PlayerResource:GetConnectionState(id)
@@ -3388,140 +3316,6 @@ function PlayerForFeedBack(team)
 		end
 	end
 	return nil
-end
-
-function ChangeTeam(playerID, newTeam)
-	if GameRules:GetDOTATime(false, true) >= TIME_LIMIT_FOR_CHANGE_TEAM then
-		CustomGameEventManager:Send_ServerToAllClients("HideTeamChangePanel", {} )
-		return
-	end
-	if GetTopPlayersList(3, PlayerResource:GetTeam(playerID), GetHeroKD)[playerID] then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#too_huge_kda_for_change_team" })
-		return
-	end
-	if GetTopPlayersList(3, PlayerResource:GetTeam(playerID), function(hero)
-		return PlayerResource:GetNetWorth(hero:GetPlayerOwnerID())
-	end)[playerID] then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#too_huge_nw_for_change_team" })
-		return
-	end
-
-	if _G.changeTeamProgress or (not _G.isChangeTeamAvailable) then return end
-
-	if _G.changeTeamTimes[playerID] and (GameRules:GetGameTime() - _G.changeTeamTimes[playerID]) < COOLDOWN_FOR_CHANGE_TEAM then
-		DisplayError(playerID, "Cooldown for change team")
-		return
-	end
-	local feedbackChangeTeamPlayer = PlayerForFeedBack(newTeam)
-	if not feedbackChangeTeamPlayer then return end
-	_G.changeTeamTimes[playerID] = GameRules:GetGameTime()
-	_G.changeTeamProgress = true
-	_G.isChangeTeamAvailable = false
-	CustomGameEventManager:Send_ServerToAllClients("HideTeamChangePanel", {} )
-	CustomGameEventManager:Send_ServerToAllClients("PlayerChangedTeam", {playerId = playerID} )
-
-	local teamForFeedback = DOTA_TEAM_BADGUYS
-	if newTeam == DOTA_TEAM_BADGUYS then
-		teamForFeedback = DOTA_TEAM_GOODGUYS
-	end
-
-	ChangeTeamForPlayer(playerID, newTeam)
-	Timers:CreateTimer(4, function()
-		ChangeTeamForPlayer(feedbackChangeTeamPlayer, teamForFeedback)
-	end)
-	Timers:CreateTimer(5, function()
-		CheckTeamBalance()
-	end)
-end
-
-function ChangeTeamForPlayer(playerID, newTeam)
-	local maxPlayerInTeam = GameRules:GetCustomGameTeamMaxPlayers(newTeam)
-	GameRules:SetCustomGameTeamMaxPlayers( newTeam, maxPlayerInTeam + 1)
-	PlayerResource:SetCustomTeamAssignment(playerID, newTeam)
-
-	local hero = PlayerResource:GetSelectedHeroEntity(playerID)
-	if IsValidEntity(hero) then
-		if GamePerks.choosed_perks[playerID] then
-			local perkName = GamePerks.choosed_perks[playerID]
-			local perkStacks = hero:GetModifierStackCount(perkName, hero)
-			hero:RemoveModifierByName(perkName)
-			Timers:CreateTimer(4, function()
-				hero:AddNewModifier(hero, nil, perkName, {duration = -1})
-				if perkStacks > 0 then
-					hero:SetModifierStackCount(perkName, nil, perkStacks)
-				end
-			end)
-		end
-
-		hero:SetTeam(newTeam)
-		hero:Kill(nil, hero)
-		hero:SetTimeUntilRespawn(1)
-
-		Timers:CreateTimer(3, function()
-			CreateDummyInventoryForPlayer(hero:GetPlayerOwnerID(), hero)
-			Cosmetics:InitCosmeticForUnit(hero)
-		end)
-
-		if hero:HasAbility('arc_warden_tempest_double') then
-			local clones = Entities:FindAllByName(hero:GetClassname())
-			for _,tempestDouble in pairs(clones) do
-				if tempestDouble:IsTempestDouble() and playerID == tempestDouble:GetPlayerID() then
-					tempestDouble:Kill(nil, nil)
-				end
-			end
-		end
-
-		if hero:HasAbility('meepo_divided_we_stand') then
-			local clones = Entities:FindAllByName(hero:GetClassname())
-
-			for _,meepoClone in pairs(clones) do
-				if meepoClone:IsClone() and playerID == meepoClone:GetPlayerID() then
-					meepoClone:SetTimeUntilRespawn(1)
-				end
-			end
-		end
-
-		local changeTeamForUnits = function(table, func)
-			for spell, data in pairs(table) do
-				if hero:HasAbility(spell) then
-					local name = data.Name
-					local units = Entities:FindAllByName(name)
-					if #units == 0 then
-						units = Entities:FindAllByModel(name)
-					end
-					for _, unit in pairs(units) do
-						if unit:GetPlayerOwnerID() == playerID and (not data.Modifier or unit:HasModifier(data.Modifier)) then
-							func(unit, newTeam)
-							unit:SetTeam(newTeam)
-						end
-					end
-				end
-			end
-		end
-
-		changeTeamForUnits(ts_entities.Switch, function(unit, team) unit:SetTeam(team) end)
-		changeTeamForUnits(ts_entities.Kill, function(unit) unit:Kill(nil, nil) end)
-
-		local couriers = Entities:FindAllByName("npc_dota_courier")
-		for _, courier in pairs(couriers) do
-			if courier:GetPlayerOwnerID() == playerID then
-				local fountain
-				local vMoveFromFountain
-				if newTeam == DOTA_TEAM_GOODGUYS then
-					fountain = Entities:FindByName( nil, "ent_dota_fountain_good" )
-					vMoveFromFountain = Vector(500,500,0)
-				elseif newTeam == DOTA_TEAM_BADGUYS then
-					fountain = Entities:FindByName( nil, "ent_dota_fountain_bad" )
-					vMoveFromFountain = Vector(-500,-500,0)
-				end
-				local vFountainPoint = fountain:GetAbsOrigin()
-				local vNewCourierPount = vFountainPoint + vMoveFromFountain + RandomVector(150)
-				courier:SetTeam(newTeam)
-				FindClearSpaceForUnit(courier, vNewCourierPount, false)
-			end
-		end
-	end
-	GameRules:SetCustomGameTeamMaxPlayers( newTeam, maxPlayerInTeam )
 end
 
 RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data)

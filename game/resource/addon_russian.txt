@@ -726,9 +726,6 @@
 		"game_option_no_trolls_kick"			"Без изгнания троллей"
 		"game_option_no_trolls_kick_tooltip"	"В этой игре игроки не смогут начать голосование за изгнание другого игрока"
 
-		"game_option_no_switch_team"			"Без смены команды"
-		"game_option_no_switch_team_tooltip"	"В этой игре игроки не смогут сменить команду, когда из команд будет иметь мало игроков"
-
         "game_option_no_mmr_sort"				"Без сортировки по рейтингу"
         "game_option_no_mmr_sort_tooltip"		"В этой игре команды не будут отсортированы по рейтингу (балансировка)"
 
@@ -1249,5 +1246,7 @@
 		
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 удаляется из игры из-за долгого отсутствия."
+		
+		"cannot_use_it_for_now"	"Вы пока не можете использовать это"
 	}
 }

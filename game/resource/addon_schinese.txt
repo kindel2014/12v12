@@ -969,9 +969,6 @@
 		"game_option_no_trolls_kick"			"不能恶意玩家踢出"
         "game_option_no_trolls_kick_tooltip"	"在本场游戏中，玩家不能发起踢出恶意玩家的投票"
 
-        "game_option_no_switch_team"			"不能切换队伍"
-        "game_option_no_switch_team_tooltip"	"在本场游戏中，玩家不能因为某一队的玩家较少而出于平衡性原因切换队伍"
-
         "game_option_no_mmr_sort"				"无MMR排序"
         "game_option_no_mmr_sort_tooltip"		"在本游戏中，玩家将不会根据MMR进行排序（平衡队伍）"
 

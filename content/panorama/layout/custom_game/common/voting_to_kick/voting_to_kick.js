@@ -111,7 +111,7 @@ function VotingToKickShowReason(data) {
 
 	let reasonPanelHideText = $("#VotingToKickReasonHeadPanelText");
 	reasonPanelHideText.html = true;
-	let targetPlayer = Game.GetPlayerInfo(data.playerId);
+	let targetPlayer = Game.GetPlayerInfo(data.target_id);
 	reasonPanelHideText.text =
 		$.Localize("#voting_to_kick_choose_reason_tooltip") +
 		" " +
