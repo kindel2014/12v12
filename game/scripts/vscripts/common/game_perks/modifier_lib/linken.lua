@@ -58,6 +58,7 @@ linken_cooldown = class({})
 function linken_cooldown:IsHidden() return false end
 function linken_cooldown:IsDebuff() return false end
 function linken_cooldown:IsPurgable() return false end
+function linken_cooldown:RemoveOnDeath() return false end
 function linken_cooldown:GetTexture() return "perkIcons/linken" end
 function linken_cooldown:GetAttributes() return MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
 
@@ -72,6 +73,7 @@ linken_ready = class({})
 function linken_ready:IsHidden() return false end
 function linken_ready:IsDebuff() return false end
 function linken_ready:IsPurgable() return false end
+function linken_ready:RemoveOnDeath() return false end
 function linken_ready:GetTexture() return "perkIcons/linken" end
 function linken_ready:GetAttributes() return MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
 
