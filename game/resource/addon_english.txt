@@ -915,7 +915,20 @@
 		"family_t2_tooltip"								"Grants a random perk from the next tier (Tier 4, Tier 4 is roughly 2x the power of Tier 3)"
 		"DOTA_Tooltip_family_t0" 						"Family"
 		"DOTA_Tooltip_family_t0_Description"			"Grants a random perk from 1 tier higher"
-
+		
+		"tinkerer_t0"								"Basic Tinkerer"
+		"tinkerer_t0_tooltip"						"Your equipped neutral item has +15% stats<br><br>The equipped neutral item's stats <font color='#B694FF'>are not visually updated</font> to reflect this bonus.<br><br>You may need to re-equip your neutral item to update its stats.<br><br>Does not affect cooldown reduction."
+		"DOTA_Tooltip_tinkerer_t0"					"Personal Perk: Tinkerer"
+		"tinkerer_t1"								"Tinkerer"
+		"tinkerer_t1_tooltip"						"Your equipped neutral item has +30% stats<br><br>The equipped neutral item's stats <font color='#B694FF'>are not visually updated</font> to reflect this bonus.<br><br>You may need to re-equip your neutral item to update its stats.<br><br>Does not affect cooldown reduction."
+		"DOTA_Tooltip_tinkerer_t1"					"Personal Perk: Tinkerer"
+		"tinkerer_t2"								"Advanced Tinkerer"
+		"tinkerer_t2_tooltip"						"Your equipped neutral item has +60% stats<br><br>The equipped neutral item's stats <font color='#B694FF'>are not visually updated</font> to reflect this bonus.<br><br>You may need to re-equip your neutral item to update its stats.<br><br>Does not affect cooldown reduction."
+		"DOTA_Tooltip_tinkerer_t2"					"Personal Perk: Tinkerer"
+		"tinkerer_t3"								"Family Tinkerer"
+		"tinkerer_t3_tooltip"						"Your equipped neutral item has +120% stats<br><br>The equipped neutral item's stats <font color='#B694FF'>are not visually updated</font> to reflect this bonus.<br><br>You may need to re-equip your neutral item to update its stats.<br><br>Does not affect cooldown reduction."
+		"DOTA_Tooltip_tinkerer_t3"					"Personal Perk: Tinkerer"
+		
 		"HighSupportersOnly"						"High Supporters Only"
 		"SupportersOnly"							"Supporters Only"
 

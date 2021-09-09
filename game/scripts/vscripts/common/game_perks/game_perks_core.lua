@@ -38,6 +38,7 @@ function GamePerks:Init()
 		["outcomming_heal_amplify"] = true;
 		["debuff_time"] = true;
 		["bonus_gold"] = true;
+		["tinkerer"] = true;
 	};
 
 	self.choosed_perks = {}
