@@ -17,18 +17,22 @@ end
 function builder:OnIntervalThink()
 	if not IsServer() then return end
 
-	local towers = Entities:FindAllByClassname('npc_dota_tower')
-	local weakiest_tower
+	local builds = table.merge(
+		Entities:FindAllByClassname('npc_dota_tower'), 
+		Entities:FindAllByClassname('npc_dota_fort')
+	)
+	
+	local weakiest_build
 	local parent = self:GetParent()
 
-	for _, tower in pairs(towers) do
-		if parent:GetTeam() == tower:GetTeam() and ((not weakiest_tower) or weakiest_tower:GetHealth() > tower:GetHealth()) then
-			weakiest_tower = tower
+	for _, build in pairs(builds) do
+		if parent:GetTeam() == build:GetTeam() and ((not weakiest_build) or weakiest_build:GetHealth() > build:GetHealth()) then
+			weakiest_build = build
 		end
 	end
 
-	if weakiest_tower then
-		weakiest_tower:AddNewModifier(parent, nil, "modifier_builder_tower", { duration = 2, heal_per_sec = self.v })
+	if weakiest_build then
+		weakiest_build:AddNewModifier(parent, nil, "modifier_builder_tower", { duration = 2, heal_per_sec = self.v })
 	end
 end
 
