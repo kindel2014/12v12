@@ -1261,5 +1261,11 @@
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1 удаляется из игры из-за долгого отсутствия."
 		
 		"cannot_use_it_for_now"	"Вы пока не можете использовать это"
+
+		"DOTA_Tooltip_ability_item_arcane_blink_Note2"							"\nИсточники процентных уменьшений перезарядки не складываются."
+		"DOTA_Tooltip_ability_item_octarine_core_Note0"							"Источники процентных уменьшений перезарядки не складываются."
+		"DOTA_Tooltip_ability_item_spell_prism_Note0"							"Источники процентных уменьшений перезарядки не складываются."
+		"DOTA_Tooltip_ability_item_quickening_charm_Note0"						"Источники процентных уменьшений перезарядки не складываются."
+		"DOTA_Tooltip_ability_dazzle_bad_juju_Note0"							"Источники процентных уменьшений перезарядки не складываются."
 	}
 }
