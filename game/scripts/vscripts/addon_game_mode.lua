@@ -1243,7 +1243,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 								UTIL_Remove(container)
 							end
 						end
-						
 						if transfer_result == true then
 							purchaser:FakeBuyItem(itemName)
 						end
@@ -1260,6 +1259,8 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 					end)
 					return false
 				end
+			else
+				hItem.transfer = true
 			end
 
 			if (filterTable["item_parent_entindex_const"] > 0) and hItem and correctInventory and (not purchaser:CheckPersonalCooldown(hItem)) then
