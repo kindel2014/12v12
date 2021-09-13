@@ -674,19 +674,20 @@ function CheckSuppCourier(player_id)
 	if connect_state == DOTA_CONNECTION_STATE_ABANDONED then return end
 	
 	if connect_state ~= DOTA_CONNECTION_STATE_CONNECTED then
-		Timers:CreateTimer(0.5, function() CheckSuppCourier(player_id) end)
+		Timers:CreateTimer(1, function() CheckSuppCourier(player_id) end)
 		return
 	end
-	
-	local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
-	if courier then
-		if Supporters:GetLevel(player_id) > 0 then
-			courier:AddNewModifier(courier, nil, "creep_secret_shop", { duration = -1 })
-			PlayerResource:GetPlayer(player_id).checked_courier_secret_shop = true
+	Timers:CreateTimer(2, function()
+		local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+		if courier and not courier:IsNull() then
+			if Supporters:GetLevel(player_id) > 0 then
+				courier:AddNewModifier(courier, nil, "creep_secret_shop", { duration = -1 })
+				PlayerResource:GetPlayer(player_id).checked_courier_secret_shop = true
+			end
+		else
+			Timers:CreateTimer(1, function() CheckSuppCourier(player_id) end)
 		end
-	else
-		Timers:CreateTimer(0.5, function() CheckSuppCourier(player_id) end)
-	end
+	end)
 end
 
 function CMegaDotaGameMode:CreateCourierForPlayer(pos, player_id)
