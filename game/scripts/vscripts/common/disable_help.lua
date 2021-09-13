@@ -69,6 +69,7 @@ local disabledAbilities = {
 	pudge_dismember = true,
 	lycan_wolf_bite = true,
 	rubick_spell_steal = true,
+	rubick_telekinesis = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderVector, units)
