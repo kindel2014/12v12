@@ -805,6 +805,22 @@
 		"DOTA_Tooltip_magician_t3"						"个人特权：魔法师"
 		"DOTA_Tooltip_magician_t3_Description"			"提高大部分技能的施放距离和效果范围"
 
+		"linken_t0"								"普通林肯盾牌"
+		"linken_t0_tooltip"						"被动提供法术抵抗。<br>冷却时间：<b>90</b>秒"
+		"DOTA_Tooltip_linken_t0"				"个人特权：林肯盾牌"
+		"linken_t1"								"林肯盾牌"
+		"linken_t1_tooltip"						"被动提供法术抵抗。<br>冷却时间：<b>60</b>秒"
+		"DOTA_Tooltip_linken_t1"				"个人特权：林肯盾牌"
+		"linken_t2"								"远古林肯盾牌"
+		"linken_t2_tooltip"						"被动提供法术抵抗。<br>冷却时间：<b>30</b>秒"
+		"DOTA_Tooltip_linken_t2"				"个人特权：林肯盾牌"
+		"linken_t3"								"家族林肯盾牌"
+		"linken_t3_tooltip"						"被动提供法术抵抗。<br>冷却时间：<b>15</b>秒"
+		"DOTA_Tooltip_linken_t3"				"个人特权：林肯盾牌"
+    	"DOTA_Tooltip_linken_cooldown"			"再生林肯盾牌"
+		"DOTA_Tooltip_linken_ready"				"林肯盾牌"
+		"DOTA_Tooltip_linken_ready_Description"	"提供被动林肯法球效果，可与林肯法球叠加"
+
 		"hunter_t0"										"小猎人"
 		"hunter_t0_tooltip"								"对中立生物造成10%额外伤害"
 		"DOTA_Tooltip_hunter_t0"						"个人特权：猎人"
@@ -935,7 +951,7 @@
 		"you_cannot_buy_more_items_this_type"		"你不能购买更多该类型的物品"
 
 		"LoadingTip_1"				"你可在游戏中使用自定义聊天轮盘（长按“L”键）。使用时有冷却时间。"
-		"LoadingTip_2"				"12v12中的防御塔要比正常dota中的多1000点HP。其攻击速度也会更快，1 > 0.8。"
+		"LoadingTip_2"				"12v12中的防御塔要比正常dota中的多1000点HP。其攻击速度也会更快，1 > 0.65。"
 		"LoadingTip_3"				"如果在游戏中出现了钓鱼玩家，你可使用钓鱼玩家踢出物品发起投票。投票需要6人参加才能通过。请公平地使用此功能。"
 		"LoadingTip_4"				"在12v12中，重生速度将降低35%。"
 		"LoadingTip_5"				"如果队友对你恶意使用能力，则可以对其使用“禁用帮助”物品来防止此类事件。你也可以在计分榜上勾选复选框，效果是一样的。"
@@ -964,7 +980,7 @@
 		"DOTA_Tooltip_modifier_mega_creep"		"超级兵"
 
 		"game_option_super_towers"				"弱防御塔"
-		"game_option_super_towers_tooltip"		"防御塔的数据将提高：<br><br><br><br><font color='#24d124'>生命值</font>：4800-5100 > 2800-3100<br><font color='#a9cce8'>基本攻击时间</font>：0.65 > 0.8"
+		"game_option_super_towers_tooltip"		"防御塔的数据将降低：<br><br><br><br><font color='#24d124'>生命值</font>：4800-5100 > 2800-3100<br><font color='#a9cce8'>基本攻击时间</font>：0.65 > 0.8"
 
 		"game_option_no_trolls_kick"			"不能恶意玩家踢出"
         "game_option_no_trolls_kick_tooltip"	"在本场游戏中，玩家不能发起踢出恶意玩家的投票"
@@ -1860,5 +1876,7 @@
 		// Fixing Valves shit (abandon message is misspelled in their code omegalul)
 		"DOTA_Chat_PlayedLeftDisconnectedTooLong"	"%s1已断开连接太久，且已从游戏中移除。"
 		"sc_mute_date"	"你在接下来的%%days%%天%%hours%%小时%%mins%%分钟内被静音"
+		
+		"cannot_use_it_for_now"	"目前无法使用"
 	}
 }
