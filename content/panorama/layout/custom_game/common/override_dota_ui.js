@@ -7,19 +7,18 @@ function OverrideDotaNeutralItemsShop() {
 
 const SHOP = FindDotaHudElement("GridMainShopContents");
 
-let timer_start = false;
+let timer_for_secret_shop;
+let count = 0;
 function RemoveSecretShopOverlay() {
-	timer_start = true;
-
 	SHOP.FindChildrenWithClassTraverse("MainShopItem").forEach((item) => {
 		item.FindChildTraverse("AvailableAtOtherShopOverlay").style.backgroundColor = "transparent";
 		item.FindChildTraverse("AvailableAtOtherShopNeedGoldOverlay").style.backgroundColor = "transparent";
 	});
-	$.Schedule(0.5, RemoveSecretShopOverlay);
+	timer_for_secret_shop = $.Schedule(1, RemoveSecretShopOverlay);
 }
 
 SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuses) {
-	if (!timer_start) CheckSuppLevel(patreon_bonuses);
+	CheckSuppLevel(patreon_bonuses);
 });
 
 function CheckSuppLevel(patreon_bonuses) {
@@ -31,10 +30,14 @@ function CheckSuppLevel(patreon_bonuses) {
 		level = local_stats.level;
 	}
 
+	if (timer_for_secret_shop) {
+		timer_for_secret_shop = $.CancelScheduled(timer_for_secret_shop);
+	}
+
 	if (level > 0) RemoveSecretShopOverlay();
 }
 
 (function () {
 	OverrideDotaNeutralItemsShop();
-	if (!timer_start) CheckSuppLevel(CustomNetTables.GetTableValue("game_state", "patreon_bonuses"));
+	CheckSuppLevel(CustomNetTables.GetTableValue("game_state", "patreon_bonuses"));
 })();
