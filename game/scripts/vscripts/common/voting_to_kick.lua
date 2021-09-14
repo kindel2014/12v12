@@ -47,6 +47,19 @@ function Kicks:Init()
 	CustomGameEventManager:RegisterListener("ui_kick_player",function(_, keys)
 		self:InitKickFromPlayerUI(keys)
 	end)
+	CustomGameEventManager:RegisterListener("voting_for_kick:get_supp_level",function(_, keys)
+		self:GetSupplevel(keys.PlayerID)
+	end)
+end
+
+function Kicks:GetSupplevel(player_id)
+	if not player_id then return end
+	
+	local supp_level = Supporters:GetLevel(player_id)
+	if not supp_level then return end
+	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "voting_for_kick:set_supp_level", {
+		supp_level = supp_level
+	})
 end
 
 function Kicks:IsPlayerKicked(player_id)
@@ -247,19 +260,31 @@ function Kicks:InitKickFromPlayerUI(data)
 	local player_id = data.PlayerID
 	local target_id = data.target_id
 	if not player_id or not target_id then return end
-	
+
 	if Supporters:GetLevel(player_id) < 1 then return end
 	if PlayerResource:GetTeam(player_id) ~= PlayerResource:GetTeam(target_id) then return end
+
+	local player = PlayerResource:GetPlayer(player_id)
 	
+	if GameRules:GetDOTATime(false,false) < 300 then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#notyettime" })
+		return
+	end
+
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-	local item_name = "item_banhammer"
+	local target_supp_level = Supporters:GetLevel(target_id)
 	
-	if hero:CheckPersonalCooldown(nil, item_name, true, "#cannot_use_it_for_now", true) then
-		Kicks:InitKickFromPlayerToPlayer({
-			target_id = target_id,
-			caster_id = player_id
-		})
-	end	
+	if (target_supp_level > 0) then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#cannotkickotherpatreons" })
+		return
+	else
+		if hero:CheckPersonalCooldown(nil, "item_banhammer", true, "#cannot_use_it_for_now", true) then
+			Kicks:InitKickFromPlayerToPlayer({
+				target_id = target_id,
+				caster_id = player_id
+			})
+		end
+	end
 end
 
 INIT_KICK_FAIL = 0
