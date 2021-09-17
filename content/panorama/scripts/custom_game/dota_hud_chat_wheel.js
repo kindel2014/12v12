@@ -79,9 +79,9 @@ function OnSelect(num) {
 			if (rings[newnum][0][i] != "#dota_chatwheel_label_skywrath_mage_4") {
 				let properities_for_panel = {
 					class: `MyPhrases`,
-					onmouseactivate: `OnSelect${i}`,
-					onmouseover: `OnMouseOver${i}`,
-					onmouseout: `OnMouseOut${i}`,
+					onmouseactivate: `OnSelect(${i})`,
+					onmouseover: `OnMouseOver(${i})`,
+					onmouseout: `OnMouseOut(${i})`,
 				};
 
 				if (rings[newnum][1][i]) {
