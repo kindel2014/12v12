@@ -22,7 +22,10 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 });
 
 function CheckSuppLevel(patreon_bonuses) {
-	let local_stats = patreon_bonuses[Game.GetLocalPlayerID()];
+	const local_player_id = Game.GetLocalPlayerID();
+	if (local_player_id < 0) return;
+
+	let local_stats = patreon_bonuses[local_player_id];
 
 	let level = 0;
 

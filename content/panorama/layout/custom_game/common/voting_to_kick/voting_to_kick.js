@@ -25,11 +25,12 @@ function VotingToKickShowVoting(data) {
 		targetPlayer.player_name +
 		"</font>" +
 		" ?";
-	$("#VotingToKickModelPanel").BCreateChildren(
-		'<DOTAScenePanel hittest="false" id="VotingToKickVotingHeroModel" style="width:210px;height:210px;" unit="' +
-			targetPlayer.player_selected_hero +
-			'" particleonly="false"/>',
-	);
+
+	$.CreatePanelWithProperties(`DOTAScenePanel`, "#VotingToKickModelPanel", "VotingToKickVotingHeroModel", {
+		style: `width:210px;height:210px;`,
+		unit: `${targetPlayer.player_selected_hero}`,
+		particleonly: `false`,
+	});
 
 	$("#VotingToKickKDA").html = true;
 	$("#VotingToKickKDA").text =

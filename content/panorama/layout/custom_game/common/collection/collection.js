@@ -540,13 +540,19 @@ function InitCollection(_data) {
 			if (isTreasureType) {
 				const previewPanel = $.CreatePanel("Panel", treasuresPreviewRoot, "TreasurePreview_" + itemName);
 				previewPanel.BLoadLayoutSnippet("TreasuresPreviewWrap");
-				previewPanel
-					.FindChildTraverse("PreviewParticleRoot")
-					.BCreateChildren(
-						'<DOTAScenePanel style="width:100%;height:100%;" camera="camera_' +
-							rarityName +
-							'" particleonly="false" map="collection/spin_glow" hittest="false"/>',
-					);
+				$.CreatePanelWithProperties(
+					`DOTAScenePanel`,
+					previewPanel.FindChildTraverse(`PreviewParticleRoot`),
+					"",
+					{
+						style: `width:100%;height:100%;`,
+						camera: `camera_${rarityName}`,
+						particleonly: `false`,
+						map: `collection/spin_glow`,
+						hittest: `false`,
+					},
+				);
+
 				previewPanel.FindChildTraverse("TreasureName").text = $.Localize("#treasure_preview_header")
 					.replace("##treasure##", $.Localize(itemName))
 					.toUpperCase();

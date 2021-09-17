@@ -101,11 +101,13 @@ class Mastery {
 		}
 		EQUIPPED_MASTERY = this;
 		EQUIPPED_MASTERY.panel.SetHasClass("Equipped", true);
-		this.panel
-			.FindChildTraverse("MasteryParticleRoot1")
-			.BCreateChildren(
-				'<DOTAScenePanel class="EquippedMasteryParticle" camera="camera_common" particleonly="false" map="collection/spin_glow" hittest="false"/>',
-			);
+		$.CreatePanelWithProperties(`DOTAScenePanel`, this.panel.FindChildTraverse("MasteryParticleRoot1"), "", {
+			class: `EquippedMasteryParticle`,
+			camera: `camera_common`,
+			particleonly: `false`,
+			map: `collection/spin_glow`,
+			hittest: `false`,
+		});
 		this.equipped = true;
 		MinimapMasteryButtonAction(true, this.image, this.name);
 		SetMinimapMasteryHintVisible(false);
