@@ -1277,12 +1277,20 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 		local inventoryIsCorrect = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
 		if inventoryIsCorrect then
 			local playerId = hInventoryParent:GetPlayerOwnerID() or hInventoryParent:GetPlayerID()
-			CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( playerId ), "neutral_item_picked_up", { item = filterTable.item_entindex_const })
+			local player = PlayerResource:GetPlayer(playerId)
+
+			hItem.secret_key = RandomInt(1,999999)
+			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_picked_up", { 
+				item = filterTable.item_entindex_const, 
+				secret = hItem.secret_key,
+			})
+
 			return false
 		end
 	end
 
 	if hItem and hItem.neutralDropInBase then
+		hItem.secret_key = nil
 		hItem.neutralDropInBase = false
 		local inventoryIsCorrect = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
 		local playerId = inventoryIsCorrect and hInventoryParent:GetPlayerOwnerID()

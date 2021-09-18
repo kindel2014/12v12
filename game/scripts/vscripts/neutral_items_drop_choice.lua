@@ -22,7 +22,11 @@ function DropItem(data)
 	item.neutralDropInBase = true
 	for i = 0, 24 do
 		if data.PlayerID ~= i and PlayerResource:GetTeam(i) == team then -- remove check "data.PlayerID ~= i" ig you want test system
-			CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( i ), "neutral_item_dropped", { item = data.item } )
+			local player = PlayerResource:GetPlayer(i)
+			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_dropped", { 
+				item = data.item,
+				secret = item.secret_key
+			})
 		end
 	end
 	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Schedule
@@ -92,10 +96,15 @@ RegisterCustomEventListener( "neutral_item_keep", function( data )
 		DisplayError(data.PlayerID, "#player_still_have_a_lot_of_neutral_items")
 		return
 	end
+
 	local item = EntIndexToHScript( data.item )
+
+	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
+
 	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
 	local freeSlot = hero:DoesHeroHasFreeSlot()
 	if freeSlot then
+		item.secret_key = nil
 		hero:AddItem(item)
 		NotificationToAllPlayerOnTeam(data)
 	else
@@ -113,8 +122,11 @@ RegisterCustomEventListener( "neutral_item_take", function( data )
 	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
 	local freeSlot = hero:DoesHeroHasFreeSlot()
 
+	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
+
 	if freeSlot then
 		if item.neutralDropInBase then
+			item.secret_key = nil
 			item.neutralDropInBase = false
 			local container = item:GetContainer()
 			UTIL_Remove( container )
