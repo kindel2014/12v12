@@ -1267,5 +1267,7 @@
 		"DOTA_Tooltip_ability_item_spell_prism_Note0"							"Источники процентных уменьшений перезарядки не складываются."
 		"DOTA_Tooltip_ability_item_quickening_charm_Note0"						"Источники процентных уменьшений перезарядки не складываются."
 		"DOTA_Tooltip_ability_dazzle_bad_juju_Note0"							"Источники процентных уменьшений перезарядки не складываются."
+		
+		"DOTA_Tooltip_modifier_stronger_builds"		"Усиленное строение"
 	}
 }

@@ -1897,5 +1897,6 @@
 		"DOTA_Tooltip_ability_item_spell_prism_Note0"							"Percentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_ability_item_quickening_charm_Note0"						"Percentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_ability_dazzle_bad_juju_Note0"							"Percentage-based cooldown reductions do not stack, the highest value takes priority."
+		"DOTA_Tooltip_modifier_stronger_builds"		"Stronger Build"
 	}
 }

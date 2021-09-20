@@ -54,6 +54,7 @@ LinkLuaModifier("modifier_mega_creep","game_options/modifiers_lib/modifier_mega_
 
 LinkLuaModifier("modifier_delayed_damage","common/game_perks/modifier_lib/delayed_damage", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("creep_secret_shop","creep_secret_shop", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_stronger_builds","modifier_stronger_builds", LUA_MODIFIER_MOTION_NONE)
 
 _G.newStats = newStats or {}
 
@@ -988,12 +989,11 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 	if newState == DOTA_GAMERULES_STATE_PRE_GAME then
 		if not GameOptions:OptionsIsActive("super_towers") then
-			local towers = Entities:FindAllByClassname('npc_dota_tower')
-			for _, tower in pairs(towers) do
-				tower:AddNewModifier(tower, nil, "modifier_super_tower", {duration = -1})
-			end
+			AddModifierAllByClassname("npc_dota_tower", "modifier_super_tower")
 		end
-
+		AddModifierAllByClassname("npc_dota_fort", "modifier_stronger_builds")
+		AddModifierAllByClassname("npc_dota_barracks", "modifier_stronger_builds")
+		
 		local parties = {}
 		local party_indicies = {}
 		local party_members_count = {}
@@ -3392,3 +3392,9 @@ RegisterCustomEventListener("shortcut_shop_request_item_costs", function(event)
 	CustomGameEventManager:Send_ServerToPlayer(player, "shortcut_shop_item_costs", res)
 end)
 
+function AddModifierAllByClassname(class_name, modifier_name)
+	local units = Entities:FindAllByClassname(class_name)
+	for _, unit in pairs(units) do
+		unit:AddNewModifier(unit, nil, modifier_name, {duration = -1})
+	end
+end
