@@ -38,6 +38,12 @@ function creep_secret_shop:OnCreated()
 	self:StartIntervalThink(DEFAULT_THINK_TIME)
 end
 
+function creep_secret_shop:ForceToSecretShop()
+	self.is_secret_shop = true
+	self.parent:AddNoDraw()
+	self:MoveToPos(self.secret_pos)
+end
+
 function creep_secret_shop:OnIntervalThink()
 	if not IsServer() then return end
 	if not self.parent:IsAlive() then return end
@@ -49,9 +55,7 @@ function creep_secret_shop:OnIntervalThink()
 	self.time = self.time + DEFAULT_THINK_TIME
 	
 	if self.last_pos == current_pos and (self.parent:IsInRangeOfShop(DOTA_SHOP_HOME, true) or self.time >= NOT_HOME_THINK_TIME) then
-		self.is_secret_shop = true
-		self.parent:AddNoDraw()
-		self:MoveToPos(self.secret_pos)
+		self:ForceToSecretShop()
 	else
 		self.last_pos = current_pos
 	end

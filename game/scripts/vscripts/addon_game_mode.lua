@@ -1519,11 +1519,21 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 				end
 			end
 		end
-
-		if unit:HasModifier("creep_secret_shop") and orderType ~= DOTA_UNIT_ORDER_PURCHASE_ITEM then
-			local modifier = unit:FindModifierByName("creep_secret_shop")
-			if modifier.OrderFilter then
-				modifier:OrderFilter(filterTable)
+		local secret_modifier = unit:FindModifierByName("creep_secret_shop")
+		if Supporters:GetLevel(unit:GetPlayerOwnerID()) > 0 then
+			if ability and ability:GetAbilityName() == "courier_go_to_secretshop" then
+				if secret_modifier and secret_modifier.ForceToSecretShop then
+					if unit:IsInRangeOfShop(DOTA_SHOP_HOME, true) then
+						secret_modifier:ForceToSecretShop()
+						return false
+					end
+				else
+					unit:AddNewModifier(unit, nil, "creep_secret_shop", { duration = -1 })
+				end
+			elseif secret_modifier and orderType ~= DOTA_UNIT_ORDER_PURCHASE_ITEM then
+				if secret_modifier.OrderFilter then
+					secret_modifier:OrderFilter(filterTable)
+				end
 			end
 		end
 	end
