@@ -1022,14 +1022,14 @@ function OpenGiftCodes() {
 
 (function () {
 	GameEvents.SendCustomGameEventToServer("battlepass_inventory:get_collection", {});
-	GameEvents.Subscribe("battlepass_inventory:init_collection", InitCollection);
-	GameEvents.Subscribe("battlepass_inventory:update_player_info", UpdatePlayerInfo);
-	GameEvents.Subscribe("battlepass_inventory:update_player_items", UpdatePlayerItems);
-	GameEvents.Subscribe("battlepass_inventory:update_equipped_items", UpdateEquippedItems);
-	GameEvents.Subscribe("battlepass_inventory:update_coins", UpdateCoins);
-	GameEvents.Subscribe("battlepass_inventory:show_wheel", ShowWheel);
-	GameEvents.Subscribe("battlepass_inventory:select_sprays", SelectSprays);
-	GameEvents.Subscribe("battlepass_inventory:open_specific_collection", OpenSpecificCollection);
+	GameEvents.SubscribeProtected("battlepass_inventory:init_collection", InitCollection);
+	GameEvents.SubscribeProtected("battlepass_inventory:update_player_info", UpdatePlayerInfo);
+	GameEvents.SubscribeProtected("battlepass_inventory:update_player_items", UpdatePlayerItems);
+	GameEvents.SubscribeProtected("battlepass_inventory:update_equipped_items", UpdateEquippedItems);
+	GameEvents.SubscribeProtected("battlepass_inventory:update_coins", UpdateCoins);
+	GameEvents.SubscribeProtected("battlepass_inventory:show_wheel", ShowWheel);
+	GameEvents.SubscribeProtected("battlepass_inventory:select_sprays", SelectSprays);
+	GameEvents.SubscribeProtected("battlepass_inventory:open_specific_collection", OpenSpecificCollection);
 	SubscribeToNetTableKey("player_settings", Game.GetLocalPlayerID().toString(), SettingsFromSaved);
 	COLLECTION_DOTAU.AddClass(MAP_NAME);
 })();

@@ -75,7 +75,7 @@ function OpenPatreonURL() {
 	$.DispatchEvent("ExternalBrowserGoToURL", "https://www.patreon.com/dota2unofficial");
 	SetPaymentVisible(false);
 }
-GameEvents.Subscribe("payments:update", (response) => {
+GameEvents.SubscribeProtected("payments:update", (response) => {
 	if (response.error) {
 		setPaymentWindowStatus({ error: response.error });
 	} else {
@@ -84,7 +84,7 @@ GameEvents.Subscribe("payments:update", (response) => {
 });
 
 (function () {
-	GameEvents.Subscribe("reset_mmr:show", () => {
+	GameEvents.SubscribeProtected("reset_mmr:show", () => {
 		_CreatePurchaseAccess(
 			"reset_mmr",
 			"file://{resources}/images/custom_game/payment/reset_mmr.png",

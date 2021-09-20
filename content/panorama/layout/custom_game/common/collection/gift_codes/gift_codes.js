@@ -271,8 +271,8 @@ function OpenCollectionFromGiftNoticiation() {
 	PLAYERS_FOR_GIFT_ROOT.RemoveAndDeleteChildren();
 	CreateLocalPlayersForGifts();
 	GameEvents.SendCustomGameEventToServer("gift_codes:get_codes", {});
-	GameEvents.Subscribe("gift_codes:update_codes", CreateGiftCodes);
-	GameEvents.Subscribe("gift_codes:code_used_from_server", CodeUsedFromServer);
-	GameEvents.Subscribe("gift_codes:code_was_gift", CodeWasGiftNotification);
-	GameEvents.Subscribe("player_show_aegis_init", UpdateHeroSelection);
+	GameEvents.SubscribeProtected("gift_codes:update_codes", CreateGiftCodes);
+	GameEvents.SubscribeProtected("gift_codes:code_used_from_server", CodeUsedFromServer);
+	GameEvents.SubscribeProtected("gift_codes:code_was_gift", CodeWasGiftNotification);
+	GameEvents.SubscribeProtected("player_show_aegis_init", UpdateHeroSelection);
 })();

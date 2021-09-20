@@ -98,6 +98,6 @@ function NeutralItemTaked( data ) {
 	} )
 }
 
-GameEvents.Subscribe( "neutral_item_taked", NeutralItemTaked )
-GameEvents.Subscribe( "neutral_item_dropped", NeutralItemDropped )
-GameEvents.Subscribe( "neutral_item_picked_up", NeutralItemPickedUp )
+GameEvents.SubscribeProtected( "neutral_item_taked", NeutralItemTaked )
+GameEvents.SubscribeProtected( "neutral_item_dropped", NeutralItemDropped )
+GameEvents.SubscribeProtected( "neutral_item_picked_up", NeutralItemPickedUp )

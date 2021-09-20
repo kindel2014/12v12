@@ -206,5 +206,5 @@ function EmitSoundFromServer(data) {
 	$("#Bubble").visible = false;
 	$("#PhrasesContainer").visible = false;
 	$("#WHTooltip").visible = false;
-	GameEvents.Subscribe("chat_wheel:emit_sound", EmitSoundFromServer);
+	GameEvents.SubscribeProtected("chat_wheel:emit_sound", EmitSoundFromServer);
 })();

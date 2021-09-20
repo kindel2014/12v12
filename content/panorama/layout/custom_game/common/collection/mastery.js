@@ -389,8 +389,8 @@ function MinimapButtonAction() {
 
 (function () {
 	if (MAP_NAME == "dota") return;
-	GameEvents.Subscribe("masteries:update_masteries", UpdatePlayerMasteries);
-	GameEvents.Subscribe("masteries:update_fortune", UpdateFortune);
-	GameEvents.Subscribe("masteries:equip_mastery", EquipMastery);
-	GameEvents.Subscribe("masteries:take_off_mastery", TakeOffMastery);
+	GameEvents.SubscribeProtected("masteries:update_masteries", UpdatePlayerMasteries);
+	GameEvents.SubscribeProtected("masteries:update_fortune", UpdateFortune);
+	GameEvents.SubscribeProtected("masteries:equip_mastery", EquipMastery);
+	GameEvents.SubscribeProtected("masteries:take_off_mastery", TakeOffMastery);
 })();

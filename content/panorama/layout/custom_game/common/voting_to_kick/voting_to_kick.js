@@ -134,12 +134,12 @@ function ReportVoting() {
 }
 function VotingToKickInit() {
 	GameEvents.SendCustomGameEventToServer("voting_to_kick_check_voting_state", {});
-	GameEvents.Subscribe("voting_to_kick_show_reason", VotingToKickShowReason);
-	GameEvents.Subscribe("voting_to_kick_hide_reason", VotingToKickHideReason);
+	GameEvents.SubscribeProtected("voting_to_kick_show_reason", VotingToKickShowReason);
+	GameEvents.SubscribeProtected("voting_to_kick_hide_reason", VotingToKickHideReason);
 
-	GameEvents.Subscribe("voting_to_kick_show_voting", VotingToKickShowVoting);
-	GameEvents.Subscribe("voting_to_kick_hide_voting", VotingToKickHideVoting);
+	GameEvents.SubscribeProtected("voting_to_kick_show_voting", VotingToKickShowVoting);
+	GameEvents.SubscribeProtected("voting_to_kick_hide_voting", VotingToKickHideVoting);
 
-	GameEvents.Subscribe("voting_to_kick_debug_print", VotingToKickDebugPrint);
+	GameEvents.SubscribeProtected("voting_to_kick_debug_print", VotingToKickDebugPrint);
 }
 VotingToKickInit();

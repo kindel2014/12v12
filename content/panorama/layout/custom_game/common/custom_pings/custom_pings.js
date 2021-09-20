@@ -172,5 +172,5 @@ function FreezePanel(panel, pos_x, pos_y, pos_z) {
 	panel.hittest = true;
 	tracker_hud = panel;
 	GamePingsTracker();
-	GameEvents.Subscribe("custom_ping:ping_client", ClientPing);
+	GameEvents.SubscribeProtected("custom_ping:ping_client", ClientPing);
 })();

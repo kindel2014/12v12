@@ -65,7 +65,7 @@ function CreateItemButton(name, id) {
 }
 
 GameEvents.SendCustomGameEventToServer("shortcut_shop_request_item_costs", items)
-GameEvents.Subscribe("shortcut_shop_item_costs", function(data) {
+GameEvents.SubscribeProtected("shortcut_shop_item_costs", function(data) {
 	item_costs = data
 
 	CONTEXT.RemoveAndDeleteChildren()

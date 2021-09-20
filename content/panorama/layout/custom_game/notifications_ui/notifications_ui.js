@@ -12,4 +12,4 @@ function WeakTeamNotification(data) {
 	};
 	closeEvent(panel);
 }
-GameEvents.Subscribe("WeakTeamNotification", WeakTeamNotification);
+GameEvents.SubscribeProtected("WeakTeamNotification", WeakTeamNotification);

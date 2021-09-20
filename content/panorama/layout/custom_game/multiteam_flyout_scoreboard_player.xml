@@ -97,11 +97,11 @@
 			$("#KickPlayer").SetHasClass("Show", data.supp_level > 0);
 		}
 		
-    	GameEvents.Subscribe("change_leave_status", ChangeLeaveStatus);
-		GameEvents.Subscribe("set_disable_help_refresh", RefreshMuteAndDisableHelpList);
-		GameEvents.Subscribe("set_mute_refresh", ToggleMuteItem);
-		GameEvents.Subscribe("game_perks:show_player_perk", ShowPlayerPerk);
-		GameEvents.Subscribe("voting_for_kick:set_supp_level", SetPlayerPatreonLevel);
+    	GameEvents.SubscribeProtected("change_leave_status", ChangeLeaveStatus);
+		GameEvents.SubscribeProtected("set_disable_help_refresh", RefreshMuteAndDisableHelpList);
+		GameEvents.SubscribeProtected("set_mute_refresh", ToggleMuteItem);
+		GameEvents.SubscribeProtected("game_perks:show_player_perk", ShowPlayerPerk);
+		GameEvents.SubscribeProtected("voting_for_kick:set_supp_level", SetPlayerPatreonLevel);
 		GameEvents.SendCustomGameEventToServer("voting_for_kick:get_supp_level", {});
 	</script>
 	<Panel class="PlayerRow">

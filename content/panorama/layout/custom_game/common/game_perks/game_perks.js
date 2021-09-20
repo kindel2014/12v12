@@ -128,8 +128,8 @@ function CreateGamePerks() {
 	}
 }
 function GamePerksInit() {
-	GameEvents.Subscribe("game_perks:reload_button", ReloadSettingButton);
-	GameEvents.Subscribe("game_perks:set_supp_level", SetPlayerPatreonLevel);
+	GameEvents.SubscribeProtected("game_perks:reload_button", ReloadSettingButton);
+	GameEvents.SubscribeProtected("game_perks:set_supp_level", SetPlayerPatreonLevel);
 	GameEvents.SendCustomGameEventToServer("game_perks:get_level_and_perks", {});
 }
 GamePerksInit();

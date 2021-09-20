@@ -10,7 +10,7 @@ var paymentTargetID = Game.GetLocalPlayerID();
 var lastConfirmedDonationTarget = Game.GetLocalPlayerID();
 var donation_target_dropdown = false;
 
-GameEvents.Subscribe("is_local_server", function () {
+GameEvents.SubscribeProtected("is_local_server", function () {
 	$("#LocalServerWarningContainer").style.visibility = "visible";
 	$("#LocalServerWarningContainer").style.opacity = "1.0";
 });
@@ -48,7 +48,7 @@ function updatePatreonButton() {
 }
 
 function OpenShop() {
-	GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
+	GameEvents.SendEventClientSideProtected("battlepass_inventory:open_specific_collection", {
 		category: "Treasures",
 		boostGlow: true,
 	});

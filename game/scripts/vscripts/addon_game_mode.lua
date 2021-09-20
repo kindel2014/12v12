@@ -27,6 +27,8 @@ local NET_WORSE_FOR_RAPIER_MIN = 20000
 --Max neutral items for each player (hero/stash/courier)
 _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER = 3
 
+
+require("protected_custom_events")
 require("common/init")
 require("util")
 require("neutral_items_drop_choice")

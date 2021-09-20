@@ -140,7 +140,7 @@ function TimerClick() {
 	GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_HEROES, false);
 	GameUI.SetDefaultUIEnabled(DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false);
 	FindDotaHudElement("topbar").visible = true;
-	GameEvents.Subscribe("time_nightstalker_darkness", function (data) {
+	GameEvents.SubscribeProtected("time_nightstalker_darkness", function (data) {
 		darknessEndTime = Game.GetDOTATime(false, false) + data.duration;
 	});
 	$("#TopBarLeftPlayers").RemoveAndDeleteChildren();

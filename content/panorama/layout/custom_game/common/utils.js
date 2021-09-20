@@ -26,7 +26,7 @@ function createEventRequestCreator(eventName) {
 		var id = ++idCounter;
 		data.id = id;
 		GameEvents.SendCustomGameEventToServer(eventName, data);
-		var listener = GameEvents.Subscribe(eventName, function (data) {
+		var listener = GameEvents.SubscribeProtected(eventName, function (data) {
 			if (data.id !== id) return;
 			GameEvents.Unsubscribe(listener);
 			callback(data);

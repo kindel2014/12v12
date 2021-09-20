@@ -35,7 +35,7 @@ function UpdateChatMessageText() {
 	SYMBOLS_COUNTER.SetDialogVariable("curr", current_length);
 }
 function OpenShop() {
-	GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
+	GameEvents.SendEventClientSideProtected("battlepass_inventory:open_specific_collection", {
 		category: "Treasures",
 		boostGlow: true,
 	});
@@ -292,10 +292,10 @@ function MuteChat(data) {
 	SYMBOLS_COUNTER.SetDialogVariable("max", MAX_SYMBOLS);
 	SYMBOLS_COUNTER.SetDialogVariable("curr", 0);
 
-	GameEvents.Subscribe("synced_chat:poll_result", ProcessPollResult);
-	GameEvents.Subscribe("synced_chat:add_older_messages", AddOlderMessages);
-	GameEvents.Subscribe("synced_chat:message_sent", ProcessSentMessage);
-	GameEvents.Subscribe("synced_chat:mute", MuteChat);
+	GameEvents.SubscribeProtected("synced_chat:poll_result", ProcessPollResult);
+	GameEvents.SubscribeProtected("synced_chat:add_older_messages", AddOlderMessages);
+	GameEvents.SubscribeProtected("synced_chat:message_sent", ProcessSentMessage);
+	GameEvents.SubscribeProtected("synced_chat:mute", MuteChat);
 
 	GameEvents.SendCustomGameEventToServer("synced_chat:request_inital", {});
 

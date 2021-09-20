@@ -1,5 +1,6 @@
 <root>
 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/protected_custom_events.js" />
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/selection.js" />
 		<include src="file://{resources}/layout/custom_game/common/display_error.js" />
@@ -30,7 +31,7 @@
 			}
 		}
 
-		GameEvents.Subscribe('debug_message', (data) => {
+		GameEvents.SubscribeProtected('debug_message', (data) => {
 		    let arr = data.message
 		    if (typeof data.message == 'object')
 		        for (k in arr){
