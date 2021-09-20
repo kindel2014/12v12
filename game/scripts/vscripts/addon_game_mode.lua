@@ -1074,6 +1074,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		Convars:SetFloat("host_timescale", 1)
 		if game_start then
+			GameRules:SetTimeOfDay( 0.251 )
 			game_start = false
 			Timers:CreateTimer(0.1, function()
 				GPM_Init()
