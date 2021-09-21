@@ -14,7 +14,7 @@ if not ProtectedCustomEvents then
 	-- PlayerID never changes like UserID, but for spectators or at some early games stages can be -1.
 
 	function ProtectedCustomEvents:OnConnect(event)
-		DeepPrint(event, "OnConnect ")
+		--DeepPrint(event, "OnConnect ")
 
 		if event.bot == 1 then return end
 
@@ -25,7 +25,8 @@ if not ProtectedCustomEvents then
 	end
 	ListenToGameEvent("player_connect", Dynamic_Wrap(ProtectedCustomEvents, "OnConnect"), ProtectedCustomEvents)
 
-	CustomGameEventManager:RegisterListener("secret_token", function(user_id, event) 
+	CustomGameEventManager:RegisterListener("secret_token", function(user_id, event)
+		if user_id == -1 then return end -- Spectators 
 		local entindex = player_entindex[user_id]
 		local player = PlayerInstanceFromIndex(entindex)
 		--print(user_id, event.PlayerID, event.token, player, entindex)
@@ -40,13 +41,13 @@ if not ProtectedCustomEvents then
 			return 
 		end
 		
+		local player_id = player:GetPlayerID()
 		local entindex = player:GetEntityIndex()
 		local user_id = player_userid[entindex]
 
 		if player_tokens[entindex] then
 			event_data.chc_secret_token = player_tokens[entindex]
-		else
-			local player_id = player:GetPlayerID()
+		elseif player_id ~= -1 then
 			print("Server have no secret token for playerID "..player_id..", userID "..user_id)
 		end
 
@@ -58,7 +59,7 @@ if not ProtectedCustomEvents then
 
 	CCustomGameEventManager.Send_ServerToAllClientsEngine = CCustomGameEventManager.Send_ServerToAllClients
 	CCustomGameEventManager.Send_ServerToAllClients = function(self, event_name, event_data) 
-		for entindex,_ in pairs(player_tokens) do
+		for entindex = 1,DOTA_MAX_PLAYERS do -- Possible entity indexes of players, including spectators
 			local player = PlayerInstanceFromIndex(entindex)
 			if player then
 				CustomGameEventManager:Send_ServerToPlayer(player, event_name, event_data)
