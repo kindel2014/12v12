@@ -13,7 +13,6 @@ if not ProtectedCustomEvents then
 	-- EntityIndex of a player can change after each reconnection, since player's entity destroying after disconnect.
 	-- PlayerID never changes like UserID, but for spectators or at some early games stages can be -1.
 
-	ListenToGameEvent("player_connect", Dynamic_Wrap(ProtectedCustomEvents, "OnConnect"), ProtectedCustomEvents)
 	function ProtectedCustomEvents:OnConnect(event)
 		DeepPrint(event, "OnConnect ")
 
@@ -24,6 +23,7 @@ if not ProtectedCustomEvents then
 		player_entindex[event.userid] = entindex
 		player_userid[entindex] = event.userid
 	end
+	ListenToGameEvent("player_connect", Dynamic_Wrap(ProtectedCustomEvents, "OnConnect"), ProtectedCustomEvents)
 
 	CustomGameEventManager:RegisterListener("secret_token", function(user_id, event) 
 		local entindex = player_entindex[user_id]
