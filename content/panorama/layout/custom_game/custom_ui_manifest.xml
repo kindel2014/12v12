@@ -1,4 +1,7 @@
 <root>
+	<styles>
+		<include src="file://{resources}/layout/custom_game/precache.css" />
+	</styles>
 	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/protected_custom_events.js" />
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
@@ -53,7 +56,6 @@
 		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
 		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/common/hero_selection_overlay/hero_selection_overlay.xml" />
 		<CustomUIElement type="EndScreen" 			layoutfile="file://{resources}/layout/custom_game/multiteam_end_screen.xml" />
-		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/precache.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/collection/collection.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/top_scoreboard.xml" />
