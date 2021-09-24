@@ -90,10 +90,10 @@ function linken_ready:ShouldUseOverheadOffset()
 end
 
 linken_t0 = class(linken)
-linken_t0.v = 90
+linken_t0.v = 120
 linken_t1 = class(linken)
-linken_t1.v = 60
+linken_t1.v = 80
 linken_t2 = class(linken)
-linken_t2.v = 30
+linken_t2.v = 40
 linken_t3 = class(linken)
-linken_t3.v = 15
+linken_t3.v = 20

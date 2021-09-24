@@ -16,7 +16,11 @@ GameEvents.SendCustomGameEventToServer("secret_token", { token: token });
 
 GameEvents.SubscribeProtected = function(event_name, callback) {
 	return GameEvents.Subscribe(event_name, (event) => {
-		if (token == event.chc_secret_token) {
+		const player_id = Game.GetLocalPlayerID() 
+		// Spectators cant send token to server and have to ignore this check
+		// This give possibility to ruin spectators custom UI to cheaters, but I think it's not very important
+		// Maybe can be fixed if we will generate tokens on server side and send it to clients
+		if (player_id == -1 || token == event.chc_secret_token) {
 			delete event.chc_secret_token;
 			callback(event);
 		} else if (Game.IsInToolsMode()) {
