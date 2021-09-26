@@ -447,10 +447,13 @@ function BP_Inventory:AddItemLocal(itemName, playerSteamId, count)
 end
 
 function BP_Inventory:BuyItems(_data)
-	if BP_Inventory.item_definitions[_data.itemName] and BP_Inventory.item_definitions[_data.itemName].Source.Coins then
+	local itemsCount = _data.count
+	itemsCount = tonumber(itemsCount)
+	if not itemsCount or itemsCount <= 0 then return end
+
+	if _data.itemName and BP_Inventory.item_definitions[_data.itemName] and BP_Inventory.item_definitions[_data.itemName].Source.Coins then
 		local cost = BP_Inventory.item_definitions[_data.itemName].Source.Coins
 		local playerSteamId = Battlepass:GetSteamId(_data.PlayerID)
-		local itemsCount = _data.count or 1
 		local itemData = {
 			steamId = playerSteamId,
 			items = {
