@@ -1898,5 +1898,22 @@
 		"DOTA_Tooltip_ability_item_quickening_charm_Note0"						"Percentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_ability_dazzle_bad_juju_Note0"							"Percentage-based cooldown reductions do not stack, the highest value takes priority."
 		"DOTA_Tooltip_modifier_stronger_builds"		"Stronger Build"
+		
+		"EG_Moonshard_Title"				"Moonshard availability"
+		"EG_Moonshard_Description"			"Not owned"
+		"EG_Perk_Title"						"Personal Perk"
+		"EG_Perk_Description"				"Not choosed"
+		"EG_RatingChanges_Description"		"Rating changes in this game"
+		"custom_end_screen_status_effects"	"Effects"
+		"custom_end_screen_perk"			"Perk"
+		"custom_end_networth"				"Networth"
+		"custom_end_gpm"				"Gpm"
+		"custom_end_xpm"				"Xpm"
+		"custom_end_builing_damage"		"Building Damage"
+		"custom_end_hero_damage"		"Hero Damage"
+		"custom_end_damage_taken"		"Damage Taken"
+		"custom_end_heal"				"Total Healing"
+		"custom_end_wards"				"Observers/Sentries"
+		"custom_end_kills"				"Killed Enemies"
 	}
 }

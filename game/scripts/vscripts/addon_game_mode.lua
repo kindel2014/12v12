@@ -58,7 +58,6 @@ LinkLuaModifier("modifier_delayed_damage","common/game_perks/modifier_lib/delaye
 LinkLuaModifier("creep_secret_shop","creep_secret_shop", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_stronger_builds","modifier_stronger_builds", LUA_MODIFIER_MOTION_NONE)
 
-_G.newStats = newStats or {}
 
 _G.lastDeathTimes = {}
 _G.lastHeroKillers = {}
@@ -68,10 +67,26 @@ _G.tableDireHeroes = {}
 _G.newRespawnTimes = {}
 
 _G.tPlayersMuted = {}
+_G.CUSTOM_GAME_STATS = CUSTOM_GAME_STATS or {}
 for player_id = 0, 24 do
 	_G.tPlayersMuted[player_id] = {}
+	if not CUSTOM_GAME_STATS[player_id] then
+		CUSTOM_GAME_STATS[player_id] = {
+			perk = "",
+			networth = 0,
+			experiance = 0,
+			building_damage = 0,
+			hero_damage = 0, 
+			damage_taken = 0,
+			wards = {
+				npc_dota_observer_wards = 0,
+				npc_dota_sentry_wards = 0,
+			},
+			killed_heroes = {},
+			total_healing = 0,
+		}
+	end
 end
-
 if CMegaDotaGameMode == nil then
 	_G.CMegaDotaGameMode = class({}) -- put CMegaDotaGameMode in the global scope
 	--refer to: http://stackoverflow.com/questions/6586145/lua-require-with-global-local
@@ -382,6 +397,17 @@ function CMegaDotaGameMode:DamageFilter(event)
 	if (entindex_attacker_const) then attacker = EntIndexToHScript(entindex_attacker_const) end
 	if (entindex_inflictor_const) then ability = EntIndexToHScript(entindex_inflictor_const) end
 
+	if event.damage and target and not target:IsNull() and target:IsAlive() and attacker and not attacker:IsNull() and attacker:IsAlive() and attacker.GetPlayerOwnerID and attacker:GetPlayerOwnerID() then
+		local attacker_id = attacker:GetPlayerOwnerID()
+		if attacker_id >= 0 then
+			if target.IsRealHero and target:IsRealHero() then
+				CUSTOM_GAME_STATS[attacker_id].hero_damage = CUSTOM_GAME_STATS[attacker_id].hero_damage + event.damage
+			elseif target.IsBuilding and target:IsBuilding() then
+				CUSTOM_GAME_STATS[attacker_id].building_damage = CUSTOM_GAME_STATS[attacker_id].building_damage + event.damage
+			end
+		end
+	end
+
 	if target and target:HasModifier("modifier_troll_debuff_stop_feed") and (target:GetHealth() <= event.damage) and (attacker ~= target) and (attacker:GetTeamNumber()~=DOTA_TEAM_NEUTRALS) then
 		if ItWorstKD(target) and (not (UnitInSafeZone(target, _G.lastHerosPlaceLastDeath[target]))) then
 			local newTime = target:FindModifierByName("modifier_troll_debuff_stop_feed"):GetRemainingTime() + TROLL_FEED_INCREASE_BUFF_AFTER_DEATH
@@ -473,15 +499,7 @@ function CMegaDotaGameMode:OnEntityKilled( event )
 			end
 		end
 		if player_id ~= -1 then
-
-			newStats[player_id] = newStats[player_id] or {
-				npc_dota_sentry_wards = 0,
-				npc_dota_observer_wards = 0,
-				tower_damage = 0,
-				killed_hero = {}
-			}
-
-			local kh = newStats[player_id].killed_hero
+			local kh = CUSTOM_GAME_STATS[player_id].killed_heroes
 
 			kh[name] = kh[name] and kh[name] + 1 or 1
 		end
@@ -625,14 +643,8 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	if owner and owner.GetPlayerID and ( name == "npc_dota_sentry_wards" or name == "npc_dota_observer_wards" ) then
 		local player_id = owner:GetPlayerID()
 
-		newStats[player_id] = newStats[player_id] or {
-			npc_dota_sentry_wards = 0,
-			npc_dota_observer_wards = 0,
-			tower_damage = 0,
-			killed_hero = {}
-		}
-
-		newStats[player_id][name] = newStats[player_id][name] + 1
+		CUSTOM_GAME_STATS[player_id].wards[name] = CUSTOM_GAME_STATS[player_id].wards[name] + 1
+		
 		local wardsName = {
 			["npc_dota_sentry_wards"] = "item_ward_sentry",
 			["npc_dota_observer_wards"] = "item_ward_observer",
@@ -892,7 +904,14 @@ function CMegaDotaGameMode:FilterModifyExperience( filterTable )
 		return false
 	end
 
-	filterTable["experience"] = self.m_CurrentXpScaleFactor * filterTable["experience"]
+	local new_exp = self.m_CurrentXpScaleFactor * filterTable["experience"]
+
+	if hero and hero.GetPlayerOwnerID and hero:GetPlayerOwnerID() then
+		local player_id = hero:GetPlayerOwnerID()
+		CUSTOM_GAME_STATS[player_id].experiance = CUSTOM_GAME_STATS[player_id].experiance + new_exp
+	end
+	
+	filterTable["experience"] = new_exp
 	return true
 end
 
@@ -940,19 +959,13 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 				end
 
 				networth = networth + PlayerResource:GetGold( i )
-
-				local stats = {
-					networth = networth,
-					total_damage = PlayerResource:GetRawPlayerDamage( i ),
-					total_healing = PlayerResource:GetHealing( i ),
-				}
-
-				if newStats and newStats[i] then
-					stats.tower_damage = newStats[i].tower_damage
-					stats.sentries_count = newStats[i].npc_dota_sentry_wards
-					stats.observers_count = newStats[i].npc_dota_observer_wards
-					stats.killed_hero = newStats[i].killed_hero
-				end
+				
+				local stats = CUSTOM_GAME_STATS[i]
+				stats.perk = GamePerks.choosed_perks[i]
+				stats.networth = networth
+				stats.damage_taken = PlayerResource:GetHeroDamageTaken(i, true) + PlayerResource:GetCreepDamageTaken(i, true)
+				stats.total_healing = PlayerResource:GetHealing(i)
+				stats.xpm = stats.experiance / GameRules:GetGameTime() * 60
 
 				CustomNetTables:SetTableValue( "custom_stats", tostring( i ), stats )
 			end

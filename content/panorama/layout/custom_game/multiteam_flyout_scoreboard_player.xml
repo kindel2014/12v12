@@ -94,7 +94,8 @@
 		}
 		function SetPlayerPatreonLevel(data)
 		{
-			$("#KickPlayer").SetHasClass("Show", data.supp_level > 0);
+			const kick_root = $("#KickPlayer");
+			if (kick_root) kick_root.SetHasClass("Show", data.supp_level > 0);
 		}
 		
     	GameEvents.SubscribeProtected("change_leave_status", ChangeLeaveStatus);

@@ -136,3 +136,11 @@ function LocalizeWithValues(line, kv) {
 	});
 	return result;
 }
+function GetModifierStackCount(unit_index, m_name) {
+	for (var i = 0; i < Entities.GetNumBuffs(unit_index); i++) {
+		var buff_name = Buffs.GetName(unit_index, Entities.GetBuff(unit_index, i));
+		if (buff_name == m_name) {
+			return Buffs.GetStackCount(unit_index, Entities.GetBuff(unit_index, i));
+		}
+	}
+}
