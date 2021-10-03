@@ -55,10 +55,10 @@ end
 
 
 tinkerer_t0 = class(tinkerer)
-tinkerer_t0.v = 1.15
+tinkerer_t0.v = 1.25
 tinkerer_t1 = class(tinkerer)
-tinkerer_t1.v = 1.30
+tinkerer_t1.v = 1.50
 tinkerer_t2 = class(tinkerer)
-tinkerer_t2.v = 1.60
+tinkerer_t2.v = 2.00
 tinkerer_t3 = class(tinkerer)
-tinkerer_t3.v = 2.20
+tinkerer_t3.v = 3.00

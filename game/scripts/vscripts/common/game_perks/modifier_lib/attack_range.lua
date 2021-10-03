@@ -19,7 +19,7 @@ attack_range_t1 = class(attack_range)
 attack_range_t2 = class(attack_range)
 attack_range_t3 = class(attack_range)
 
-function attack_range_t0:OnCreated() self.v = {30, 40} end
-function attack_range_t1:OnCreated() self.v = {60, 80} end
-function attack_range_t2:OnCreated() self.v = {120, 160} end
-function attack_range_t3:OnCreated() self.v = {240, 320} end
+function attack_range_t0:OnCreated() self.v = {40, 50} end
+function attack_range_t1:OnCreated() self.v = {80, 100} end
+function attack_range_t2:OnCreated() self.v = {160, 200} end
+function attack_range_t3:OnCreated() self.v = {320, 400} end
