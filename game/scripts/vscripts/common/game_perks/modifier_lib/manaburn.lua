@@ -3,12 +3,12 @@ require("common/game_perks/base_game_perk")
 manaburn = class(base_game_perk)
 
 function manaburn:AllowIllusionDuplicate() return true end
-function manaburn:DeclareFunctions() return { MODIFIER_EVENT_ON_ATTACK_LANDED } end
+function manaburn:DeclareFunctions() return { MODIFIER_PROPERTY_PROCATTACK_FEEDBACK } end
 function manaburn:GetTexture() return "perkIcons/manaburn" end
 
-function manaburn:OnAttackLanded(params)
+function manaburn:GetModifierProcAttack_Feedback(params)
 	if not IsServer() then return end
-	if params.attacker ~= self:GetParent() then return end
+	if params.target:IsMagicImmune() then return end
 
 	local target_mana = params.target:GetMana()
 	local mana_burn = self.v
@@ -19,7 +19,7 @@ function manaburn:OnAttackLanded(params)
 	if mana_burn > target_mana then
 		mana_burn = target_mana
 	end
-	params.target:SpendMana(mana_burn, nil)
+	params.target:ReduceMana(mana_burn)
 	if mana_burn > 0 then
 		EmitSoundOnLocationWithCaster( params.target:GetAbsOrigin(), "Hero_Antimage.ManaBreak", params.attacker )
 		local particle = ParticleManager:CreateParticle("particles/generic_gameplay/generic_manaburn.vpcf", PATTACH_ROOTBONE_FOLLOW, params.target)
