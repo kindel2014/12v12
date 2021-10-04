@@ -2,14 +2,12 @@ require("common/game_perks/base_game_perk")
 
 lifesteal = class(base_game_perk)
 
-function lifesteal:DeclareFunctions() return { MODIFIER_EVENT_ON_TAKEDAMAGE } end
+function lifesteal:DeclareFunctions() return { MODIFIER_PROPERTY_PROCATTACK_FEEDBACK } end
 function lifesteal:GetTexture() return "perkIcons/lifesteal" end
 
-function lifesteal:OnTakeDamage(params)
-	if self:GetParent() ~= params.attacker then return end
-	if DOTA_DAMAGE_CATEGORY_ATTACK ~= params.damage_category then return end
+function lifesteal:GetModifierProcAttack_Feedback(params)
 	if params.damage <= 0 then return end
-	if params.unit:IsBuilding() then return end
+	if params.target:IsBuilding() then return end
 	local attacker = params.attacker
 	local steal = params.damage * (self.v/100)
 
