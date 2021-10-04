@@ -180,7 +180,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"illusion_duration"			"15"
+				"illusion_duration"			"20"
 				"LinkedSpecialBonus"		"special_bonus_unique_chaos_knight_4"
 			}
 		}
