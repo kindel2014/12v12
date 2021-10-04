@@ -47,7 +47,7 @@ if not ProtectedCustomEvents then
 
 		if player_tokens[entindex] then
 			event_data.chc_secret_token = player_tokens[entindex]
-		elseif player_id ~= -1 then
+		elseif player_id ~= -1 and not PlayerResource:IsFakeClient(player_id) then
 			print("Server have no secret token for playerID "..player_id..", userID "..user_id)
 		end
 
