@@ -9,6 +9,8 @@ function CreatePlayer(player_id, players_root, team_id) {
 	var player_info = Game.GetPlayerInfo(player_id);
 	if (player_info == undefined) return;
 
+	player_panel.SetHasClass("LocalPlayer", player_id == Game.GetLocalPlayerID());
+
 	var hero_portrait = player_panel.FindChildTraverse("HeroIcon");
 	if (player_info.player_selected_hero !== "") {
 		hero_portrait.SetImage(GetPortraitImage(player_id, player_info.player_selected_hero));

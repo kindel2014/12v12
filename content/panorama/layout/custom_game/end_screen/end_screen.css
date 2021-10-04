@@ -384,3 +384,8 @@
 	wash-color: white;
 	pre-transform-scale2d: 0.9;
 }
+
+.LocalPlayer Label {
+	font-weight: bold;
+	color: white;
+}
