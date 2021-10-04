@@ -104,7 +104,7 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"bonus_movement_speed"		"6 12 18 24"
+				"bonus_movement_speed"		"10 18 26 34"
 				"LinkedSpecialBonus"		"special_bonus_unique_bloodseeker_4"
 			}
 		}
