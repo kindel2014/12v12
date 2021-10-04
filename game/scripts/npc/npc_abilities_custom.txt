@@ -194,7 +194,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_FLOAT"
-				"value"						"4"
+				"value"						"10"
 				"ad_linked_ability"			"chaos_knight_phantasm"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
 			}
 		}
