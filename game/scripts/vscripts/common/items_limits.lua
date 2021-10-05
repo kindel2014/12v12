@@ -197,20 +197,20 @@ function CDOTA_BaseNPC:CheckPersonalCooldown(item, _itemName , b_no_item, messag
 end
 
 -------------------------------------------------------------------------
-function CreateDummyInventoryForPlayer(playerId, unit)
-	local player = PlayerResource:GetPlayer(playerId)
-	if not player or player:IsNull() then return end
+function CreateDummyInventoryForPlayer(playerId)
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+	if not hero then return end
 
-	if player.dummyInventory then
-		player.dummyInventory:Kill(nil, nil)
+	if IsValidEntity(hero.dummyInventory) and hero.dummyInventory:IsAlive() then
+		return
 	end
 
-	local startPointSpawn = unit:GetAbsOrigin() + (RandomFloat(100, 100))
+	local startPointSpawn = hero:GetAbsOrigin() + (RandomFloat(100, 100))
 
-	local dInventory = CreateUnitByName("npc_dummy_inventory", startPointSpawn, true, unit, unit, PlayerResource:GetTeam(playerId))
+	local dInventory = CreateUnitByName("npc_dummy_inventory", startPointSpawn, true, hero, hero, PlayerResource:GetTeam(playerId))
 	dInventory:SetControllableByPlayer(playerId, true)
 	dInventory:AddNewModifier(dInventory, nil, "modifier_dummy_inventory_custom", {duration = -1})
 
-	player.dummyInventory = dInventory
+	hero.dummyInventory = dInventory
 end
 -------------------------------------------------------------------------

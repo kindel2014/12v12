@@ -1,4 +1,10 @@
+NeutralItemsDrop = NeutralItemsDrop or {}
+
+NEUTRAL_STASH_TELEPORT_DELAY = 6
+
 function DropItem(data)
+	if not data.PlayerID then return end
+	
 	local item = EntIndexToHScript( data.item )
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 
@@ -29,25 +35,25 @@ function DropItem(data)
 			})
 		end
 	end
+
 	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Schedule
 		if not item or item:IsNull() then return end
-		if not player or player:IsNull() then return end
 
 		local container = item:GetContainer()
 		if not container or container:IsNull() then return end
 
-		local hero =  player:GetAssignedHero()
+		local hero =  PlayerResource:GetSelectedHeroEntity(data.PlayerID)
 		local shop = SearchCorrectNeutralShopByTeam(hero:GetTeamNumber())
 		if not shop then return end
 
-		local dummyInventory = player.dummyInventory
+		local dummyInventory = hero.dummyInventory
 		if not dummyInventory then return end
 
 		UTIL_Remove(container)
 		dummyInventory:AddItem(item)
 		ExecuteOrderFromTable({
 			UnitIndex = dummyInventory:entindex(),
-			OrderType = 37,
+			OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN,
 			AbilityIndex = item:entindex(),
 		})
 	end)
@@ -150,4 +156,84 @@ function SearchCorrectNeutralShopByTeam(team)
 		end
 	end
 	return false
+end
+
+function NeutralItemsDrop:OnItemSpawned(event)
+	local item = EntIndexToHScript(event.item_ent_index) ---@type CDOTA_Item
+
+	if item and item:IsNeutralDrop() then
+		self.lastDroppedItem = item
+		self.dropFrame = GetFrameCount()
+	end
+end
+
+function NeutralItemsDrop:OnEntityKilled(event)
+	if self.dropFrame ~= GetFrameCount() then return end
+
+	local killed = EntIndexToHScript(event.entindex_killed or -1) ---@type CDOTA_BaseNPC
+	local attacker = EntIndexToHScript(event.entindex_attacker or -1) ---@type CDOTA_BaseNPC
+
+	if not attacker then return end
+
+	local hero = PlayerResource:GetSelectedHeroEntity(attacker:GetPlayerOwnerID())
+
+	if hero and killed and killed:IsNeutralUnitType() and killed:GetTeam() == DOTA_TEAM_NEUTRALS then
+		self:OnNeutralItemDropped(self.lastDroppedItem, hero)
+
+		self.lastDroppedItem = nil
+		self.dropFrame = nil
+	end
+
+end
+
+-- Called when neutral item dropped from neutral creeps
+function NeutralItemsDrop:OnNeutralItemDropped(item, hero)
+	local container = item:GetContainer()
+
+	Timers:CreateTimer(NEUTRAL_STASH_TELEPORT_DELAY, function()
+		-- if container destroyed item already picked up by somebody
+		if IsValidEntity(container) then
+			AddNeutralItemToStashWithEffects(hero:GetPlayerOwnerID(), hero:GetTeam(), item)
+			item.old = true 
+		end
+	end)
+
+end
+
+-- Fired when hero loses item from inventory
+function NeutralItemsDrop:OnItemStateChanged(event)
+	local item = EntIndexToHScript(event.item_entindex) ---@type CDOTA_Item
+	local hero = EntIndexToHScript(event.hero_entindex) ---@type CDOTA_BaseNPC_Hero
+
+	if not item or not hero then return end
+
+	local container = item:GetContainer()
+	
+	-- If item has container then it dropped to ground
+	if item:IsNeutralDrop() and container then
+		AddNeutralItemToStashWithEffects(hero:GetPlayerOwnerID(), hero:GetTeam(), item)
+	end
+end
+
+function AddNeutralItemToStashWithEffects(playerID, team, item)
+	local container = item:GetContainer()
+
+	if not container then return end
+
+	PlayerResource:AddNeutralItemToStash(playerID, team, item)
+			
+	local pos = container:GetAbsOrigin()
+
+	local pFX = ParticleManager:CreateParticle("particles/items2_fx/neutralitem_teleport.vpcf", PATTACH_WORLDORIGIN, nil)
+	ParticleManager:SetParticleControl(pFX, 0, pos)
+	ParticleManager:ReleaseParticleIndex(pFX)
+	StartSoundEventFromPosition("NeutralItem.TeleportToStash", pos)
+
+	container:RemoveSelf()
+end
+
+function NeutralItemsDrop:Init()
+	ListenToGameEvent("dota_item_spawned", Dynamic_Wrap(NeutralItemsDrop, "OnItemSpawned"), self)
+	ListenToGameEvent("entity_killed", Dynamic_Wrap(NeutralItemsDrop, "OnEntityKilled"), self)
+	ListenToGameEvent("dota_hero_inventory_item_change", Dynamic_Wrap(NeutralItemsDrop, "OnItemStateChanged"), self)
 end

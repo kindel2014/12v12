@@ -241,6 +241,7 @@ function CMegaDotaGameMode:InitGameMode()
 	GiftCodes:Init()
 	CustomPings:Init()
 	Kicks:Init()
+	NeutralItemsDrop:Init()
 end
 
 function IsInBugZone(pos)
@@ -673,11 +674,12 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			end, 2/30)
 		end
+		
+		Timers:CreateTimer(0, function()
+			CreateDummyInventoryForPlayer(playerId)
+		end)
 
 		local player = PlayerResource:GetPlayer(playerId)
-		if player and not player.dummyInventory then
-			CreateDummyInventoryForPlayer(playerId, spawnedUnit)
-		end
 		if not player.checked_courier_secret_shop then
 			CheckSuppCourier(spawnedUnit:GetPlayerOwnerID())
 		end
@@ -1288,8 +1290,8 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 		end
 	end
 
-	if _G.neutralItems[hItem:GetAbilityName()] and hItem.new == nil then
-		hItem.new = true
+	if _G.neutralItems[hItem:GetAbilityName()] and hItem.old == nil then
+		hItem.old = true
 		local inventoryIsCorrect = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
 		if inventoryIsCorrect then
 			local playerId = hInventoryParent:GetPlayerOwnerID() or hInventoryParent:GetPlayerID()
