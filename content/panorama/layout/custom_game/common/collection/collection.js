@@ -103,10 +103,6 @@ function SetPaymentVisible(state) {
 	isGiftCode = false;
 }
 
-function ParseBigNumber(x) {
-	return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0";
-}
-
 function ClickButton() {
 	Game.EmitSound("General.ButtonClick");
 }

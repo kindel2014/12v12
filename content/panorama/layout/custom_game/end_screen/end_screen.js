@@ -11,6 +11,10 @@ function CreatePlayer(player_id, players_root, team_id) {
 
 	player_panel.SetHasClass("LocalPlayer", player_id == Game.GetLocalPlayerID());
 
+	const set_number_value_stat = function (panel_name, value) {
+		player_panel.FindChildTraverse(panel_name).text = ParseBigNumber(Math.ceil(value || 0));
+	};
+
 	var hero_portrait = player_panel.FindChildTraverse("HeroIcon");
 	if (player_info.player_selected_hero !== "") {
 		hero_portrait.SetImage(GetPortraitImage(player_id, player_info.player_selected_hero));
@@ -30,9 +34,9 @@ function CreatePlayer(player_id, players_root, team_id) {
 
 	hero_name_desc.SetDialogVariableInt("hero_level", player_info.player_level);
 
-	player_panel.FindChildTraverse("Kills").text = Players.GetKills(player_id);
-	player_panel.FindChildTraverse("Deaths").text = Players.GetDeaths(player_id);
-	player_panel.FindChildTraverse("Assists").text = Players.GetAssists(player_id);
+	set_number_value_stat("Kills", Players.GetKills(player_id));
+	set_number_value_stat("Deaths", Players.GetDeaths(player_id));
+	set_number_value_stat("Assists", Players.GetAssists(player_id));
 
 	const hero_ent_idx = Players.GetPlayerHeroEntityIndex(player_id);
 
@@ -81,7 +85,7 @@ function CreatePlayer(player_id, players_root, team_id) {
 		else $.DispatchEvent("DOTAHideTitleTextTooltip", moonshard_panel);
 	});
 
-	player_panel.FindChildTraverse("Gpm").text = Math.ceil(Players.GetGoldPerMin(player_id));
+	set_number_value_stat("Gpm", Players.GetGoldPerMin(player_id));
 
 	var end_game_stats = CustomNetTables.GetTableValue("custom_stats", player_id.toString());
 	const killed_enemies_root = player_panel.FindChildTraverse("EG_KilledHeroes");
@@ -98,7 +102,7 @@ function CreatePlayer(player_id, players_root, team_id) {
 
 					if (end_game_stats && end_game_stats.killed_heroes && end_game_stats.killed_heroes[e_hero]) {
 						var count = $.CreatePanel("Label", icon, "");
-						count.text = "x" + end_game_stats.killed_heroes[e_hero];
+						count.text = "x" + ParseBigNumber(end_game_stats.killed_heroes[e_hero]);
 						count.AddClass("KilledCount");
 					} else {
 						icon.AddClass("NoKills");
@@ -133,12 +137,12 @@ function CreatePlayer(player_id, players_root, team_id) {
 		});
 	}
 
-	player_panel.FindChildTraverse("Networth").text = end_game_stats.networth || 0;
-	player_panel.FindChildTraverse("Xpm").text = Math.ceil(end_game_stats.xpm || 0);
-	player_panel.FindChildTraverse("BuildingDamage").text = Math.ceil(end_game_stats.building_damage || 0);
-	player_panel.FindChildTraverse("HeroDamage").text = Math.ceil(end_game_stats.hero_damage || 0);
-	player_panel.FindChildTraverse("DamageTaken").text = Math.ceil(end_game_stats.damage_taken || 0);
-	player_panel.FindChildTraverse("Heal").text = Math.ceil(end_game_stats.total_healing || 0);
+	set_number_value_stat("Networth", end_game_stats.networth);
+	set_number_value_stat("Xpm", end_game_stats.xpm);
+	set_number_value_stat("BuildingDamage", end_game_stats.building_damage);
+	set_number_value_stat("HeroDamage", end_game_stats.hero_damage);
+	set_number_value_stat("DamageTaken", end_game_stats.damage_taken);
+	set_number_value_stat("Heal", end_game_stats.total_healing);
 
 	const wards_root = player_panel.FindChildTraverse("Wards");
 	wards_root.SetDialogVariable("observers", end_game_stats.wards.npc_dota_observer_wards);
@@ -165,7 +169,7 @@ function EG_ShowChat() {
 }
 function UpdateRatingForPlayerPanel(panel, new_mmr, old_mmr) {
 	const mmr_change = new_mmr - old_mmr;
-	panel.text = `${mmr_change >= 0 ? "+" : ""}${mmr_change}`;
+	panel.text = `${mmr_change >= 0 ? "+" : ""}${ParseBigNumber(mmr_change)}`;
 	if (mmr_change != 0) panel.AddClass(mmr_change > 0 ? "MmrInc" : "MmrDec");
 }
 SubscribeToNetTableKey("end_game_data", "end_game_data", function (data) {
