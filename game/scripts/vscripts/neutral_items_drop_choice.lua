@@ -8,7 +8,7 @@ function DropItem(data)
 	local item = EntIndexToHScript( data.item )
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 
-	local team = player:GetTeam()
+	local team = PlayerResource:GetTeam(data.PlayerID)
 	local fountain
 	local multiplier
 
@@ -193,8 +193,21 @@ function NeutralItemsDrop:OnNeutralItemDropped(item, hero)
 	Timers:CreateTimer(NEUTRAL_STASH_TELEPORT_DELAY, function()
 		-- if container destroyed item already picked up by somebody
 		if IsValidEntity(container) then
-			AddNeutralItemToStashWithEffects(hero:GetPlayerOwnerID(), hero:GetTeam(), item)
 			item.old = true 
+			item.secret_key = RandomInt(1,999999)
+
+			local pos = container:GetAbsOrigin()
+			local pFX = ParticleManager:CreateParticle("particles/items2_fx/neutralitem_teleport.vpcf", PATTACH_WORLDORIGIN, nil)
+			ParticleManager:SetParticleControl(pFX, 0, pos)
+			ParticleManager:ReleaseParticleIndex(pFX)
+			StartSoundEventFromPosition("NeutralItem.TeleportToStash", pos)
+
+			container:RemoveSelf()
+
+			DropItem({
+				PlayerID = hero:GetPlayerOwnerID(),
+				item = item:entindex()
+			})
 		end
 	end)
 
