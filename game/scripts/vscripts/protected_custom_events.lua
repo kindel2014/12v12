@@ -55,6 +55,9 @@ if not ProtectedCustomEvents then
 		--DeepPrintTable(eventData)
 
 		CustomGameEventManager:Send_ServerToPlayerEngine(player, event_name, event_data)
+
+		-- Remove the token to leave table in its original state for later use
+		event_data.chc_secret_token = nil
 	end
 
 	CCustomGameEventManager.Send_ServerToAllClientsEngine = CCustomGameEventManager.Send_ServerToAllClients
