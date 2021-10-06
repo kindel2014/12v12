@@ -35,18 +35,19 @@ if not ProtectedCustomEvents then
 	end)
 
 	CCustomGameEventManager.Send_ServerToPlayerEngine = CCustomGameEventManager.Send_ServerToPlayer
-	CCustomGameEventManager.Send_ServerToPlayer = function(self, player, event_name, event_data) 
-		if not player or player:IsNull() then 
+	CCustomGameEventManager.Send_ServerToPlayer = function(self, player, event_name, event_data)
+		local new_table = table.deepcopy(event_data)
+		if not player or player:IsNull() then
 			print("CCustomGameEventManager.Send_ServerToPlayer: invalid player entity")
-			return 
+			return
 		end
-		
+
 		local player_id = player:GetPlayerID()
 		local entindex = player:GetEntityIndex()
 		local user_id = player_userid[entindex]
 
 		if player_tokens[entindex] then
-			event_data.chc_secret_token = player_tokens[entindex]
+			new_table.chc_secret_token = player_tokens[entindex]
 		elseif player_id ~= -1 and not PlayerResource:IsFakeClient(player_id) then
 			print("Server have no secret token for playerID "..player_id..", userID "..user_id)
 		end
@@ -54,7 +55,7 @@ if not ProtectedCustomEvents then
 		--print(player, eventName)
 		--DeepPrintTable(eventData)
 
-		CustomGameEventManager:Send_ServerToPlayerEngine(player, event_name, event_data)
+		CustomGameEventManager:Send_ServerToPlayerEngine(player, event_name, new_table)
 	end
 
 	CCustomGameEventManager.Send_ServerToAllClientsEngine = CCustomGameEventManager.Send_ServerToAllClients
