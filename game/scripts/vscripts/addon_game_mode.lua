@@ -1097,6 +1097,36 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 				GPM_Init()
 				return nil
 			end)
+			Timers:CreateTimer(0, function()
+				for player_id = 0, 24 do
+					if PlayerResource:GetConnectionState(player_id) == DOTA_CONNECTION_STATE_ABANDONED then
+						local team = PlayerResource:GetTeam(player_id)
+						local fountain
+						if team and (team == DOTA_TEAM_GOODGUYS) or (team == DOTA_TEAM_BADGUYS)then
+							fountain = Entities:FindByName( nil, "ent_dota_fountain_" .. (team == DOTA_TEAM_GOODGUYS and "good" or "bad"))
+						end
+						
+						local block_unit = function(unit)
+							unit:Stop()
+							unit:AddNewModifier(unit, nil, "modifier_dummy_caster", { duration = -1 })
+							unit:AddNoDraw()
+							if fountain then
+								unit:SetAbsOrigin(fountain:GetAbsOrigin())
+							end
+							for _player_id = 0, 24 do
+								unit:SetControllableByPlayer(_player_id, false)
+							end
+						end
+						
+						local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+						if hero then block_unit(hero) end
+						
+						local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+						if courier then block_unit(courier) end
+					end
+				end
+				return 5
+			end)
 		end
 	end
 end
