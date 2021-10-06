@@ -153,13 +153,16 @@ function BP_Inventory:UpdateLocalPlayerInfo(playerId)
 	self:UpdateAvailableItems(playerId)
 	local steamId = Battlepass:GetSteamId(playerId)
 	if not self.equipped_items[steamId] then return end
+	local b_had_equipped_items = false
 	for category, itemsList in pairs(self.equipped_items[steamId]) do
 		if not (category == "id") and not (category == "steamId") and not (category == "equippedMasteries") then
 			for _, itemName in pairs(itemsList) do
-				self:EquipItem({PlayerID = Battlepass.playerid_map[steamId], item_name = itemName, skipSave = true})
+				b_had_equipped_items = true
+				self:EquipItem({PlayerID = Battlepass.playerid_map[steamId], item_name = itemName, skipSave = true, b_init = true})
 			end
 		end
 	end
+	if b_had_equipped_items then BP_Inventory:UpdateEquippedItems(playerId) end
 end
 
 function BP_Inventory:UpdateAvailableItems(playerId)
@@ -538,7 +541,7 @@ function BP_Inventory:EquipItem(data)
 		return
 	end
 
-	BP_Inventory:UpdateEquippedItems(playerId)
+	if not data.b_init then BP_Inventory:UpdateEquippedItems(playerId) end
 	if not data.skipSave then self:SaveEquippedItems(playerId) end
 end
 
@@ -551,7 +554,7 @@ function BP_Inventory:TakeOffItem(data)
 	if PlayerResource:GetSelectedHeroEntity(data.PlayerID) then
 		WearFunc:TakeOffItemInCategory(playerId, self.categories[category], data.item_name)
 		table.remove_item(self.equipped_items[Battlepass:GetSteamId(playerId)]["equipped"..category], data.item_name)
-		BP_Inventory:UpdateEquippedItems(playerId)
+		if not data.b_init then BP_Inventory:UpdateEquippedItems(playerId) end
 	else
 		Timers:CreateTimer(1, function()
 			self:TakeOffItem(data)
