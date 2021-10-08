@@ -97,6 +97,8 @@ function Activate()
 end
 
 _G.ItemKVs = {}
+_G.abandoned_players = {}
+_G.first_dc_players = {}
 
 function CMegaDotaGameMode:InitGameMode()
 	_G.ItemKVs = LoadKeyValues("scripts/npc/npc_block_items_for_troll.txt")
@@ -1099,8 +1101,10 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			end)
 			Timers:CreateTimer(0, function()
 				for player_id = 0, 24 do
-					if PlayerResource:GetConnectionState(player_id) == DOTA_CONNECTION_STATE_ABANDONED then
+					if not abandoned_players[player_id] and PlayerResource:GetConnectionState(player_id) == DOTA_CONNECTION_STATE_ABANDONED then
+						abandoned_players[player_id] = true
 						local team = PlayerResource:GetTeam(player_id)
+						
 						local fountain
 						if team and (team == DOTA_TEAM_GOODGUYS) or (team == DOTA_TEAM_BADGUYS)then
 							fountain = Entities:FindByName( nil, "ent_dota_fountain_" .. (team == DOTA_TEAM_GOODGUYS and "good" or "bad"))
@@ -1113,19 +1117,23 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 							if fountain then
 								unit:SetAbsOrigin(fountain:GetAbsOrigin())
 							end
-							for _player_id = 0, 24 do
-								unit:SetControllableByPlayer(_player_id, false)
-							end
 						end
 						
-						local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-						if hero then block_unit(hero) end
-						
-						local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
-						if courier then block_unit(courier) end
+						Timers:CreateTimer(first_dc_players[player_id] and 60 or 0, function()
+							if abandoned_players[player_id] then
+								local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+								if hero then block_unit(hero) end
+
+								local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+								if courier then block_unit(courier) end
+							end
+						end)
+						if not first_dc_players[player_id] then
+							first_dc_players[player_id] = true
+						end
 					end
 				end
-				return 5
+				return 10
 			end)
 		end
 	end
@@ -1354,12 +1362,27 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 end
 
 function CMegaDotaGameMode:OnConnectFull(data)
-	_G.tUserIds[data.PlayerID] = data.userid
-	if Kicks:IsPlayerKicked(data.PlayerID) then
-		Kicks:DropItemsForDisconnetedPlayer(data.PlayerID)
+	local player_id = data.PlayerID
+	_G.tUserIds[player_id] = data.userid
+	if Kicks:IsPlayerKicked(player_id) then
+		Kicks:DropItemsForDisconnetedPlayer(player_id)
 		SendToServerConsole('kickid '.. data.userid);
 	end
-	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = data.PlayerID} )
+
+	if abandoned_players[player_id] then
+		local unblock_unit = function(unit)
+			unit:RemoveModifierByName("modifier_dummy_caster")
+			unit:RemoveNoDraw()
+		end
+		local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+		if hero then unblock_unit(hero) end
+
+		local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+		if courier then unblock_unit(courier) end
+		abandoned_players[player_id] = nil
+	end
+	
+	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = player_id} )
 end
 
 function CMegaDotaGameMode:OnPlayerDisconnect(data)
@@ -1413,8 +1436,11 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 				if
 					unit_owner_id and
 					unit_owner_id ~= playerId and
-					PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and
-					GameRules:GetDOTATime(false,false) < 900
+					(
+						(PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and GameRules:GetDOTATime(false,false) < 900) 
+						or 
+						PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_ABANDONED
+					)
 				then
 					is_not_owned_unit = true
 				end
