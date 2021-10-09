@@ -10,6 +10,7 @@
 		"cosmetics",
 		"player_settings",
 
-		"trolls_with_voite"
+		"trolls_with_voite",
+		"heroes_winrate",
 	]
 }
