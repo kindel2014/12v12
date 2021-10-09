@@ -48,6 +48,7 @@ LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_shadow_amulet_thinker", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_fountain_phasing", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_abandoned", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_feed_token", 'anti_feed_system/modifier_troll_feed_token', LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_feed_token_couter", 'anti_feed_system/modifier_troll_feed_token_couter', LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_debuff_stop_feed", 'anti_feed_system/modifier_troll_debuff_stop_feed', LUA_MODIFIER_MOTION_NONE)
@@ -573,7 +574,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	local tokenTrollCouter = "modifier_troll_feed_token_couter"
 
 	-- Apply bonus gold
-	if spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
+	if CMegaDotaGameMode.winrates and spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
 	and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
 		if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
 			local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
@@ -1126,7 +1127,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 						local block_unit = function(unit)
 							unit:Stop()
-							unit:AddNewModifier(unit, nil, "modifier_dummy_caster", { duration = -1 })
+							unit:AddNewModifier(unit, nil, "modifier_abandoned", { duration = -1 })
 							unit:AddNoDraw()
 							if fountain then
 								unit:SetAbsOrigin(fountain:GetAbsOrigin())
@@ -1385,7 +1386,7 @@ function CMegaDotaGameMode:OnConnectFull(data)
 
 	if abandoned_players[player_id] then
 		local unblock_unit = function(unit)
-			unit:RemoveModifierByName("modifier_dummy_caster")
+			unit:RemoveModifierByName("modifier_abandoned")
 			unit:RemoveNoDraw()
 		end
 		local hero = PlayerResource:GetSelectedHeroEntity(player_id)
