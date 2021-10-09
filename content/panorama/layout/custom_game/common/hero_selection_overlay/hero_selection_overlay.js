@@ -1,3 +1,50 @@
+function ApplyGoldBonuses(winrates) {
+	if (!winrates) return;
+	var preGameRoot = FindDotaHudElement("PreGame");
+	const heroCards = preGameRoot.FindChildrenWithClassTraverse("HeroCard");
+	if (heroCards.length === 0) {
+		$.Schedule(0.1, () => ApplyGoldBonuses(winrates));
+		return;
+	}
+	for (var heroCard of heroCards) {
+		const heroImage = heroCard.FindChildTraverse("HeroImage");
+
+		if (!heroImage) continue;
+
+		const shortName = heroImage.heroname;
+		const heroName = "npc_dota_hero_" + shortName;
+
+		const winrate = winrates[heroName];
+		if (!winrate) continue;
+
+		const bonusGoldBackground =
+			heroImage.FindChild("BonusGoldBackground") || $.CreatePanel("Panel", heroImage, "BonusGoldBackground");
+		bonusGoldBackground.style.width = "100%";
+		bonusGoldBackground.style.paddingBottom = "8px";
+		bonusGoldBackground.style.align = "center top";
+		bonusGoldBackground.style.backgroundColor = `gradient(linear, 0% 0%, 0% 100%, from(#895c00), to(#fac30000))`;
+
+		const goldLabel =
+			bonusGoldBackground.FindChild("BonusGold") || $.CreatePanel("Label", bonusGoldBackground, "BonusGold");
+		goldLabel.style.backgroundImage = `url("file://{resources}/images/custom_game/import_dota/gold_small_psd.png")`;
+		goldLabel.style.textShadow = "2px 2px 8px 3 #333333b0";
+		goldLabel.style.backgroundRepeat = "no-repeat";
+		goldLabel.style.backgroundSize = "10px 10px";
+		goldLabel.style.backgroundPosition = "right middle";
+		goldLabel.style.fontFamily = "monospaceNumbersFont";
+		goldLabel.style.fontSize = "12px";
+		goldLabel.style.color = "#fac300";
+		goldLabel.style.fontWeight = "bold";
+		goldLabel.style.paddingRight = "10px";
+		goldLabel.style.horizontalAlign = "center";
+		goldLabel.style.marginTop = "2px";
+
+		// formula for display text only, actual gold given is calculated in addon_game_mode.lua in OnNPCSpawned
+		const fixed_winrate = Math.min(winrate * 100.0, 49.99);
+		goldLabel.text = Math.floor(-100 * fixed_winrate + 5100);
+	}
+}
+
 var startingItemsLeftColumn = FindDotaHudElement("StartingItemsLeftColumn");
 for (var child of startingItemsLeftColumn.Children()) {
 	if (child.BHasClass("PatreonBonusButtonContainer")) {
@@ -36,5 +83,7 @@ SubscribeToNetTableKey("game_state", "player_stats", function (playerStats) {
 		.join("/");
 	$("#PlayerStatsAverageStreak").text = localStats.bestStreak + "/" + localStats.streak;
 });
+
+SubscribeToNetTableKey("heroes_winrate", "heroes", ApplyGoldBonuses);
 
 $.GetContextPanel().SetDialogVariable("map_name", Game.GetMapInfo().map_display_name);

@@ -54,14 +54,14 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 			if err.traceId then
 				message = message .. " Report it to the developer with this id: " .. err.traceId
 			end
-			
+
 			err.message = message
 			err.status_code = response.StatusCode
 
 			if response.Body and type(response.Body) == "string" then
 				err.body = response.Body
 			end
-			
+
 			if retryWhile and retryWhile(err) then
 				WebApi:Send(path, data, onSuccess, onError, retryWhile)
 			elseif onError then
@@ -134,6 +134,11 @@ function WebApi:BeforeMatch()
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
 		CustomNetTables:SetTableValue("game_state", "player_ratings", data.mapPlayersRating)
 		CustomNetTables:SetTableValue("game_state", "leaderboard", data.leaderboard)
+
+		if data.poorWinrates then
+			CustomNetTables:SetTableValue("heroes_winrate", "heroes", data.poorWinrates)
+			CMegaDotaGameMode.winrates = data.poorWinrates
+		end
 
 		Battlepass:OnDataArrival(data)
 	end,

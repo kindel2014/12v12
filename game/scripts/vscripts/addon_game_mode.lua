@@ -27,6 +27,7 @@ local NET_WORSE_FOR_RAPIER_MIN = 20000
 --Max neutral items for each player (hero/stash/courier)
 _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER = 3
 
+bonusGoldApplied = {}
 
 require("protected_custom_events")
 require("common/init")
@@ -76,7 +77,7 @@ for player_id = 0, 24 do
 			networth = 0,
 			experiance = 0,
 			building_damage = 0,
-			hero_damage = 0, 
+			hero_damage = 0,
 			damage_taken = 0,
 			wards = {
 				npc_dota_observer_wards = 0,
@@ -569,6 +570,19 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	local spawnedUnit = EntIndexToHScript(event.entindex)
 	local tokenTrollCouter = "modifier_troll_feed_token_couter"
 
+	-- Apply bonus gold
+	if spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
+	and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
+		if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
+			local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
+			-- if you change formula here, change it in hero_selection_overlay.js too
+			local gold = -100 * winrate + 5100
+
+			PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
+			bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true
+		end
+	end
+
 	Timers:CreateTimer(0.1, function()
 		if spawnedUnit and not spawnedUnit:IsNull() and ((spawnedUnit.IsTempestDouble and spawnedUnit:IsTempestDouble()) or (spawnedUnit.IsClone and spawnedUnit:IsClone())) then
 			local playerId = spawnedUnit:GetPlayerOwnerID()
@@ -645,7 +659,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		local player_id = owner:GetPlayerID()
 
 		CUSTOM_GAME_STATS[player_id].wards[name] = CUSTOM_GAME_STATS[player_id].wards[name] + 1
-		
+
 		local wardsName = {
 			["npc_dota_sentry_wards"] = "item_ward_sentry",
 			["npc_dota_observer_wards"] = "item_ward_observer",
@@ -674,7 +688,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			end, 2/30)
 		end
-		
+
 		Timers:CreateTimer(0, function()
 			CreateDummyInventoryForPlayer(playerId)
 		end)
@@ -689,7 +703,7 @@ end
 function CheckSuppCourier(player_id)
 	local connect_state = PlayerResource:GetConnectionState(player_id)
 	if connect_state == DOTA_CONNECTION_STATE_ABANDONED then return end
-	
+
 	if connect_state ~= DOTA_CONNECTION_STATE_CONNECTED then
 		Timers:CreateTimer(1, function() CheckSuppCourier(player_id) end)
 		return
@@ -912,7 +926,7 @@ function CMegaDotaGameMode:FilterModifyExperience( filterTable )
 		local player_id = hero:GetPlayerOwnerID()
 		CUSTOM_GAME_STATS[player_id].experiance = CUSTOM_GAME_STATS[player_id].experiance + new_exp
 	end
-	
+
 	filterTable["experience"] = new_exp
 	return true
 end
@@ -961,7 +975,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 				end
 
 				networth = networth + PlayerResource:GetGold( i )
-				
+
 				local stats = CUSTOM_GAME_STATS[i]
 				stats.perk = GamePerks.choosed_perks[i]
 				stats.networth = networth
@@ -1010,7 +1024,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 		end
 		AddModifierAllByClassname("npc_dota_fort", "modifier_stronger_builds")
 		AddModifierAllByClassname("npc_dota_barracks", "modifier_stronger_builds")
-		
+
 		local parties = {}
 		local party_indicies = {}
 		local party_members_count = {}
@@ -1105,7 +1119,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 						if team and (team == DOTA_TEAM_GOODGUYS) or (team == DOTA_TEAM_BADGUYS)then
 							fountain = Entities:FindByName( nil, "ent_dota_fountain_" .. (team == DOTA_TEAM_GOODGUYS and "good" or "bad"))
 						end
-						
+
 						local block_unit = function(unit)
 							unit:Stop()
 							unit:AddNewModifier(unit, nil, "modifier_dummy_caster", { duration = -1 })
@@ -1117,10 +1131,10 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 								unit:SetControllableByPlayer(_player_id, false)
 							end
 						end
-						
+
 						local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 						if hero then block_unit(hero) end
-						
+
 						local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
 						if courier then block_unit(courier) end
 					end
@@ -1328,8 +1342,8 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			local player = PlayerResource:GetPlayer(playerId)
 
 			hItem.secret_key = RandomInt(1,999999)
-			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_picked_up", { 
-				item = filterTable.item_entindex_const, 
+			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_picked_up", {
+				item = filterTable.item_entindex_const,
 				secret = hItem.secret_key,
 			})
 
@@ -1433,7 +1447,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 			end
 		end)
 	end
-	
+
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
 		if target and target:GetName() == "npc_dota_seasonal_ti9_drums" then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#dota_hud_error_cant_cast_on_other" })
