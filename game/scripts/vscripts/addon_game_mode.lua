@@ -576,7 +576,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
 			local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
 			-- if you change formula here, change it in hero_selection_overlay.js too
-			local gold = -100 * winrate + 5100
+			local gold = math.floor((-100 * winrate + 5100) / 5) * 5
 
 			PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
 			bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true

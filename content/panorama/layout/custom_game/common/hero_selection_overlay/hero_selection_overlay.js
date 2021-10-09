@@ -41,7 +41,7 @@ function ApplyGoldBonuses(winrates) {
 
 		// formula for display text only, actual gold given is calculated in addon_game_mode.lua in OnNPCSpawned
 		const fixed_winrate = Math.min(winrate * 100.0, 49.99);
-		goldLabel.text = Math.floor(-100 * fixed_winrate + 5100);
+		goldLabel.text = Math.floor((-100 * fixed_winrate + 5100) / 5.0) * 5;
 	}
 }
 
