@@ -86,7 +86,7 @@ end
 
 function GameOptions:OptionsIsActive(name)
 	for _, option in pairs(gameOptions) do
-		if option.name == name then return option.votes >= votesForInitOption end
+		if option.name == name and option.votes then return option.votes >= votesForInitOption end
 	end
 	return nil
 end
