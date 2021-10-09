@@ -1118,7 +1118,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 							end
 						end
 						
-						local hero = PlayerResource:GetAssignedHero(player_id)
+						local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 						if hero then block_unit(hero) end
 						
 						local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
