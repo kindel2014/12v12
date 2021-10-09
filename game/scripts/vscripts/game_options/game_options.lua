@@ -5,8 +5,9 @@ local votesForInitOption = 12
 local gameOptions = {
 	[0] = {name = "super_towers"},
 	[1] = {name = "no_trolls_kick"},
-	[3] = {name = "no_mmr_sort"},
-	[4] = {name = "no_bonus_for_weak_team"},
+	[2] = {name = "no_mmr_sort"},
+	[3] = {name = "no_bonus_for_weak_team"},
+	[4] = {name = "no_winrate_gold_bonus"},
 }
 
 function GameOptions:Init()
@@ -72,6 +73,15 @@ function GameOptions:PlayerVoteForGameOption(data)
 		gameOptionsVotesForClient[id] = option.votes
 	end
 	CustomNetTables:SetTableValue("game_state", "game_options", gameOptionsVotesForClient)
+end
+
+function GameOptions:RecordVotingResults()
+	local gameOptionsResults = {}
+	for _, option in pairs(gameOptions) do
+		gameOptionsResults[option.name] = option.votes >= votesForInitOption
+	end
+
+	CustomNetTables:SetTableValue("game_state", "game_options_results", gameOptionsResults)
 end
 
 function GameOptions:OptionsIsActive(name)

@@ -745,6 +745,9 @@
         "game_option_no_bonus_for_weak_team"				"Без бонусов для слабой команды"
         "game_option_no_bonus_for_weak_team_tooltip"		"В этой игре будут отключены бонусные золото и опыт для команды с более низким рейтингом"
 
+        "game_option_no_winrate_gold_bonus"				"Без бонусов для героев с низким винрейтом"
+        "game_option_no_winrate_gold_bonus_tooltip"		"В этой игре выбор героев с низким винрейтом не будет вознаграждаться золотом"
+
 		"custom_rating_text"					"Рейтинг"
 
 		"too_huge_kda_for_change_team"			"Слишком большая статистика убийста для смены команды"

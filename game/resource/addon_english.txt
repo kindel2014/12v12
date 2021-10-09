@@ -1004,6 +1004,9 @@
         "game_option_no_bonus_for_weak_team"			"No bonuses for weak team"
         "game_option_no_bonus_for_weak_team_tooltip"	"In this game bonuses for weak team by MMR will be disabled (bonus gold/exp)"
 
+        "game_option_no_winrate_gold_bonus"				"No bonuses for low winrate heroes"
+        "game_option_no_winrate_gold_bonus_tooltip"		"Picking heroes with low winrate won't be rewarded with gold"
+
 		"custom_rating_text"					"Rank"
 
 		"too_huge_kda_for_change_team"			"Your KDA is too high to change team"

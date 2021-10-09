@@ -574,15 +574,17 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	local tokenTrollCouter = "modifier_troll_feed_token_couter"
 
 	-- Apply bonus gold
-	if CMegaDotaGameMode.winrates and spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
-	and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
-		if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
-			local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
-			-- if you change formula here, change it in hero_selection_overlay.js too
-			local gold = math.floor((-100 * winrate + 5100) / 5) * 5
+	if not GameOptions:OptionsIsActive("no_winrate_gold_bonus") then
+		if CMegaDotaGameMode.winrates and spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
+		and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
+			if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
+				local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
+				-- if you change formula here, change it in hero_selection_overlay.js too
+				local gold = math.floor((-100 * winrate + 5100) / 5) * 5
 
-			PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
-			bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true
+				PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
+				bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true
+			end
 		end
 	end
 
@@ -943,6 +945,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	end
 
 	if newState ==  DOTA_GAMERULES_STATE_HERO_SELECTION then
+		GameOptions:RecordVotingResults()
 		ShuffleTeam:SortInMMR()
 		AutoTeam:EnableFreePatreonForBalance()
 		Timers:CreateTimer(1, function()
@@ -1119,7 +1122,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 					if not abandoned_players[player_id] and PlayerResource:GetConnectionState(player_id) == DOTA_CONNECTION_STATE_ABANDONED then
 						abandoned_players[player_id] = true
 						local team = PlayerResource:GetTeam(player_id)
-						
+
 						local fountain
 						if team and (team == DOTA_TEAM_GOODGUYS) or (team == DOTA_TEAM_BADGUYS)then
 							fountain = Entities:FindByName( nil, "ent_dota_fountain_" .. (team == DOTA_TEAM_GOODGUYS and "good" or "bad"))
@@ -1133,7 +1136,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 								unit:SetAbsOrigin(fountain:GetAbsOrigin())
 							end
 						end
-						
+
 						Timers:CreateTimer(first_dc_players[player_id] and 60 or 0, function()
 							if abandoned_players[player_id] then
 								local hero = PlayerResource:GetSelectedHeroEntity(player_id)
@@ -1396,7 +1399,7 @@ function CMegaDotaGameMode:OnConnectFull(data)
 		if courier then unblock_unit(courier) end
 		abandoned_players[player_id] = nil
 	end
-	
+
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = player_id} )
 end
 
@@ -1452,8 +1455,8 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 					unit_owner_id and
 					unit_owner_id ~= playerId and
 					(
-						(PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and GameRules:GetDOTATime(false,false) < 900) 
-						or 
+						(PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_DISCONNECTED and GameRules:GetDOTATime(false,false) < 900)
+						or
 						PlayerResource:GetConnectionState(unit_owner_id) == DOTA_CONNECTION_STATE_ABANDONED
 					)
 				then

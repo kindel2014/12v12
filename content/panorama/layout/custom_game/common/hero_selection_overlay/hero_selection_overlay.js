@@ -1,4 +1,5 @@
 function ApplyGoldBonuses(winrates) {
+	if (CustomNetTables.GetTableValue("game_state", "game_options_results")["no_winrate_gold_bonus"]) return;
 	if (!winrates) return;
 	var preGameRoot = FindDotaHudElement("PreGame");
 	const heroCards = preGameRoot.FindChildrenWithClassTraverse("HeroCard");
