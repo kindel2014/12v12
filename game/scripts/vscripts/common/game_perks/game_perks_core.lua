@@ -39,6 +39,9 @@ function GamePerks:Init()
 		["debuff_time"] = true;
 		["bonus_gold"] = true;
 		["tinkerer"] = true;
+		["attack_speed"] = true;
+		["armor"] = true;
+		["cast_time"] = true;
 	};
 
 	self.choosed_perks = {}

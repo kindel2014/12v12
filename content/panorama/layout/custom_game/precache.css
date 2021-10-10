@@ -514,6 +514,16 @@
 	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/tinkerer_t1.png");
 	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/tinkerer_t2.png");
 
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/attack_speed_t0.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/attack_speed_t1.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/attack_speed_t2.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/armor_t0.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/armor_t1.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/armor_t2.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/cast_time_t0.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/cast_time_t1.png");
+	background-image: url("file://{resources}/layout/custom_game/common/game_perks/icons/cast_time_t2.png");
+
 	background-image: url("file://{resources}/images/custom_game/minimap_overlay_12v12.png");
 	background-image: url("file://{resources}/images/custom_game/custom_pings_map_mask.png");
 	background-image: url("file://{resources}/images/custom_game/ping_icon_waypoint_minimap.png");
