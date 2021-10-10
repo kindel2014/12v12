@@ -70,6 +70,9 @@ local disabledAbilities = {
 	lycan_wolf_bite = true,
 	rubick_spell_steal = true,
 	rubick_telekinesis = true,
+	item_book_of_shadows = true,
+	item_force_staff = true,
+	item_hurricane_pike = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderVector, units)
@@ -77,9 +80,9 @@ function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderV
 		return
 	end
 	if not ability or ability:IsNull() then return end
-	
+
 	local caster_id = unit:GetPlayerOwnerID()
-	
+
 	if ability:GetAbilityName() == "furion_sprout" then
 		if (
 			orderType == DOTA_UNIT_ORDER_CAST_TARGET and
