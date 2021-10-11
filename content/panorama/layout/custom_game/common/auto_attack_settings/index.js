@@ -14,13 +14,15 @@ function FetchPlayerAutoAttackSettings() {
 		.Children()
 		.findIndex((panel) => panel.checked);
 
-	const summon_mode = options
-		.FindChildTraverse("AdvancedColumn0")
-		.GetChild(0)
-		.GetChild(2)
-		.GetChild(0)
-		.Children()
-		.findIndex((panel) => panel.checked);
+	const summon_mode =
+		options
+			.FindChildTraverse("AdvancedColumn0")
+			.GetChild(0)
+			.GetChild(2)
+			.GetChild(0)
+			.GetChild(1)
+			.Children()
+			.findIndex((panel) => panel.checked) - 1; // -1 since 0-indexed panel corresponds to -1 value of convar
 
 	// Hide last created settings popup
 	for (const panel of popupManager.Children()) {
@@ -38,7 +40,7 @@ function FetchPlayerAutoAttackSettings() {
 
 	$.Msg(`Auto attack mode: ${mode}, summon: ${summon_mode}`);
 
-	if (!mode || !summon_mode) return;
+	if (mode === -1 || summon_mode === -2) return;
 
 	// Send data to lua side
 	// We need toggle auto attack mode to -1 to update setting properly
