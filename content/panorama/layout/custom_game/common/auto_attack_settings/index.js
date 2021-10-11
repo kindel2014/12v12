@@ -14,6 +14,14 @@ function FetchPlayerAutoAttackSettings() {
 		.Children()
 		.findIndex((panel) => panel.checked);
 
+	const summon_mode = options
+		.FindChildTraverse("AdvancedColumn0")
+		.GetChild(0)
+		.GetChild(2)
+		.GetChild(0)
+		.Children()
+		.findIndex((panel) => panel.checked);
+
 	// Hide last created settings popup
 	for (const panel of popupManager.Children()) {
 		if (panel.paneltype == "PopupSettings") {
@@ -28,14 +36,16 @@ function FetchPlayerAutoAttackSettings() {
 		onload: "UIPopupButtonClicked()",
 	});
 
-	$.Msg(`Auto attack mode: ${mode}`);
+	$.Msg(`Auto attack mode: ${mode}, summon: ${summon_mode}`);
+
+	if (!mode || !summon_mode) return;
 
 	// Send data to lua side
 	// We need toggle auto attack mode to -1 to update setting properly
-	GameEvents.SendEventClientSide("auto_attack_setting", { value: -1 });
+	GameEvents.SendEventClientSide("auto_attack_setting", { value: -1, summon: -2 });
 
 	$.Schedule(1, () => {
-		GameEvents.SendEventClientSide("auto_attack_setting", { value: mode });
+		GameEvents.SendEventClientSide("auto_attack_setting", { value: mode, summon: summon_mode });
 	});
 }
 
