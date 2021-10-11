@@ -1,6 +1,6 @@
 var wait_time = [
-	6, // 0 level patreon
-	3, // 1 level patreon
+	0, // 0 level patreon
+	0, // 1 level patreon
 	0, // 2 level patreon
 ];
 

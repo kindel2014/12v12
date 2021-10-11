@@ -150,7 +150,7 @@ function CMegaDotaGameMode:InitGameMode()
 	if GetMapName() == "dota_tournament" then
 		GameRules:SetCustomGameSetupAutoLaunchDelay(20)
 	else
-		GameRules:SetCustomGameSetupAutoLaunchDelay(10)
+		GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 	end
 
 	GameRules:GetGameModeEntity():SetKillableTombstones( true )
@@ -1080,7 +1080,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			endTime = 2.1,
 			callback = function()
 				Convars:SetFloat("host_timescale", 1)
-				SendToServerConsole("dota_pause")
+				--SendToServerConsole("dota_pause")
 				return nil
 			end
 		})
@@ -1233,13 +1233,13 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 			end
 
-			if itemName == "item_banhammer" then
-				if GameRules:GetDOTATime(false,false) < 300 then
-					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#notyettime" })
-					UTIL_Remove(hItem)
-					return false
-				end
-			end
+			--if itemName == "item_banhammer" then
+			--	if GameRules:GetDOTATime(false,false) < 300 then
+			--		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#notyettime" })
+			--		UTIL_Remove(hItem)
+			--		return false
+			--	end
+			--end
 		else
 			for i=1,#pitems do
 				if itemName == pitems[i] then
@@ -1257,19 +1257,19 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 								UTIL_Remove(hItem)
 								return false
 							end
-							if itemName == "item_banhammer" then
-								if GameRules:GetDOTATime(false,false) < 300 then
-									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
-									UTIL_Remove(hItem)
-									return false
-								end
-							else
-								if supporter_level < 1 then
-									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
-									UTIL_Remove(hItem)
-									return false
-								end
-							end
+							--if itemName == "item_banhammer" then
+							--	if GameRules:GetDOTATime(false,false) < 300 then
+							--		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
+							--		UTIL_Remove(hItem)
+							--		return false
+							--	end
+							--else
+							--	if supporter_level < 1 then
+							--		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
+							--		UTIL_Remove(hItem)
+							--		return false
+							--	end
+							--end
 						else
 							UTIL_Remove(hItem)
 							return false
