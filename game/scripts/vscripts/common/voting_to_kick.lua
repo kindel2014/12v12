@@ -304,6 +304,10 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 		CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban" })
 		return INIT_KICK_FAIL
 	end
+	if self:CheckPartyBan(caster_id) then
+		CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban_party" })
+		return INIT_KICK_FAIL
+	end
 
 	if target_id and ((WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5) or PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED) then
 		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
@@ -345,6 +349,17 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 			end
 		end
 	end
+end
+
+function Kicks:CheckPartyBan(player_id)
+	for i = 0, 24 do
+		if PlayerResource:GetPartyID(i) == PlayerResource:GetPartyID(player_id) then
+			if self:IsPlayerBanned(i) then
+				return true
+			end
+		end
+	end
+	return false
 end
 
 function Kicks:PreVoting(caster_id, target_id) self.pre_voting[caster_id] = target_id end
