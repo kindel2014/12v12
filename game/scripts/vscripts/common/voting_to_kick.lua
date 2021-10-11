@@ -1,4 +1,4 @@
-Kicks = Kicks or class({})
+Kicks = Kicks or {}
 
 _G.tUserIds = {}
 
@@ -300,6 +300,11 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 	if not target or not caster then return end
 	local caster_player = caster:GetPlayerOwner()
 
+	if caster_id and self:IsPlayerBanned(caster_id) then
+		CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_cannot_kick_ban" })
+		return INIT_KICK_FAIL
+	end
+
 	if target_id and ((WebApi.playerMatchesCount and WebApi.playerMatchesCount[target_id] and WebApi.playerMatchesCount[target_id] < 5) or PlayerResource:GetConnectionState(target_id) == DOTA_CONNECTION_STATE_ABANDONED) then
 		CustomGameEventManager:Send_ServerToPlayer(caster_player, "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
 		return INIT_KICK_FAIL
@@ -314,6 +319,11 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 				return INIT_KICK_FAIL
 			else
 				if not Kicks.voting then
+					
+					if caster_id and self:IsPlayerWarning(caster_id) then
+						CustomGameEventManager:Send_ServerToPlayer(caster_player, "custom_hud_message:send", { message = "#voting_to_kick_warning" })
+					end
+					
 					Kicks:PreVoting(caster_id, target_id)
 
 					CustomGameEventManager:Send_ServerToPlayer(caster_player, "voting_to_kick_show_reason", { target_id = target_id })
@@ -337,18 +347,14 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 	end
 end
 
-function Kicks:PreVoting(caster_id, target_id)
-	self.pre_voting[caster_id] = target_id
-end
+function Kicks:PreVoting(caster_id, target_id) self.pre_voting[caster_id] = target_id end
 
-function Kicks:GetReports(player_id)
-	return self.stats[player_id] and self.stats[player_id].reports or 0
-end
+function Kicks:GetReports(player_id) return self.stats[player_id] and self.stats[player_id].reports or 0 end
+function Kicks:GetInitVotings(player_id) return self.stats[player_id] and self.stats[player_id].voting_start or 0 end
+function Kicks:GetFailedVotings(player_id) return self.stats[player_id] and self.stats[player_id].voting_reported or 0 end
 
-function Kicks:GetInitVotings(player_id)
-	return self.stats[player_id] and self.stats[player_id].voting_start or 0
-end
+function Kicks:SetWarningForPlayer(player_id) if self.stats[player_id] then self.stats[player_id].warning = true end end
+function Kicks:IsPlayerWarning(player_id) return self.stats[player_id] and self.stats[player_id].warning end
 
-function Kicks:GetFailedVotings(player_id)
-	return self.stats[player_id] and self.stats[player_id].voting_reported or 0
-end
+function Kicks:SetBanForPlayer(player_id) if self.stats[player_id] then self.stats[player_id].ban = true end end
+function Kicks:IsPlayerBanned(player_id) return self.stats[player_id] and self.stats[player_id].ban end

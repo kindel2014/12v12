@@ -8,7 +8,7 @@ end
 WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 FREE_SUPPORTER_COUNT = 6
 
-local serverHost = IsInToolsMode() and "http://127.0.0.1:5000" or "https://api.12v12.dota2unofficial.com"
+local serverHost = "https://api.12v12.dota2unofficial.com"
 local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 
 function WebApi:Send(path, data, onSuccess, onError, retryWhile)
@@ -118,6 +118,14 @@ function WebApi:BeforeMatch()
 			end
 			if player.MutedUntil then
 				SyncedChat:MutePlayer(playerId, player.MutedUntil, false)
+			end
+			if player.kickStats then
+				if player.kickStats.kickWarned then
+					Kicks:SetWarningForPlayer(playerId)
+				end
+				if player.kickStats.kickBanned then
+					Kicks:SetBanForPlayer(playerId)
+				end
 			end
 			publicStats[playerId] = {
 				streak = player.streak.current or 0,

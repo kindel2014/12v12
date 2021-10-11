@@ -1962,5 +1962,9 @@
 		"custom_end_heal"				"Total Healing"
 		"custom_end_wards"				"Observers/Sentries"
 		"custom_end_kills"				"Killed Enemies"
+		
+		"voting_to_kick_warning"			"You have a considerable amount of reports due to misuse of the vote kick function. Try to start vote kicks only with good reason, or you might be banned from using this function."
+		"voting_to_kick_cannot_kick_ban"	"You cannot start a vote to kick other players due to excessive reports."
+		"dotau_hud_message_close"			"Click to close"
 	}
 }
