@@ -41,7 +41,7 @@ function GamePerks:Init()
 		["tinkerer"] = true;
 		["attack_speed"] = true;
 		["armor"] = true;
-		["cast_time"] = true;
+		--["cast_time"] = true;
 	};
 
 	self.choosed_perks = {}
