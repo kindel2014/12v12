@@ -144,8 +144,8 @@ function WebApi:BeforeMatch()
 		CustomNetTables:SetTableValue("game_state", "leaderboard", data.leaderboard)
 
 		if data.poorWinrates then
-			CustomNetTables:SetTableValue("heroes_winrate", "heroes", data.poorWinrates)
-			CMegaDotaGameMode.winrates = data.poorWinrates
+			--CustomNetTables:SetTableValue("heroes_winrate", "heroes", data.poorWinrates)
+			--CMegaDotaGameMode.winrates = data.poorWinrates
 		end
 
 		Battlepass:OnDataArrival(data)
