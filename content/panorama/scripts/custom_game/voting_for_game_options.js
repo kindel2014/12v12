@@ -3,7 +3,7 @@ const gameOptions = [
 	"game_option_no_trolls_kick",
 	"game_option_no_mmr_sort",
 	"game_option_no_bonus_for_weak_team",
-	"game_option_no_winrate_gold_bonus"
+	// "game_option_no_winrate_gold_bonus"
 ];
 const votesForInitOption = 12;
 

@@ -574,19 +574,19 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	local tokenTrollCouter = "modifier_troll_feed_token_couter"
 
 	-- Apply bonus gold
-	if not GameOptions:OptionsIsActive("no_winrate_gold_bonus") then
-		if CMegaDotaGameMode.winrates and spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
-		and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
-			if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
-				local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
-				-- if you change formula here, change it in hero_selection_overlay.js too
-				local gold = math.floor((-100 * winrate + 5100) / 5) * 5
+	-- if not GameOptions:OptionsIsActive("no_winrate_gold_bonus") then
+	-- 	if CMegaDotaGameMode.winrates and spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
+	-- 	and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
+	-- 		if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
+	-- 			local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
+	-- 			-- if you change formula here, change it in hero_selection_overlay.js too
+	-- 			local gold = math.floor((-100 * winrate + 5100) / 5) * 5
 
-				PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
-				bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true
-			end
-		end
-	end
+	-- 			PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
+	-- 			bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true
+	-- 		end
+	-- 	end
+	-- end
 
 	Timers:CreateTimer(0.1, function()
 		if spawnedUnit and not spawnedUnit:IsNull() and ((spawnedUnit.IsTempestDouble and spawnedUnit:IsTempestDouble()) or (spawnedUnit.IsClone and spawnedUnit:IsClone())) then

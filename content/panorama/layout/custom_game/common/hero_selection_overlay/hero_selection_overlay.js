@@ -85,6 +85,6 @@ SubscribeToNetTableKey("game_state", "player_stats", function (playerStats) {
 	$("#PlayerStatsAverageStreak").text = localStats.bestStreak + "/" + localStats.streak;
 });
 
-SubscribeToNetTableKey("heroes_winrate", "heroes", ApplyGoldBonuses);
+// SubscribeToNetTableKey("heroes_winrate", "heroes", ApplyGoldBonuses);
 
 $.GetContextPanel().SetDialogVariable("map_name", Game.GetMapInfo().map_display_name);
