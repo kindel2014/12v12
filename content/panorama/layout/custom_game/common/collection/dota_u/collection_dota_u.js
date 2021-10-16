@@ -57,7 +57,7 @@ function HideGitOptions(delay) {
 				ShowGitOptions();
 			},
 			() => {
-				HideGitOptions(0.23);
+				HideGitOptions(0.2);
 			},
 		);
 	}
