@@ -1967,5 +1967,8 @@
 		"voting_to_kick_cannot_kick_ban"		"You cannot start a vote to kick other players due to excessive reports."
 		"voting_to_kick_cannot_kick_ban_party"	"A member of your party is currently banned from vote kicking due to excessive reports."
 		"dotau_hud_message_close"				"Click to close"
+		
+		"git_new_issue"		"Create Issue"
+		"git_show_issues"	"Show Issues"
 	}
 }

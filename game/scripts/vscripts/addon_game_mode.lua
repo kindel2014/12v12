@@ -1158,7 +1158,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 end
 
 function SearchAndCheckRapiers(buyer, unit, plyID, maxSlots, timerKey)
-	local fullRapierCost = 6000
+	local fullRapierCost = GetItemCost("item_rapier")
 	for i = 0, maxSlots do
 		local item = unit:GetItemInSlot(i)
 		if item and item:GetAbilityName() == "item_rapier" and (item:GetPurchaser() == buyer) and ((item.defend == nil) or (item.defend == false)) then
@@ -1282,7 +1282,7 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			end
 		end
 
-		if  hItem:GetPurchaser() and (itemName == "item_relic")then
+		if hItem:GetPurchaser() and (itemName == "item_relic") then
 			local buyer = hItem:GetPurchaser()
 			local plyID = buyer:GetPlayerID()
 			local itemEntIndex = hItem:GetEntityIndex()
@@ -1291,8 +1291,10 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 				useGameTime = false,
 				endTime = 0.4,
 				callback = function()
-					SearchAndCheckRapiers(buyer, buyer, plyID, 20, timerKey)
-					return 0.45
+					if hItem.transfer then
+						SearchAndCheckRapiers(buyer, buyer, plyID, 20, timerKey)
+						return 0.45
+					end
 				end
 			})
 		end

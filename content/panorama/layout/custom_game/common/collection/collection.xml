@@ -430,5 +430,14 @@
 				<Label id="MasteryButtonTooltipText" text="#choose_mastery"/>
 			</Panel>
 		</Panel>
+
+		<Panel id="GitOptions" onmouseout="HideGitOptions(0)">
+			<Button onactivate="$.DispatchEvent('ExternalBrowserGoToURL', 'https://github.com/arcadia-redux/12v12/issues')">
+				<Label html="true" text="#git_show_issues"/>
+			</Button>
+			<Button onactivate="$.DispatchEvent('ExternalBrowserGoToURL', 'https://github.com/arcadia-redux/12v12/issues/new')">
+				<Label html="true" text="#git_new_issue"/>
+			</Button>
+		</Panel>
 	</Panel>
 </root>
