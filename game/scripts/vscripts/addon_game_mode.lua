@@ -1158,7 +1158,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 end
 
 function SearchAndCheckRapiers(buyer, unit, plyID, maxSlots, timerKey)
-	local fullRapierCost = 6000
+	local fullRapierCost = 5950
 	for i = 0, maxSlots do
 		local item = unit:GetItemInSlot(i)
 		if item and item:GetAbilityName() == "item_rapier" and (item:GetPurchaser() == buyer) and ((item.defend == nil) or (item.defend == false)) then
