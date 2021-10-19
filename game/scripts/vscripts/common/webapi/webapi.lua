@@ -135,6 +135,7 @@ function WebApi:BeforeMatch()
 				averageAssists = player.stats.assists,
 				wins = player.stats.wins,
 				loses = player.stats.loses,
+				lastWinnerHeroes = player.stats.lastWinnerHeroes,
 				rating = player.rating,
 			}
 			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, "no_stats")

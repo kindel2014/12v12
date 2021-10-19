@@ -1,3 +1,5 @@
+const LOCAL_PID = Game.GetLocalPlayerID();
+
 function ApplyGoldBonuses(winrates) {
 	if (CustomNetTables.GetTableValue("game_state", "game_options_results")["no_winrate_gold_bonus"]) return;
 	if (!winrates) return;
@@ -7,6 +9,13 @@ function ApplyGoldBonuses(winrates) {
 		$.Schedule(0.1, () => ApplyGoldBonuses(winrates));
 		return;
 	}
+
+	let heroes_without_bonus = [];
+	let playersStats = CustomNetTables.GetTableValue("game_state", "player_stats");
+	if (playersStats && playersStats[LOCAL_PID] && playersStats[LOCAL_PID].lastWinnerHeroes) {
+		heroes_without_bonus = Object.values(playersStats[LOCAL_PID].lastWinnerHeroes);
+	}
+
 	for (var heroCard of heroCards) {
 		const heroImage = heroCard.FindChildTraverse("HeroImage");
 
@@ -14,6 +23,8 @@ function ApplyGoldBonuses(winrates) {
 
 		const shortName = heroImage.heroname;
 		const heroName = "npc_dota_hero_" + shortName;
+
+		if (heroes_without_bonus.indexOf(heroName) > -1) continue;
 
 		const winrate = winrates[heroName];
 		if (!winrate) continue;
@@ -75,7 +86,7 @@ smartRandomButton.BLoadLayout(
 );
 
 SubscribeToNetTableKey("game_state", "player_stats", function (playerStats) {
-	var localStats = playerStats[Game.GetLocalPlayerID()];
+	var localStats = playerStats[LOCAL_PID];
 	if (!localStats) return;
 
 	$("#PlayerStatsAverageWinsLoses").text = localStats.wins + "/" + localStats.loses;

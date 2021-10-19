@@ -577,7 +577,13 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 	if not GameOptions:OptionsIsActive("no_winrate_gold_bonus") then
 		if CMegaDotaGameMode.winrates and spawnedUnit and not spawnedUnit:IsNull() and spawnedUnit:IsRealHero()
 		and not spawnedUnit.bonusGoldApplied and CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()] then
-			if not bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] then
+			local player_id = spawnedUnit:GetPlayerOwnerID()
+			local player_stats = CustomNetTables:GetTableValue("game_state", "player_stats")
+			local b_no_bonus
+			if player_stats and player_stats[tostring(player_id)] and player_stats[tostring(player_id)].lastWinnerHeroes then
+				b_no_bonus = table.contains(player_stats[tostring(player_id)].lastWinnerHeroes, spawnedUnit:GetUnitName())
+			end
+			if not bonusGoldApplied[player_id] and not b_no_bonus then
 				local winrate = math.min(CMegaDotaGameMode.winrates[spawnedUnit:GetUnitName()]  * 100, 49.99)
 				-- if you change formula here, change it in hero_selection_overlay.js too
 				local gold = math.floor((-100 * winrate + 5100) / 5) * 5
@@ -1080,7 +1086,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 			endTime = 2.1,
 			callback = function()
 				Convars:SetFloat("host_timescale", 1)
-				SendToServerConsole("dota_pause")
+				if not IsInToolsMode() then SendToServerConsole("dota_pause") end
 				return nil
 			end
 		})
