@@ -1,9 +1,9 @@
 const perks_levels = 3;
 const game_perks = [
+	`family`,
 	`attack_speed`,
 	`armor`,
 	// `cast_time`,
-	`family`,
 	`tinkerer`,
 	`magician`,
 	`linken`,
