@@ -180,11 +180,18 @@ end
 
 function Kicks:GetVoteWeight(player_id)
 	if not self.voting then return end
+
+	local source_party_id = tonumber(tostring(PlayerResource:GetPartyID(player_id)))
+	if not source_party_id then return 0 end
+	if source_party_id == 0 then return 1 end
+
 	for _player_id, _ in pairs(self.voting.playersVoted) do
-		if PlayerResource:GetPartyID(player_id) == PlayerResource:GetPartyID(_player_id) then
+		local focus_party_id = tonumber(tostring(PlayerResource:GetPartyID(_player_id)))
+		if focus_party_id and (focus_party_id == source_party_id) then
 			return 0.5
 		end
 	end
+	
 	return 1
 end
 
@@ -352,8 +359,13 @@ function Kicks:InitKickFromPlayerToPlayer(data)
 end
 
 function Kicks:CheckPartyBan(player_id)
+	local source_party_id = tonumber(tostring(PlayerResource:GetPartyID(player_id)))
+	if not source_party_id then return true end
+	if source_party_id == 0 then return false end
+	
 	for i = 0, 24 do
-		if PlayerResource:GetPartyID(i) == PlayerResource:GetPartyID(player_id) then
+		local focus_party_id = tonumber(tostring(PlayerResource:GetPartyID(i)))
+		if focus_party_id and (focus_party_id == source_party_id) then
 			if self:IsPlayerBanned(i) then
 				return true
 			end

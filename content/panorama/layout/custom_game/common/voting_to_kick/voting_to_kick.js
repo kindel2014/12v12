@@ -26,7 +26,7 @@ function VotingToKickShowVoting(data) {
 		"</font>" +
 		" ?";
 
-	$.CreatePanelWithProperties(`DOTAScenePanel`, "#VotingToKickModelPanel", "VotingToKickVotingHeroModel", {
+	$.CreatePanelWithProperties(`DOTAScenePanel`, $("#VotingToKickModelPanel"), "VotingToKickVotingHeroModel", {
 		style: `width:210px;height:210px;`,
 		unit: `${targetPlayer.player_selected_hero}`,
 		particleonly: `false`,
