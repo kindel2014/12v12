@@ -12,6 +12,7 @@ local ignored_special_values = {
 	item_bullwhip 				= {bullwhip_delay_time = true},
 	item_stormcrafter 			= {interval = true},
 	item_teleports_behind_you 	= {meteor_fall_time = true, blink_damage_cooldown = true},
+	item_spy_gadget				= {scan_cooldown_reduction = true},
 }
 
 LinkLuaModifier("unstable_wand_active", "common/game_perks/modifier_lib/tinkerer", LUA_MODIFIER_MOTION_NONE)
@@ -83,7 +84,7 @@ function tinkerer:GetModifierOverrideAbilitySpecialValue(keys)
 			parent:AddNewModifier(parent, nil, "unstable_wand_active", {duration = value * (self.v or 1)} )
 		end
 
-		return value * (self.v or 1)
+		return value * (self.v)
 	end
 
 	return value
@@ -103,7 +104,6 @@ function unstable_wand_active:OnDestroy()
 	local parent = self:GetParent()
 	parent:AddNewModifier(parent, nil, "unstable_wand_active", {})
 end
-
 
 tinkerer_t0 = class(tinkerer)
 tinkerer_t0.v = 1.25
