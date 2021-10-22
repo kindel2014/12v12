@@ -2,6 +2,7 @@
 {
     "item_patreonbundle_1"
     {
+		"ID"							"20011"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityCastAnimation"			"ACT_INVALID"
@@ -28,6 +29,7 @@
 
     "item_patreonbundle_2"
     {
+		"ID"							"20012"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityCastAnimation"			"ACT_INVALID"
@@ -56,7 +58,8 @@
     {
         // General
         //-------------------------------------------------------------------------------------------------------------
-        "BaseClass"                            "item_monkey_king_bar"
+		"ID"							"20009"
+        "BaseClass"                      "item_monkey_king_bar"
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
         // Item Info
@@ -67,6 +70,7 @@
         "ItemAliases"                   "mkb;monkey king bar"
         "ItemDeclarations"              "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
         "ShouldBeSuggested"             "1"
+        "AbilityTextureName"	"custom/Frosthaven_Consumables_Bundle"
 
         // Special
         //-------------------------------------------------------------------------------------------------------------
@@ -97,6 +101,7 @@
 
     "item_patreon_1"
     {
+		"ID"							"20013"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
@@ -124,6 +129,7 @@
     }
     "item_patreon_2"
     {
+		"ID"							"20014"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastAnimation"			"ACT_INVALID"
@@ -149,6 +155,7 @@
     }
     "item_patreon_3"
     {
+		"ID"							"20015"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE"
@@ -175,6 +182,7 @@
     }
     "item_patreon_4"
     {
+		"ID"							"20016"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityCastAnimation"			"ACT_INVALID"
@@ -199,6 +207,7 @@
     }
     "item_patreon_5"
     {
+		"ID"							"20017"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
@@ -226,6 +235,7 @@
     }
     "item_patreon_6"
     {
+		"ID"							"20018"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastAnimation"			"ACT_INVALID"
@@ -251,6 +261,7 @@
     }
     "item_patreon_7"
     {
+		"ID"							"20019"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE"
@@ -277,6 +288,7 @@
     }
     "item_patreon_8"
     {
+		"ID"							"20020"
         "BaseClass"	"item_datadriven"
         "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
@@ -304,6 +316,7 @@
     }
     "item_banhammer"
     {
+		"ID"							"20021"
         "BaseClass"						"item_datadriven"
         "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
@@ -360,6 +373,7 @@
 
     "item_disable_help_custom"
 	{
+		"ID"							"20022"
 		"BaseClass"						"item_datadriven"
 		"AbilityTextureName"			"custom/item_disable_help_custom"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
@@ -389,6 +403,7 @@
 
 	"item_mute_custom"
 	{
+		"ID"							"20023"
 		"BaseClass"						"item_datadriven"
 		"AbilityTextureName"			"custom/item_mute_custom"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
@@ -796,6 +811,7 @@
 	"item_reset_mmr"
 	{
 		"BaseClass"						"item_lua"
+		"ID"							"20010"
 		"AbilityTextureName"			"custom/item_reset_mmr"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"ItemQuality"					"artifact"
@@ -1063,4 +1079,6 @@
 			}
 		}
 	}
+	
+	//NEXT IT 20024
 }
