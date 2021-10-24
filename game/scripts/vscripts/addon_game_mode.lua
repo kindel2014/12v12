@@ -1141,6 +1141,23 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 							if fountain then
 								unit:SetAbsOrigin(fountain:GetAbsOrigin())
 							end
+
+							if unit.HasInventory and unit:HasInventory() then
+								for item_slot = 0, 20 do
+									local item = unit:GetItemInSlot(item_slot)
+									if item and not item:IsNull() and item.GetAbilityName and item:GetAbilityName() then
+										if item:IsNeutralDrop() then
+											ExecuteOrderFromTable({
+												UnitIndex = unit:entindex(),
+												OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN,
+												AbilityIndex = item:entindex(),
+											})
+										elseif item:GetCost() then
+											unit:SellItem(item)
+										end
+									end
+								end
+							end
 						end
 
 						Timers:CreateTimer(first_dc_players[player_id] and 60 or 0, function()
@@ -1150,6 +1167,25 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 								local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
 								if courier then block_unit(courier) end
+								
+								local gold_for_team = PlayerResource:GetGold(player_id)
+								local connected_players_counter = 0
+								for _player_id = 0, 24 do
+									if _player_id ~= player_id and PlayerResource:GetConnectionState(_player_id) == DOTA_CONNECTION_STATE_CONNECTED then
+										connected_players_counter = connected_players_counter + 1
+									end
+								end
+								if connected_players_counter > 0 then
+									gold_for_team = math.floor(gold_for_team / connected_players_counter)
+									for _player_id = 0, 24 do
+										if _player_id ~= player_id and PlayerResource:GetConnectionState(_player_id) == DOTA_CONNECTION_STATE_CONNECTED then
+											local _hero = PlayerResource:GetSelectedHeroEntity(_player_id)
+											if _hero and not _hero:IsNull() then
+												_hero:ModifyGold(gold_for_team, false, 0)
+											end
+										end
+									end
+								end
 							end
 						end)
 						if not first_dc_players[player_id] then
