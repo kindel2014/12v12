@@ -148,3 +148,7 @@ function GetModifierStackCount(unit_index, m_name) {
 function ParseBigNumber(x) {
 	return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0";
 }
+
+Math.clamp = function (num, min, max) {
+	return this.min(this.max(num, min), max);
+};

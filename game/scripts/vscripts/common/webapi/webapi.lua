@@ -244,18 +244,6 @@ function WebApi:AfterMatch(winnerTeam)
 			"match/after",
 			requestBody,
 			function(resp)
-				local end_game_data = {}
-				if resp.players then
-					for steam_id, data in pairs(resp.players) do
-						local player_id = Battlepass:GetPlayerId(steam_id)
-						if player_id then
-							end_game_data[player_id] = {
-								mmr_changes = data.ratingChange,
-							}
-						end
-					end
-					CustomNetTables:SetTableValue("end_game_data", "end_game_data", end_game_data)
-				end
 				print("Successfull after match")
 			end,
 			function(e)

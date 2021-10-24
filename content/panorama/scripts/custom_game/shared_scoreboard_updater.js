@@ -3,31 +3,6 @@
 var isEndScreen = false;
 var newStatsInEndScreen = [
 	{
-		name: "new_stat_mmr",
-		func: function (pId, cont) {
-			var table = CustomNetTables.GetTableValue("end_game_data", "end_game_data");
-			var mmr_change = 0;
-			var style;
-			var add_symb = "";
-
-			if (table != undefined && table[pId] != undefined && table[pId].mmr_changes != undefined) {
-				mmr_change = table[pId].mmr_changes.new - table[pId].mmr_changes.old;
-			}
-
-			if (mmr_change < 0) {
-				style = "MmrDec";
-			} else if (mmr_change > 0) {
-				style = "MmrInc";
-				add_symb = "+";
-			}
-
-			CreateStandartValue(cont, `${add_symb}${mmr_change}`, style);
-		},
-		styles: {
-			width: "70px",
-		},
-	},
-	{
 		name: "new_stat_gpm",
 		func: function (pId, cont) {
 			CreateStandartValue(cont, Math.ceil(Players.GetGoldPerMin(pId)), null);
@@ -576,14 +551,3 @@ function ShowChatEndScreen() {
 	endScreenButtons.ToggleClass("chat");
 	endScreen.ToggleClass("chat");
 }
-
-SubscribeToNetTableKey("end_game_data", "end_game_data", function (data) {
-	const root = FindDotaHudElement("CustomUIContainer_EndScreen");
-	if (root == undefined) return;
-	Object.entries(data).forEach(([player_id, data]) => {
-		const panel = root.FindChildTraverse(`NewStat_new_stat_mmr_${player_id}`);
-		if (panel) {
-			panel.GetChild(0).text = data.mmr_changes.new - data.mmr_changes.old;
-		}
-	});
-});

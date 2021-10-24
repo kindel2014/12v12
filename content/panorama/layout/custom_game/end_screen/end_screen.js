@@ -1,6 +1,7 @@
 const TEAMS_ROOT = $(`#EG_TeamsTable`);
 const TEAM_GOODGUYS = 2;
 const TEAM_BADGUYS = 3;
+const LOCAL_PLAYER_ID = Game.GetLocalPlayerID();
 
 function CreatePlayer(player_id, players_root, team_id) {
 	const player_panel = $.CreatePanel("Panel", players_root, `EG_PlayerRoot_${player_id}`);
@@ -9,7 +10,7 @@ function CreatePlayer(player_id, players_root, team_id) {
 	var player_info = Game.GetPlayerInfo(player_id);
 	if (player_info == undefined) return;
 
-	player_panel.SetHasClass("LocalPlayer", player_id == Game.GetLocalPlayerID());
+	player_panel.SetHasClass("LocalPlayer", player_id == LOCAL_PLAYER_ID);
 
 	const set_number_value_stat = function (panel_name, value) {
 		player_panel.FindChildTraverse(panel_name).text = ParseBigNumber(Math.ceil(value || 0));
@@ -112,15 +113,11 @@ function CreatePlayer(player_id, players_root, team_id) {
 		}
 	}
 
-	var mmr_table = CustomNetTables.GetTableValue("end_game_data", "end_game_data");
+	const mmr_change = GetRatingChanges(player_id);
+	const rating_changes_label = player_panel.FindChildTraverse(`RatingChanges`);
 
-	if (mmr_table && mmr_table[player_id] && mmr_table[player_id].mmr_changes) {
-		UpdateRatingForPlayerPanel(
-			player_panel.FindChildTraverse(`RatingChanges`),
-			mmr_table[player_id].mmr_changes.new,
-			mmr_table[player_id].mmr_changes.old,
-		);
-	}
+	rating_changes_label.text = `${mmr_change >= 0 ? "+" : ""}${ParseBigNumber(mmr_change)}`;
+	if (mmr_change != 0) rating_changes_label.AddClass(mmr_change > 0 ? "MmrInc" : "MmrDec");
 
 	if (!end_game_stats) return;
 
@@ -149,6 +146,60 @@ function CreatePlayer(player_id, players_root, team_id) {
 	wards_root.SetDialogVariable("sentries", end_game_stats.wards.npc_dota_sentry_wards);
 }
 
+function GetOtherTeamsAverageRating(target_team) {
+	let avg_rating = 1500;
+	if (Game.IsInToolsMode()) return avg_rating;
+	const local_players_stats = CustomNetTables.GetTableValue("game_state", "player_stats");
+	if (!local_players_stats) return avg_rating;
+
+	let rating_total = 0;
+	let rating_count = 0;
+	Object.entries(local_rating_data).forEach(([player_id, player_data]) => {
+		player_id = parseInt(player_id);
+		if (!player_id) return;
+		if (Players.GetTeam(player_id) == target_team) return;
+
+		rating_total += player_data.rating || 1500;
+		rating_count++;
+	});
+	if (rating_count > 0) avg_rating = rating_total / rating_count;
+
+	return avg_rating;
+}
+
+function GetPlayerRating(target_player_id) {
+	let player_rating = 1500;
+
+	const local_rating_data = CustomNetTables.GetTableValue("game_state", "player_stats");
+
+	if (local_rating_data && local_rating_data[target_player_id.toString()])
+		player_rating = local_rating_data[target_player_id.toString()].rating || 1500;
+
+	return player_rating;
+}
+
+function GetRatingChanges(input_player_id) {
+	const player_team = Players.GetTeam(input_player_id);
+
+	const multiplier = 0.025;
+	const base_change = Game.GetGameWinner() == player_team ? 30 : -30;
+	const cap = 15;
+
+	let other_teams_avg_rating = GetOtherTeamsAverageRating(player_team);
+	let primary_rating = GetPlayerRating(input_player_id);
+
+	let score_delta = Math.round((other_teams_avg_rating - primary_rating) * multiplier);
+
+	const is_player_bot = () => {
+		const player_info = Game.GetPlayerInfo(input_player_id);
+		if (!player_info) return true;
+
+		return player_info.player_connection_state == DOTAConnectionState_t.DOTA_CONNECTION_STATE_NOT_YET_CONNECTED;
+	};
+
+	return is_player_bot() ? 0 : base_change + Math.clamp(score_delta, -cap, cap);
+}
+
 function CreateTeamRoot(team_id) {
 	const team_panel = $.CreatePanel("Panel", TEAMS_ROOT, "");
 	team_panel.BLoadLayoutSnippet("EG_Team");
@@ -161,29 +212,12 @@ function CreateTeamRoot(team_id) {
 	team_panel.FindChildTraverse("EG_TeamName").text = `${$.Localize(team_info.team_name)}: ${team_info.team_score}`;
 
 	team_panel.AddClass(`Team_${team_id}`);
-	team_panel.SetHasClass("LocalTeam", team_id == Players.GetTeam(Game.GetLocalPlayerID()));
+	team_panel.SetHasClass("LocalTeam", team_id == Players.GetTeam(LOCAL_PLAYER_ID));
 }
 
 function EG_ShowChat() {
 	$.GetContextPanel().ToggleClass("ShowChat");
 }
-function UpdateRatingForPlayerPanel(panel, new_mmr, old_mmr) {
-	const mmr_change = new_mmr - old_mmr;
-	panel.text = `${mmr_change >= 0 ? "+" : ""}${ParseBigNumber(mmr_change)}`;
-	if (mmr_change != 0) panel.AddClass(mmr_change > 0 ? "MmrInc" : "MmrDec");
-}
-SubscribeToNetTableKey("end_game_data", "end_game_data", function (data) {
-	Object.entries(data).forEach(([player_id, data]) => {
-		const player_root = $(`#EG_PlayerRoot_${player_id}`);
-		if (player_root) {
-			UpdateRatingForPlayerPanel(
-				player_root.FindChildTraverse(`RatingChanges`),
-				data.mmr_changes.new,
-				data.mmr_changes.old,
-			);
-		}
-	});
-});
 
 (function () {
 	TEAMS_ROOT.RemoveAndDeleteChildren();
