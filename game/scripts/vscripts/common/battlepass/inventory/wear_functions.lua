@@ -92,6 +92,7 @@ function WearFunc:EquipItemInCategory(player_id, category, item_name)
 
 		pet:SetForwardVector(old_pet_dir or hero:GetAbsOrigin())
 		pet:AddNewModifier(pet, nil, "modifier_cosmetic_pet", { hero = PlayerResource:GetSelectedHeroEntity(player_id) })
+		pet:RemoveModifierByName("modifier_pet")
 		pet:SetModel(pet_data.Model)
 		pet:SetOriginalModel(pet_data.Model)
 		pet:SetModelScale(pet_data.ModelScale)
