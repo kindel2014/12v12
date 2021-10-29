@@ -13,5 +13,5 @@ mag_resist_t3 = class(mag_resist)
 
 function mag_resist_t0:OnCreated() self.v = 10 end
 function mag_resist_t1:OnCreated() self.v = 18 end
-function mag_resist_t2:OnCreated() self.v = 31 end
-function mag_resist_t3:OnCreated() self.v = 47 end
+function mag_resist_t2:OnCreated() self.v = 35 end
+function mag_resist_t3:OnCreated() self.v = 50 end

@@ -38,4 +38,4 @@ bonus_hp_pct_t1.v = 0.2
 bonus_hp_pct_t2 = class(bonus_hp_pct)
 bonus_hp_pct_t2.v = 0.4
 bonus_hp_pct_t3 = class(bonus_hp_pct)
-bonus_hp_pct_t3.v = 0.6
+bonus_hp_pct_t3.v = 0.8
