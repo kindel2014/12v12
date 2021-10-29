@@ -12,12 +12,16 @@ local ignored_special_values = {
 	item_bullwhip 				= {bullwhip_delay_time = true},
 	item_stormcrafter 			= {interval = true},
 	item_teleports_behind_you 	= {meteor_fall_time = true, blink_damage_cooldown = true},
+
+	item_nether_shawl 	= {bonus_armor = true },
+	item_ninja_gear 	= {visibility_radius = true },
+	item_misericorde 	= {missing_hp = true },
 }
 
 tinkerer = class(base_game_perk)
 function tinkerer:GetTexture() return "perkIcons/tinkerer" end
 function tinkerer:GetAttributes() return MODIFIER_ATTRIBUTE_PERMANENT + MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE end
-function tinkerer:DeclareFunctions() return { MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE } end
+function tinkerer:DeclareFunctions() return { MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL, MODIFIER_PROPERTY_OVERRIDE_ABILITY_SPECIAL_VALUE, MODIFIER_EVENT_ON_ATTACK_LANDED } end
 
 local neutral_list = {}
 
@@ -53,6 +57,27 @@ function tinkerer:GetModifierOverrideAbilitySpecialValue(keys)
 	return value
 end
 
+function tinkerer:OnAttackLanded(keys)
+	if not IsServer() then return end
+
+	local parent = self:GetParent()
+	if parent ~= keys.attacker then return end
+	if not parent:HasModifier("modifier_item_heavy_blade") then return end
+	
+	local target = keys.target
+
+	if parent:IsRealHero() and parent:GetTeam() ~= target:GetTeam() and target.GetMana and target:GetMana() and target:GetMana() > 1 then
+		local damage = target:GetMana() * 0.04 * (self.v - 1)
+		ApplyDamage({
+			victim = target, 
+			attacker = parent, 
+			damage = damage, 
+			damage_type = DAMAGE_TYPE_MAGICAL, 
+			damage_flags = DOTA_DAMAGE_FLAG_NO_SPELL_AMPLIFICATION
+		})
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_BONUS_SPELL_DAMAGE, target, damage, nil)
+	end
+end
 
 tinkerer_t0 = class(tinkerer)
 tinkerer_t0.v = 1.25
