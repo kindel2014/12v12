@@ -13,7 +13,7 @@ armor_t1 = class(armor)
 armor_t2 = class(armor)
 armor_t3 = class(armor)
 
-function armor_t0:OnCreated() self.v = 2 end
-function armor_t1:OnCreated() self.v = 4 end
-function armor_t2:OnCreated() self.v = 8 end
-function armor_t3:OnCreated() self.v = 16 end
+function armor_t0:OnCreated() self.v = 3 end
+function armor_t1:OnCreated() self.v = 6 end
+function armor_t2:OnCreated() self.v = 12 end
+function armor_t3:OnCreated() self.v = 24 end

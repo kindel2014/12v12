@@ -13,7 +13,7 @@ attack_speed_t1 = class(attack_speed)
 attack_speed_t2 = class(attack_speed)
 attack_speed_t3 = class(attack_speed)
 
-function attack_speed_t0:OnCreated() self.v = {5, 1, 0.5} end
-function attack_speed_t1:OnCreated() self.v = {10, 1, 1} end
-function attack_speed_t2:OnCreated() self.v = {20, 1, 2} end
-function attack_speed_t3:OnCreated() self.v = {40, 1, 4} end
+function attack_speed_t0:OnCreated() self.v = {5, 1, 0.6} end
+function attack_speed_t1:OnCreated() self.v = {10, 1, 1.2} end
+function attack_speed_t2:OnCreated() self.v = {20, 1, 2.4} end
+function attack_speed_t3:OnCreated() self.v = {40, 1, 4.8} end
