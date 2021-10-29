@@ -96,4 +96,4 @@ linken_t1.v = 80
 linken_t2 = class(linken)
 linken_t2.v = 40
 linken_t3 = class(linken)
-linken_t3.v = 20
+linken_t3.v = 25

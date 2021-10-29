@@ -13,26 +13,26 @@ function bonus_gold_t0:OnCreated()
 	if not IsServer() then return end
 	local parent = self:GetParent()
 	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(250, true, 0)
+	parent:ModifyGold(300, true, 0)
 end
 
 function bonus_gold_t1:OnCreated()
 	if not IsServer() then return end
 	local parent = self:GetParent()
 	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(500, true, 0)
+	parent:ModifyGold(600, true, 0)
 end
 
 function bonus_gold_t2:OnCreated()
 	if not IsServer() then return end
 	local parent = self:GetParent()
 	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(1000, true, 0)
+	parent:ModifyGold(1200, true, 0)
 end
 
 function bonus_gold_t3:OnCreated()
 	if not IsServer() then return end
 	local parent = self:GetParent()
 	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
-	parent:ModifyGold(2000, true, 0)
+	parent:ModifyGold(2400, true, 0)
 end
