@@ -137,11 +137,12 @@ function CMegaDotaGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifyExperienceFilter( Dynamic_Wrap(CMegaDotaGameMode, "FilterModifyExperience" ), self )
 	GameRules:GetGameModeEntity():SetBountyRunePickupFilter( Dynamic_Wrap(CMegaDotaGameMode, "FilterBountyRunePickup" ), self )
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( CMegaDotaGameMode, "ModifierGainedFilter" ), self )
-	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( CMegaDotaGameMode, "RuneSpawnFilter" ), self )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter(Dynamic_Wrap(CMegaDotaGameMode, 'ExecuteOrderFilter'), self)
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( CMegaDotaGameMode, "DamageFilter" ), self )
 	GameRules:SetCustomGameBansPerTeam(12)
 
+	GameRules:GetGameModeEntity():SetUseDefaultDOTARuneSpawnLogic(true)
+	
 	GameRules:GetGameModeEntity():SetTowerBackdoorProtectionEnabled( true )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:SetGoldTickTime( 0.3 ) -- default is 0.6
@@ -821,16 +822,6 @@ function CMegaDotaGameMode:ModifierGainedFilter(filterTable)
 		local duration_ratio = ability:GetSpecialValueFor("scepter_magic_immune_per_hero_new_value") / ability:GetSpecialValueFor("scepter_magic_immune_per_hero")
 		filterTable.duration = filterTable.duration * duration_ratio
 	end
-
-	return true
-end
-
-function CMegaDotaGameMode:RuneSpawnFilter(kv)
-	local r = RandomInt( 0, 5 )
-
-	if r == 5 then r = 6 end
-
-	kv.rune_type = r
 
 	return true
 end
