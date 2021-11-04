@@ -73,6 +73,7 @@ local disabledAbilities = {
 	item_book_of_shadows = true,
 	item_force_staff = true,
 	item_hurricane_pike = true,
+	marci_grapple = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderVector, units)

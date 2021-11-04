@@ -1340,5 +1340,6 @@
 		
 		"git_new_issue"		"Создать<br>баг-репорт"
 		"git_show_issues"	"Показать<br>баг-репорты"
+		"cannot_relocate_enemy_fountain"	"Вы не можете использовать Relocate на территорию вражеского фонтана"
 	}
 }

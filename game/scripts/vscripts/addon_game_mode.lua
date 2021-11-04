@@ -1633,6 +1633,20 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 				end
 			end
 		end
+		if abilityName == "wisp_relocate" then
+			local fountains = Entities:FindAllByClassname('ent_dota_fountain')
+
+			local enemy_fountain_pos
+			for _, focus_f in pairs(fountains) do
+				if focus_f:GetTeamNumber() ~= PlayerResource:GetTeam(playerId) then
+					enemy_fountain_pos = focus_f:GetAbsOrigin()
+				end
+			end
+			if enemy_fountain_pos and ((enemy_fountain_pos - orderVector):Length2D() <= 1900) then
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannot_relocate_enemy_fountain" })
+				return false
+			end
+		end
 	end
 
 

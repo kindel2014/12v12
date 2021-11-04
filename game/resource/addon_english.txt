@@ -1974,5 +1974,6 @@
 		
 		"git_new_issue"		"Create Issue"
 		"git_show_issues"	"Show Issues"
+		"cannot_relocate_enemy_fountain"	"You cannot use Relocate in enemy fountain area"
 	}
 }
