@@ -12,6 +12,7 @@ function WearFunc:Init()
 	-- Just a crutch
 	WearFunc.Masteries = {}
 	ListenToGameEvent( "entity_killed", Dynamic_Wrap( self, "OnEntityKilled" ), self )
+	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( self, "OnNPCSpawned" ), self )
 end
 
 function WearFunc:EquipItemInCategory(player_id, category, item_name)
@@ -56,7 +57,12 @@ function WearFunc:EquipItemInCategory(player_id, category, item_name)
 		local particles = BP_Inventory.item_definitions[item_name].Particles
 		WearFunc[category][player_id].item_name = item_name
 		WearFunc[category][player_id].equipped_particles = {}
-		WearFunc:_CreateParticlesFromConfigList(particles, PlayerResource:GetSelectedHeroEntity(player_id), WearFunc[category][player_id].equipped_particles)
+		
+		for _,unit in pairs(Entities:FindAllByClassname(PlayerResource:GetSelectedHeroEntity(player_id):GetUnitName())) do
+			if unit and not unit:IsNull() and unit:GetPlayerOwnerID() == player_id and unit:IsControllableByAnyPlayer() then
+				WearFunc:_CreateParticlesFromConfigList(particles, unit, WearFunc[category][player_id].equipped_particles)
+			end
+		end
 		return
 	end
 
@@ -292,4 +298,26 @@ function WearFunc:OnEntityKilled(data)
 			end
 		end
 	end
+end
+
+function WearFunc:OnNPCSpawned(data)
+	local unit = data.entindex and EntIndexToHScript( data.entindex )
+	Timers:CreateTimer(0, function()
+		if unit and not unit:IsNull() and unit:IsControllableByAnyPlayer() then
+			local owner_player_id = unit.GetPlayerOwnerID and unit:GetPlayerOwnerID()
+			local is_illusion = unit.IsIllusion and unit:IsIllusion()
+			local is_clone = unit.IsClone and unit:IsClone()
+			local is_tempest_double = unit.IsTempestDouble and unit:IsTempestDouble()
+
+			if owner_player_id and (is_illusion or is_clone or is_tempest_double) and self[CHC_ITEM_TYPE_AURAS] and self[CHC_ITEM_TYPE_AURAS][owner_player_id] then
+				if self[CHC_ITEM_TYPE_AURAS][owner_player_id].item_name and self[CHC_ITEM_TYPE_AURAS][owner_player_id].equipped_particles then
+					WearFunc:_CreateParticlesFromConfigList(
+						BP_Inventory.item_definitions[self[CHC_ITEM_TYPE_AURAS][owner_player_id].item_name].Particles,
+						unit,
+						WearFunc[CHC_ITEM_TYPE_AURAS][owner_player_id].equipped_particles
+					)
+				end
+			end
+		end
+	end)
 end

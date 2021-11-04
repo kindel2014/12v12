@@ -1676,7 +1676,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 end
 
 local blockedChatPhraseCode = {
-	[804] = true,
+	[820] = true,
 }
 
 function CMegaDotaGameMode:OnPlayerChat(keys)
