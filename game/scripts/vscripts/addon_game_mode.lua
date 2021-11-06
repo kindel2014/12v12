@@ -168,7 +168,8 @@ function CMegaDotaGameMode:InitGameMode()
 	ListenToGameEvent('player_connect_full', Dynamic_Wrap(CMegaDotaGameMode, 'OnConnectFull'), self)
 	ListenToGameEvent('player_disconnect', Dynamic_Wrap(CMegaDotaGameMode, 'OnPlayerDisconnect'), self)
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( CMegaDotaGameMode, "OnPlayerChat" ), self )
-
+	ListenToGameEvent("dota_player_learned_ability", 	Dynamic_Wrap(CMegaDotaGameMode, "OnPlayerLearnedAbility" ),  self)
+	
 	self.m_CurrentGoldScaleFactor = GOLD_SCALE_FACTOR_INITIAL
 	self.m_CurrentXpScaleFactor = XP_SCALE_FACTOR_INITIAL
 	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 5 )
@@ -1421,18 +1422,24 @@ function CMegaDotaGameMode:OnConnectFull(data)
 		Kicks:DropItemsForDisconnetedPlayer(player_id)
 		SendToServerConsole('kickid '.. data.userid);
 	end
+	
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 
 	if abandoned_players[player_id] then
 		local unblock_unit = function(unit)
 			unit:RemoveModifierByName("modifier_abandoned")
 			unit:RemoveNoDraw()
 		end
-		local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+		
 		if hero then unblock_unit(hero) end
 
 		local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
 		if courier then unblock_unit(courier) end
 		abandoned_players[player_id] = nil
+	end
+
+	if hero then
+		hero:CheckManuallySpentAttributePoints()
 	end
 
 	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = player_id} )
@@ -3557,5 +3564,16 @@ function AddModifierAllByClassname(class_name, modifier_name)
 	local units = Entities:FindAllByClassname(class_name)
 	for _, unit in pairs(units) do
 		unit:AddNewModifier(unit, nil, modifier_name, {duration = -1})
+	end
+end
+
+function CMegaDotaGameMode:OnPlayerLearnedAbility(data)
+	local ability_name = data.abilityname or ""
+
+	local hero = PlayerResource:GetSelectedHeroEntity(data.PlayerID)
+	if not hero then return end
+
+	if ability_name == "special_bonus_attributes" then
+		hero:RegisterManuallySpentAttributePoint()
 	end
 end
