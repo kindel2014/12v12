@@ -53,27 +53,49 @@ function DisableHelp.ModifierGainedFilter(filterTable)
 end
 
 local disabledAbilities = {
-	oracle_fates_edict = true,
-	oracle_purifying_flames = true,
-	wisp_tether = true,
+	--[[ HEROES ]]--
+	bane_nightmare = true,
 	earth_spirit_boulder_smash = true,
 	earth_spirit_geomagnetic_grip = true,
 	earth_spirit_petrify = true,
-	troll_warlord_battle_trance = true,
-	vengefulspirit_nether_swap = true,
-	pugna_decrepify = true,
+	enigma_demonic_conversion = true,
 	furion_sprout = true,
-	tiny_toss = true,
+	wisp_tether = true,
+	kunkka_x_marks_the_spot = true,
+	life_stealer_infest = true,
+	lycan_wolf_bite = true,
+	marci_grapple = true,
+	morphling_replicate = true,
+	necrolyte_death_seeker = true,
+	oracle_fates_edict = true,
+	oracle_purifying_flames = true,
+	obsidian_destroyer_astral_imprisonment = true,
+	phoenix_supernova = true,
+	pudge_dismember = true,
+	pugna_decrepify = true,
+	rubick_telekinesis = true,
+	rubick_spell_steal = true,
+	shadow_demon_disruption = true,
 	snapfire_firesnap_cookie = true,
 	snapfire_gobble_up = true,
-	pudge_dismember = true,
-	lycan_wolf_bite = true,
-	rubick_spell_steal = true,
-	rubick_telekinesis = true,
-	item_book_of_shadows = true,
+	terrorblade_sunder = true,
+	tiny_toss = true,
+	troll_warlord_battle_trance = true,
+	vengefulspirit_nether_swap = true,
+	weaver_time_lapse = true,
+	winter_wyvern_cold_embrace = true,
+
+	--[[ ITEMS ]]--
+	item_shadow_amulet = true,
 	item_force_staff = true,
+	item_wind_waker = true,
+	item_ethereal_blade = true,
 	item_hurricane_pike = true,
-	marci_grapple = true,
+	item_lotus_orb = true,
+
+	--[[ NEUTRAL ITEMS ]]--
+	item_wand_of_the_brine = true,
+	item_book_of_shadows = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit, orderVector, units)
