@@ -66,8 +66,8 @@ function tinkerer:OnAttackLanded(keys)
 	
 	local target = keys.target
 
-	if parent:IsRealHero() and parent:GetTeam() ~= target:GetTeam() and target.GetMana and target:GetMana() and target:GetMana() > 1 then
-		local damage = target:GetMana() * 0.04 * (self.v - 1)
+	if parent:IsRealHero() and parent:GetTeam() ~= target:GetTeam() and target.GetMaxMana and target:GetMaxMana() and target:GetMaxMana() > 1 then
+		local damage = target:GetMaxMana() * 0.04 * (self.v - 1)
 		ApplyDamage({
 			victim = target, 
 			attacker = parent, 
