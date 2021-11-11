@@ -55,7 +55,8 @@ function CreatePlayer(player_id, players_root, team_id) {
 
 	if (
 		GetModifierStackCount(hero_ent_idx, "modifier_item_ultimate_scepter") != undefined ||
-		GetModifierStackCount(hero_ent_idx, "modifier_item_ultimate_scepter_consumed") != undefined
+		GetModifierStackCount(hero_ent_idx, "modifier_item_ultimate_scepter_consumed") != undefined ||
+		GetModifierStackCount(hero_ent_idx, "modifier_item_ultimate_scepter_consumed_alchemist") != undefined
 	)
 		player_panel
 			.FindChildTraverse("EG_AghScepter")
