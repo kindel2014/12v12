@@ -129,3 +129,13 @@ function GetPlayerIdBySteamId(id)
 
 	return -1
 end
+
+
+function CallbackHeroAndCourier(player_id, callback)
+	if not player_id then return end
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+	local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
+
+	if hero then callback(hero) end
+	if courier then callback(courier) end
+end

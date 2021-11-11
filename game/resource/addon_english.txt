@@ -1975,5 +1975,6 @@
 		"git_new_issue"		"Create Issue"
 		"git_show_issues"	"Show Issues"
 		"cannot_relocate_enemy_fountain"	"You cannot use Relocate in enemy fountain area"
+		"wards_holding_warning"				"Warning: Wards in your inventory will expire if not planted in the next 2 minutes."
 	}
 }

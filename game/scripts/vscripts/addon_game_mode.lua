@@ -673,19 +673,10 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 
 		CUSTOM_GAME_STATS[player_id].wards[name] = CUSTOM_GAME_STATS[player_id].wards[name] + 1
 
-		local wardsName = {
-			["npc_dota_sentry_wards"] = "item_ward_sentry",
-			["npc_dota_observer_wards"] = "item_ward_observer",
-		}
 		Timers:CreateTimer(0.04, function()
-			if HeroHasWards(owner:GetAssignedHero(), wardsName[name]) then
-				ReloadTimerHoldingCheckerForPlayer(player_id)
-			else
-				RemoveTimerHoldingCheckerForPlayer(player_id)
-			end
+			ReloadTimerHoldingCheckerForPlayer(player_id)
 			return nil
-		end
-		)
+		end)
 	end
 
 	if spawnedUnit:IsRealHero() then
@@ -1023,6 +1014,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	end
 
 	if newState == DOTA_GAMERULES_STATE_PRE_GAME then
+		InitWardsChecker()
 		if not GameOptions:OptionsIsActive("super_towers") then
 			AddModifierAllByClassname("npc_dota_tower", "modifier_super_tower")
 		end
@@ -1154,11 +1146,7 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 
 						Timers:CreateTimer(first_dc_players[player_id] and 60 or 0, function()
 							if abandoned_players[player_id] then
-								local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-								if hero then block_unit(hero) end
-
-								local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
-								if courier then block_unit(courier) end
+								CallbackHeroAndCourier(player_id, block_unit)
 								
 								local gold_for_team = PlayerResource:GetGold(player_id)
 								local connected_players_counter = 0
@@ -1430,11 +1418,7 @@ function CMegaDotaGameMode:OnConnectFull(data)
 			unit:RemoveModifierByName("modifier_abandoned")
 			unit:RemoveNoDraw()
 		end
-		
-		if hero then unblock_unit(hero) end
-
-		local courier = PlayerResource:GetPreferredCourierForPlayer(player_id)
-		if courier then unblock_unit(courier) end
+		CallbackHeroAndCourier(player_id, unblock_unit)
 		abandoned_players[player_id] = nil
 	end
 
@@ -1533,14 +1517,9 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		["item_reset_mmr"] = true,
 	}
 	if orderType == DOTA_UNIT_ORDER_PURCHASE_ITEM then
-		local entIndexAbility = filterTable["entindex_ability"]
-		if ItemIsWard(entIndexAbility) then
-			if _G.playerIsBlockForWards[playerId] then
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#you_cannot_buy_it" })
-				return false
-			elseif not _G.playerHasTimerWards[playerId] then
-				StartTimerHoldingCheckerForPlayer(playerId)
-			end
+		local item_name = filterTable.shop_item_name or ""
+		if WARDS_LIST[item_name] then
+			if BlockedWardsFilter(playerId, "#you_cannot_buy_it") == false then return false end
 		end
 	end
 
@@ -1579,13 +1558,8 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		if not pickedItem then return true end
 		local itemName = pickedItem:GetAbilityName()
 
-		if _G.wardsList[itemName] then
-			if _G.playerIsBlockForWards[playerId] then
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannotpickupit" })
-				return false
-			elseif not _G.playerHasTimerWards[playerId] then
-				StartTimerHoldingCheckerForPlayer(playerId)
-			end
+		if WARDS_LIST[itemName] then
+			if BlockedWardsFilter(playerId, "#cannotpickupit") == false then return false end
 		end
 		if _G.neutralItems[itemName] then
 			if CheckCountOfNeutralItemsForPlayer(playerId) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
