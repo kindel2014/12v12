@@ -95,9 +95,8 @@ end
 
 function CDOTA_Item:TransferToBuyer(unit)
 	local buyer = self:GetPurchaser()
-	local buyerEntIndex = buyer:GetEntityIndex()
 	local itemName = self:GetName()
-	print(itemName)
+	
 	if notFastItems[itemName] then
 		self:SetCooldownStackedItem(itemName, buyer)
 		return
