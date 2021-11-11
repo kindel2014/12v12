@@ -23,19 +23,14 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 });
 
 function CheckSuppLevel(patreon_bonuses) {
-	if (!LOCAL_PLAYER_ID || LOCAL_PLAYER_ID < 0) return;
+	if (LOCAL_PLAYER_ID == undefined || LOCAL_PLAYER_ID < 0) return;
 
 	let local_stats = patreon_bonuses[LOCAL_PLAYER_ID];
-
 	let level = 0;
 
-	if (local_stats && local_stats.level) {
-		level = local_stats.level;
-	}
+	if (local_stats && local_stats.level) level = local_stats.level;
 
-	if (timer_for_secret_shop) {
-		timer_for_secret_shop = $.CancelScheduled(timer_for_secret_shop);
-	}
+	if (timer_for_secret_shop) timer_for_secret_shop = $.CancelScheduled(timer_for_secret_shop);
 
 	if (level > 0) RemoveSecretShopOverlay();
 }

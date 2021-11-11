@@ -12,6 +12,7 @@ local notFastItems = {
 	["item_faerie_fire"] = true,
 	["item_tpscroll"] = true,
 	["item_dust"] = true,
+	["item_tango_single"] = true,
 }
 
 local fastItems = {
@@ -96,6 +97,7 @@ function CDOTA_Item:TransferToBuyer(unit)
 	local buyer = self:GetPurchaser()
 	local buyerEntIndex = buyer:GetEntityIndex()
 	local itemName = self:GetName()
+	print(itemName)
 	if notFastItems[itemName] then
 		self:SetCooldownStackedItem(itemName, buyer)
 		return
