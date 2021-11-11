@@ -9,6 +9,7 @@ teamColors[DOTATeam_t.DOTA_TEAM_BADGUYS] = "#FF0000";
 function Snippet_TopBarPlayerSlot(playerId) {
 	if (PlayerPanels[playerId] != null) return PlayerPanels[playerId];
 	var team = Players.GetTeam(playerId);
+	if (team < 0) return;
 	if (team === DOTA_TEAM_SPECTATOR) return PlayerPanels[playerId];
 
 	var teamPanel = Snippet_DotaTeamBar(team).FindChildTraverse("TopBarPlayersContainer");
@@ -40,6 +41,7 @@ function Snippet_TopBarPlayerSlot(playerId) {
 }
 
 function Snippet_TopBarPlayerSlot_Update(panel) {
+	if (!panel) return;
 	var playerId = panel.playerId;
 	var playerInfo = Game.GetPlayerInfo(playerId);
 	var connectionState = playerInfo.player_connection_state;
@@ -80,6 +82,8 @@ function Snippet_TopBarPlayerSlot_Update(panel) {
 }
 
 function Snippet_DotaTeamBar(team) {
+	if (team < 0) return;
+
 	if (TeamPanels[team] == null) {
 		var isRight = team % 2 !== 0;
 		var rootPanel = $(isRight ? "#TopBarRightPlayers" : "#TopBarLeftPlayers");

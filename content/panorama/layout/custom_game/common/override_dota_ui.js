@@ -6,6 +6,7 @@ function OverrideDotaNeutralItemsShop() {
 }
 
 const SHOP = FindDotaHudElement("GridMainShopContents");
+const LOCAL_PLAYER_ID = Game.GetLocalPlayerID();
 
 let timer_for_secret_shop;
 let count = 0;
@@ -22,10 +23,9 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 });
 
 function CheckSuppLevel(patreon_bonuses) {
-	const local_player_id = Game.GetLocalPlayerID();
-	if (!local_player_id || local_player_id < 0) return;
+	if (!LOCAL_PLAYER_ID || LOCAL_PLAYER_ID < 0) return;
 
-	let local_stats = patreon_bonuses[local_player_id];
+	let local_stats = patreon_bonuses[LOCAL_PLAYER_ID];
 
 	let level = 0;
 
@@ -40,7 +40,15 @@ function CheckSuppLevel(patreon_bonuses) {
 	if (level > 0) RemoveSecretShopOverlay();
 }
 
+function OverrideSpectatorsUI() {
+	FindDotaHudElement("SpectatorGoldDisplay").style.marginLeft = "84px";
+	FindDotaHudElement("RadiantDiscreteDisplay").style.marginLeft = "10px";
+	FindDotaHudElement("DireDiscreteDisplay").style.marginRight = "10px";
+}
+
 (function () {
 	OverrideDotaNeutralItemsShop();
 	CheckSuppLevel(CustomNetTables.GetTableValue("game_state", "patreon_bonuses"));
+
+	if (Players.IsSpectator(LOCAL_PLAYER_ID)) OverrideSpectatorsUI();
 })();

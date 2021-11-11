@@ -26,6 +26,9 @@
 	margin-top: 80px;
 	margin-left: -18px;
 }
+.IsLocalPlayerSpectating #GitButton {
+	margin-left: -3px;
+}
 
 #MasteryButtonTooltip,
 #MapPatreonButtonGrid,
