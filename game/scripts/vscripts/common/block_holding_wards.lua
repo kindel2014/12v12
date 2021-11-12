@@ -1,6 +1,6 @@
 local BASE_TIME = 360
 local WARN_TIME = 240
-local BLOCK_TIME = 240
+local BLOCK_TIME = 600
 local MIN_WARDS_FOR_TRACKING = 5
 local TIME_STEP = 2
 
