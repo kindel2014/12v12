@@ -1975,5 +1975,14 @@
 		"git_new_issue"		"创建问题"
 		"git_show_issues"	"显示问题"
 		"cannot_relocate_enemy_fountain"	"你不能在敌方泉水区域使用降临"
+		
+		"DOTA_Tooltip_ability_tinker_rearm_custom"											"再装填"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"对于充能型技能，每次施放再装填可以恢复该技能一点能量。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"持续施法 - 重置修补匠的大多数物品和技能的冷却时间。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Lore"										"这儿换块新电池，那儿塞几枚火箭弹，鲍什不断改进现有的技术。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Note0"									"再装填不能刷新的物品有永恒之盘、奥术鞋、黑皇杖、迈达斯之手、林肯法球、陨星锤、死灵书、支配头盔、知识之书、洞察烟斗和刷新球。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"再装填所需时间："
+		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"再装填"
+		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"重置技能冷却时间中。"
 	}
 }

@@ -141,7 +141,7 @@
 		"whtooltipff"						"Щелкните правой кнопкой мыши на звук, чтобы добавить его в меню избранного"
 
 		"DOTA_Tooltip_ability_item_disable_help_custom"					"Отключить помощь"
-		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Использование: Отключить помощь/h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
+		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Использование: Отключить помощь</h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
 		"DOTA_Tooltip_ability_item_disable_help_custom_Lore"			"Кому нужны враги с такими союзниками?"
 
 		"our_thanks_and_appreciation"                "Наша благодарность и признательность"
@@ -1342,5 +1342,14 @@
 		"git_show_issues"	"Показать<br>баг-репорты"
 		"cannot_relocate_enemy_fountain"	"Вы не можете использовать Relocate на территорию вражеского фонтана"
 		"wards_holding_warning"				"Внимание: если Вы не используете Ваши варды в течение 2 минут, они будут возвращены на базу."
+		
+		"DOTA_Tooltip_ability_tinker_rearm_custom"											"Rearm"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"Если у способности есть заряды, их число будет увеличиваться на 1 с каждым применением Rearm."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"ПРЕРЫВАЕМАЯ — сбрасывает время перезарядки способностей и большинства предметов героя."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Lore"										"Новую батарею сюда, пару ракет туда — Боуш постоянно совершенствует и обновляет свои устройства."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Note0"									"Действует на все предметы за исключением Aeon Disk, Arcane Boots, Black King Bar, Hand of Midas, Helm of the Dominator, Linken's Sphere, Meteor Hammer, Necronomicon, Pipe of Insight, Tome of Knowledge и Refresher Orb."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"ВРЕМЯ ПРИМЕНЕНИЯ:"
+		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"Rearm"
+		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"Сбрасывает время перезарядки способностей."
 	}
 }

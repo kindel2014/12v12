@@ -286,6 +286,49 @@
 		"AbilityTextureName"			"perkIcons/delayed_damage"
 		"ScriptFile"					"common/game_perks/modifier_lib/delayed_damage"
 	}
+
+	"tinker_keen_teleport"
+	{
+		"LinkedAbility"					"tinker_rearm_custom"
+		"AbilityDraftPreAbility"		"tinker_rearm_custom"
+	}
+	
+	"tinker_rearm_custom"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"					"30006"														// unique ID number for this ability.  Do not change this once established or it will invalidate collected stats.
+		"BaseClass"				"ability_lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ULTIMATE"
+		"AbilitySound"					"Hero_Tinker.Rearm"
+		"LinkedAbility"					"tinker_keen_teleport"
+		"AbilityDraftPreAbility"		"tinker_keen_teleport"
+		"ScriptFile"					"heroes/tinker/tinker_rearm_custom"
+		"AbilityTextureName"				"tinker_rearm"
+
+		"AbilityDraftUltShardAbility"		"tinker_march_of_the_machines"
+
+		// Casting
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastPoint"				"0"
+		"AbilityChannelTime"			"3.5 2.0 1.25"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_4"
+		"AbilityChannelAnimation"		"ACT_DOTA_CHANNEL_ABILITY_4"
+		
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0.0 0.0 0.0"
+
+		// Cost
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"150 225 300"
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+		}
+	}
 	
 	//NEXT ID 30006
 }

@@ -6,16 +6,15 @@ function OverrideDotaNeutralItemsShop() {
 }
 
 const SHOP = FindDotaHudElement("GridMainShopContents");
-const LOCAL_PLAYER_ID = Game.GetLocalPlayerID();
 
 let timer_for_secret_shop;
-let count = 0;
+
 function RemoveSecretShopOverlay() {
 	SHOP.FindChildrenWithClassTraverse("MainShopItem").forEach((item) => {
 		item.FindChildTraverse("AvailableAtOtherShopOverlay").style.backgroundColor = "transparent";
 		item.FindChildTraverse("AvailableAtOtherShopNeedGoldOverlay").style.backgroundColor = "transparent";
 	});
-	timer_for_secret_shop = $.Schedule(1, RemoveSecretShopOverlay);
+	timer_for_secret_shop = $.Schedule(10, RemoveSecretShopOverlay);
 }
 
 SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuses) {
@@ -23,9 +22,15 @@ SubscribeToNetTableKey("game_state", "patreon_bonuses", function (patreon_bonuse
 });
 
 function CheckSuppLevel(patreon_bonuses) {
-	if (LOCAL_PLAYER_ID == undefined || LOCAL_PLAYER_ID < 0) return;
+	if (Game.GetState() < DOTA_GameState.DOTA_GAMERULES_STATE_PRE_GAME)
+		$.Schedule(1, () => {
+			CheckSuppLevel(patreon_bonuses);
+		});
 
-	let local_stats = patreon_bonuses[LOCAL_PLAYER_ID];
+	const local_player_id = Game.GetLocalPlayerID();
+	if (patreon_bonuses == undefined || local_player_id == undefined || local_player_id < 0) return;
+
+	let local_stats = patreon_bonuses[local_player_id];
 	let level = 0;
 
 	if (local_stats && local_stats.level) level = local_stats.level;
@@ -45,5 +50,5 @@ function OverrideSpectatorsUI() {
 	OverrideDotaNeutralItemsShop();
 	CheckSuppLevel(CustomNetTables.GetTableValue("game_state", "patreon_bonuses"));
 
-	if (Players.IsSpectator(LOCAL_PLAYER_ID)) OverrideSpectatorsUI();
+	if (Players.IsSpectator(Game.GetLocalPlayerID())) OverrideSpectatorsUI();
 })();

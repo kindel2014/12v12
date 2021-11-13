@@ -1976,5 +1976,15 @@
 		"git_show_issues"	"Show Issues"
 		"cannot_relocate_enemy_fountain"	"You cannot use Relocate in enemy fountain area"
 		"wards_holding_warning"				"Warning: Wards in your inventory will expire if not planted in the next 2 minutes."
+		
+		
+		"DOTA_Tooltip_ability_tinker_rearm_custom"											"Rearm"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"For abilities with charges, a single charge of the ability will be added everytime Rearm is cast."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"CHANNELED - Resets the cooldown on most of Tinker's items and abilities."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Lore"										"A new battery here, another set of rockets there, Boush continually improves on existing technology."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Note0"									"Rearm works on all items except Aeon Disk, Arcane Boots, Black King Bar, Hand of Midas, Helm of the Dominator, Linken's Sphere, Meteor Hammer, Necronomicon, Pipe of Insight, Tome of Knowledge, and Refresher Orb."
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"TIME TO REARM:"
+		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"Rearm"
+		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"Resetting ability cooldowns."
 	}
 }
