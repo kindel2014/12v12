@@ -9,10 +9,10 @@ buff_amplify.OnCreated = function(self)
 end
 
 buff_amplify_t0 = class(buff_amplify) 
-buff_amplify_t0.v = 1.09
+buff_amplify_t0.v = 1.08
 buff_amplify_t1 = class(buff_amplify) 
-buff_amplify_t1.v = 1.18
+buff_amplify_t1.v = 1.16
 buff_amplify_t2 = class(buff_amplify) 
-buff_amplify_t2.v = 1.36
+buff_amplify_t2.v = 1.32
 buff_amplify_t3 = class(buff_amplify)
-buff_amplify_t3.v = 1.72
+buff_amplify_t3.v = 1.64

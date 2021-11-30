@@ -970,7 +970,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"block_cooldown"		"120.0"
+				"block_cooldown"		"200.0"
 			}
 		}
 	}
@@ -1005,7 +1005,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"block_cooldown"		"80.0"
+				"block_cooldown"		"100.0"
 			}
 		}
 	}
@@ -1040,7 +1040,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"block_cooldown"		"40.0"
+				"block_cooldown"		"50.0"
 			}
 		}
 	}
@@ -1075,7 +1075,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_FLOAT"
-				"block_cooldown"		"20.0"
+				"block_cooldown"		"25.0"
 			}
 		}
 	}
