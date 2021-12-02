@@ -161,6 +161,37 @@ function FreezePanel(panel, pos_x, pos_y, pos_z) {
 		FreezePanel(panel, pos_x, pos_y, pos_z);
 	});
 }
+function ToggleMemorialDesc() {
+	$("#MemorialInfo_Root").ToggleClass("Show");
+}
+
+function UpdateLocalTimerMemorial() {
+	let text = $.Localize("#darklord_memorial_tournament_content");
+
+	const LOCAL_TIME_LAYOUT = /%%localTime_.*%%/;
+	const TIME_FORMAT_24_CLIENTS = ["russian"];
+
+	if (text.match(LOCAL_TIME_LAYOUT)) {
+		let time = text.match(LOCAL_TIME_LAYOUT)[0];
+		let date = new Date(time.replace(/%%localTime_(.*)%%/g, "$1"));
+		let hours = date.getHours();
+		let b_24_format = TIME_FORMAT_24_CLIENTS.indexOf($.Language()) > -1;
+		text = text.replace(
+			time,
+			LocalizeWithValues("tournament_date", {
+				t_day_name: $.Localize(`UI_day_${date.getDay() + 1}`),
+				t_month: $.Localize(`UI_month_${date.getMonth()}`),
+				t_day: date.getDate(),
+				t_year: date.getFullYear(),
+				t_hour: `0${b_24_format ? hours : hours > 12 ? hours - 12 : hours}`.slice(-2),
+				t_min: `0${date.getMinutes()}`.slice(-2),
+				ampm: b_24_format ? "" : hours >= 12 ? "PM" : "AM",
+			}),
+		);
+	}
+
+	$("#MemorialInfo_Desc_Text").text = text;
+}
 
 (function () {
 	HUD_FOR_CUSTOM_PINGS.RemoveAndDeleteChildren();
@@ -172,5 +203,6 @@ function FreezePanel(panel, pos_x, pos_y, pos_z) {
 	panel.hittest = true;
 	tracker_hud = panel;
 	GamePingsTracker();
+	UpdateLocalTimerMemorial();
 	GameEvents.SubscribeProtected("custom_ping:ping_client", ClientPing);
 })();

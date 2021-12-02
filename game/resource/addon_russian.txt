@@ -1351,5 +1351,13 @@
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"ВРЕМЯ ПРИМЕНЕНИЯ:"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"Rearm"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"Сбрасывает время перезарядки способностей."
+		
+		"tournament_date"	"%%t_day_name%%, %%t_day%% %%t_month%%, %%t_year%%г, %%t_hour%%:%%t_min%%"
+		"memorial_tournament_header"	"В Память о Darklord"
+		"memorial_tournament_header_2"	"ТУРНИР"
+		"memorial_tournament_info"		"Подробнее"
+		"darklord_memorial_tournament"			"Турнир в память о Darklord"
+		"darklord_memorial_tournament_content"	"<font color='#fccf64'>Турнир в память о Darklord</font> оффициально открыт, как дань уважения ко всей его проделанной работе и любви, которую Darklord питал к Dota 2. Для всех желающих будет проведено 2 бесплатных турнира, один из которых пройдет в <b>Dota 12v12</b>, а другой в <b>Custom Hero Clash</b>.<br><br>Дата проведения: %%localTime_2021-12-18T15:00:00.170Z%%"
+
 	}
 }

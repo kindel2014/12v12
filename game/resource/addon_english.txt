@@ -1986,5 +1986,13 @@
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"TIME TO REARM:"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"Rearm"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"Resetting ability cooldowns."
+		
+		"tournament_date"				"%%t_day_name%%, %%t_month%% %%t_day%%, %%t_year%%, %%t_hour%%:%%t_min%% %%ampm%%"
+		"memorial_tournament_header"	"The Darklord Memorial"
+		"memorial_tournament_header_2"	"TOURNAMENT"
+		"memorial_tournament_info"		"See info"
+		"darklord_memorial_tournament"			"The Darklord Memorial Tournament"
+		"darklord_memorial_tournament_content"	"<font color='#fccf64'>The Darklord Memorial Tournament</font> is officially open, as a tribute to all the hard work and love that Darklord had in his lifetime for Dota 2. There will be two free tournaments for everyone to participate in, one dedicated exclusively to <b>Dota 12v12</b> and one dedicated to  <b>Custom Hero Clash</b>.<br><br>Date/Time: %%localTime_2021-12-18T15:00:00.170Z%%"
+
 	}
 }
