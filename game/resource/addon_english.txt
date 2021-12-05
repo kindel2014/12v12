@@ -1992,7 +1992,8 @@
 		"memorial_tournament_header_2"	"TOURNAMENT"
 		"memorial_tournament_info"		"See info"
 		"darklord_memorial_tournament"			"The Darklord Memorial Tournament"
-		"darklord_memorial_tournament_content"	"<font color='#fccf64'>The Darklord Memorial Tournament</font> is officially open, as a tribute to all the hard work and love that Darklord had in his lifetime for Dota 2. There will be two free tournaments for everyone to participate in, one dedicated exclusively to <b>Dota 12v12</b> and one dedicated to  <b>Custom Hero Clash</b>.<br><br>Date/Time: %%localTime_2021-12-18T15:00:00.170Z%%"
+		"darklord_memorial_tournament_content"	"<font color='#fccf64'>The Darklord Memorial Tournament</font> is officially open, as a tribute to all the hard work and love that Darklord had in his lifetime for Dota 2. There will be two free tournaments for everyone to participate in, one dedicated exclusively to <b>Dota 12v12</b> and one dedicated to <b>Custom Hero Clash</b>.<br><marginTop:20><font color='#fccf64'>Dota 12v12 Mode</font><br>• Each player signs up individually.<br>• We will sort players into teams based on their location.<br>• If you want to sign up as a group, put the same team name and we will put you in the same team.<br>• <font color='#fccf64'>$1,000 USD</font> prize pool (+ Discord roles).<br>• Double elimination format, all matches are best of 1 except grand finals, which are best of 3.<br>•  <url>https://forms.gle/qc22PkmzZxNhd6JCA</url> (Bracket)<br>• Everyone has tier 1 perks during tournament.<br>You must join the discord server to play:  <url>https://discord.gg/J3nWquv8Cj</url><br><marginTop:20>Date/Time: %%localTime_2021-12-18T15:00:00.170Z%%"
+		
 
 	}
 }

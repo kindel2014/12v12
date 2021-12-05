@@ -51,7 +51,7 @@
 					<Button id="MemorialInfo_Close" onactivate="ToggleMemorialDesc()"/>
 				</Label>
 				<Panel id="MemorialInfo_Desc_Separator"/>
-				<Label id="MemorialInfo_Desc_Text" text="#darklord_memorial_tournament_content" html="true"/>
+				<Panel id="MemorialInfo_Desc_Text" class="ContaindedTextContent"/>
 			</Panel>
 		</Panel>
 	</Panel>
