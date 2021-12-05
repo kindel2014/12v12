@@ -1975,14 +1975,24 @@
 		"git_new_issue"		"创建问题"
 		"git_show_issues"	"显示问题"
 		"cannot_relocate_enemy_fountain"	"你不能在敌方泉水区域使用降临"
+		"wards_holding_warning"				"警告：如果在接下来的2分钟内没有放置，库存中的守卫将过期。"
+		
 		
 		"DOTA_Tooltip_ability_tinker_rearm_custom"											"再装填"
-		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"对于充能型技能，每次施放再装填可以恢复该技能一点能量。"
-		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"持续施法 - 重置修补匠的大多数物品和技能的冷却时间。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitydraft_note"						"对于充能技能，每次施放再装填时都会添加一次技能充能。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Description"								"持续施法 - 重置大部分修补匠物品和技能的冷却时间。"
 		"DOTA_Tooltip_ability_tinker_rearm_custom_Lore"										"这儿换块新电池，那儿塞几枚火箭弹，鲍什不断改进现有的技术。"
-		"DOTA_Tooltip_ability_tinker_rearm_custom_Note0"									"再装填不能刷新的物品有永恒之盘、奥术鞋、黑皇杖、迈达斯之手、林肯法球、陨星锤、死灵书、支配头盔、知识之书、洞察烟斗和刷新球。"
-		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"再装填所需时间："
+		"DOTA_Tooltip_ability_tinker_rearm_custom_Note0"									"再装填可在除永恒之盘、奥术鞋、黑皇杖、迈达斯之手、支配头盔、林肯法球、陨星锤、死灵书、洞察烟斗、知识之书、刷新球之外的所有物品上使用。"
+		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"再装填时间："
 		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"再装填"
-		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"重置技能冷却时间中。"
+		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"重置技能冷却时间。"
+		
+		"tournament_date"				"%%t_day_name%%, %%t_month%% %%t_day%%, %%t_year%%, %%t_hour%%:%%t_min%% %%ampm%%"
+		"memorial_tournament_header"	"Darklord纪念"
+		"memorial_tournament_header_2"	"锦标赛"
+		"memorial_tournament_info"		"查看信息"
+		"darklord_memorial_tournament"			"Darklord纪念锦标赛"
+		"darklord_memorial_tournament_content"	"<font color='#fccf64'>Darklord纪念锦标赛</font>现已正式开启，以怀念Darklord一生在Dota 2中所投入的热爱与努力。所有玩家均可参加两项免费锦标赛：一项是<b>Dota 12v12</b>专属活动，另一项则是<b>《技斗英雄》</b>专属活动。<br><br>日期/时间：%%localTime_2021-12-18T15:00:00.170Z%%"
+
 	}
 }
