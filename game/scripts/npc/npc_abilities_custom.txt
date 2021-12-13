@@ -177,33 +177,6 @@
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
 
-	"chaos_knight_phantasm"
-	{
-		"AbilitySpecial"
-		{
-			"02"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"illusion_duration"			"20"
-				"LinkedSpecialBonus"		"special_bonus_unique_chaos_knight_4"
-			}
-		}
-	}
-	"special_bonus_unique_chaos_knight_4"
-	{
-		// Special
-		//-------------------------------------------------------------------------------------------------------------
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"					"FIELD_FLOAT"
-				"value"						"10"
-				"ad_linked_ability"			"chaos_knight_phantasm"				// this is the ability this bonus affects.  This line is required for Ability Draft to correctly choose talents.
-			}
-		}
-	}
-
 	"high_five_custom"
 	{
 		"ID"							"30002"
