@@ -155,7 +155,7 @@ function GetOtherTeamsAverageRating(target_team) {
 
 	let rating_total = 0;
 	let rating_count = 0;
-	Object.entries(local_rating_data).forEach(([player_id, player_data]) => {
+	Object.entries(local_players_stats).forEach(([player_id, player_data]) => {
 		player_id = parseInt(player_id);
 		if (!player_id) return;
 		if (Players.GetTeam(player_id) == target_team) return;
