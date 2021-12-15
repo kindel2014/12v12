@@ -203,7 +203,7 @@ end
 
 function AddNeutralItemToStashWithEffects(playerID, team, item)
 	PlayerResource:AddNeutralItemToStash(playerID, team, item)
---[[
+
 	local container = item:GetContainer()
 
 	if not container then return end
@@ -216,7 +216,6 @@ function AddNeutralItemToStashWithEffects(playerID, team, item)
 	StartSoundEventFromPosition("NeutralItem.TeleportToStash", pos)
 
 	container:RemoveSelf()
---]]
 end
 
 function NeutralItemsDrop:Init()
