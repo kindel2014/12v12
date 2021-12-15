@@ -147,7 +147,7 @@ function AutoTeam:Index()
 		return _teamID
 	end
 
-	for __,pID in pairs(table.concat(highPatreons,lowPatreons)) do
+	for __,pID in pairs(table.concat_handle(highPatreons,lowPatreons)) do
 		if not playersIsParty[pID] then
 			local team = getTeamMinLevelAllTeam()
 			local maxPlayers = GameRules:GetCustomGameTeamMaxPlayers(team)

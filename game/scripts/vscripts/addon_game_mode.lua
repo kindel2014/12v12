@@ -1131,11 +1131,8 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 									local item = unit:GetItemInSlot(item_slot)
 									if item and not item:IsNull() and item.GetAbilityName and item:GetAbilityName() then
 										if item:IsNeutralDrop() then
-											ExecuteOrderFromTable({
-												UnitIndex = unit:entindex(),
-												OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN,
-												AbilityIndex = item:entindex(),
-											})
+											print("Add neutral to stash (10s fail-safe)")
+											AddNeutralItemToStashWithEffects(unit:GetPlayerID(), unit:GetTeam(), item)
 										elseif item:GetCost() then
 											unit:SellItem(item)
 										end

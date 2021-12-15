@@ -82,8 +82,7 @@ function table.length(tbl)
   	return amount
 end
 
-
-function table.concat(tbl1,tbl2)
+function table.concat_handle(tbl1,tbl2)
 	local tbl = {}
 	for k,v in ipairs(tbl1) do
 		table.insert(tbl,v)

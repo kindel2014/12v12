@@ -231,12 +231,10 @@ function Kicks:DropItemsForDisconnetedPlayer(player_id)
 	if not hero then return end
 
 	local neutral_item = hero:GetItemInSlot(DOTA_ITEM_NEUTRAL_SLOT)
+
 	if neutral_item then
-		ExecuteOrderFromTable({
-			UnitIndex = hero:entindex(),
-			OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN,
-			AbilityIndex = neutral_item:entindex(),
-		})
+		print("Add neutral to stash (disconnected player)")
+		AddNeutralItemToStashWithEffects(player_id, hero:GetTeam(), neutral_item)
 	end
 	
 	local home_shop_pos = {

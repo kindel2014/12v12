@@ -7,28 +7,14 @@ function DropItem(data)
 	
 	local item = EntIndexToHScript( data.item )
 	local player = PlayerResource:GetPlayer(data.PlayerID)
-
 	local team = PlayerResource:GetTeam(data.PlayerID)
-	local fountain
-	local multiplier
 
-	if team == DOTA_TEAM_GOODGUYS then
-		multiplier = -350
-		fountain = Entities:FindByName( nil, "ent_dota_fountain_good" )
-	elseif team == DOTA_TEAM_BADGUYS then
-		multiplier = -650
-		fountain = Entities:FindByName( nil, "ent_dota_fountain_bad" )
-	end
-
-	local fountain_pos = fountain:GetAbsOrigin()
-	local pos_item = fountain_pos:Normalized() * multiplier + RandomVector( RandomFloat( 0, 200 ) ) + fountain_pos
-	pos_item.z = fountain_pos.z
-
-	CreateItemOnPositionSync(pos_item, item)
 	item.neutralDropInBase = true
+
 	for i = 0, 24 do
-		if data.PlayerID ~= i and PlayerResource:GetTeam(i) == team then -- remove check "data.PlayerID ~= i" ig you want test system
+		if data.PlayerID ~= i and PlayerResource:GetTeam(i) == team then -- remove check "data.PlayerID ~= i" if you want test system
 			local player = PlayerResource:GetPlayer(i)
+
 			CustomGameEventManager:Send_ServerToPlayer( player, "neutral_item_dropped", { 
 				item = data.item,
 				secret = item.secret_key
@@ -36,28 +22,9 @@ function DropItem(data)
 		end
 	end
 
-	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Schedule
-		if not item or item:IsNull() then return end
-
-		local container = item:GetContainer()
-		if not container or container:IsNull() then return end
-
-		local hero =  PlayerResource:GetSelectedHeroEntity(data.PlayerID)
-		local shop = SearchCorrectNeutralShopByTeam(hero:GetTeamNumber())
-		if not shop then return end
-
-		local dummyInventory = hero.dummyInventory
-		if not dummyInventory then return end
-
-		UTIL_Remove(container)
-		dummyInventory:AddItem(item)
-		ExecuteOrderFromTable({
-			UnitIndex = dummyInventory:entindex(),
-			OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN,
-			AbilityIndex = item:entindex(),
-		})
-	end)
+	AddNeutralItemToStashWithEffects(data.PlayerID, team, item)
 end
+
 function CheckNeutralItemForUnit(unit)
 	local count = 0
 	if unit and unit:HasInventory() then
@@ -104,15 +71,21 @@ RegisterCustomEventListener( "neutral_item_keep", function( data )
 	end
 
 	local item = EntIndexToHScript( data.item )
+	local container = item:GetContainer()
 
 	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
 
 	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
 	local freeSlot = hero:DoesHeroHasFreeSlot()
+
 	if freeSlot then
 		item.secret_key = nil
 		hero:AddItem(item)
 		NotificationToAllPlayerOnTeam(data)
+
+		if container then
+			container:RemoveSelf()
+		end
 	else
 		DropItem(data)
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "display_custom_error", { message = "#inventory_full_custom_message" })
@@ -183,12 +156,13 @@ function NeutralItemsDrop:OnEntityKilled(event)
 		self.lastDroppedItem = nil
 		self.dropFrame = nil
 	end
-
 end
 
 -- Called when neutral item dropped from neutral creeps
 function NeutralItemsDrop:OnNeutralItemDropped(item, hero)
 	local container = item:GetContainer()
+
+	if not container then return end
 
 	Timers:CreateTimer(NEUTRAL_STASH_TELEPORT_DELAY, function()
 		-- if container destroyed item already picked up by somebody
@@ -210,7 +184,6 @@ function NeutralItemsDrop:OnNeutralItemDropped(item, hero)
 			})
 		end
 	end)
-
 end
 
 -- Fired when hero loses item from inventory
@@ -229,12 +202,12 @@ function NeutralItemsDrop:OnItemStateChanged(event)
 end
 
 function AddNeutralItemToStashWithEffects(playerID, team, item)
+	PlayerResource:AddNeutralItemToStash(playerID, team, item)
+--[[
 	local container = item:GetContainer()
 
 	if not container then return end
 
-	PlayerResource:AddNeutralItemToStash(playerID, team, item)
-			
 	local pos = container:GetAbsOrigin()
 
 	local pFX = ParticleManager:CreateParticle("particles/items2_fx/neutralitem_teleport.vpcf", PATTACH_WORLDORIGIN, nil)
@@ -243,6 +216,7 @@ function AddNeutralItemToStashWithEffects(playerID, team, item)
 	StartSoundEventFromPosition("NeutralItem.TeleportToStash", pos)
 
 	container:RemoveSelf()
+--]]
 end
 
 function NeutralItemsDrop:Init()
