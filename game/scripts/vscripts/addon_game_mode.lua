@@ -1380,6 +1380,11 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 				secret = hItem.secret_key,
 			})
 
+			local container = hItem:GetContainer()
+			if container then
+				container:RemoveSelf()
+			end
+
 			return false
 		end
 	end

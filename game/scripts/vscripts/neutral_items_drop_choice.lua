@@ -8,6 +8,22 @@ function DropItem(data)
 	local item = EntIndexToHScript( data.item )
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 	local team = PlayerResource:GetTeam(data.PlayerID)
+	local fountain
+	local multiplier
+
+	if team == DOTA_TEAM_GOODGUYS then
+		multiplier = -350
+		fountain = Entities:FindByName( nil, "ent_dota_fountain_good" )
+	elseif team == DOTA_TEAM_BADGUYS then
+		multiplier = -650
+		fountain = Entities:FindByName( nil, "ent_dota_fountain_bad" )
+	end
+
+	local fountain_pos = fountain:GetAbsOrigin()
+	local pos_item = fountain_pos:Normalized() * multiplier + RandomVector( RandomFloat( 0, 200 ) ) + fountain_pos
+	pos_item.z = fountain_pos.z
+
+	CreateItemOnPositionSync(pos_item, item)
 
 	item.neutralDropInBase = true
 
@@ -21,8 +37,15 @@ function DropItem(data)
 			})
 		end
 	end
+	
+	Timers:CreateTimer(15,function() -- !!! You need put here time from function NeutralItemDropped from neutral_items.js - Schedule
+		if not item or item:IsNull() then return end
 
-	AddNeutralItemToStashWithEffects(data.PlayerID, team, item)
+		local container = item:GetContainer()
+		if not container or container:IsNull() then return end
+
+		AddNeutralItemToStashWithEffects(data.PlayerID, team, item)
+	end)
 end
 
 function CheckNeutralItemForUnit(unit)
