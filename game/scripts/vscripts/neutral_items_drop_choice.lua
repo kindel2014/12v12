@@ -87,16 +87,16 @@ function NotificationToAllPlayerOnTeam(data)
 end
 
 RegisterCustomEventListener( "neutral_item_keep", function( data )
+	local item = EntIndexToHScript( data.item )
+	local container = item:GetContainer()
+
+	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
+
 	if CheckCountOfNeutralItemsForPlayer(data.PlayerID) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
 		DropItem(data)
 		DisplayError(data.PlayerID, "#player_still_have_a_lot_of_neutral_items")
 		return
 	end
-
-	local item = EntIndexToHScript( data.item )
-	local container = item:GetContainer()
-
-	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
 
 	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
 	local freeSlot = hero:DoesHeroHasFreeSlot()
@@ -116,15 +116,16 @@ RegisterCustomEventListener( "neutral_item_keep", function( data )
 end )
 
 RegisterCustomEventListener( "neutral_item_take", function( data )
-	if CheckCountOfNeutralItemsForPlayer(data.PlayerID) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
-		DisplayError(data.PlayerID, "#player_still_have_a_lot_of_neutral_items")
-		return
-	end
 	local item = EntIndexToHScript( data.item )
 	local hero = PlayerResource:GetSelectedHeroEntity( data.PlayerID )
 	local freeSlot = hero:DoesHeroHasFreeSlot()
 
 	if not item:IsNeutralDrop() or not item.secret_key or item.secret_key ~= data.secret then return end
+
+	if CheckCountOfNeutralItemsForPlayer(data.PlayerID) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+		DisplayError(data.PlayerID, "#player_still_have_a_lot_of_neutral_items")
+		return
+	end
 
 	if freeSlot then
 		if item.neutralDropInBase then
