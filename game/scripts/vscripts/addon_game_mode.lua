@@ -1523,6 +1523,19 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		if WARDS_LIST[item_name] then
 			if BlockedWardsFilter(playerId, "#you_cannot_buy_it") == false then return false end
 		end
+
+		if item_name == "item_gem" then
+			local kills = PlayerResource:GetKills(playerId)
+			local assists = PlayerResource:GetAssists(playerId)
+			local deaths = PlayerResource:GetDeaths(playerId)
+
+			if kills + assists > deaths then
+				return true
+			else
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#you_cannot_buy_it" })
+				return false
+			end
+		end
 	end
 
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
