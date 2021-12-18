@@ -42,6 +42,11 @@ local other_keywords = {
 	attack_spill_width = true,
 }
 
+local ignore_abilities = {
+	phantom_assassin_blur = true,
+	spectre_desolate = true,
+}
+
 function magician:GetTexture() return "perkIcons/magician" end
 function magician:DeclareFunctions()
 	return {
@@ -84,6 +89,10 @@ end
 function magician:GetModifierOverrideAbilitySpecial(keys)
 	if (not keys.ability) or (not keys.ability_special_value) or (not aoe_keywords) then return 0 end
 
+	local ability_name = keys.ability:GetAbilityName()
+
+	if ignore_abilities[ability_name] then return end
+
 	for keyword, _ in pairs(aoe_keywords) do
 		if string.find(keys.ability_special_value, keyword) then
 			return 1
@@ -94,7 +103,7 @@ function magician:GetModifierOverrideAbilitySpecial(keys)
 		return 1
 	end
 
-	if keys.ability.GetAbilityName and talents_amplify[keys.ability:GetAbilityName()] and keys.ability_special_value == "value" then
+	if talents_amplify[ability_name] and keys.ability_special_value == "value" then
 		return 1
 	end
 
