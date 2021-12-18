@@ -26,11 +26,11 @@ return function(context)
         PrecacheResource("soundfile", p, context)
     end
 
-	local heroeskv = LoadKeyValues("scripts/heroes.txt")
-
-	for hero, _ in pairs(heroeskv) do
-		PrecacheResource( "soundfile", "soundevents/voscripts/game_sounds_vo_"..string.sub(hero,15)..".vsndevts", context )
-	end
+	-- Disabled due to annoying sounds bug
+	-- local heroeskv = LoadKeyValues("scripts/heroes.txt")
+	-- for hero, _ in pairs(heroeskv) do
+	-- 	PrecacheResource( "soundfile", "soundevents/voscripts/game_sounds_vo_"..string.sub(hero,15)..".vsndevts", context )
+	-- end
 
 	local itemsCategories = LoadKeyValues("scripts/vscripts/common/battlepass/inventory/inventory_specs.kv").Category
 

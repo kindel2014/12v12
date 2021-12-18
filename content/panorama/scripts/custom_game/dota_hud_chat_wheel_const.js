@@ -178,14 +178,14 @@ let rings = [
 			"#" + Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()),
 			"#announcers",
 			"#favourites",
-			"#heroes",
+			"",
 			"#misc",
 			"#battlepass2019",
 			"#dotaplus2",
 			"#dotaplus",
 		],
 		[false, false, false, false, false, false, false, false],
-		[1, 13, 18, 4, 11, 14, 7, 8],
+		[1, 13, 18, 0, 11, 14, 7, 8],
 	],
 	[
 		[
