@@ -148,8 +148,7 @@ function UpdateCosmeticDummy(data) {
 		$("#BarOverItems").SetParent(centerBlock);
 	}
 
-	FindDotaHudElement("buffs").style.transform = "translateY( -43px )";
-	FindDotaHudElement("debuffs").style.transform = "translateY( -43px )";
+	FindDotaHudElement("BuffContainer").style.marginBottom = "43px;";
 	GameEvents.SubscribeProtected("cosmetic_abilities:update_ability", UpdateCosmeticAbility);
 	GameEvents.SubscribeProtected("cosmetic_abilities:update_dummy_tracking", UpdateCosmeticDummy);
 	GameEvents.SubscribeProtected("cosmetic_abilities:update_spray", UpdateCosmeticSpray);
