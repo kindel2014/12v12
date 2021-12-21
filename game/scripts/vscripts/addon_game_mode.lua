@@ -1360,7 +1360,6 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			end
 
 			if (filterTable["item_parent_entindex_const"] > 0) and hItem and correctInventory and (not purchaser:CheckPersonalCooldown(hItem)) then
-				purchaser:ModifyGold(itemCost, false, 0)
 				UTIL_Remove(hItem)
 				return false
 			end
@@ -1584,7 +1583,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		end
 	end
 
-	if orderType == 38 then
+	if orderType == DOTA_UNIT_ORDER_TAKE_ITEM_FROM_NEUTRAL_ITEM_STASH then
 		if _G.neutralItems[ability:GetAbilityName()] then
 			if CheckCountOfNeutralItemsForPlayer(playerId) >= _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER then
 				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
@@ -1599,7 +1598,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 		end
 	end
 
-	if orderType == 25 then
+	if orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
 			ability:Destroy()
 		end
