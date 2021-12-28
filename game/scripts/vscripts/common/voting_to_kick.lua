@@ -158,7 +158,9 @@ function Kicks:UpdateVotingForKick()
 				max_voices_in_team = max_voices_in_team + 0.5
 			else
 				max_voices_in_team = max_voices_in_team + 1
-				voted_parties[party] = true
+				if party ~= "0" then -- Players that not in party have partyID == 0
+					voted_parties[party] = true
+				end
 			end
 		end
 	end
