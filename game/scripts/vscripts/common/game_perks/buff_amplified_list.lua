@@ -59,6 +59,10 @@ amplified_modifier = {
 	["modifier_tusk_tag_team_aura"] = true,
 	["modifier_undying_flesh_golem"] = true,
 	["modifier_skeleton_king_reincarnation_scepter_active"] = true,
+	["modifier_marci_companion_run_ally_movespeed"] = true,
+	["modifier_marci_guardian_buff"] = true,
+	["modifier_marci_guardian_magic_immunity"] = true,
+	["modifier_marci_unleash"] = true,
 	--[[ HEROES AGI ]]--
 	["modifier_antimage_counterspell"] = true,
 	["modifier_bloodseeker_bloodrage"] = true,
