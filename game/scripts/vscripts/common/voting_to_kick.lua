@@ -4,7 +4,7 @@ _G.tUserIds = {}
 
 function Kicks:Init()
 	self.time_to_voting = 40
-	self.votes_for_kick = 6
+	self.votes_for_kick = 6 -- Now redefined on each voting start
 	self.voting = nil
 	self.kicks_id = {}
 	self.pre_voting = {}
@@ -151,8 +151,10 @@ function Kicks:UpdateVotingForKick()
 	local voted_parties = {}
 	for playerId = 0, 24 do
 		local connectionState = PlayerResource:GetConnectionState(playerId)
-		if PlayerResource:GetTeam(self.voting.target) == PlayerResource:GetTeam(playerId)
-			and (connectionState == DOTA_CONNECTION_STATE_CONNECTED or connectionState == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) then
+		
+		if PlayerResource:IsValidPlayerID(playerId) 
+		and PlayerResource:GetTeam(self.voting.target) == PlayerResource:GetTeam(playerId)
+		and connectionState ~= DOTA_CONNECTION_STATE_ABANDONED then
 			local party = tostring(PlayerResource:GetPartyID(playerId));
 			if voted_parties[party] then
 				max_voices_in_team = max_voices_in_team + 0.5
@@ -164,7 +166,7 @@ function Kicks:UpdateVotingForKick()
 			end
 		end
 	end
-	self.votes_for_kick = math.floor(max_voices_in_team/2)
+	self.votes_for_kick = math.floor(max_voices_in_team * 0.75)
 end
 
 function Kicks:SendDegugResult(data, text)
@@ -199,6 +201,7 @@ end
 
 function Kicks:VoteYes(data)
 	if not self.voting then return end
+	if self.voting.playersVoted[data.PlayerID] then return end -- Player can't vote twise
 	
 	self.voting.votes = self.voting.votes + self:GetVoteWeight(data.PlayerID)
 	self.voting.playersVoted[data.PlayerID] = true
