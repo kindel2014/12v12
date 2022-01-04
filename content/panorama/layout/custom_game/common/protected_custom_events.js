@@ -20,9 +20,9 @@ GameEvents.SubscribeProtected = function(event_name, callback) {
 		// Spectators cant send token to server and have to ignore this check
 		// This give possibility to ruin spectators custom UI to cheaters, but I think it's not very important
 		// Maybe can be fixed if we will generate tokens on server side and send it to clients
+		$.Msg(event)
 		if (player_id == -1 || token == event.chc_secret_token) {
-			delete event.chc_secret_token;
-			callback(event);
+			callback(event.event_data);
 		} else if (Game.IsInToolsMode()) {
 			$.Msg(
 				`Registered event ${event_name} have wrong server token: ${event.chc_secret_token}, for CUSTOM clientside events use GameEvents.SendEventClientSideProtected`,

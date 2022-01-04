@@ -36,7 +36,10 @@ if not ProtectedCustomEvents then
 
 	CCustomGameEventManager.Send_ServerToPlayerEngine = CCustomGameEventManager.Send_ServerToPlayer
 	CCustomGameEventManager.Send_ServerToPlayer = function(self, player, event_name, event_data) 
-		local new_table = table.deepcopy(event_data)
+		local new_table = { 
+			event_data = event_data 
+		}
+		
 		if not player or player:IsNull() then 
 			print("CCustomGameEventManager.Send_ServerToPlayer: invalid player entity")
 			return 
