@@ -51,5 +51,4 @@ function OverrideSpectatorsUI() {
 	CheckSuppLevel(CustomNetTables.GetTableValue("game_state", "patreon_bonuses"));
 
 	if (Players.IsSpectator(Game.GetLocalPlayerID())) OverrideSpectatorsUI();
-	FindDotaHudElement("combat_events").style.marginTop = "350px";
 })();

@@ -1986,14 +1986,5 @@
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"再装填时间："
 		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"再装填"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"重置技能冷却时间。"
-		
-		"tournament_date"				"%%t_day_name%%, %%t_month%% %%t_day%%, %%t_year%%, %%t_hour%%:%%t_min%% %%ampm%%"
-		"memorial_tournament_header"	"Darklord纪念"
-		"memorial_tournament_header_2"	"锦标赛"
-		"memorial_tournament_info"		"查看信息"
-		"darklord_memorial_tournament"			"Darklord纪念锦标赛"
-		"darklord_memorial_tournament_content"	"<font color='#fccf64'>Darklord纪念锦标赛</font>现已正式开启，以怀念Darklord一生在Dota 2中所投入的热爱与努力。所有玩家均可参加两项免费锦标赛：一项是<b>Dota 12v12</b>专属活动，另一项则是<b>《技斗英雄》</b>专属活动。<br><marginTop:20><font color='#fccf64'>Dota 12v12模式</font><br>注册：  <url>https://forms.gle/qc22PkmzZxNhd6JCA</url><br><font color='#FF0000'>请注意，如果你在锦标赛推迟之前完成注册，则需重新注册！</font><br>日期/时间：%%localTime_2022-01-08T15:00:00.170Z%%<br><marginTop:20>a￠ 玩家单独注册。<br>a￠ 我们将根据玩家位置进行队伍划分。<br>a￠ 如果想以小组形式注册，请使用相同的队伍名称，我们会将你们划分至同一队伍。<br>a￠ <font color='#fccf64'>$1,000 USD</font>奖池（+ Discord角色）。<br>a￠ 锦标赛采用双败淘汰制，除决赛外所有比赛均为一局定胜负，决赛为三局定胜负。<br>a￠ 所有人都将在锦标赛期间拥有第1阶Perk。<br>a￠ Bracket：  <url>https://bit.ly/3EsI6Om</url><br><marginTop:20>你需要加入 Discord 服务器才能参与：  <url>https://discord.gg/J3nWquv8Cj</url>"
-		
-
 	}
 }
