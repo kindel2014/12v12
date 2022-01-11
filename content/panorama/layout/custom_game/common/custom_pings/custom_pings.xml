@@ -36,6 +36,6 @@
 				<Image id="Custom_Ping6" class="Custom_Ping" ping-type="1" src="file://{resources}/images/custom_game/import_dota/ping_danger_psd.png"/>
 			</Panel>
 		</Panel>
-		<Panel id="CustomPings_Minimap" hittest="false"/>
+		<Panel id="MapOverlay" hittest="false"/>
 	</Panel>
 </root>
