@@ -37,22 +37,5 @@
 			</Panel>
 		</Panel>
 		<Panel id="CustomPings_Minimap" hittest="false"/>
-		<Panel class="Memorial" id="MapOverlay" hittest="false"/>
-		<Panel id="MemorialLogo" hittest="false"/>
-		<Button id="MemorialBlock" onactivate="ToggleMemorialDesc()">
-			<Label id="MemorialBlock_Header" text="#memorial_tournament_header"/>
-			<Label id="MemorialBlock_Header_2" text="#memorial_tournament_header_2"/>
-			<Label id="MemorialBlock_Info" text="#memorial_tournament_info"/>
-			<Image id="MemorialBlock_Arrow" src="file://{resources}/images/custom_game/arrow.png"/>
-		</Button>
-		<Panel id="MemorialInfo_Root">
-			<Panel id="MemorialInfo_Desc_Block">
-				<Label id="MemorialInfo_Desc_Header" text="#darklord_memorial_tournament">
-					<Button id="MemorialInfo_Close" onactivate="ToggleMemorialDesc()"/>
-				</Label>
-				<Panel id="MemorialInfo_Desc_Separator"/>
-				<Panel id="MemorialInfo_Desc_Text" class="ContaindedTextContent"/>
-			</Panel>
-		</Panel>
 	</Panel>
 </root>
