@@ -3,7 +3,7 @@
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 		<include src="file://{resources}/layout/custom_game/common/custom_pings/custom_pings.css" />
 	</styles>
-
+	
  	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/custom_pings/custom_pings_const.js" />
@@ -18,7 +18,7 @@
 			</Image>
 		</snippet>
 	</snippets>
-
+	
  	<Panel class="WheelPingFixRoot" hittest="false">
 		<Panel id="CustomPingsHudTracker" hittest="true"/>
 		<Panel id="Custom_PingWheel">
@@ -36,6 +36,7 @@
 				<Image id="Custom_Ping6" class="Custom_Ping" ping-type="1" src="file://{resources}/images/custom_game/import_dota/ping_danger_psd.png"/>
 			</Panel>
 		</Panel>
+		<Panel id="CustomPings_Minimap" hittest="false"/>		
 		<Panel id="MapOverlay" hittest="false"/>
 	</Panel>
 </root>

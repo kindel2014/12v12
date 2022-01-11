@@ -161,92 +161,6 @@ function FreezePanel(panel, pos_x, pos_y, pos_z) {
 		FreezePanel(panel, pos_x, pos_y, pos_z);
 	});
 }
-function ToggleMemorialDesc() {
-	$("#MemorialInfo_Root").ToggleClass("Show");
-}
-
-function UpdateLocalTimerMemorial() {
-	let text = $.Localize("#darklord_memorial_tournament_content");
-	const content_block = $("#MemorialInfo_Desc_Text");
-
-	const LOCAL_TIME_LAYOUT = /%%localTime_.*%%/;
-	const TIME_FORMAT_24_CLIENTS = ["russian"];
-	const ICON_LAYOUT = /%%icon_.*%%/;
-	const URL_LAYOUT = /<url>.*<\/url>/;
-	const FONT_HTML_BLOCK = /<font.+?<\/font>/g;
-	const FONT_HTML_SPACE_FILLER = "!!!!!!!!!!!!!";
-	const CONTENT_PARAMS = ["marginTop", "marginRight", "marginLeft"];
-
-	var line;
-	const lines = text.split("<br>");
-
-	lines.forEach((t) => {
-		if (t.match(LOCAL_TIME_LAYOUT)) {
-			let time = t.match(LOCAL_TIME_LAYOUT)[0];
-			let date = new Date(time.replace(/%%localTime_(.*)%%/g, "$1"));
-			let hours = date.getHours();
-			let b_24_format = TIME_FORMAT_24_CLIENTS.indexOf($.Language()) > -1;
-			t = t.replace(
-				time,
-				LocalizeWithValues("tournament_date", {
-					t_day_name: $.Localize(`UI_day_${date.getDay() + 1}`),
-					t_month: $.Localize(`UI_month_${date.getMonth()}`),
-					t_day: date.getDate(),
-					t_year: date.getFullYear(),
-					t_hour: `0${b_24_format ? hours : hours > 12 ? hours - 12 : hours}`.slice(-2),
-					t_min: `0${date.getMinutes()}`.slice(-2),
-					ampm: b_24_format ? "" : hours >= 12 ? "PM" : "AM",
-				}),
-			);
-		}
-
-		const content_params = {};
-		CONTENT_PARAMS.forEach((p_name) => {
-			const v = t.match(new RegExp("<" + p_name + ":\\d*>"));
-			if (v != null) {
-				t = t.replace(v[0], "");
-				content_params[p_name] = v[0];
-			}
-		});
-		if (t.match(ICON_LAYOUT) || t.match(URL_LAYOUT)) {
-			line = $.CreatePanel("Panel", content_block, "");
-			line.style.flowChildren = "right-wrap";
-
-			t = t.replace(FONT_HTML_BLOCK, (match) => {
-				return match.replace(/ /g, FONT_HTML_SPACE_FILLER);
-			});
-
-			const split = t.split(" ");
-			split.forEach((_t, index) => {
-				_t = _t.replace(new RegExp(FONT_HTML_SPACE_FILLER, "g"), " ");
-				if (_t.search(ICON_LAYOUT)) {
-					const _line = $.CreatePanel("Label", line, "");
-					_line.html = true;
-					_line.text = `${index == 0 ? "" : "\u00A0"}${_t}`;
-
-					if (!_t.search(URL_LAYOUT)) {
-						_line.AddClass("UrlLink");
-						_line.text = _line.text.replace(/<\/?url>/g, "").trim();
-						_line.SetPanelEvent("onactivate", function () {
-							$.DispatchEvent("ExternalBrowserGoToURL", _line.text);
-						});
-					}
-				} else {
-					const i = $.CreatePanel("Image", line, "");
-					i.SetImage(`file://{images}/custom_game/mail/${_t.match(ICON_LAYOUT)[0].replace(/%/g, "")}.png`);
-				}
-			});
-		} else {
-			line = $.CreatePanel("Label", content_block, "");
-			line.html = true;
-			line.text = t;
-		}
-
-		Object.entries(content_params).forEach(([p_name, v]) => {
-			line.style[p_name] = `${v.replace(/\D/g, "")}px`;
-		});
-	});
-}
 
 (function () {
 	HUD_FOR_CUSTOM_PINGS.RemoveAndDeleteChildren();
@@ -258,6 +172,5 @@ function UpdateLocalTimerMemorial() {
 	panel.hittest = true;
 	tracker_hud = panel;
 	GamePingsTracker();
-	UpdateLocalTimerMemorial();
 	GameEvents.SubscribeProtected("custom_ping:ping_client", ClientPing);
 })();
