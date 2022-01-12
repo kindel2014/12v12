@@ -6,6 +6,7 @@ function GamePerks:Init()
 	self.game_perks = {
 		["family"] = true;
 		["magician"] = true;
+		--["linken"] = true;
 		["buff_amplify"] = true;
 		["builder"] = true;
 		["traveler"] = true;
