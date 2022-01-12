@@ -31,6 +31,9 @@ GameEvents.SubscribeProtected = function(event_name, callback) {
 };
 
 GameEvents.SendEventClientSideProtected = function(event_name, event_data) {
-	event_data.chc_secret_token = token
-	GameEvents.SendEventClientSide(event_name, event_data)
+	const event = {
+		event_data: event_data,
+		chc_secret_token: token,
+	}
+	GameEvents.SendEventClientSide(event_name, event)
 }
