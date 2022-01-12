@@ -6,7 +6,7 @@ const game_perks = [
 	// `cast_time`,
 	`tinkerer`,
 	`magician`,
-	`linken`,
+	// `linken`,
 	`buff_amplify`,
 	`builder`,
 	`traveler`,
