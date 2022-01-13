@@ -147,6 +147,27 @@ function CreatePlayer(player_id, players_root, team_id) {
 	wards_root.SetDialogVariable("sentries", end_game_stats.wards.npc_dota_sentry_wards);
 }
 
+function GetTeamAverageRating(team) {
+	let avg_rating = 1500;
+	if (Game.IsInToolsMode()) return avg_rating;
+	const local_players_stats = CustomNetTables.GetTableValue("game_state", "player_stats");
+	if (!local_players_stats) return avg_rating;
+
+	let rating_total = 0;
+	let rating_count = 0;
+	Object.entries(local_players_stats).forEach(([player_id, player_data]) => {
+		player_id = parseInt(player_id);
+		if (!player_id) return;
+		if (Players.GetTeam(player_id) != target_team) return;
+
+		rating_total += player_data.rating || 1500;
+		rating_count++;
+	});
+	if (rating_count > 0) avg_rating = rating_total / rating_count;
+
+	return avg_rating;
+}
+
 function GetOtherTeamsAverageRating(target_team) {
 	let avg_rating = 1500;
 	if (Game.IsInToolsMode()) return avg_rating;
@@ -187,7 +208,7 @@ function GetRatingChanges(input_player_id) {
 	const cap = 15;
 
 	let other_teams_avg_rating = GetOtherTeamsAverageRating(player_team);
-	let primary_rating = GetPlayerRating(input_player_id);
+	let primary_rating = GetTeamAverageRating(player_team);
 
 	let score_delta = Math.round((other_teams_avg_rating - primary_rating) * multiplier);
 
