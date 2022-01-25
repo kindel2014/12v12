@@ -707,6 +707,8 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 						if observer_modifier then
 							observer_modifier:SetDuration(duration, true)
 						end
+
+						break
 					end
 				end
 			end
