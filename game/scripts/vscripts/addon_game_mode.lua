@@ -680,6 +680,37 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 			ReloadTimerHoldingCheckerForPlayer(player_id)
 			return nil
 		end)
+
+
+		-- Allow placing sentry wards in your own camps but automatically destroy them just before the end of the minute mark.
+		Timers:NextTick(function()
+			if not IsValidEntity(spawnedUnit) or not spawnedUnit:IsAlive() then return end
+
+			local list = Entities:FindAllByClassname("trigger_multiple")
+			local find_name = "neutralcamp_good"
+			if owner:GetTeam() == DOTA_TEAM_BADGUYS then
+				find_name = "neutralcamp_evil"
+			end
+
+			for _, trigger in pairs(list) do
+				if trigger:GetName():find(find_name) ~= nil then
+					if IsInTriggerBox(trigger, 12, spawnedUnit:GetAbsOrigin()) then
+						local time = GameRules:GetDOTATime(false,false)
+						local duration = 59.5 - (time % 60)
+
+						local observer_modifier = spawnedUnit:FindModifierByName("modifier_item_buff_ward")
+						if observer_modifier then
+							observer_modifier:SetDuration(duration, true)
+						end
+
+						local observer_modifier = spawnedUnit:FindModifierByName("modifier_item_ward_true_sight")
+						if observer_modifier then
+							observer_modifier:SetDuration(duration, true)
+						end
+					end
+				end
+			end
+		end)
 	end
 
 	if spawnedUnit:IsRealHero() then
@@ -1613,24 +1644,7 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_CAST_POSITION then
-		if abilityName == "item_ward_dispenser" or abilityName == "item_ward_sentry" or abilityName == "item_ward_observer" then
-			local list = Entities:FindAllByClassname("trigger_multiple")
-			local fs = {
-				Vector(5000,6912,0),
-				Vector(-5300,-6938,0)
-			}
-			if PlayerResource:GetTeam(playerId) == 2 then
-				fs = {fs[2],fs[1]}
-			end
-			for i=1,#list do
-				if list[i]:GetName():find("neutralcamp") ~= nil then
-					if IsInTriggerBox(list[i], 12, orderVector) and ( fs[1] - orderVector ):Length2D() < ( fs[2] - orderVector ):Length2D() then
-						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#block_spawn_error" })
-						return false
-					end
-				end
-			end
-		end
+
 		if abilityName == "wisp_relocate" then
 			local fountains = Entities:FindAllByClassname('ent_dota_fountain')
 
