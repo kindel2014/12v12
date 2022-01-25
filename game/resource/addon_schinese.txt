@@ -128,12 +128,12 @@
 		"DOTA_Tooltip_modifier_troll_debuff_stop_feed_Description"		"你已被系统判定存在送人头行为。作为惩罚，你会获得时长为10分钟的负面效果，且在10分钟内每次死亡都会使该效果延长1分钟。效果生效时，系统将判定死亡为友方被反补。你的重生时间延长至2.5倍或60秒，两者取较高值。"
 		"anti_feed_system_add_debuff_message"		                    "%s1已被检测为送人头玩家。10分钟内其重生时间将被延长2.5倍，且其死亡会被计入反补。"
 
-		"destroyed_goodguys_melee_rax"									"天辉队伍重生时间提高2秒且夜魇团队重生时间降低2秒"
-		"destroyed_goodguys_range_rax"									"天辉队伍重生时间提高1秒且夜魇团队重生时间降低·秒"
-		"destroyed_goodguys_all_rax"									"所有天辉兵营被摧毁。天辉队伍重生时间提高2秒且夜魇团队重生时间降低2秒"
-		"destroyed_badguys_melee_rax"									"夜魇队伍重生时间提高2秒且天辉团队重生时间降低2秒"
-		"destroyed_badguys_range_rax"									"夜魇队伍重生时间提高1秒且天辉团队重生时间降低1秒"
-		"destroyed_badguys_all_rax"										"所有夜魇兵营被摧毁。夜魇队伍重生时间提高2秒且天辉团队重生时间降低2秒"
+		"destroyed_goodguys_melee_rax"									"天辉队伍重生时间提高4秒"
+		"destroyed_goodguys_range_rax"									"天辉队伍重生时间提高2秒"
+		"destroyed_goodguys_all_rax"									"所有天辉兵营被摧毁。天辉队伍重生时间提高4秒"
+		"destroyed_badguys_melee_rax"									"夜魇队伍重生时间提高4秒"
+		"destroyed_badguys_range_rax"									"夜魇队伍重生时间提高2秒"
+		"destroyed_badguys_all_rax"										"所有夜魇兵营被摧毁。夜魇队伍重生时间提高4秒"
 
 		"cannotgiveiteminthiscourier"			                        "你不能将物品交给此信使。"
 		"alreadyhaveprivatecourier"			                            "你已有私人信使。"

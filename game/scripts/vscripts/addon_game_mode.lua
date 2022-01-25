@@ -467,26 +467,26 @@ function CMegaDotaGameMode:OnEntityKilled( event )
 	if (entindex_attacker) then killer = EntIndexToHScript(entindex_attacker) end
 
 	local raxRespawnTimeWorth = {
-		npc_dota_goodguys_range_rax_top = 1,
-		npc_dota_goodguys_melee_rax_top = 2,
-		npc_dota_goodguys_range_rax_mid = 1,
-		npc_dota_goodguys_melee_rax_mid = 2,
-		npc_dota_goodguys_range_rax_bot = 1,
-		npc_dota_goodguys_melee_rax_bot = 2,
-		npc_dota_badguys_range_rax_top = 1,
-		npc_dota_badguys_melee_rax_top = 2,
-		npc_dota_badguys_range_rax_mid = 1,
-		npc_dota_badguys_melee_rax_mid = 2,
-		npc_dota_badguys_range_rax_bot = 1,
-		npc_dota_badguys_melee_rax_bot = 2,
+		npc_dota_goodguys_range_rax_top = 2,
+		npc_dota_goodguys_melee_rax_top = 4,
+		npc_dota_goodguys_range_rax_mid = 2,
+		npc_dota_goodguys_melee_rax_mid = 4,
+		npc_dota_goodguys_range_rax_bot = 2,
+		npc_dota_goodguys_melee_rax_bot = 4,
+		npc_dota_badguys_range_rax_top = 2,
+		npc_dota_badguys_melee_rax_top = 4,
+		npc_dota_badguys_range_rax_mid = 2,
+		npc_dota_badguys_melee_rax_mid = 4,
+		npc_dota_badguys_range_rax_bot = 2,
+		npc_dota_badguys_melee_rax_bot = 4,
 	}
 	if raxRespawnTimeWorth[name] ~= nil then
 		local team = killedUnit:GetTeam()
 		raxBonuses[team] = raxBonuses[team] + raxRespawnTimeWorth[name]
 		SendOverheadEventMessage( nil, OVERHEAD_ALERT_MANA_ADD, killedUnit, raxRespawnTimeWorth[name], nil )
 		GameRules:SendCustomMessage("#destroyed_" .. string.sub(name,10,#name - 4),-1,0)
-		if raxBonuses[team] == 9 then
-			raxBonuses[team] = 11
+		if raxBonuses[team] == 18 then
+			raxBonuses[team] = 22
 			if team == DOTA_TEAM_BADGUYS then
 				GameRules:SendCustomMessage("#destroyed_badguys_all_rax",-1,0)
 			else
@@ -547,7 +547,10 @@ function CMegaDotaGameMode:OnEntityKilled( event )
 	    timeLeft = timeLeft + addedTime
 	    --print(timeLeft)
 
-		timeLeft = timeLeft + ((raxBonuses[killedUnit:GetTeam()] - raxBonuses[killedUnit:GetOpposingTeamNumber()]) * (1-respawnReduction))
+	    local rax_bonus = raxBonuses[killedUnit:GetTeam()] - raxBonuses[killedUnit:GetOpposingTeamNumber()]
+	    if rax_bonus < 0 then rax_bonus = 0 end
+
+		timeLeft = timeLeft + rax_bonus * (1 - respawnReduction)
 
 	    if timeLeft < 1 then
 	        timeLeft = 1
