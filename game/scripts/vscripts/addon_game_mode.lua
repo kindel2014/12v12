@@ -49,6 +49,7 @@ LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_shadow_amulet_thinker", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_fountain_phasing", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_abandoned", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_gold_bonus", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_feed_token", 'anti_feed_system/modifier_troll_feed_token', LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_feed_token_couter", 'anti_feed_system/modifier_troll_feed_token_couter', LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_troll_debuff_stop_feed", 'anti_feed_system/modifier_troll_debuff_stop_feed', LUA_MODIFIER_MOTION_NONE)
@@ -593,7 +594,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 				-- if you change formula here, change it in hero_selection_overlay.js too
 				local gold = math.floor((-100 * winrate + 5100) / 5) * 5
 
-				PlayerResource:ModifyGold(spawnedUnit:GetPlayerOwnerID(), gold, true, 0)
+				spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_gold_bonus", { duration = 300, gold = gold})
 				bonusGoldApplied[spawnedUnit:GetPlayerOwnerID()] = true
 			end
 		end
@@ -725,8 +726,6 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 
 		if not spawnedUnit.firstTimeSpawned then
 			spawnedUnit.firstTimeSpawned = true
-			spawnedUnit:SetContextThink("HeroFirstSpawn", function()
-			end, 2/30)
 		end
 
 		Timers:CreateTimer(0, function()

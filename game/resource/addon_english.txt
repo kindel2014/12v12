@@ -1986,5 +1986,8 @@
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"TIME TO REARM:"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"Rearm"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"Resetting ability cooldowns."
+
+		"DOTA_Tooltip_modifier_gold_bonus"													"Bonus Gold"
+		"DOTA_Tooltip_modifier_gold_bonus_Description"										"Gaining additional gold for picking hero with low winrate."
 	}
 }

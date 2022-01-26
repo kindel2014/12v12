@@ -1351,5 +1351,8 @@
 		"DOTA_Tooltip_ability_tinker_rearm_custom_abilitychanneltime"						"ВРЕМЯ ПРИМЕНЕНИЯ:"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom"											"Rearm"
 		"DOTA_Tooltip_modifier_tinker_rearm_custom_Description"								"Сбрасывает время перезарядки способностей."
+
+		"DOTA_Tooltip_modifier_gold_bonus"													"Бонусное золото"
+		"DOTA_Tooltip_modifier_gold_bonus_Description"										"Вы получаете бонусное золото за выбор героя с низким процентом побед."
 	}
 }
