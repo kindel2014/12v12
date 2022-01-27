@@ -84,10 +84,10 @@ function modifier_builder_tower_hp_boost:GetTexture() return "perkIcons/builder"
 function modifier_builder_tower_hp_boost:GetModifierExtraHealthBonus()	return self:GetStackCount() end
 
 builder_t0 = class(builder)
-builder_t0.v = 15
+builder_t0.v = 20
 builder_t1 = class(builder)
-builder_t1.v = 30
+builder_t1.v = 40
 builder_t2 = class(builder)
-builder_t2.v = 60
+builder_t2.v = 80
 builder_t3 = class(builder)
-builder_t3.v = 120
+builder_t3.v = 160

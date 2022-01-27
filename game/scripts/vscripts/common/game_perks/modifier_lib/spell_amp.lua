@@ -11,7 +11,7 @@ spell_amp_t1 = class(spell_amp)
 spell_amp_t2 = class(spell_amp)
 spell_amp_t3 = class(spell_amp)
 
-function spell_amp_t0:OnCreated() self.v = 4.5 end
-function spell_amp_t1:OnCreated() self.v = 9 end
-function spell_amp_t2:OnCreated() self.v = 18 end
-function spell_amp_t3:OnCreated() self.v = 36 end
+function spell_amp_t0:OnCreated() self.v = 4 end
+function spell_amp_t1:OnCreated() self.v = 8 end
+function spell_amp_t2:OnCreated() self.v = 16 end
+function spell_amp_t3:OnCreated() self.v = 32 end

@@ -15,5 +15,5 @@ bonus_str_t3 = class(bonus_str)
 
 function bonus_str_t0:OnCreated() self.v = {0, 1, 0.5} end
 function bonus_str_t1:OnCreated() self.v = {0, 1, 1} end
-function bonus_str_t2:OnCreated() self.v = {0, 1, 1.8} end
-function bonus_str_t3:OnCreated() self.v = {0, 1, 3.6} end
+function bonus_str_t2:OnCreated() self.v = {0, 1, 1.6} end
+function bonus_str_t3:OnCreated() self.v = {0, 1, 3.2} end
