@@ -10,16 +10,16 @@ local XP_SCALE_FACTOR_FADEIN_SECONDS = (60 * 60) -- 60 minutes
 local game_start = true
 
 -- Anti feed system
-local TROLL_FEED_DISTANCE_FROM_FOUNTAIN_TRIGGER = 6000 -- Distance from allince Fountain
+local TROLL_FEED_DISTANCE_FROM_FOUNTAIN_TRIGGER = 3000 -- Distance from allince Fountain
 local TROLL_FEED_BUFF_BASIC_TIME = (60 * 10)   -- 10 minutes
 local TROLL_FEED_TOTAL_RESPAWN_TIME_MULTIPLE = 2.5 -- x2.5 respawn time. If you respawn 100sec, after debuff you respawn 250sec
 local TROLL_FEED_INCREASE_BUFF_AFTER_DEATH = 60 -- 1 minute
-local TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN = -5 -- (Kill-Death)
+local TROLL_FEED_RATIO_KD_TO_TRIGGER_MIN = -5 -- (Kills+Assists-Deaths)
 local TROLL_FEED_NEED_TOKEN_TO_BUFF = 3
 local TROLL_FEED_TOKEN_TIME_DIES_WITHIN = (60 * 1.5) -- 1.5 minutes
 local TROLL_FEED_TOKEN_DURATION = (60 * 5) -- 5 minutes
 local TROLL_FEED_MIN_RESPAWN_TIME = 60 -- 1 minute
-local TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI = 0.5 -- 10 assists = 5 "kills"
+local TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI = 1 -- 10 assists = 10 "kills"
 
 --Requirements to Buy Divine Rapier
 local NET_WORSE_FOR_RAPIER_MIN = 20000
