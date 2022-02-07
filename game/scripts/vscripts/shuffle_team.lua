@@ -127,7 +127,7 @@ function ShuffleTeam:SendNotificationForWeakTeam()
 		return
 	end
 	if not self.bonusPct then return end
-	CustomGameEventManager:Send_ServerToTeam(self.weakTeam, "WeakTeamNotification", { bonusPct = self.bonusPct, mmrDiff = self.mmrDiff})
+	CustomGameEventManager:Send_ServerToTeam(self.weakTeam, "WeakTeamNotification", { goldPct = self.bonusPct, expPct = self.bonusExp, mmrDiff = self.mmrDiff})
 end
 
 function ShuffleTeam:GiveBonusToHero(playerId)
@@ -136,7 +136,7 @@ function ShuffleTeam:GiveBonusToHero(playerId)
 	-- Check if player has a hero yet
 	if hero and hero:IsAlive() then
 		-- Apply weak team modifier granting bonus xp and gold gain based on difference in MMR between teams
-		hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
+		hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusExp })
 		return
 	end
 	
@@ -153,6 +153,7 @@ function ShuffleTeam:GiveBonusToWeakTeam()
 	if self.mmrDiff < MIN_DIFF then return end
 	self.bonusPct = math.min(BASE_BONUS + (math.floor((self.mmrDiff - MIN_DIFF) / BONUS_MMR_STEP)) * BONUS_FOR_STEP, MAX_BONUS)
 	self.multGold = 1 + self.bonusPct / 100
+	self.bonusExp = self.bonusPct / 2
 	for playerId = 0, 23 do
 		if PlayerResource:GetTeam(playerId) == self.weakTeam then
 			self:GiveBonusToHero(playerId)
