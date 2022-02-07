@@ -90,8 +90,8 @@ function ShuffleTeam:SortInMMR()
 		local player = PlayerResource:GetPlayer(player_id)
 		if player then
 			player:SetTeam(team_id)
-			PlayerResource:SetCustomTeamAssignment(player_id, team_id)
 		end
+		PlayerResource:SetCustomTeamAssignment(player_id, team_id)
 	end
 	for player_id = 0, 23 do
 		set_team(player_id, DOTA_TEAM_NOTEAM)
@@ -130,22 +130,19 @@ function ShuffleTeam:SendNotificationForWeakTeam()
 	CustomGameEventManager:Send_ServerToTeam(self.weakTeam, "WeakTeamNotification", { bonusPct = self.bonusPct, mmrDiff = self.mmrDiff})
 end
 
-function ShuffleTeam:GiveBonusToHero(player)
-	-- Check if player exists, sometimes doesn't due to volvo things
-	if player and not player:IsNull() then
-		local hero = player:GetAssignedHero()
+function ShuffleTeam:GiveBonusToHero(playerId)
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 		
-		-- Check if player has a hero yet
-		if hero then
-			-- Apply weak team modifier granting bonus xp and gold gain based on difference in MMR between teams
-			hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
-			return
-		end
+	-- Check if player has a hero yet
+	if hero and hero:IsAlive() then
+		-- Apply weak team modifier granting bonus xp and gold gain based on difference in MMR between teams
+		hero:AddNewModifier(hero, nil, "modifier_bonus_for_weak_team_in_mmr", { duration = -1, bonusPct = self.bonusPct })
+		return
 	end
 	
 	-- Keep checking every 2 seconds until player has a hero
 	Timers:CreateTimer(2, function()
-			self:GiveBonusToHero(player)
+		self:GiveBonusToHero(playerId)
 	end)
 end
 
@@ -157,9 +154,8 @@ function ShuffleTeam:GiveBonusToWeakTeam()
 	self.bonusPct = math.min(BASE_BONUS + (math.floor((self.mmrDiff - MIN_DIFF) / BONUS_MMR_STEP)) * BONUS_FOR_STEP, MAX_BONUS)
 	self.multGold = 1 + self.bonusPct / 100
 	for playerId = 0, 23 do
-		local player = PlayerResource:GetPlayer(playerId)
-		if player and (player:GetTeam() == self.weakTeam) then
-			self:GiveBonusToHero(player)
+		if PlayerResource:GetTeam(playerId) == self.weakTeam then
+			self:GiveBonusToHero(playerId)
 		end
 	end
 end

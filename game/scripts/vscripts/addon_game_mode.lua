@@ -733,7 +733,7 @@ function CMegaDotaGameMode:OnNPCSpawned(event)
 		end)
 
 		local player = PlayerResource:GetPlayer(playerId)
-		if not player.checked_courier_secret_shop then
+		if player and not player.checked_courier_secret_shop then
 			CheckSuppCourier(spawnedUnit:GetPlayerOwnerID())
 		end
 	end
@@ -855,9 +855,6 @@ end
 
 function CMegaDotaGameMode:OnThink()
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-		-- Weak team must be called here due to disconnect on game start
-		-- Any player who isn't connected at this point will not receive weak team buff
-		ShuffleTeam:GiveBonusToWeakTeam()
 
 		-- update the scale factor:
 	 	-- * SCALE_FACTOR_INITIAL at the start of the game
@@ -1134,6 +1131,9 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	end
 
 	if newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+		
+		ShuffleTeam:GiveBonusToWeakTeam()
+
 		Convars:SetFloat("host_timescale", 1)
 		if game_start then
 			GameRules:SetTimeOfDay( 0.251 )
