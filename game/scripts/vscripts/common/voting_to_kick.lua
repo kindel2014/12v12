@@ -166,7 +166,7 @@ function Kicks:UpdateVotingForKick()
 			end
 		end
 	end
-	self.votes_for_kick = math.floor(max_voices_in_team * 0.75)
+	self.votes_for_kick = math.floor(max_voices_in_team * 0.60)
 end
 
 function Kicks:SendDegugResult(data, text)
