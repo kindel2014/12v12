@@ -12,7 +12,7 @@ function RandomString(len) {
 
 const token = RandomString(8);
 GameEvents.SendCustomGameEventToServer("secret_token", { token: token });
-//$.Msg("Server identity token: "+token)
+$.Msg("Server identity token: "+token)
 
 GameEvents.SubscribeProtected = function(event_name, callback) {
 	return GameEvents.Subscribe(event_name, (event) => {
@@ -22,7 +22,7 @@ GameEvents.SubscribeProtected = function(event_name, callback) {
 		// Maybe can be fixed if we will generate tokens on server side and send it to clients
 		if (player_id == -1 || token == event.chc_secret_token) {
 			callback(event.event_data);
-		} else if (Game.IsInToolsMode()) {
+		} else {
 			$.Msg(
 				`Registered event ${event_name} have wrong server token: ${event.chc_secret_token}, for CUSTOM clientside events use GameEvents.SendEventClientSideProtected`,
 			);
