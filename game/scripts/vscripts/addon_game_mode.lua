@@ -1360,22 +1360,19 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 			local prshID = purchaser:GetPlayerID()
 			local supporter_level = Supporters:GetLevel(prshID)
 			local correctInventory = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
+			local in_shop_range = hInventoryParent:IsInRangeOfShop(DOTA_SHOP_HOME, true) or not hInventoryParent:IsAlive()
 
-			if (filterTable["item_parent_entindex_const"] > 0) and correctInventory and (ItemIsFastBuying(hItem:GetName()) or supporter_level > 0) then
+			if (filterTable["item_parent_entindex_const"] > 0) and correctInventory and (ItemIsFastBuying(hItem:GetName()) or supporter_level > 0) and not in_shop_range then
 				local transfer_result = hItem:TransferToBuyer(hInventoryParent)
 				if transfer_result ~= nil then
 					hItem:SetCombineLocked(true)
 					Timers:CreateTimer(0, function()
 						if hItem and not hItem:IsNull() then
-							hInventoryParent:DropItemAtPositionImmediate(hItem, hInventoryParent:GetAbsOrigin())
-							local container = hItem:GetContainer()
-							if container then
-								UTIL_Remove(hItem)
-								UTIL_Remove(container)
-							end
+							hInventoryParent:TakeItem(hItem)
+							hItem:SetCombineLocked(false)
 						end
 						if transfer_result == true then
-							purchaser:FakeBuyItem(itemName)
+							purchaser:AddItem(hItem)
 						end
 					end)
 				end
