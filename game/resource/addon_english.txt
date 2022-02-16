@@ -1018,7 +1018,7 @@
 		"LoadingTip_4"				"Respawn rates are reduced by 35% in 12v12."
 		"LoadingTip_5"				"If an ally is using their abilities to troll you, you can use the Disable Help item on them to prevent this. You an also tick a checkbox in the scoreboard which does the same thing."
 		"LoadingTip_6"				"You can mute players by using the Mute Player item, alternatively you can click the icon on the scoreboard next to their name. Muting a player also prevents hearing their chat wheel spam."
-		"LoadingTip_7"				"Destroying enemy barracks reduces increases enemy respawn time. Melee barracks increases by 4 seconds and ranged barracks by 2 second. If all raxes are destroyed enemies gain another 4 seconds increased respawn time."
+		"LoadingTip_7"				"Destroying enemy barracks increases enemy respawn time. Melee barracks by 4 seconds and ranged barracks by 2 seconds. If all enemy barracks are destroyed enemies respawn time is increased by another 4 seconds."
 		"LoadingTip_8"				"The Fountain is very strong in 12v12. It has Fury Swipes (increases 1 damage every attack), Moon Glaives that bounce twice and true-strike. Even if its not targeting you, you can be decimated by the bounces. Be careful."
 		"LoadingTip_9"				"Supporters will get their items instantly transfered to them after purchase. This does not include Consumeables."
 		"LoadingTip_10"				"Supporters can choose superior perks at the start of the game. High-supporters can get even better perks!"
