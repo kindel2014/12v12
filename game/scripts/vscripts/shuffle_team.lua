@@ -150,7 +150,7 @@ function ShuffleTeam:GiveBonusToWeakTeam()
 	if GameOptions:OptionsIsActive("no_bonus_for_weak_team") or GameOptions:OptionsIsActive("no_mmr_sort") then
 		return
 	end
-	if self.mmrDiff < MIN_DIFF then return end
+	if not self.mmrDiff or self.mmrDiff < MIN_DIFF then return end
 	self.bonusPct = math.min(BASE_BONUS + (math.floor((self.mmrDiff - MIN_DIFF) / BONUS_MMR_STEP)) * BONUS_FOR_STEP, MAX_BONUS)
 	self.multGold = 1 + self.bonusPct / 100
 	self.bonusExp = self.bonusPct / 2
