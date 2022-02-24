@@ -29,7 +29,7 @@ _G.MAX_NEUTRAL_ITEMS_FOR_PLAYER = 3
 
 bonusGoldApplied = {}
 
-require("protected_custom_events")
+-- require("protected_custom_events")
 require("common/init")
 require("util")
 require("neutral_items_drop_choice")
@@ -102,6 +102,7 @@ end
 _G.ItemKVs = {}
 _G.abandoned_players = {}
 _G.first_dc_players = {}
+_G.user_id_to_player_name = {}
 
 function CMegaDotaGameMode:InitGameMode()
 	_G.ItemKVs = LoadKeyValues("scripts/npc/npc_block_items_for_troll.txt")
@@ -1437,13 +1438,14 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 end
 
 function CMegaDotaGameMode:OnConnectFull(data)
-	local player_id = data.PlayerID
+	local player_name = _G.user_id_to_player_name[data.userid]
+    local player_id = FindPlayerIDByName(player_name)
 	_G.tUserIds[player_id] = data.userid
 	if Kicks:IsPlayerKicked(player_id) then
 		Kicks:DropItemsForDisconnetedPlayer(player_id)
 		SendToServerConsole('kickid '.. data.userid);
 	end
-	
+
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 
 	if abandoned_players[player_id] then
@@ -3580,3 +3582,7 @@ function CMegaDotaGameMode:OnPlayerLearnedAbility(data)
 		hero:RegisterManuallySpentAttributePoint()
 	end
 end
+
+ListenToGameEvent("player_connect", function(event)
+    _G.user_id_to_player_name[event.userid] = event.name
+end, nil)

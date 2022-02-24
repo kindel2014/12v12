@@ -131,6 +131,15 @@ function GetPlayerIdBySteamId(id)
 end
 
 
+function FindPlayerIDByName(player_name)
+    for i = 0, 63 do
+        if PlayerResource:GetPlayerName(i) == player_name then
+            return i
+        end
+    end
+end
+
+
 function CallbackHeroAndCourier(player_id, callback)
 	if not player_id then return end
 	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
