@@ -4,10 +4,6 @@
 {
 	"Version"		"1"
 
-	"item_tome_of_knowledge" {
-		"ItemStockInitial"				"5"
-	}
-
 	"item_courier"
 	{
 		"ItemPurchasable"				"0"
