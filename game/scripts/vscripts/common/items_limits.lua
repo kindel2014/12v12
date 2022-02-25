@@ -75,19 +75,21 @@ function CDOTA_Item:SetCooldownStackedItem(itemName, buyer)
 	if _G.itemsCooldownForPlayer[itemName] then
 		local buyerEntIndex = buyer:GetEntityIndex()
 		Timers:CreateTimer(0.04, function()
-			local itemCost = self:GetCost()
-			local item = self
-			if not notFastItems[itemName] then
-				UTIL_Remove(item)
-				item = buyer:FakeBuyItem(itemName)
-			end
-			local unique_key_cd = itemName .. "_" .. buyerEntIndex
-			if _G.lastTimeBuyItemWithCooldown[unique_key_cd] == nil or (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key_cd]) >= _G.itemsCooldownForPlayer[itemName]) then
-				_G.lastTimeBuyItemWithCooldown[unique_key_cd] = GameRules:GetGameTime()
-			elseif _G.itemsCooldownForPlayer[itemName] then
-				buyer:ModifyGold(itemCost, false, 0)
-				MessageToPlayerItemCooldown(itemName, buyer:GetPlayerID())
-				UTIL_Remove(item)
+			if IsValidEntity(self) then
+				local itemCost = self:GetCost()
+				local item = self
+				if not notFastItems[itemName] then
+					UTIL_Remove(item)
+					item = buyer:FakeBuyItem(itemName)
+				end
+				local unique_key_cd = itemName .. "_" .. buyerEntIndex
+				if _G.lastTimeBuyItemWithCooldown[unique_key_cd] == nil or (_G.itemsCooldownForPlayer[itemName] and (GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key_cd]) >= _G.itemsCooldownForPlayer[itemName]) then
+					_G.lastTimeBuyItemWithCooldown[unique_key_cd] = GameRules:GetGameTime()
+				elseif _G.itemsCooldownForPlayer[itemName] then
+					buyer:ModifyGold(itemCost, false, 0)
+					MessageToPlayerItemCooldown(itemName, buyer:GetPlayerID())
+					UTIL_Remove(item)
+				end
 			end
 		end)
 	end
