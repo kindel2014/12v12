@@ -12,7 +12,7 @@ if not ProtectedCustomEvents then
 	-- PlayerID never changes like UserID, but for spectators or at some early games stages can be -1.
 
 	function ProtectedCustomEvents:OnConnect(event)
-		DeepPrint(event, "OnConnect ")
+--		DeepPrint(event, "OnConnect ")
 
 		if event.bot == 1 then return end
 
@@ -22,8 +22,6 @@ if not ProtectedCustomEvents then
 
 	CustomGameEventManager:RegisterListener("secret_token", function(user_id, event)
 		if user_id == -1 then return end -- Spectators 
-		print(user_id)
-		DeepPrint(event)
 		--print(user_id, event.PlayerID, event.token, player, entindex)
 
 		player_tokens[user_id] = event.token
@@ -41,9 +39,7 @@ if not ProtectedCustomEvents then
 		end
 		
 		local player_id = player:GetPlayerID()
-		print(player_id)
 		local entindex = player:GetEntityIndex()
-		print(entindex)
 		if player_tokens[entindex] then
 			new_table.chc_secret_token = player_tokens[entindex]
 		elseif player_id ~= -1 and not PlayerResource:IsFakeClient(player_id) then
