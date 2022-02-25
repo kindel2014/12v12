@@ -386,8 +386,9 @@ function CMegaDotaGameMode:OnHeroPicked(event)
 	end
 
 	local player_id = hero:GetPlayerOwnerID()
-	if not IsInToolsMode() and player_id and _G.tUserIds[player_id] and not self.disconnected_players[player_id] then
-		SendToServerConsole('kickid '.. _G.tUserIds[player_id]);
+	if not IsInToolsMode() and player_id and not self.disconnected_players[player_id] then
+		local player_name = PlayerResource:GetPlayerName(player_id)
+		SendToServerConsole('kick '.. player_name)
 	end
 end
 ---------------------------------------------------------------------------
@@ -1437,29 +1438,32 @@ function CMegaDotaGameMode:ItemAddedToInventoryFilter( filterTable )
 end
 
 function CMegaDotaGameMode:OnConnectFull(data)
-	local player_id = data.PlayerID
-	_G.tUserIds[player_id] = data.userid
-	if Kicks:IsPlayerKicked(player_id) then
-		Kicks:DropItemsForDisconnetedPlayer(player_id)
-		SendToServerConsole('kickid '.. data.userid);
-	end
-	
-	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
-
-	if abandoned_players[player_id] then
-		local unblock_unit = function(unit)
-			unit:RemoveModifierByName("modifier_abandoned")
-			unit:RemoveNoDraw()
+	for player_id = 0, DOTA_MAX_PLAYERS - 1 do
+		if Kicks:IsPlayerKicked(player_id) then
+			Kicks:DropItemsForDisconnetedPlayer(player_id)
+			local player_name = PlayerResource:GetPlayerName(player_id)
+			SendToServerConsole('kick '.. player_name)
 		end
-		CallbackHeroAndCourier(player_id, unblock_unit)
-		abandoned_players[player_id] = nil
-	end
+	
+		local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 
-	if hero then
-		hero:CheckManuallySpentAttributePoints()
-	end
+		if abandoned_players[player_id] then
+			local unblock_unit = function(unit)
+				unit:RemoveModifierByName("modifier_abandoned")
+				unit:RemoveNoDraw()
+			end
+			CallbackHeroAndCourier(player_id, unblock_unit)
+			abandoned_players[player_id] = nil
+		end
 
-	CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = player_id} )
+		if hero then
+			hero:CheckManuallySpentAttributePoints()
+		end
+
+		CustomGameEventManager:Send_ServerToAllClients( "change_leave_status", {leave = false, playerId = player_id} )
+
+		break
+	end
 end
 
 function CMegaDotaGameMode:OnPlayerDisconnect(data)

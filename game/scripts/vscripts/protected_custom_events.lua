@@ -6,32 +6,27 @@ if not ProtectedCustomEvents then
 	-- Token sends to server by client after connection on UI initialization phase
 	
 	local player_tokens = {} -- Get player's token by entity index (of CDOTAPlayer entity), player_tokens[entindex] = token
-	local player_userid = {} -- Get player's userID by entity index, player_userid[entindex] = player's user_id
-	local player_entindex = {} -- Get player's entity index by userID, player_entindex[user_id] = player's entindex
 
 	-- UserID is a unique integer given to each player who connects to a server. Never changes during game after assigned.
 	-- EntityIndex of a player can change after each reconnection, since player's entity destroying after disconnect.
 	-- PlayerID never changes like UserID, but for spectators or at some early games stages can be -1.
 
 	function ProtectedCustomEvents:OnConnect(event)
-		--DeepPrint(event, "OnConnect ")
+		DeepPrint(event, "OnConnect ")
 
 		if event.bot == 1 then return end
 
-		local entindex = event.index + 1
-
-		player_entindex[event.userid] = entindex
-		player_userid[entindex] = event.userid
+--		local entindex = event.userid + 1
 	end
 	ListenToGameEvent("player_connect", Dynamic_Wrap(ProtectedCustomEvents, "OnConnect"), ProtectedCustomEvents)
 
 	CustomGameEventManager:RegisterListener("secret_token", function(user_id, event)
 		if user_id == -1 then return end -- Spectators 
-		local entindex = player_entindex[user_id]
-		local player = PlayerInstanceFromIndex(entindex)
+		print(user_id)
+		DeepPrint(event)
 		--print(user_id, event.PlayerID, event.token, player, entindex)
 
-		player_tokens[entindex] = event.token
+		player_tokens[user_id] = event.token
 	end)
 
 	CCustomGameEventManager.Send_ServerToPlayerEngine = CCustomGameEventManager.Send_ServerToPlayer
@@ -46,9 +41,9 @@ if not ProtectedCustomEvents then
 		end
 		
 		local player_id = player:GetPlayerID()
+		print(player_id)
 		local entindex = player:GetEntityIndex()
-		local user_id = player_userid[entindex]
-
+		print(entindex)
 		if player_tokens[entindex] then
 			new_table.chc_secret_token = player_tokens[entindex]
 		elseif player_id ~= -1 and not PlayerResource:IsFakeClient(player_id) then
@@ -63,8 +58,8 @@ if not ProtectedCustomEvents then
 
 	CCustomGameEventManager.Send_ServerToAllClientsEngine = CCustomGameEventManager.Send_ServerToAllClients
 	CCustomGameEventManager.Send_ServerToAllClients = function(self, event_name, event_data) 
-		for entindex = 1,DOTA_MAX_PLAYERS do -- Possible entity indexes of players, including spectators
-			local player = PlayerInstanceFromIndex(entindex)
+		for entindex = 0, DOTA_MAX_PLAYERS - 1 do -- Possible entity indexes of players, including spectators
+			local player = PlayerResource:GetPlayer(entindex)
 			if player then
 				CustomGameEventManager:Send_ServerToPlayer(player, event_name, event_data)
 			end
@@ -74,7 +69,7 @@ if not ProtectedCustomEvents then
 	CCustomGameEventManager.Send_ServerToTeamEngine = CCustomGameEventManager.Send_ServerToTeam
 	CCustomGameEventManager.Send_ServerToTeam = function(self, team, event_name, event_data) 
 		for entindex,_ in pairs(player_tokens) do
-			local player = PlayerInstanceFromIndex(entindex)
+			local player = PlayerResource:GetPlayer(entindex)
 			if player and player:GetTeam() == team then
 				CustomGameEventManager:Send_ServerToPlayer(player, event_name, event_data)
 			end
