@@ -1,5 +1,7 @@
 "DOTAAbilities"
 {
+	"item_tome_of_knowledge"		"REMOVED"
+
     "item_patreonbundle_1"
     {
 		"ID"							"20011"
