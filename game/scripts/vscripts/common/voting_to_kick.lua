@@ -1,5 +1,7 @@
 Kicks = Kicks or {}
 
+_G.tUserIds = {}
+
 function Kicks:Init()
 	self.time_to_voting = 40
 	self.votes_for_kick = 6 -- Now redefined on each voting start
@@ -207,7 +209,7 @@ function Kicks:VoteYes(data)
 	if self.voting.votes >= self.votes_for_kick then
 		self:DropItemsForDisconnetedPlayer(self.voting.target)
 		self.kicks_id[self.voting.target] = true
-		SendToServerConsole('kick '.. data.PlayerID)
+		SendToServerConsole('kickid '.. _G.tUserIds[self.voting.target]);
 		self:StopVoting(true)
 	end
 	
