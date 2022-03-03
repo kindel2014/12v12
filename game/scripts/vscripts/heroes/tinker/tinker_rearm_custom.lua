@@ -25,6 +25,8 @@ local rearm_black_list = {
 	["item_teleport_perk_3"] = true,
 }
 
+function tinker_rearm_custom:IsStealable() return false end
+
 function tinker_rearm_custom:OnSpellStart()	
 	local caster = self:GetCaster()
 	if not caster or caster:IsNull() then return end
