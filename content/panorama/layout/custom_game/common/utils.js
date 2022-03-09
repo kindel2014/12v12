@@ -152,3 +152,15 @@ function ParseBigNumber(x) {
 Math.clamp = function (num, min, max) {
 	return this.min(this.max(num, min), max);
 };
+
+if (!$.LocalizeEngine) {
+	$.LocalizeEngine = $.Localize;
+	$.Localize = function (text, panel) {
+		if (!text.startsWith("#")) {
+			text = "#" + text;
+		}
+
+		if (panel) return $.LocalizeEngine(text, panel);
+		else return $.LocalizeEngine(text);
+	};
+}
