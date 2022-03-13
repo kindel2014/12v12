@@ -92,7 +92,7 @@ cleave_t1 = class(cleave)
 cleave_t2 = class(cleave)
 cleave_t3 = class(cleave)
 
-function cleave_t0:OnCreated() self.v = {0.075, 0.15} end
-function cleave_t1:OnCreated() self.v = {0.125, 0.25} end
-function cleave_t2:OnCreated() self.v = {0.225, 0.45} end
-function cleave_t3:OnCreated() self.v = {0.45, 0.9} end
+function cleave_t0:OnCreated() self.v = {0.06, 0.12} end
+function cleave_t1:OnCreated() self.v = {0.12, 0.24} end
+function cleave_t2:OnCreated() self.v = {0.24, 0.48} end
+function cleave_t3:OnCreated() self.v = {0.48, 0.96} end
