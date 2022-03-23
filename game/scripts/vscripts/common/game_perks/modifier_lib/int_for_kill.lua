@@ -2,6 +2,18 @@ require("common/game_perks/base_game_perk")
 
 int_for_kill = class(base_game_perk)
 
+function int_for_kill:OnCreated(kv)
+	if IsClient() then return end
+
+	local parent = self:GetParent()
+
+	if not parent:IsRealHero() then
+		local hero = PlayerResource:GetSelectedHeroEntity(parent:GetPlayerOwnerID())
+
+		self:SetStackCount(hero:GetModifierStackCount(self:GetName(), hero))
+	end
+end
+
 function int_for_kill:DeclareFunctions() return { MODIFIER_PROPERTY_STATS_INTELLECT_BONUS, MODIFIER_EVENT_ON_HERO_KILLED } end
 
 function int_for_kill:OnHeroKilled(keys)
@@ -25,7 +37,7 @@ int_for_kill_t1 = class(int_for_kill)
 int_for_kill_t2 = class(int_for_kill)
 int_for_kill_t3 = class(int_for_kill)
 
-function int_for_kill_t0:OnCreated() self.v = 2 end
-function int_for_kill_t1:OnCreated() self.v = 4 end
-function int_for_kill_t2:OnCreated() self.v = 6 end
-function int_for_kill_t3:OnCreated() self.v = 12 end
+int_for_kill_t0.v = 2
+int_for_kill_t1.v = 4
+int_for_kill_t2.v = 6
+int_for_kill_t3.v = 12

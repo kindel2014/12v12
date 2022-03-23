@@ -6,6 +6,7 @@ function hunter:DeclareFunctions() return { MODIFIER_EVENT_ON_TAKEDAMAGE } end
 function hunter:GetTexture() return "perkIcons/hunter" end
 
 function hunter:OnTakeDamage(params)
+	if not self:GetParent():IsRealHero() then return end
 	if self:GetParent() ~= params.attacker then return end
 	if params.damage <= 0 then return end
 	if not params.unit:IsCreep()  then return end

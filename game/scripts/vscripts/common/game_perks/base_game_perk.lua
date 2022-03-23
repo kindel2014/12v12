@@ -4,6 +4,7 @@ function base_game_perk:IsHidden() return false end
 function base_game_perk:IsPurgable() return false end
 function base_game_perk:IsPurgeException() return false end
 function base_game_perk:RemoveOnDeath() return false end
+function base_game_perk:AllowIllusionDuplicate() return true end
 
 function base_game_perk:GetPerkValue(const, level_counter, bonus_per_level)
 	local hero_lvl = self:GetParent():GetLevel()

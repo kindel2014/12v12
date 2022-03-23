@@ -2,6 +2,18 @@ require("common/game_perks/base_game_perk")
 
 agi_for_kill = class(base_game_perk)
 
+function agi_for_kill:OnCreated(kv)
+	if IsClient() then return end
+
+	local parent = self:GetParent()
+
+	if not parent:IsRealHero() then
+		local hero = PlayerResource:GetSelectedHeroEntity(parent:GetPlayerOwnerID())
+
+		self:SetStackCount(hero:GetModifierStackCount(self:GetName(), hero))
+	end
+end
+
 function agi_for_kill:DeclareFunctions() return { MODIFIER_PROPERTY_STATS_AGILITY_BONUS, MODIFIER_EVENT_ON_HERO_KILLED } end
 
 function agi_for_kill:OnHeroKilled(keys)
@@ -25,7 +37,7 @@ agi_for_kill_t1 = class(agi_for_kill)
 agi_for_kill_t2 = class(agi_for_kill)
 agi_for_kill_t3 = class(agi_for_kill)
 
-function agi_for_kill_t0:OnCreated() self.v = 1 end
-function agi_for_kill_t1:OnCreated() self.v = 1.8 end
-function agi_for_kill_t2:OnCreated() self.v = 2.8 end
-function agi_for_kill_t3:OnCreated() self.v = 5.6 end
+agi_for_kill_t0.v = 1
+agi_for_kill_t1.v = 1.8
+agi_for_kill_t2.v = 2.8
+agi_for_kill_t3.v = 5.6

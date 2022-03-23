@@ -22,7 +22,11 @@ function delayed_damage:OnIntervalThink()
 end
 delayed_damage.OnCreated = function(self)
 	if not IsServer() then return end
+
 	local parent = self:GetParent()
+
+	if not parent:IsRealHero() then return end
+
 	parent.delay_damage_by_perk = self.v[1]
 	parent.delay_damage_by_perk_duration = self.v[2]
 	parent.delay_ability = parent:AddAbility("delayed_damage_perk")

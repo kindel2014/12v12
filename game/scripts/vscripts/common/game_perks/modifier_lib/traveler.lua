@@ -5,6 +5,7 @@ function traveler:GetTexture() return "perkIcons/traveler" end
 
 traveler.OnCreated = function(self)
 	if not IsServer() then return end
+	if not self:GetParent():IsRealHero() then return end
 	self:GetParent():AddItemByName("item_teleport_perk_" .. self.v)
 end
 
