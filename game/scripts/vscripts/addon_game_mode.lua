@@ -21,6 +21,13 @@ local TROLL_FEED_TOKEN_DURATION = (60 * 5) -- 5 minutes
 local TROLL_FEED_MIN_RESPAWN_TIME = 60 -- 1 minute
 local TROLL_FEED_SYSTEM_ASSISTS_TO_KILL_MULTI = 1 -- 10 assists = 10 "kills"
 
+local TROLL_FEED_FORBIDDEN_TO_BUY_ITEMS = {
+	item_smoke_of_deceit = true,
+	item_ward_observer = true,
+	item_ward_sentry = true,
+	item_tome_of_knowledge = true,
+}
+
 --Requirements to Buy Divine Rapier
 local NET_WORSE_FOR_RAPIER_MIN = 20000
 
@@ -1566,6 +1573,12 @@ function CMegaDotaGameMode:ExecuteOrderFilter(filterTable)
 				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#you_cannot_buy_it" })
 				return false
 			end
+		end
+
+		local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+		if TROLL_FEED_FORBIDDEN_TO_BUY_ITEMS[item_name] and hero and hero:HasModifier("modifier_troll_debuff_stop_feed") then
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#you_cannot_buy_it" })
+			return false
 		end
 	end
 
