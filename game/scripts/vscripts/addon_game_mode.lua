@@ -1719,14 +1719,14 @@ local blockedChatPhraseCode = {
 function CMegaDotaGameMode:OnPlayerChat(keys)
 	local text = keys.text
 	local playerid = keys.playerid
-	if string.sub(text, 0,4) == "-ch " then
-		local data = {}
-		data.num = tonumber(string.sub(text, 5))
-		if not blockedChatPhraseCode[data.num] then
-			data.PlayerID = playerid
-			SelectVO(data)
-		end
-	end
+	-- if string.sub(text, 0,4) == "-ch " then
+	-- 	local data = {}
+	-- 	data.num = tonumber(string.sub(text, 5))
+	-- 	if not blockedChatPhraseCode[data.num] then
+	-- 		data.PlayerID = playerid
+	-- 		SelectVO(data)
+	-- 	end
+	-- end
 
 	local player = PlayerResource:GetPlayer(keys.playerid)
 
@@ -3453,7 +3453,7 @@ function ChatSound(phrase, source_player_id)
 	end
 end
 
-RegisterCustomEventListener("SelectVO", SelectVO)
+-- RegisterCustomEventListener("SelectVO", SelectVO)
 
 RegisterCustomEventListener("set_mute_player", function(data)
 	if data and data.PlayerID and data.toPlayerId then
