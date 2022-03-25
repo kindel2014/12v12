@@ -1719,14 +1719,14 @@ local blockedChatPhraseCode = {
 function CMegaDotaGameMode:OnPlayerChat(keys)
 	local text = keys.text
 	local playerid = keys.playerid
-	-- if string.sub(text, 0,4) == "-ch " then
-	-- 	local data = {}
-	-- 	data.num = tonumber(string.sub(text, 5))
-	-- 	if not blockedChatPhraseCode[data.num] then
-	-- 		data.PlayerID = playerid
-	-- 		SelectVO(data)
-	-- 	end
-	-- end
+	if string.sub(text, 0,4) == "-ch " then
+		local data = {}
+		data.num = tonumber(string.sub(text, 5))
+		if not blockedChatPhraseCode[data.num] then
+			data.PlayerID = playerid
+			SelectVO(data)
+		end
+	end
 
 	local player = PlayerResource:GetPlayer(keys.playerid)
 
@@ -1759,7 +1759,7 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 	local sec = time - min * 60
 	if min < 10 then min = "0" .. min end
 	if sec < 10 then sec = "0" .. sec end
-	Say(PlayerResource:GetPlayer(keys.PlayerID), min .. ":" .. sec, true)
+	CustomChat:MessageToTeam(min .. ":" .. sec, keys.PlayerID)
 end)
 
 votimer = {}
@@ -3405,8 +3405,7 @@ SelectVO = function(keys)
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 				--EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
 				ChatSound(heroesvo[selectedid][selectedid2], keys.PlayerID)
-				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
-				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
+				CustomChat:MessageToAll(chat["dota_chatwheel_message_"..selectedstr], keys.PlayerID)
 
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
@@ -3423,7 +3422,7 @@ SelectVO = function(keys)
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 			--EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
 			ChatSound(heroesvo[selectedid][selectedid2], keys.PlayerID)
-			Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
+			CustomChat:MessageToAll(chat["dota_chatwheel_message_"..selectedstr], keys.PlayerID)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
 			vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 		end
@@ -3453,7 +3452,7 @@ function ChatSound(phrase, source_player_id)
 	end
 end
 
--- RegisterCustomEventListener("SelectVO", SelectVO)
+RegisterCustomEventListener("SelectVO", SelectVO)
 
 RegisterCustomEventListener("set_mute_player", function(data)
 	if data and data.PlayerID and data.toPlayerId then
