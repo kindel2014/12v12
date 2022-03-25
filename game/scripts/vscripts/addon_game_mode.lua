@@ -1759,7 +1759,7 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 	local sec = time - min * 60
 	if min < 10 then min = "0" .. min end
 	if sec < 10 then sec = "0" .. sec end
-	CustomChat:MessageToTeam(min .. ":" .. sec, keys.PlayerID)
+	CustomChat:MessageToTeam(min .. ":" .. sec, PlayerResource:GetTeam(keys.PlayerID), keys.PlayerID)
 end)
 
 votimer = {}
