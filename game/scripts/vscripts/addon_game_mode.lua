@@ -169,6 +169,7 @@ function CMegaDotaGameMode:InitGameMode()
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 	end
 
+	ListenToGameEvent("dota_match_done", Dynamic_Wrap(CMegaDotaGameMode, 'OnMatchDone'), self)
 	ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(CMegaDotaGameMode, 'OnGameRulesStateChange'), self)
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( CMegaDotaGameMode, "OnNPCSpawned" ), self )
 	ListenToGameEvent( "entity_killed", Dynamic_Wrap( CMegaDotaGameMode, 'OnEntityKilled' ), self )
@@ -964,6 +965,52 @@ function CMegaDotaGameMode:FilterModifyExperience( filterTable )
 	return true
 end
 
+function CMegaDotaGameMode:OnMatchDone(keys)
+	local couriers = FindUnitsInRadius(DOTA_TEAM_GOODGUYS, Vector( 0, 0, 0 ), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_COURIER, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )
+		
+	for i = 0, 23 do
+		if PlayerResource:IsValidPlayerID( i ) then
+			local networth = 0
+			local hero = PlayerResource:GetSelectedHeroEntity( i )
+
+			for _, cour in pairs( couriers ) do
+				if cour:GetTeam() == cour:GetTeam() then
+					for s = 0, 8 do
+						local item = cour:GetItemInSlot( s )
+
+						if item and item:GetOwner() == hero then
+							networth = networth + item:GetCost()
+						end
+					end
+				end
+			end
+
+			for s = 0, 8 do
+				local item = hero:GetItemInSlot( s )
+
+				if item then
+					networth = networth + item:GetCost()
+				end
+			end
+
+			networth = networth + PlayerResource:GetGold( i )
+
+			local stats = CUSTOM_GAME_STATS[i]
+			stats.perk = GamePerks.choosed_perks[i]
+			stats.networth = networth
+			stats.damage_taken = PlayerResource:GetHeroDamageTaken(i, true) + PlayerResource:GetCreepDamageTaken(i, true)
+			stats.total_healing = PlayerResource:GetHealing(i)
+			stats.xpm = stats.experiance / GameRules:GetGameTime() * 60
+
+			CustomNetTables:SetTableValue( "custom_stats", tostring( i ), stats )
+		end
+	end
+
+	if keys.winningteam then
+		WebApi:AfterMatch(keys.winningteam)
+	end
+end
+
 function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 	local newState = GameRules:State_Get()
 
@@ -979,65 +1026,6 @@ function CMegaDotaGameMode:OnGameRulesStateChange(keys)
 		Timers:CreateTimer(1, function()
 			GameRules:SendCustomMessage("#workaround_chat_message", -1, 0)
 		end)
-	end
-	if newState == DOTA_GAMERULES_STATE_POST_GAME then
-		local couriers = FindUnitsInRadius( 2, Vector( 0, 0, 0 ), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_COURIER, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )
-
-		for i = 0, 23 do
-			if PlayerResource:IsValidPlayer( i ) then
-				local networth = 0
-				local hero = PlayerResource:GetSelectedHeroEntity( i )
-
-				for _, cour in pairs( couriers ) do
-					if cour:GetTeam() == cour:GetTeam() then
-						for s = 0, 8 do
-							local item = cour:GetItemInSlot( s )
-
-							if item and item:GetOwner() == hero then
-								networth = networth + item:GetCost()
-							end
-						end
-					end
-				end
-
-				for s = 0, 8 do
-					local item = hero:GetItemInSlot( s )
-
-					if item then
-						networth = networth + item:GetCost()
-					end
-				end
-
-				networth = networth + PlayerResource:GetGold( i )
-
-				local stats = CUSTOM_GAME_STATS[i]
-				stats.perk = GamePerks.choosed_perks[i]
-				stats.networth = networth
-				stats.damage_taken = PlayerResource:GetHeroDamageTaken(i, true) + PlayerResource:GetCreepDamageTaken(i, true)
-				stats.total_healing = PlayerResource:GetHealing(i)
-				stats.xpm = stats.experiance / GameRules:GetGameTime() * 60
-
-				CustomNetTables:SetTableValue( "custom_stats", tostring( i ), stats )
-			end
-		end
-
-		local winner
-		local forts = Entities:FindAllByClassname("npc_dota_fort")
-		for _, fort in ipairs(forts) do
-			if fort:GetHealth() > 0 then
-				local team = fort:GetTeam()
-				if winner then
-					winner = nil
-					break
-				end
-
-				winner = team
-			end
-		end
-
-		if winner then
-			WebApi:AfterMatch(winner)
-		end
 	end
 
 	if newState == DOTA_GAMERULES_STATE_STRATEGY_TIME then
