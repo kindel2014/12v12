@@ -559,7 +559,7 @@ function CMegaDotaGameMode:OnEntityKilled( event )
 	    local rax_bonus = raxBonuses[killedUnit:GetTeam()] - raxBonuses[killedUnit:GetOpposingTeamNumber()]
 	    if rax_bonus < 0 then rax_bonus = 0 end
 
-		timeLeft = timeLeft + rax_bonus * (1 - respawnReduction)
+		timeLeft = timeLeft + rax_bonus
 
 	    if timeLeft < 1 then
 	        timeLeft = 1
