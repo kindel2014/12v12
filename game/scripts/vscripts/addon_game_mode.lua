@@ -974,13 +974,11 @@ function CMegaDotaGameMode:OnMatchDone(keys)
 			local hero = PlayerResource:GetSelectedHeroEntity( i )
 
 			for _, cour in pairs( couriers ) do
-				if cour:GetTeam() == cour:GetTeam() then
-					for s = 0, 8 do
-						local item = cour:GetItemInSlot( s )
+				for s = 0, 8 do
+					local item = cour:GetItemInSlot( s )
 
-						if item and item:GetOwner() == hero then
-							networth = networth + item:GetCost()
-						end
+					if item and item:GetOwner() == hero then
+						networth = networth + item:GetCost()
 					end
 				end
 			end
