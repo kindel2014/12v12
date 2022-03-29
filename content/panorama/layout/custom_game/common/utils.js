@@ -156,11 +156,8 @@ Math.clamp = function (num, min, max) {
 if (!$.LocalizeEngine) {
 	$.LocalizeEngine = $.Localize;
 	$.Localize = function (text, panel) {
-		if (!text.startsWith("#")) {
-			text = "#" + text;
-		}
-
-		if (panel) return $.LocalizeEngine(text, panel);
-		else return $.LocalizeEngine(text);
+		const token = text.startsWith("#") ? text : "#" + text;
+		const localized_text = panel ? $.LocalizeEngine(token, panel) : $.LocalizeEngine(token);
+		return localized_text == token ? text : localized_text;
 	};
 }

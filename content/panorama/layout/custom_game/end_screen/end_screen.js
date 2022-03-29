@@ -128,7 +128,7 @@ function CreatePlayer(player_id, players_root, team_id) {
 		perk_panel.SetImage(`file://{resources}/layout/custom_game/common/game_perks/icons/${perk_name}.png`);
 
 		perk_panel.SetPanelEvent("onmouseover", function () {
-			$.DispatchEvent("DOTAShowTextTooltip", perk_panel, `DOTA_Tooltip_${perk_name}`);
+			$.DispatchEvent("DOTAShowTextTooltip", perk_panel, `#DOTA_Tooltip_${perk_name}`);
 		});
 		perk_panel.SetPanelEvent("onmouseout", function () {
 			$.DispatchEvent("DOTAHideTextTooltip", perk_panel);
@@ -158,7 +158,7 @@ function GetTeamAverageRating(team) {
 	Object.entries(local_players_stats).forEach(([player_id, player_data]) => {
 		player_id = parseInt(player_id);
 		if (!player_id) return;
-		if (Players.GetTeam(player_id) != target_team) return;
+		if (Players.GetTeam(player_id) != team) return;
 
 		rating_total += player_data.rating || 1500;
 		rating_count++;
