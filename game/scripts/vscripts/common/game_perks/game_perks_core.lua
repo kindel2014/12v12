@@ -9,13 +9,13 @@ function GamePerks:Init()
 		--["linken"] = true;
 		["buff_amplify"] = true;
 		["builder"] = true;
-		["traveler"] = true;
+		--["traveler"] = true;
 		["delayed_damage"] = true;
 		["str_for_kill"] = true;
 		["agi_for_kill"] = true;
 		["int_for_kill"] = true;
 		["cleave"] = true;
-		["cd_after_death"] = true;
+		--["cd_after_death"] = true;
 		["manaburn"] = true;
 		["mp_regen"] = true;
 		["hp_regen"] = true;

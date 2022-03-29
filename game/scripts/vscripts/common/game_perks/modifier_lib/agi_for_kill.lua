@@ -37,7 +37,7 @@ agi_for_kill_t1 = class(agi_for_kill)
 agi_for_kill_t2 = class(agi_for_kill)
 agi_for_kill_t3 = class(agi_for_kill)
 
-agi_for_kill_t0.v = 1
-agi_for_kill_t1.v = 1.8
-agi_for_kill_t2.v = 2.8
-agi_for_kill_t3.v = 5.6
+agi_for_kill_t0.v = 0.8
+agi_for_kill_t1.v = 1.6
+agi_for_kill_t2.v = 3.2
+agi_for_kill_t3.v = 6.4
