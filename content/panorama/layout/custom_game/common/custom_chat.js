@@ -21,7 +21,7 @@ GameEvents.SubscribeProtected("custom_chat_message", (event) => {
 
 	if (event.PlayerID > -1) {
 		const playerInfo = Game.GetPlayerInfo(event.PlayerID);
-		const localTeamColor = GameUI.CustomUIConfig().team_colors[playerInfo.player_team_id];
+		const localTeamColor = GetHEXPlayerColor(event.PlayerID);
 
 		text += event.isTeam ? `[${$.Localize("#DOTA_ChatCommand_GameAllies_Name")}] ` : NON_BREAKING_SPACE;
 		text += `<font color='${localTeamColor}'>${playerInfo.player_name}</font>: `;

@@ -16,7 +16,7 @@ function Activate() {
 
 function OnMouseOver() {
 	var message = Array.isArray(smartRandomStatus) ? 'ready' : smartRandomStatus;
-	$.DispatchEvent('DOTAShowTextTooltip', 'smart_random_tooltip_' + message);
+	$.DispatchEvent('DOTAShowTextTooltip', '#smart_random_tooltip_' + message);
 	if (Array.isArray(smartRandomStatus)) {
 		for (var card of getAllHeroCards()) {
 			var shortName = card.FindChildTraverse('HeroImage').heroname;

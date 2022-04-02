@@ -21,7 +21,7 @@ bonus_all_stats_t1 = class(bonus_all_stats)
 bonus_all_stats_t2 = class(bonus_all_stats)
 bonus_all_stats_t3 = class(bonus_all_stats)
 
-function bonus_all_stats_t0:OnCreated() self.v = {0, 1, 0.25} end
-function bonus_all_stats_t1:OnCreated() self.v = {0, 1, 0.5} end
-function bonus_all_stats_t2:OnCreated() self.v = {0, 1, 0.75} end
-function bonus_all_stats_t3:OnCreated() self.v = {0, 1, 1.25} end
+function bonus_all_stats_t0:OnCreated() self.v = {0, 1, 0.2} end
+function bonus_all_stats_t1:OnCreated() self.v = {0, 1, 0.4} end
+function bonus_all_stats_t2:OnCreated() self.v = {0, 1, 0.8} end
+function bonus_all_stats_t3:OnCreated() self.v = {0, 1, 1.6} end

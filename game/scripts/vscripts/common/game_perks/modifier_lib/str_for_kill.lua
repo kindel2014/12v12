@@ -38,6 +38,6 @@ str_for_kill_t2 = class(str_for_kill)
 str_for_kill_t3 = class(str_for_kill)
 
 str_for_kill_t0.v = 1
-str_for_kill_t1.v = 1.8
-str_for_kill_t2.v = 3
-str_for_kill_t3.v = 6
+str_for_kill_t1.v = 2
+str_for_kill_t2.v = 4
+str_for_kill_t3.v = 8
